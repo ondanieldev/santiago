@@ -31,56 +31,88 @@
 
 # :closed_book: BACKEND SERVICES
 ## Agreements
+- [x] Create agreement between person and contract
+  - [ ] Verify if person exists
+  - [ ] Verify if contract exists
 ## Contracts
+- [x] Create contract between student and grade
+  - [ ] Verify if student exists
+  - [ ] Verify if grade exists
 ## Debits
 - [x] Create debit for a contract
   - [ ] Verify if contract exists
+  - [ ] Define default dates ***
 - [x] List all debits based on a contract
   - [ ] Verify if contract exists
 ## Discharges
-- [x] Create (pay a debit)
-  - [x] Verify if debit exists
-  - [x] Verify if debit is already paid
+- [x] Create a discharge (receive a payment)
+  - [x] Verify if payment exists
+  - [x] Verify if payment is already paid
 ## Enrollments
-- [ ] Create
-  - [ ] Verify unique credentials
-  - [ ] Verify grade
-  - [ ] Create student
-  - [ ] Create contract
-  - [ ] Create responsibles or just use in case of reuse
-  - [ ] Create agreements
-  - [ ] Create relationships
+- [x] Create
+  - [ ] Verify responsible types ***
+  - [x] Create student
+  - [x] Create contract
+  - [x] Create responsibles or take their id (in case of reuse)
+  - [x] Create agreements
+  - [x] Create relationships
   - [ ] Verify errors when creating any table and remove all data when a error occurs
-- [ ] List all
+- [x] List all
   - [ ] List with just needed fields
-- [ ] Find one
-- [ ] Aproove or disaproove
+- [x] Find one
+- [x] Aproove or disaproove
+  - [x] Verify if contract exists
+  - [x] In case of aproove, create the first debit
+  - [ ] Send email ***
 ## Grades
-- [ ] Create
-- [ ] List all
-- [ ] Find one
+- [x] Create
+  - [ ] Verify if exists another grade with the same name
+  - [ ] Resolve the year question ***
+- [x] List all
+- [x] Find one
 - [ ] Update
+  - [x] Verify if exists
+  - [ ] Verify if exists another grade with the same name
 ## Payments
-- [ ] Create
+- [ ] Create payment (pay a debit)
+  - [ ] Verify if debit exists
+  - [ ] Verify if debit is already paid
+  - [ ] Generate receipt
 - [ ] List all
 ## Persons
-- [ ] Create
-- [ ] Find one
-- [ ] Update
+- [x] Create
+  - [x] Verify unique values
+- [x] Find one
+- [x] Update photos
+  - [x] Verify if person exists
+  - [x] Delete the previous photos
 ## Profiles
-- [ ] Create
-- [ ] List all
-- [ ] Update
+- [x] Create
+  - [x] Verify if exists another profile with the same name
+- [x] List all
+- [x] Update
+  - [x] Verify if exists
+  - [x] Verify if exists another profile with the same name
+- [ ] Remove ***
 ## Relationships
-- [ ] Create
+- [x] Create relationship between person and student
+  - [ ] Verify if responsible exists
+  - [ ] Verify if student exists
 ## Students
 - [ ] Create
-- [ ] Update documents photos
+- [x] Update documents photos
+  - [x] Verify if student exists
+  - [x] Delete the previous photos
 ## Users
-- [ ] Create
-- [ ] List all
-- [ ] Update
-- [ ] Authenticate
+- [x] Create
+  - [x] Verify if exists another user with the same username
+  - [x] Encrypt password
+- [x] List all
+- [x] Update
+  - [x] Verify if exists another user with the same username
+  - [x] Encrypt password
+- [x] Authenticate
+  - [ ] Check for user permissions
 
 # :closed_book: FRONTEND SCREENS
 ## Dashboard
@@ -90,7 +122,8 @@
 - [ ] Search for a specify enrollment
 - [ ] Select enrollment
 - [ ] Show all enrollment debits
-- [ ] 
+- [ ] Pay enrollment
+- [ ] Get receipt
 ## New enrollment
 - [ ] Create responsibles
   - [ ] Search for a responsible that already exists on database
@@ -110,21 +143,18 @@
 - [x] Select
 - [x] Update
 - [ ] Remove
-  - [ ] How?
 ## Grades administration
 - [x] List
 - [x] Create
 - [x] Select
 - [x] Update
 - [ ] Remove
-  - [ ] How?
 ## Users administration
 - [x] List
 - [x] Create
 - [x] Select
 - [x] Update
 - [ ] Remove
-  - [ ] How?
 ## Validate enrollments
 - [ ] List all enrollments with pagination
 - [ ] Search for a specify enrollment
