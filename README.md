@@ -38,16 +38,20 @@
 - [x] Create contract between student and grade
   - [ ] Verify if student exists
   - [ ] Verify if grade exists
+  - [ ] Status: underAnalisys
 ## Debits
 - [x] Create debit for a contract
   - [ ] Verify if contract exists
   - [ ] Define default dates ***
+  - [ ] Value: grade ***
+  - [ ] Apply discount ***
+  - [x] Paid: false
 - [x] List all debits based on a contract
   - [ ] Verify if contract exists
 ## Discharges
 - [x] Create a discharge (receive a payment)
   - [x] Verify if payment exists
-  - [x] Verify if payment is already paid
+  - [x] Verify if payment is already discharged
 ## Enrollments
 - [x] Create
   - [ ] Verify responsible types ***
@@ -77,6 +81,7 @@
 - [ ] Create payment (pay a debit)
   - [ ] Verify if debit exists
   - [ ] Verify if debit is already paid
+  - [ ] Apply discount
   - [ ] Generate receipt
 - [ ] List all
 ## Persons
@@ -127,11 +132,12 @@
 ## New enrollment
 - [ ] Create responsibles
   - [ ] Search for a responsible that already exists on database
+  - [ ] CEP before the other address fields
   - [ ] CEP API
+  - [ ] Reuse address
   - [ ] React input mask
   - [ ] Civil state with enum
   - [ ] Education level with enum
-  - [ ] CEP before the other address fields
   - [ ] File inputs
 - [ ] Create student
   - [ ] UF limited by two digits with enum
@@ -164,7 +170,7 @@
 - [ ] Aproove or disaproove
 ## Receveive payments
 - [ ] List all payments with pagination
-- [ ] Select a debit
+- [ ] Select a payment
 - [ ] Receive
 ## Logout
 - [x] Logout
