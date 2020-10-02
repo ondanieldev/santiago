@@ -14,12 +14,15 @@ import { Container, Error } from './styles';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
+  search?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
   name,
   icon: Icon,
   autoComplete = 'off',
+  readOnly = false,
+  search,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,10 +48,17 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, inputRef, registerField]);
 
   return (
-    <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
+    <Container
+      isErrored={!!error}
+      isFilled={isFilled}
+      isFocused={isFocused}
+      isReadOnly={readOnly}
+      search={!!search}
+    >
       {Icon && <Icon size={20} />}
       <input
         autoComplete={autoComplete}
+        readOnly={readOnly}
         onFocus={handleFocus}
         onBlur={handleBlur}
         name={name}
@@ -57,7 +67,7 @@ const Input: React.FC<InputProps> = ({
       />
       {error && (
         <Error title={error}>
-          <FiAlertCircle color="#c53030" size={20} />
+          <FiAlertCircle color="#f44336" size={20} />
         </Error>
       )}
     </Container>

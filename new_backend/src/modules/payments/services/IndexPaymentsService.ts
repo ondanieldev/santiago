@@ -13,6 +13,16 @@ export default class IndexPaymentsService {
     public async execute(): Promise<Payment[] | []> {
         const payments = await this.paymentsRepository.findUndischarged();
 
-        return payments;
+        const paymentsWithoutPassword = [] as Payment[];
+
+        payments.forEach(payment => {
+            const paymentWithoutPassword = payment;
+
+            delete paymentWithoutPassword.user.password;
+
+            paymentsWithoutPassword.push(paymentWithoutPassword);
+        });
+
+        return paymentsWithoutPassword;
     }
 }

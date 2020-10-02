@@ -4,4 +4,7 @@ export default interface IProfileDTO {
     validate_enrollment_permiss: boolean;
     pay_debit_permiss: boolean;
     discharge_payment_permiss: boolean;
+    crud_profiles_permiss: boolean;
+    crud_users_permiss: boolean;
+    crud_grades_permiss: boolean;
 }

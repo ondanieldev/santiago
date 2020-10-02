@@ -1,19 +1,74 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useAuth } from '../../hooks/auth';
 import { Container } from './styles';
 
+interface ILink {
+  path: string;
+  label: string;
+  permiss?:
+    | 'new_enrollment_permiss'
+    | 'validate_enrollment_permiss'
+    | 'pay_debit_permiss'
+    | 'discharge_payment_permiss';
+}
+
 const Aside: React.FC = () => {
-  const links = [
-    { path: '/dashboard', label: 'Dashboard' },
-    { path: '/debits', label: 'Pagar débito' },
-    { path: '/enrollment-responsibles', label: 'Nova matrícula' },
-    { path: '/profiles', label: 'Gerenciar perfis' },
-    { path: '/grades', label: 'Gerenciar turmas' },
-    { path: '/users', label: 'Gerenciar usuários' },
-    { path: '/enrollments', label: 'Validar matrículas' },
-    { path: '/payments', label: 'Receber pagamento' },
-  ];
+  const { user, signOut } = useAuth();
+
+  const [links, setLinks] = useState([] as ILink[]);
+
+  useEffect(() => {
+    const allLinks = [
+      { path: '/dashboard', label: 'Dashboard' },
+      {
+        path: '/check-for-debits-enrollments',
+        label: 'Pagar débitos',
+        permiss: 'pay_debit_permiss',
+      },
+      {
+        path: '/enrollment-responsibles',
+        label: 'Nova matrícula',
+        permiss: 'new_enrollment_permiss',
+      },
+      {
+        path: '/profiles',
+        label: 'Gerenciar perfis',
+        permiss: 'crud_profiles_permiss',
+      },
+      {
+        path: '/grades',
+        label: 'Gerenciar turmas',
+        permiss: 'crud_grades_permiss',
+      },
+      {
+        path: '/users',
+        label: 'Gerenciar usuários',
+        permiss: 'crud_users_permiss',
+      },
+      {
+        path: '/aproove-or-disaproove-enrollments',
+        label: 'Validar matrículas',
+        permiss: 'validate_enrollment_permiss',
+      },
+      {
+        path: '/payments',
+        label: 'Receber pagamentos',
+        permiss: 'discharge_payment_permiss',
+      },
+    ] as ILink[];
+
+    const filteredLinks = allLinks.filter(link => {
+      if (link.permiss) {
+        return user.profile[link.permiss];
+      }
+
+      return true;
+    });
+
+    setLinks(filteredLinks);
+  }, [user]);
 
   return (
     <Container>
@@ -23,6 +78,11 @@ const Aside: React.FC = () => {
             <Link to={link.path}>{link.label}</Link>
           </li>
         ))}
+        <li>
+          <button type="button" onClick={signOut}>
+            Logout
+          </button>
+        </li>
       </ul>
     </Container>
   );

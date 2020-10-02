@@ -12,6 +12,12 @@ export default class GradesRepository implements IGradesRepository {
         this.ormRepository = getRepository(Grade);
     }
 
+    public async find(): Promise<Grade[] | []> {
+        const grades = await this.ormRepository.find();
+
+        return grades;
+    }
+
     public async findById(id: string): Promise<Grade | undefined> {
         const grade = await this.ormRepository.findOne({
             where: { id },
@@ -26,5 +32,11 @@ export default class GradesRepository implements IGradesRepository {
         await this.ormRepository.save(grade);
 
         return grade;
+    }
+
+    public async save(data: Grade): Promise<Grade> {
+        await this.ormRepository.save(data);
+
+        return data;
     }
 }

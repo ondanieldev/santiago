@@ -16,7 +16,7 @@ export default class PersonPhotosController {
     ): Promise<Response> {
         const files = request.files as Express.Multer.File[];
 
-        const { person_id } = request.body;
+        const { person_id } = request.params;
 
         const photos = {} as IPhotos;
 

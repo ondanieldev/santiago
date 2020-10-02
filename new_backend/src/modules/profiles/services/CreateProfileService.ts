@@ -18,13 +18,16 @@ class CreateProfileService {
         validate_enrollment_permiss,
         pay_debit_permiss,
         discharge_payment_permiss,
+        crud_grades_permiss,
+        crud_profiles_permiss,
+        crud_users_permiss,
     }: ICreateProfileDTO): Promise<Profile> {
         const profileWithSameName = await this.profilesRepository.findByName(
             name,
         );
 
         if (profileWithSameName) {
-            throw new AppError('Um perfil com o mesmo nome já existe!');
+            throw new AppError('um perfil com o mesmo nome já existe!');
         }
 
         const profile = await this.profilesRepository.create({
@@ -33,6 +36,9 @@ class CreateProfileService {
             validate_enrollment_permiss,
             pay_debit_permiss,
             discharge_payment_permiss,
+            crud_grades_permiss,
+            crud_profiles_permiss,
+            crud_users_permiss,
         });
 
         return profile;

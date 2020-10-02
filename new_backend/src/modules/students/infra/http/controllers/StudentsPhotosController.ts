@@ -19,7 +19,7 @@ export default class PersonPhotosController {
     ): Promise<Response> {
         const files = request.files as Express.Multer.File[];
 
-        const { student_id } = request.body;
+        const { id } = request.params;
 
         const photos = {} as IPhotos;
 
@@ -36,10 +36,10 @@ export default class PersonPhotosController {
             }
         });
 
-        const updatePersonPhotos = container.resolve(UpdateStudentPhotos);
+        const updateStudentPhotos = container.resolve(UpdateStudentPhotos);
 
-        const person = await updatePersonPhotos.execute({
-            student_id,
+        const person = await updateStudentPhotos.execute({
+            id,
             birth_certificate_photo: photos.birth_certificate_photo,
             health_plan_photo: photos.health_plan_photo,
             monthly_declaration_photo: photos.monthly_declaration_photo,

@@ -6,6 +6,8 @@ interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
   isErrored: boolean;
+  isReadOnly: boolean;
+  search: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -20,6 +22,12 @@ export const Container = styled.div<ContainerProps>`
   border: 2px solid var(--black);
   color: var(--black);
   transition: all 0.2s;
+
+  ${props =>
+    props.search &&
+    css`
+      border-radius: 0 5px 5px 0;
+    `}
 
   ${props =>
     props.isErrored &&
@@ -38,6 +46,14 @@ export const Container = styled.div<ContainerProps>`
     props.isFilled &&
     css`
       color: var(--green);
+    `}
+
+  ${props =>
+    props.isReadOnly &&
+    css`
+      border-color: var(--black);
+      color: var(--black);
+      background-color: var(--gray);
     `}
 
   & + div {
@@ -70,7 +86,8 @@ export const Error = styled(Tooltip)`
 
   span {
     background-color: var(--red);
-    color: var(--black);
+    color: var(--white);
+    font-weight: regular;
 
     &::before {
       border-color: var(--red) transparent;

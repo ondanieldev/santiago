@@ -32,7 +32,7 @@ export default createGlobalStyle`
     font-size: 16px;
   }
 
-  h1, h2, h3, h4, h5, h6, strong {
+  h1, h2, h3, h4, h5, h6, strong, b {
     font-weight: 500;
     color: var(--blue);
   }
@@ -44,5 +44,18 @@ export default createGlobalStyle`
   a {
     color: var(--black);
     text-decoration: none;
+  }
+
+  ::-webkit-scrollbar{
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track{
+      background-color: red;
+  }
+  ::-webkit-scrollbar-track-piece{
+      background-color: var(--gray);
+  }
+  ::-webkit-scrollbar-thumb{
+      background-color: var(--blue);
   }
 `;

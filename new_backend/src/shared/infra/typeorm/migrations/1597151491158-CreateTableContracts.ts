@@ -21,7 +21,7 @@ export default class CreateTableContracts1597151491158
                     },
                     {
                         name: 'status',
-                        type: 'varchar',
+                        type: 'enum',
                         enum: [
                             'underAnalysis',
                             'pendent',

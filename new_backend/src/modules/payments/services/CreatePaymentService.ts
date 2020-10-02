@@ -26,6 +26,10 @@ export default class CreatePaymentService {
             throw new AppError('This debit does not exists!');
         }
 
+        if (debit.paid) {
+            throw new AppError('This debit is already paid!');
+        }
+
         const payment = this.paymentsRepository.create({
             amount: debit.value,
             debit_id,

@@ -98,6 +98,6 @@ export default class Person {
     @OneToMany(() => Relationship, relationship => relationship.person)
     relationships: Relationship[];
 
-    @OneToMany(() => Agreement, agreement => agreement.contract)
+    @OneToMany(() => Agreement, agreement => agreement.person)
     agreements: Agreement[];
 }

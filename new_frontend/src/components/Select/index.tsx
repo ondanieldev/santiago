@@ -1,8 +1,9 @@
 import React, { SelectHTMLAttributes, useEffect, useRef } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
+import { FiAlertCircle } from 'react-icons/fi';
 
-import { Container } from './styles';
+import { Container, Error } from './styles';
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
@@ -16,7 +17,7 @@ const Select: React.FC<SelectProps> = ({
   ...rest
 }) => {
   const selectRef = useRef<HTMLSelectElement>(null);
-  const { fieldName, error, registerField } = useField(name);
+  const { fieldName, error, registerField, defaultValue } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -27,11 +28,16 @@ const Select: React.FC<SelectProps> = ({
   }, [fieldName, selectRef, registerField]);
 
   return (
-    <Container>
+    <Container isErrored={!!error}>
       {Icon && <Icon size={20} />}
-      <select name={name} ref={selectRef} {...rest}>
+      <select defaultValue={defaultValue} name={name} ref={selectRef} {...rest}>
         {children}
       </select>
+      {error && (
+        <Error title={error}>
+          <FiAlertCircle color="#f44336" size={20} />
+        </Error>
+      )}
     </Container>
   );
 };

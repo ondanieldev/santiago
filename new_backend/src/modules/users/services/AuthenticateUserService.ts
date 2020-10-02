@@ -39,10 +39,24 @@ export default class AuthenticateUserService {
 
         const { secret, expiresIn } = authConfig.jwt;
 
-        const token = sign({}, secret, {
-            subject: user.id,
-            expiresIn,
-        });
+        const token = sign(
+            {
+                crud_grades_permiss: user.profile.crud_grades_permiss,
+                crud_profiles_permiss: user.profile.crud_profiles_permiss,
+                crud_users_permiss: user.profile.crud_users_permiss,
+                discharge_payment_permiss:
+                    user.profile.discharge_payment_permiss,
+                new_enrollment_permiss: user.profile.new_enrollment_permiss,
+                apay_debit_permiss: user.profile.pay_debit_permiss,
+                validate_enrollment_permiss:
+                    user.profile.validate_enrollment_permiss,
+            },
+            secret,
+            {
+                subject: user.id,
+                expiresIn,
+            },
+        );
 
         return {
             user,

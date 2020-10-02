@@ -11,11 +11,33 @@ export default class EnrollmentsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
+        const { debitsOrValidate, limit, page } = request.query;
+
+        let parsedDebitsOrValidate = '';
+        let parsedLimit = 0;
+        let parsedPage = 1;
+
+        if (typeof debitsOrValidate === 'string') {
+            parsedDebitsOrValidate = debitsOrValidate;
+        }
+
+        if (typeof limit === 'string') {
+            parsedLimit = parseInt(limit, 10);
+        }
+
+        if (typeof page === 'string') {
+            parsedPage = parseInt(page, 10);
+        }
+
         const indexEnrollments = container.resolve(IndexEnrollmentsService);
 
-        const enrollments = await indexEnrollments.execute();
+        const { contracts, pagination } = await indexEnrollments.execute({
+            debitsOrValidate: parsedDebitsOrValidate,
+            limit: parsedLimit,
+            page: parsedPage,
+        });
 
-        return response.json(enrollments);
+        return response.json({ enrollments: contracts, pagination });
     }
 
     public async get(request: Request, response: Response): Promise<Response> {
@@ -34,7 +56,9 @@ export default class EnrollmentsController {
     ): Promise<Response> {
         const { student, responsibles, grade_id } = request.body;
 
-        const createEnrollmentService = new CreateEnrollmentService();
+        const createEnrollmentService = container.resolve(
+            CreateEnrollmentService,
+        );
 
         const {
             student_id,
@@ -53,7 +77,7 @@ export default class EnrollmentsController {
         response: Response,
     ): Promise<Response> {
         const { id } = request.params;
-        const { status, comment } = request.body;
+        const { aproove, comment } = request.body;
 
         const aprooveOrDisaprooveEnrollment = container.resolve(
             AprooveOrDisaprooveEnrollmentService,
@@ -61,7 +85,7 @@ export default class EnrollmentsController {
 
         await aprooveOrDisaprooveEnrollment.execute({
             id,
-            status,
+            aproove,
             comment,
         });
 

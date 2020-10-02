@@ -7,6 +7,8 @@ const gradesRouter = Router();
 const gradesController = new GradesController();
 
 gradesRouter.use(ensureAuthenticated);
+gradesRouter.get('/', gradesController.index);
 gradesRouter.post('/', gradesController.create);
+gradesRouter.put('/:id', gradesController.update);
 
 export default gradesRouter;

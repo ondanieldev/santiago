@@ -5,14 +5,26 @@ import AppProvider from './hooks';
 import Routes from './routes';
 import GlobalStyle from './styles/global';
 
-const App: React.FC = () => (
-  <Router>
-    <AppProvider>
-      <Routes />
-    </AppProvider>
+import api from './services/api';
 
-    <GlobalStyle />
-  </Router>
-);
+const App: React.FC = () => {
+  // temp
+  const token = localStorage.getItem('@Santiago:token');
+  if (token) {
+    api.defaults.headers.common.Authorization = `bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common.Authorization;
+  }
+
+  return (
+    <Router>
+      <AppProvider>
+        <Routes />
+      </AppProvider>
+
+      <GlobalStyle />
+    </Router>
+  );
+};
 
 export default App;

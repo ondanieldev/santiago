@@ -22,6 +22,15 @@ class Profile {
     @Column('boolean')
     discharge_payment_permiss: boolean;
 
+    @Column('boolean')
+    crud_profiles_permiss: boolean;
+
+    @Column('boolean')
+    crud_users_permiss: boolean;
+
+    @Column('boolean')
+    crud_grades_permiss: boolean;
+
     @OneToMany(() => User, user => user.profile)
     users: User[];
 }

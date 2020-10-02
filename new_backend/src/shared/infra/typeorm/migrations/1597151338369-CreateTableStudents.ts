@@ -49,12 +49,12 @@ export default class CreateTableStudents1597151338369
                     },
                     {
                         name: 'gender',
-                        type: 'varchar',
+                        type: 'enum',
                         enum: ['male', 'female'],
                     },
                     {
                         name: 'race',
-                        type: 'varchar',
+                        type: 'enum',
                         enum: [
                             'white',
                             'brown',

@@ -8,7 +8,7 @@ export default class DebitsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { contract_id } = request.body;
+        const { contract_id } = request.params;
 
         const indexDebits = container.resolve(IndexDebitsService);
 

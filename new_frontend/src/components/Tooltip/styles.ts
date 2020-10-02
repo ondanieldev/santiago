@@ -4,14 +4,15 @@ export const Container = styled.div`
   position: relative;
 
   span {
+    text-align: center;
     width: 160px;
     position: absolute;
     bottom: calc(100% + 12px);
     left: 50%;
     transform: translateX(-50%);
 
-    background-color: #ff9000;
-    color: #312e38;
+    background-color: var(--blue);
+    color: var(--white);
 
     font-size: 14px;
     font-weight: bold;
@@ -31,7 +32,7 @@ export const Container = styled.div`
       transform: translateX(-50%);
 
       border-style: solid;
-      border-color: #ff9000 transparent;
+      border-color: var(--blue) transparent;
       border-width: 6px 6px 0 6px;
     }
   }

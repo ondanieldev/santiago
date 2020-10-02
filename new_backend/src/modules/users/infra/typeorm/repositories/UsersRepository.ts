@@ -12,6 +12,20 @@ export default class UsersRepository implements IUsersRepository {
         this.ormRepository = getRepository(User);
     }
 
+    public async find(): Promise<User[] | []> {
+        const users = await this.ormRepository.find();
+
+        return users;
+    }
+
+    public async findById(id: string): Promise<User | undefined> {
+        const user = await this.ormRepository.findOne({
+            where: { id },
+        });
+
+        return user;
+    }
+
     public async findByUsername(username: string): Promise<User | undefined> {
         const user = await this.ormRepository.findOne({
             where: { username },
@@ -27,5 +41,11 @@ export default class UsersRepository implements IUsersRepository {
         await this.ormRepository.save(user);
 
         return user;
+    }
+
+    public async save(data: User): Promise<User> {
+        await this.ormRepository.save(data);
+
+        return data;
     }
 }

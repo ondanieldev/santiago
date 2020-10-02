@@ -25,6 +25,10 @@ export default class CreateDischargeService {
             throw new AppError('This payment does not exists!');
         }
 
+        if (payment.discharged) {
+            throw new AppError('This payment is already discharged!');
+        }
+
         const discharge = this.dischargesRepository.create({
             payment_id,
             user_id,

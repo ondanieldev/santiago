@@ -64,7 +64,7 @@ export default class UpdatePersonPhotosService {
                 } catch {}
             }
 
-            person[photo.field] = photo.filename;
+            person[photo.field] = `http://localhost:3333/${photo.filename}`;
         }
 
         await this.ormRepository.save(person);

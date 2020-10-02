@@ -1,7 +1,7 @@
-import { container } from 'tsyringe';
-import { addMonths } from 'date-fns';
+import { container, injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
 import ICreateEnrollmentDTO from '@modules/enrollments/dtos/ICreateEnrollmentDTO';
 import CheckResponsiblesTypesService from '@modules/enrollments/services/CheckResponsiblesTypesService';
 import CheckResponsiblesUniqueValuesService from '@modules/enrollments/services/CheckResponsiblesUniqueValuesService';
@@ -11,14 +11,20 @@ import CreatePersonService from '@modules/persons/services/CreatePersonService';
 import CreateRelationshipService from '@modules/relationships/services/CreateRelationshipService';
 import CreateAgreementService from '@modules/agreements/services/CreateAgreementService';
 import FindGradeByIdService from '@modules/grades/services/FindGradeByIdService';
-import CreateDebitService from '@modules/debits/services/CreateDebitService';
+import Person from '@modules/persons/infra/typeorm/entities/Person';
 
 interface IResponse {
     student_id: string;
     responsibles_ids: string[];
 }
 
+@injectable()
 export default class CreateEnrollmentService {
+    constructor(
+        @inject('PersonsRepository')
+        private personsRepository: IPersonsRepository,
+    ) {}
+
     public async execute({
         student,
         grade_id,
@@ -28,7 +34,7 @@ export default class CreateEnrollmentService {
         const grade = await findGradeById.execute(grade_id);
 
         if (!grade) {
-            throw new AppError('Yhis grade dos not exists');
+            throw new AppError('This grade dos not exists');
         }
 
         const checkResponsiblesTypes = new CheckResponsiblesTypesService();
@@ -60,8 +66,21 @@ export default class CreateEnrollmentService {
             delete responsible.kinship;
             delete responsible.responsible_type;
 
-            const createdResponsible = await createPerson.execute(responsible);
-            createdResponsiblesIds.push(createdResponsible.id);
+            let createdResponsible = {} as Person;
+
+            if (responsible.id) {
+                const personExists = await this.personsRepository.findById(
+                    responsible.id,
+                );
+
+                if (personExists) {
+                    createdResponsible = personExists;
+                    createdResponsiblesIds.push(responsible.id);
+                }
+            } else {
+                createdResponsible = await createPerson.execute(responsible);
+                createdResponsiblesIds.push(createdResponsible.id);
+            }
 
             await createRelationship.execute({
                 kinship,
@@ -75,19 +94,6 @@ export default class CreateEnrollmentService {
                 person_id: createdResponsible.id,
             });
         }
-
-        const createDebit = container.resolve(CreateDebitService);
-
-        const debitInitialDate = new Date();
-        const debitFinalDate = addMonths(debitInitialDate, 1);
-
-        createDebit.execute({
-            contract_id: createdContract.id,
-            description: 'Primeira parcela da matrícula',
-            initial_date: debitInitialDate,
-            final_date: debitFinalDate,
-            value: grade.value,
-        });
 
         return {
             student_id: createdStudent.id,

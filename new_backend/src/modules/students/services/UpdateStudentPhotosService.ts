@@ -8,7 +8,7 @@ import IStudentsRepository from '@modules/students/repositories/IStudentsReposit
 import Student from '@modules/students/infra/typeorm/entities/Student';
 
 interface IRequest {
-    student_id: string;
+    id: string;
     birth_certificate_photo?: string;
     vaccine_card_photo?: string;
     health_plan_photo?: string;
@@ -36,7 +36,7 @@ export default class UpdateStudentPhotosService {
     ) {}
 
     public async execute({
-        student_id,
+        id,
         birth_certificate_photo,
         health_plan_photo,
         monthly_declaration_photo,
@@ -44,7 +44,7 @@ export default class UpdateStudentPhotosService {
         transfer_declaration_photo,
         vaccine_card_photo,
     }: IRequest): Promise<Student> {
-        const student = await this.ormRepository.findById(student_id);
+        const student = await this.ormRepository.findById(id);
 
         if (!student) {
             throw new AppError('Student not found!');
@@ -104,7 +104,7 @@ export default class UpdateStudentPhotosService {
                 } catch {}
             }
 
-            student[photo.field] = photo.filename;
+            student[photo.field] = `http://localhost:3333/${photo.filename}`;
         }
 
         await this.ormRepository.save(student);

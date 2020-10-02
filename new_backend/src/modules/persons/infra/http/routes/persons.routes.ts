@@ -13,6 +13,10 @@ const personPhotosController = new PersonPhotosController();
 
 personsRouter.use(ensureAuthenticated);
 personsRouter.get('/:cpf', personsController.get);
-personsRouter.patch('/photos', upload.any(), personPhotosController.update);
+personsRouter.patch(
+    '/photos/:person_id',
+    upload.any(),
+    personPhotosController.update,
+);
 
 export default personsRouter;

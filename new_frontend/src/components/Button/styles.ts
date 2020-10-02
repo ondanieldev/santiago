@@ -37,4 +37,8 @@ export const Container = styled.button<ButtonProps>`
         background-color: ${shade(0.2, props.backgroundColor)};
       `};
   }
+
+  &:disabled {
+    background-color: var(--gray);
+  }
 `;

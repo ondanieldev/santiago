@@ -25,4 +25,5 @@ export const InputGroup = styled.div`
 export const NavigationButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 12px;
 `;

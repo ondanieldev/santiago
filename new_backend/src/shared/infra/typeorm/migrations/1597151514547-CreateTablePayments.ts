@@ -21,7 +21,7 @@ export default class CreateTablePayments1597151514547
                     },
                     {
                         name: 'method',
-                        type: 'varchar',
+                        type: 'enum',
                         enum: [
                             'creditCard',
                             'debitCard',

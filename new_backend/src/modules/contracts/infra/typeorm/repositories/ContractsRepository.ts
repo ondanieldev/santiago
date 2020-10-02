@@ -3,6 +3,12 @@ import { EntityRepository, Repository, getRepository } from 'typeorm';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
 import ICreateContractDTO from '@modules/contracts/dtos/ICreateContractDTO';
+import IFindContractsDTO from '@modules/contracts/dtos/IFindContractsDTO';
+
+interface IFindResponse {
+    contracts: Contract[] | [];
+    pagination: number;
+}
 
 @EntityRepository(Contract)
 export default class ContractsRepository implements IContractsRepository {
@@ -12,13 +18,26 @@ export default class ContractsRepository implements IContractsRepository {
         this.ormRepository = getRepository(Contract);
     }
 
-    public async find(): Promise<Contract[] | []> {
+    public async find({
+        limit,
+        page,
+        whereStatus,
+    }: IFindContractsDTO): Promise<IFindResponse> {
         const contracts = await this.ormRepository.find({
-            where: [{ status: 'underAnalysis' }, { status: 'pendent' }],
+            where: whereStatus,
             relations: ['student', 'grade'],
+            take: limit,
+            skip: page * limit - limit,
         });
 
-        return contracts;
+        const pagination = await this.ormRepository.count({
+            where: whereStatus,
+        });
+
+        return {
+            contracts,
+            pagination,
+        };
     }
 
     public async findById(id: string): Promise<Contract | undefined> {

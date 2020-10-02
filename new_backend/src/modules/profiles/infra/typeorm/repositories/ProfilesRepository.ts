@@ -12,6 +12,18 @@ export default class ProfilesRepository implements IProfilesRepository {
         this.ormRepository = getRepository(Profile);
     }
 
+    public async find(): Promise<Profile[] | []> {
+        const profiles = await this.ormRepository.find();
+
+        return profiles;
+    }
+
+    public async findById(id: string): Promise<Profile | undefined> {
+        const profile = await this.ormRepository.findOne({ where: { id } });
+
+        return profile;
+    }
+
     public async findByName(name: string): Promise<Profile | undefined> {
         const profile = this.ormRepository.findOne({ where: { name } });
 
@@ -24,5 +36,13 @@ export default class ProfilesRepository implements IProfilesRepository {
         await this.ormRepository.save(profile);
 
         return profile;
+    }
+
+    public async save(
+        data: Omit<Profile, 'users'>,
+    ): Promise<Omit<Profile, 'users'>> {
+        await this.ormRepository.save(data);
+
+        return data;
     }
 }

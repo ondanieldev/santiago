@@ -21,7 +21,7 @@ export default class CreateTableAgreements1597151498426
                     },
                     {
                         name: 'responsible_type',
-                        type: 'varchar',
+                        type: 'enum',
                         enum: ['financial', 'supportive'],
                     },
                     {

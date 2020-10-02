@@ -1,10 +1,12 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
+import axios from 'axios';
 
+import IUser from '../entities/IUser';
 import api from '../services/api';
 
 interface AuthState {
   token: string;
-  user: object;
+  user: IUser;
 }
 
 interface SignInCredentials {
@@ -13,7 +15,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: object;
+  user: IUser;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -45,6 +47,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         JSON.stringify(response.data.user),
       );
 
+      axios.defaults.headers.common.Authorization = `bearer ${response.data.token}`;
+
       setData(response.data);
     },
     [],
@@ -53,6 +57,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@Santiago:token');
     localStorage.removeItem('@Santiago:user');
+
+    delete axios.defaults.headers.common.Authorization;
 
     setData({} as AuthState);
   }, []);

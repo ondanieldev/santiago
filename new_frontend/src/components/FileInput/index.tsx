@@ -1,16 +1,19 @@
-import React, { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useField } from '@unform/core';
 
 import Button from '../Button';
 import { Container } from './styles';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface Props {
   name: string;
   buttonText: string;
 }
 
+type InputProps = JSX.IntrinsicElements['input'] & Props;
+
 const Input: React.FC<InputProps> = ({ name, buttonText, ...rest }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { fieldName, registerField } = useField(name);
   const [filename, setFilename] = useState('Nenhum arquivo selecionado');
 
@@ -19,6 +22,15 @@ const Input: React.FC<InputProps> = ({ name, buttonText, ...rest }) => {
       name: fieldName,
       ref: inputRef.current,
       path: 'files[0]',
+      clearValue(ref: HTMLInputElement) {
+        ref.value = '';
+        setFilename('Nenhum arquivo selecionado');
+      },
+      setValue(_: HTMLInputElement, value: File) {
+        setFilename(
+          value && value.name ? value.name : 'Nenhum arquivo selecionado',
+        );
+      },
     });
   }, [fieldName, inputRef, registerField]);
 
@@ -34,7 +46,8 @@ const Input: React.FC<InputProps> = ({ name, buttonText, ...rest }) => {
             e.target.files && e.target.files[0]
               ? e.target.files[0].name
               : 'Nenhum arquivo selecionado',
-          )}
+          )
+        }
         {...rest}
       />
       <Button type="button" backgroundColor="#CED4DA" color="#212529">

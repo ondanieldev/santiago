@@ -16,13 +16,21 @@ export const Container = styled.aside`
       padding: 12px;
       transition: transform 0.2s;
       border-left: 5px solid var(--blue);
+      cursor: pointer;
 
       &:hover {
         transform: translateX(24px);
       }
 
-      &:hover > a {
+      &:hover > a,
+      &:hover > button {
         color: var(--blue);
+      }
+
+      button {
+        background: transparent;
+        border: 0;
+        color: var(--black);
       }
     }
   }

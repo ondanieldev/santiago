@@ -1,10 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken';
+import { verify, decode } from 'jsonwebtoken';
 
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
 interface ITokenPayload {
+    crud_grades_permiss: boolean;
+    crud_profiles_permiss: boolean;
+    crud_users_permiss: boolean;
+    discharge_payment_permiss: boolean;
+    new_enrollment_permiss: boolean;
+    apay_debit_permiss: boolean;
+    validate_enrollment_permiss: boolean;
     iat: number;
     exp: number;
     sub: string;
@@ -24,12 +31,30 @@ export default (
     const [, token] = authHeader.split(' ');
 
     try {
-        const decoded = verify(token, authConfig.jwt.secret);
+        verify(token, authConfig.jwt.secret);
 
-        const { sub } = decoded as ITokenPayload;
+        const decoded = decode(token);
+
+        const {
+            sub,
+            crud_grades_permiss,
+            crud_profiles_permiss,
+            crud_users_permiss,
+            discharge_payment_permiss,
+            new_enrollment_permiss,
+            apay_debit_permiss,
+            validate_enrollment_permiss,
+        } = decoded as ITokenPayload;
 
         request.user = {
             id: sub,
+            crud_grades_permiss,
+            crud_profiles_permiss,
+            crud_users_permiss,
+            discharge_payment_permiss,
+            new_enrollment_permiss,
+            apay_debit_permiss,
+            validate_enrollment_permiss,
         };
 
         return next();
