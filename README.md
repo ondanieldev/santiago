@@ -3,27 +3,27 @@
 ### On development mode
 - Run `yarn start`
 ### On production mode
-- Run `yarn build`
-- You may serve build using `forever`
-  - To do this, install `forever` globally using `yarn global add forever`
-  - After all, run `forever start -c "serve -s" build`
-  - To serve in a specify port, you should run `forever start -c "serve -l PORT -s" build`
-- You also may serve using just `serve -s build`
-  - However, this way doesnt work when the terminal is closed 
+- Run `yarn build` to generate the build folder
+- You may serve the build using `forever`, to do this:
+  - Install `forever` globally using `yarn global add forever`
+  - Run `forever start -c "serve -s" build`
+  - To serve in a specific port, you can run `forever start -c "serve -l PORT -s" build`
+- You may also serve using just `serve -s build`
+  - However, this way doesn't work when the terminal is closed 
 ## Backend
 ### On development mode
 - Run `yarn dev:server`
-- Make sure that your program has an `.env` file isnide main folder
-- Make sure that your `.env` file follow the same pattern of `.env.example` file 
+- Make sure your program has an `.env` file inside the main folder
+- Make sure your `.env` file follows the same pattern as the `.env.example` file 
 ### On production mode
-- Run `yarn build`
-- Make sure that your program has an `.env` file isnide main folder
-- Make sure that your `.env` file follow the same pattern of `.env.example` file
-- You may serve using `pm2`
-  - To do this, install `pm2` globally using `yarn global add pm2`
-  - After all, run `pm2 start ./dist/shared/infra/http/server.js`
-  - Make sure that you running from the backend folder
-    - If you run from another folder, environment variables will not work 
+- Run `yarn build` to generate the dist folder
+- Make sure your program has an `.env` file inside the main folder
+- Make sure your `.env` file follows the same pattern as the `.env.example` file
+- You may serve the dist using `pm2`, to do this:
+  - Install `pm2` globally using `yarn global add pm2`
+  - Run `pm2 start ./dist/shared/infra/http/server.js`
+  - Make sure to run the command from the backend folder
+    - If you run from another folder, the environment variables will not work 
 
 # :blue_book: DESCRIPTION
 - A system to control everything that occurs at school
