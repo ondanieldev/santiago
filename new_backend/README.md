@@ -2,14 +2,16 @@
 
 **RF**
 
-- [ ] O usuário deve poder criar uma matrícula informando os dados dos responsáveis financeiro e solidário, os dados do aluno e a turma desejada;
+- [x] O usuário deve poder criar uma matrícula informando os dados dos responsáveis financeiro e solidário, os dados do aluno e a turma desejada;
+- [ ] O usuário deve poder buscar por um responsável já cadastrado através de seu CPF;
+- [ ] O usuário deve poder resgatar um responsável já cadastrado previamente através do seu CPF;
 - [ ] O usuário deve poder reutilizar um responsável já cadastrado previamente através de seu id;
 - [ ] O usuário deve poder receber um e-mail informando que seu pedido de matrícula foi recebido e será processado;
 
 **RNF**
 
 - [ ] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
-- [ ] Devem ser criadas as seguintes tabelas:
+- [x] Devem ser criadas as seguintes tabelas:
     - 1. Aluno;
     - 2. Contrato (entre o aluno e a turma);
     - 3. Responsável (uma entrada para cada responsável novo);
@@ -18,10 +20,11 @@
 
 **RN**
 
-- [ ] O usuário não deve poder cadastrar dois responsáveis do mesmo tipo;
-- [ ] O usuário não deve poder cadastrar responsáveis com o mesmo e-mail, cpf ou rg;
-- [ ] O usuário não deve poder cadastrar um responsável com e-mail, cpf ou rg que já estão em uso;
-- [ ] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
+- [ ] O usuário não deve poder visualizar informações sensíveis do responsável buscado, somente seu nome;
+- [x] O usuário não deve poder cadastrar dois responsáveis do mesmo tipo;
+- [x] O usuário não deve poder cadastrar responsáveis com o mesmo e-mail, cpf ou rg;
+- [x] O usuário não deve poder cadastrar um responsável com e-mail, cpf ou rg que já estão em uso;
+- [x] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
 - [ ] O usuário não deve poder reutilizar um responsável que não existe;
 
 # Aprovação/Reprovação de matrículas
@@ -33,9 +36,6 @@
 - [ ] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
 - [ ] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar e um comentário opcional;
 - [ ] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
-    - [ ] **!** Definir datas;
-    - [ ] **!** Definir valores;
-    - [ ] **!** Definir desconto;
 - [ ] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
 
 **RNF**
@@ -53,6 +53,9 @@
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não estiver logado no sistema;
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
+
+**CHANGES**
+- [ ] Dia de pagamento
 
 # Atualização de fotos do responsável
 
@@ -87,12 +90,15 @@
 **RF**
 
 - [ ] O usuário deve poder listar todos os contratos que estão aprovados;
-- [ ] O usuário deve poder listar todos os débitos referentes a um contrato aprovado;
-- [ ] O usuário deve poder pagar um débito selecionando um método de pagamento;
-    - [ ] **!** Desconto;
+- [ ] **!** pesquisar;
+- [ ] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
+    - [ ] **!** Desconto e juros;
+- [ ] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
+    - [ ] **!** Desconto e juros;
 - [ ] O usuário deve poder receber um recibo informando que o débito foi pago;
 - [ ] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
-- [ ] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso estático;
+- [ ] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso com perfil estático;
+- [ ] Caso o débito seja referente à primeira parcela de matrícula, cada um dos responsáveis ligados ao contrato deverá receber um e-mail contendo o nome de usuário e a senha de acesso seu e do aluno;
 
 **RNF**
 
@@ -132,7 +138,6 @@
 **RF**
 
 - [ ] O usuário deve poder criar uma turma atráves do nome, ano e valor;
-    - **!** Ano;
 - [ ] O usuário deve poder listar as turmas existentes;
 - [ ] O usuário deve poder visualizar todos os dados referentes a uma determinada turma;
 - [ ] O usuário deve poder atualizar todos os dados referentes a uma determinada turma;
