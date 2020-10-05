@@ -1,4 +1,4 @@
-# Criação de matrícula
+# Criação de matrículas
 
 **RF**
 
@@ -24,7 +24,7 @@
 - [ ] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
 - [ ] O usuário não deve poder reutilizar um responsável que não existe;
 
-# Aprovação/Reprovação de matrícula
+# Aprovação/Reprovação de matrículas
 
 **RF**
 
