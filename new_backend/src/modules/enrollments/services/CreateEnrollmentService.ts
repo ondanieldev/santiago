@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 
@@ -140,13 +141,25 @@ export default class CreateEnrollmentService {
             responsibles_ids.push(createdResponsible.id);
         }
 
+        const mailTemplate = path.resolve(
+            __dirname,
+            '..',
+            'views',
+            'notify_create_enrollment.hbs',
+        );
+
         await this.mailProvider.sendMail({
             to: {
                 name: financial_responsible.name,
                 email: financial_responsible.email,
             },
             subject: '[Santiago] Solicitação de Matrícula',
-            body: 'Olá',
+            body: {
+                file: mailTemplate,
+                variables: {
+                    responsibleName: financial_responsible.name,
+                },
+            },
         });
 
         return {

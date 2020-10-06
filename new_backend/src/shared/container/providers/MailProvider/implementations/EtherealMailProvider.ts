@@ -1,12 +1,18 @@
+import { injectable, inject } from 'tsyringe';
 import nodemailer, { Transporter } from 'nodemailer';
 
+import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTemplateProvider';
 import IMailProvider from '../models/IMailProvider';
 import ISendMailDTO from '../dtos/ISendMailDTO';
 
+@injectable()
 export default class FakeMailProvider implements IMailProvider {
     private transporter: Transporter;
 
-    constructor() {
+    constructor(
+        @inject('MailTemplateProvider')
+        private mailTemplateProvider: IMailTemplateProvider,
+    ) {
         nodemailer.createTestAccount((err, account) => {
             this.transporter = nodemailer.createTransport({
                 host: account.smtp.host,
@@ -36,7 +42,7 @@ export default class FakeMailProvider implements IMailProvider {
                 address: from?.email || 'contato@colegiosantiago.com.br',
             },
             subject,
-            text: body,
+            html: await this.mailTemplateProvider.parse(body),
         });
 
         console.log('Message sent: %s', info.messageId);

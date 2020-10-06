@@ -151,6 +151,7 @@ describe('CreateEnrollment', () => {
         const contract = {
             grade_id: grade.id,
             student_id,
+            status: 'underAnalysis',
         } as ICreateContractDTO;
 
         const financialRelationship = {

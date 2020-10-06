@@ -10,7 +10,7 @@
 **RNF**
 
 - [x] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
-- [ ] Utilizar handlebars como template engine para estilizar o e-mail
+- [x] Utilizar handlebars como template engine para estilizar o e-mail
 - [x] Devem ser criadas as seguintes tabelas:
     - 1. Aluno;
     - 2. Contrato (entre o aluno e a turma);
