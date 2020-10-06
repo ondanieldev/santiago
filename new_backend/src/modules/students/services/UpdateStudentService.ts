@@ -5,7 +5,7 @@ import Student from '../infra/typeorm/entities/Student';
 import IStudentsRepository from '../repositories/IStudentsRepository';
 
 @injectable()
-export default class CreateEnrollmentService {
+export default class UpdateStudentService {
     constructor(
         @inject('StudentsRepository')
         private studentsRepository: IStudentsRepository,
