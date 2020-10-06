@@ -4,11 +4,6 @@ import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 import ICreateContractDTO from '@modules/contracts/dtos/ICreateContractDTO';
 
-interface IFindResponse {
-    contracts: Contract[] | [];
-    pagination: number;
-}
-
 export default class FakeContractsRepository implements IContractsRepository {
     private contracts: Contract[] = [];
 
@@ -22,11 +17,14 @@ export default class FakeContractsRepository implements IContractsRepository {
         return contract;
     }
 
-    public async find(): Promise<IFindResponse> {
-        return {
-            contracts: this.contracts,
-            pagination: 1,
-        };
+    public async findUnderAnalysisAndPendent(): Promise<Contract[] | []> {
+        const contracts = this.contracts.filter(
+            findContract =>
+                findContract.status === 'underAnalysis' ||
+                findContract.status === 'pendent',
+        );
+
+        return contracts;
     }
 
     public async findById(id: string): Promise<Contract | undefined> {

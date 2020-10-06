@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for grades/services/FindGradeByIdService.ts</title>
+    <title>Code coverage report for enrollments/services/IndexUnderAnalysisAndPendentEnrollmentsService.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">grades/services</a> FindGradeByIdService.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">enrollments/services</a> IndexUnderAnalysisAndPendentEnrollmentsService.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -75,42 +75,42 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { injectable, inject } from 'tsyringe';</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { injectable, inject } from 'tsyringe';
 &nbsp;
-import Grade from '@modules/grades/infra/typeorm/entities/Grade';
-import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
+import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
+import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 &nbsp;
 @injectable()
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >F</span></span>indGradeByIdService {</span></span>
-<span class="fstat-no" title="function not covered" >    constructor(</span>
-        @inject('GradesRepository')
-        private <span class="cstat-no" title="statement not covered" >gradesRepository: IGradesRepository,</span>
+export default class IndexUnderAnalysisAndPendentEnrollmentsService {
+    constructor(
+        @inject('ContractsRepository')
+        private contractsRepository: IContractsRepository,
     ) {}
 &nbsp;
-<span class="fstat-no" title="function not covered" >    public async <span class="cstat-no" title="statement not covered" >e</span>xecute(id: string): Promise&lt;Grade | undefined&gt; {</span>
-        const <span class="cstat-no" title="statement not covered" >grade = <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >await this.gradesRepository.findById(id);</span></span></span>
+    public async execute(): Promise&lt;Contract[] | []&gt; {
+        const contracts = await this.contractsRepository.findUnderAnalysisAndPendent();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        return grade;</span>
+        return contracts;
     }
-<span class="cstat-no" title="statement not covered" >}</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

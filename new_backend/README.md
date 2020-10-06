@@ -31,7 +31,7 @@
 
 **RF**
 
-- [ ] O usuário deve poder listar todas as matrículas que estão em análise ou pendentes;
+- [x] O usuário deve poder listar todas as matrículas que estão em análise ou pendentes;
 - [ ] O usuário deve poder visualizar todos os dados referentes a uma matrícula;
 - [ ] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
 - [ ] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar e um comentário opcional;
@@ -45,7 +45,7 @@
 
 **RN**
 
-- [ ] O usuário não deve poder listar matrículas que não estejam com status de análise ou de pendência;
+- [x] O usuário não deve poder listar matrículas que não estejam com status de análise ou de pendência;
 - [ ] Ao buscar as entradas no banco, apenas os dados essenciais de exibição devem ser baixados;
 - [ ] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
 - [ ] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
@@ -55,7 +55,7 @@
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
 
 **CHANGES**
-- [ ] Dia de pagamento
+- [x] Dia de pagamento
 
 # Atualização de fotos do responsável
 
