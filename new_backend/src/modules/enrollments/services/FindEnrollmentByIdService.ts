@@ -10,6 +10,7 @@ export default class FindEnrollmentByIdService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,
+
         @inject('AgreementsRepository')
         private agreementsRepository: IAgreementsRepository,
     ) {}
@@ -18,17 +19,7 @@ export default class FindEnrollmentByIdService {
         const contract = await this.contractsRepository.findById(id);
 
         if (!contract) {
-            throw new AppError('This enrollment does not exists!');
-        }
-
-        for (const agreement of contract.agreements) {
-            const agreementWithReponsible = await this.agreementsRepository.findById(
-                agreement.id,
-            );
-
-            if (agreementWithReponsible) {
-                agreement.person = agreementWithReponsible.person;
-            }
+            throw new AppError('Essa matrícula não existe!');
         }
 
         return contract;

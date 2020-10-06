@@ -10,7 +10,11 @@ export default class FakeContractsRepository implements IContractsRepository {
     public async create(data: ICreateContractDTO): Promise<Contract> {
         const contract = new Contract();
 
-        Object.assign(contract, { id: v4(), status: 'underAnalysis' }, data);
+        Object.assign(
+            contract,
+            { id: v4(), status: 'underAnalysis', agreements: [] },
+            data,
+        );
 
         this.contracts.push(contract);
 

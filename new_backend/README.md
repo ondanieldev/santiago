@@ -32,7 +32,7 @@
 **RF**
 
 - [x] O usuário deve poder listar todas as matrículas que estão em análise ou pendentes;
-- [ ] O usuário deve poder visualizar todos os dados referentes a uma matrícula;
+- [x] O usuário deve poder visualizar todos os dados referentes a uma matrícula;
 - [ ] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
 - [ ] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar e um comentário opcional;
 - [ ] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
@@ -41,13 +41,13 @@
 **RNF**
 
 - [ ] A lista de matrículas deve ser armazenada em cache;
-- [ ] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
+- [x] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
 
 **RN**
 
 - [x] O usuário não deve poder listar matrículas que não estejam com status de análise ou de pendência;
 - [ ] Ao buscar as entradas no banco, apenas os dados essenciais de exibição devem ser baixados;
-- [ ] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
+- [x] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
 - [ ] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
 - [ ] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não estiver logado no sistema;
