@@ -1,9 +1,12 @@
 import ICreateStudentDTO from '@modules/students/dtos/ICreateStudentDTO';
-import IResponsibles from '@modules/enrollments/dtos/IResponsiblesDTO';
+import {
+    ICreateResponsibleDTO,
+} from '@modules/enrollments/dtos/ICreateResponsibleDTO';
 
 export default interface ICreateEnrollmentDTO {
     student: ICreateStudentDTO;
     grade_id: string;
-    financial_responsible: IResponsibles;
-    supportive_responsible: IResponsibles;
+    financial_responsible: ICreateResponsibleDTO;
+    supportive_responsible: ICreateResponsibleDTO;
+}
 }

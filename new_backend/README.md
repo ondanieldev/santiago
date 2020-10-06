@@ -5,11 +5,12 @@
 - [x] O usuário deve poder criar uma matrícula informando os dados dos responsáveis financeiro e solidário, os dados do aluno e a turma desejada;
 - [x] O usuário deve poder buscar por um responsável já cadastrado através de seu CPF;
 - [ ] O usuário deve poder reutilizar um responsável já cadastrado previamente através de seu id;
-- [ ] O usuário deve poder receber um e-mail informando que seu pedido de matrícula foi recebido e será processado;
+- [x] O usuário deve poder receber um e-mail informando que seu pedido de matrícula foi recebido e será processado;
 
 **RNF**
 
-- [ ] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
+- [x] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
+- [ ] Utilizar handlebars como template engine para estilizar o e-mail
 - [x] Devem ser criadas as seguintes tabelas:
     - 1. Aluno;
     - 2. Contrato (entre o aluno e a turma);

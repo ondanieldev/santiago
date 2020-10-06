@@ -6,6 +6,7 @@ import FakePersonsRepository from '@modules/persons/repositories/fakes/FakePerso
 import FakeRelationshipsRepository from '@modules/relationships/repositories/fakes/FakeRelationshipsRepository';
 import FakeAgreementsRepository from '@modules/agreements/repositories/fakes/FakeAgreementsRepository';
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
+import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 
 import ICreateStudentDTO from '@modules/students/dtos/ICreateStudentDTO';
 import ICreateContractDTO from '@modules/contracts/dtos/ICreateContractDTO';
@@ -13,7 +14,7 @@ import ICreateRelationshipDTO from '@modules/relationships/dtos/ICreateRelations
 import ICreateAgreementDTO from '@modules/agreements/dtos/ICreateAgreementDTO';
 import Grade from '@modules/grades/infra/typeorm/entities/Grade';
 
-import IResponsiblesDTO from '../dtos/IResponsiblesDTO';
+import { ICreateResponsibleDTO } from '../dtos/ICreateResponsibleDTO';
 import CreateEnrollmentService from './CreateEnrollmentService';
 
 let createEnrollment: CreateEnrollmentService;
@@ -23,9 +24,10 @@ let fakePersonsRepository: FakePersonsRepository;
 let fakeRelationshipsRepository: FakeRelationshipsRepository;
 let fakeAgreementsRepository: FakeAgreementsRepository;
 let fakeGradesRepository: FakeGradesRepository;
+let fakeMailProvider: FakeMailProvider;
 let student: ICreateStudentDTO;
-let financialResponsible: IResponsiblesDTO;
-let supportiveResponsible: IResponsiblesDTO;
+let financialResponsible: ICreateResponsibleDTO;
+let supportiveResponsible: ICreateResponsibleDTO;
 let grade: Grade;
 
 describe('CreateEnrollment', () => {
@@ -36,6 +38,7 @@ describe('CreateEnrollment', () => {
         fakeRelationshipsRepository = new FakeRelationshipsRepository();
         fakeAgreementsRepository = new FakeAgreementsRepository();
         fakeGradesRepository = new FakeGradesRepository();
+        fakeMailProvider = new FakeMailProvider();
 
         createEnrollment = new CreateEnrollmentService(
             fakeStudentsRepository,
@@ -44,6 +47,7 @@ describe('CreateEnrollment', () => {
             fakeRelationshipsRepository,
             fakeAgreementsRepository,
             fakeGradesRepository,
+            fakeMailProvider,
         );
 
         student = {
@@ -122,7 +126,7 @@ describe('CreateEnrollment', () => {
         });
     });
 
-    it('should be able to create a new enrollment from responsibles, user and grade data', async () => {
+    it('should be able to create a new enrollment from responsibles, user and grade data and send an e-mail notifying', async () => {
         const createStudent = jest.spyOn(fakeStudentsRepository, 'create');
         const createContract = jest.spyOn(fakeContractsRepository, 'create');
         const createResponsible = jest.spyOn(fakePersonsRepository, 'create');
@@ -131,6 +135,7 @@ describe('CreateEnrollment', () => {
             'create',
         );
         const createAgreement = jest.spyOn(fakeAgreementsRepository, 'create');
+        const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
         const {
             student_id,
@@ -180,6 +185,7 @@ describe('CreateEnrollment', () => {
         expect(createRelationship).toHaveBeenCalledWith(supportiveRelationship);
         expect(createAgreement).toHaveBeenCalledWith(financialAgreement);
         expect(createAgreement).toHaveBeenCalledWith(supportiveAgreement);
+        expect(sendMail).toHaveBeenCalled();
     });
 
     it('should not be able to create a new enrollment with responsibles that have the same email', async () => {

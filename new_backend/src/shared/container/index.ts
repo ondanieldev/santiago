@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import './providers';
+
 import IAgreementsRepository from '@modules/agreements/repositories/IAgreementsRepository';
 import AgreementsRepository from '@modules/agreements/infra/typeorm/repositories/AgreementsRepository';
 

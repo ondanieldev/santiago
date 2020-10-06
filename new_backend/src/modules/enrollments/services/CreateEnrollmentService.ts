@@ -1,15 +1,15 @@
 import { injectable, inject } from 'tsyringe';
 
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 
+import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
 import IRelationshipsRepository from '@modules/relationships/repositories/IRelationshipsRepository';
 import IAgreementsRepository from '@modules/agreements/repositories/IAgreementsRepository';
 import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
-import IResponsiblesDTO from '@modules/enrollments/dtos/IResponsiblesDTO';
-import AppError from '@shared/errors/AppError';
+import { ICreateResponsibleDTO } from '@modules/enrollments/dtos/ICreateResponsibleDTO';
 import ICreateEnrollmentDTO from '../dtos/ICreateEnrollmentDTO';
 
 interface IResponse {
@@ -18,7 +18,7 @@ interface IResponse {
     responsibles_ids: string[];
 }
 
-interface IResponsible extends IResponsiblesDTO {
+interface IResponsibleWithType extends ICreateResponsibleDTO {
     responsible_type: 'financial' | 'supportive';
 }
 
@@ -42,6 +42,9 @@ export default class CreateEnrollmentService {
 
         @inject('GradesRepository')
         private gradesRepository: IGradesRepository,
+
+        @inject('MailProvider')
+        private mailProvider: IMailProvider,
     ) {}
 
     public async execute({
@@ -112,6 +115,7 @@ export default class CreateEnrollmentService {
         const createdContract = await this.contractsRepository.create({
             grade_id,
             student_id: createdStudent.id,
+            status: 'underAnalysis',
         });
 
         const responsibles_ids: string[] = [];
@@ -136,6 +140,15 @@ export default class CreateEnrollmentService {
             responsibles_ids.push(createdResponsible.id);
         }
 
+        await this.mailProvider.sendMail({
+            to: {
+                name: financial_responsible.name,
+                email: financial_responsible.email,
+            },
+            subject: '[Santiago] Solicitação de Matrícula',
+            body: 'Olá',
+        });
+
         return {
             student_id: createdStudent.id,
             contract_id: createdContract.id,
@@ -144,24 +157,18 @@ export default class CreateEnrollmentService {
     }
 
     private joinResponsiblesIntoAnArray(
-        financial_responsible: IResponsiblesDTO,
-        supportive_responsible: IResponsiblesDTO,
-    ): IResponsible[] {
-        const responsibles = [] as IResponsible[];
+        financial_responsible: ICreateResponsibleDTO,
+        supportive_responsible: ICreateResponsibleDTO,
+    ): IResponsibleWithType[] {
+        const responsibles = [] as IResponsibleWithType[];
 
-        const financialResponsible: IResponsible = Object.assign(
-            financial_responsible,
-            {
-                responsible_type: 'financial',
-            } as { responsible_type: 'financial' | 'supportive' },
-        );
+        const financialResponsible = Object.assign(financial_responsible, {
+            responsible_type: 'financial',
+        }) as IResponsibleWithType;
 
-        const supportiveResponsible: IResponsible = Object.assign(
-            supportive_responsible,
-            {
-                responsible_type: 'supportive',
-            } as { responsible_type: 'financial' | 'supportive' },
-        );
+        const supportiveResponsible = Object.assign(supportive_responsible, {
+            responsible_type: 'supportive',
+        }) as IResponsibleWithType;
 
         responsibles.push(financialResponsible, supportiveResponsible);
 

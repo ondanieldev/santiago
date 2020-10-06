@@ -54,7 +54,12 @@ export default class EnrollmentsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { student, responsibles, grade_id } = request.body;
+        const {
+            student,
+            financial_responsible,
+            supportive_responsible,
+            grade_id,
+        } = request.body;
 
         const createEnrollmentService = container.resolve(
             CreateEnrollmentService,
@@ -65,7 +70,8 @@ export default class EnrollmentsController {
             responsibles_ids,
         } = await createEnrollmentService.execute({
             student,
-            responsibles,
+            financial_responsible,
+            supportive_responsible,
             grade_id,
         });
 
