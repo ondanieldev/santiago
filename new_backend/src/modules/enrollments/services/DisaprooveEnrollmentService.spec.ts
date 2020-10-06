@@ -1,30 +1,24 @@
 import AppError from '@shared/errors/AppError';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
-import FakeDebitsRepository from '@modules/debits/repositories/fakes/FakeDebitsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
-import AprooveEnrollmentService from './AprooveEnrollmentService';
+import DisaprooveEnrollmentService from './DisaprooveEnrollmentService';
 
 let fakeContractsRepository: FakeContractsRepository;
-let fakeDebitsRepository: FakeDebitsRepository;
 let fakeMailProvider: FakeMailProvider;
-let aprooveEnrollment: AprooveEnrollmentService;
+let disaprooveEnrollment: DisaprooveEnrollmentService;
 
 describe('AprooveEnrollment', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
-        fakeDebitsRepository = new FakeDebitsRepository();
         fakeMailProvider = new FakeMailProvider();
 
-        aprooveEnrollment = new AprooveEnrollmentService(
+        disaprooveEnrollment = new DisaprooveEnrollmentService(
             fakeContractsRepository,
-            fakeDebitsRepository,
             fakeMailProvider,
         );
     });
 
-    it('should be able to aproove enrollment, generate debit and send a notify email', async () => {
-        const createDebit = jest.spyOn(fakeDebitsRepository, 'create');
-
+    it('should be able to disaproove enrollment and send a notify email', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
         const contract = await fakeContractsRepository.create({
@@ -33,21 +27,20 @@ describe('AprooveEnrollment', () => {
             student_id: 'student',
         });
 
-        const aproovedContract = await aprooveEnrollment.execute({
+        const aproovedContract = await disaprooveEnrollment.execute({
             id: contract.id,
-            comment: 'aprooving',
+            comment: 'disaprooving',
             responsible_contact: {
                 name: 'John Doe',
                 email: 'johndoe@example.com',
             },
         });
 
-        expect(aproovedContract.status).toBe('accepted');
-        expect(createDebit).toBeCalled();
+        expect(aproovedContract.status).toBe('pendent');
         expect(sendMail).toBeCalled();
     });
 
-    it('should be able to aproove enrollment, generate debit and do not send email', async () => {
+    it('should be able to disaproove enrollment without sending email', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
         const contract = await fakeContractsRepository.create({
@@ -56,9 +49,9 @@ describe('AprooveEnrollment', () => {
             student_id: 'student',
         });
 
-        await aprooveEnrollment.execute({
+        await disaprooveEnrollment.execute({
             id: contract.id,
-            comment: 'aprooving',
+            comment: 'disaprooving',
         });
 
         expect(sendMail).toBeCalledTimes(0);
@@ -66,9 +59,9 @@ describe('AprooveEnrollment', () => {
 
     it('should not be able to aproove a non-existing enrollment', async () => {
         await expect(
-            aprooveEnrollment.execute({
+            disaprooveEnrollment.execute({
                 id: 'non-existing-enrollment',
-                comment: 'aprooving',
+                comment: 'disaprooving',
                 responsible_contact: {
                     name: 'John Doe',
                     email: 'johndoe@example.com',

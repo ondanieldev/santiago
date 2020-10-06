@@ -1,14 +1,20 @@
-import { container, injectable, inject } from 'tsyringe';
-import { addMonths } from 'date-fns';
+import { injectable, inject } from 'tsyringe';
+import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
-import CreateDebitService from '@modules/debits/services/CreateDebitService';
+import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
+
+interface IResponsibleContact {
+    name: string;
+    email: string;
+}
 
 interface IRequest {
     id: string;
-    aproove: boolean;
-    comment: string;
+    comment?: string;
+    responsible_contact?: IResponsibleContact;
 }
 
 @injectable()
@@ -16,36 +22,51 @@ export default class AprooveOrDisaprooveEnrollmentService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,
+
+        @inject('MailRepository')
+        private mailProvider: IMailProvider,
     ) {}
 
-    public async execute({ id, aproove, comment }: IRequest): Promise<void> {
+    public async execute({
+        id,
+        comment,
+        responsible_contact,
+    }: IRequest): Promise<Contract> {
         const contract = await this.contractsRepository.findById(id);
 
         if (!contract) {
-            throw new AppError('This contract does not exists!');
+            throw new AppError(
+                'Não é possível reprovar um contrato não existente!',
+            );
         }
 
-        if (aproove) {
-            contract.status = 'accepted';
-
-            const createDebit = container.resolve(CreateDebitService);
-
-            const debitInitialDate = new Date();
-            const debitFinalDate = addMonths(debitInitialDate, 1);
-
-            await createDebit.execute({
-                contract_id: contract.id,
-                description: 'Primeira parcela - Matrícula',
-                initial_date: debitInitialDate,
-                final_date: debitFinalDate,
-                value: contract.grade.value,
-            });
-        } else {
-            contract.status = 'pendent';
-        }
-
-        contract.comment = comment;
+        Object.assign(contract, { comment, status: 'pendent' });
 
         await this.contractsRepository.save(contract);
+
+        if (responsible_contact) {
+            const templatePath = path.resolve(
+                __dirname,
+                '..',
+                'views',
+                'notify_disaproove_enrollment.hbs',
+            );
+
+            await this.mailProvider.sendMail({
+                to: {
+                    name: responsible_contact.name,
+                    email: responsible_contact.email,
+                },
+                subject: '[Santiago] Matrícula Pendente',
+                body: {
+                    file: templatePath,
+                    variables: {
+                        responsibleName: responsible_contact.name,
+                    },
+                },
+            });
+        }
+
+        return contract;
     }
 }

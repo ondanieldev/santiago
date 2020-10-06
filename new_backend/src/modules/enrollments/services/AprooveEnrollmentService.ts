@@ -40,10 +40,12 @@ export default class AprooveOrDisaprooveEnrollmentService {
         const contract = await this.contractsRepository.findById(id);
 
         if (!contract) {
-            throw new AppError('This contract does not exists!');
+            throw new AppError(
+                'Não é possível aprovar um contrato não existente!',
+            );
         }
 
-        Object.assign(contract, { id, comment, status: 'accepted' });
+        Object.assign(contract, { comment, status: 'accepted' });
 
         await this.contractsRepository.save(contract);
 

@@ -37,9 +37,9 @@
     - 1. [x] Dados do aluno.
     - 2. [x] Dados de cada um dos responsáveis;
     - 3. [x] Turma desejada;
-- [ ] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar, um comentário opcional e o id do contrato;
-- [ ] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
-- [ ] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
+- [x] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar, um comentário opcional, o id do contrato e um contato de e-mail opcional;
+- [x] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
+- [x] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
 
 **RNF**
 
@@ -53,8 +53,8 @@
 - [x] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
 - [x] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
 - [x] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
-- [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
-- [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
+- [x] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
+- [x] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
 
 **CHANGES**
 - [x] Dia de pagamento
