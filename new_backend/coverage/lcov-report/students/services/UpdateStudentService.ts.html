@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for enrollments/services/FindEnrollmentByIdService.ts</title>
+    <title>Code coverage report for students/services/UpdateStudentService.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">enrollments/services</a> FindEnrollmentByIdService.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">students/services</a> UpdateStudentService.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -91,7 +91,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,14 +98,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,28 +114,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { injectable, inject } from 'tsyringe';
 &nbsp;
 import AppError from '@shared/errors/AppError';
-import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
-import IAgreementsRepository from '@modules/agreements/repositories/IAgreementsRepository';
-import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
+import Student from '../infra/typeorm/entities/Student';
+import IStudentsRepository from '../repositories/IStudentsRepository';
 &nbsp;
 @injectable()
-export default class FindEnrollmentByIdService {
+export default class CreateEnrollmentService {
     constructor(
-        @inject('ContractsRepository')
-        private contractsRepository: IContractsRepository,
-&nbsp;
-        @inject('AgreementsRepository')
-        private agreementsRepository: IAgreementsRepository,
+        @inject('StudentsRepository')
+        private studentsRepository: IStudentsRepository,
     ) {}
 &nbsp;
-    public async execute(id: string): Promise&lt;Contract&gt; {
-        const contract = await this.contractsRepository.findById(id);
+    public async execute({ id, ...rest }: Student): Promise&lt;Student&gt; {
+        const student = await this.studentsRepository.findById(id);
 &nbsp;
-        if (!contract) {
-            throw new AppError('Essa matrícula não existe!');
+        if (!student) {
+            throw new AppError(
+                'Não é possível atualizar os dados de um aluno inexistente!',
+            );
         }
 &nbsp;
-        return contract;
+        Object.assign(student, rest);
+&nbsp;
+        return student;
     }
 }
 &nbsp;</pre></td></tr></table></pre>
