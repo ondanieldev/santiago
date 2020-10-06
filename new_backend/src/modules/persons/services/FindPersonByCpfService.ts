@@ -1,7 +1,13 @@
 import { injectable, inject } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
 import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
-import Person from '@modules/persons/infra/typeorm/entities/Person';
+
+interface IResponse {
+    id: string;
+    cpf: string;
+    name: string;
+}
 
 @injectable()
 export default class FindPersonByCpfService {
@@ -10,9 +16,17 @@ export default class FindPersonByCpfService {
         private personsRepository: IPersonsRepository,
     ) {}
 
-    public async execute(cpf: string): Promise<Person | undefined> {
-        const person = await this.personsRepository.findByCpf(cpf);
+    public async execute(findCpf: string): Promise<IResponse> {
+        const person = await this.personsRepository.findByCpf(findCpf);
 
-        return person;
+        if (!person) {
+            throw new AppError(
+                'Não há nenhum usuário cadastrado com este CPF!',
+            );
+        }
+
+        const { id, name, cpf } = person;
+
+        return { id, name, cpf };
     }
 }

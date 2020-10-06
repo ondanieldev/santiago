@@ -3,8 +3,7 @@
 **RF**
 
 - [x] O usuário deve poder criar uma matrícula informando os dados dos responsáveis financeiro e solidário, os dados do aluno e a turma desejada;
-- [ ] O usuário deve poder buscar por um responsável já cadastrado através de seu CPF;
-- [ ] O usuário deve poder resgatar um responsável já cadastrado previamente através do seu CPF;
+- [x] O usuário deve poder buscar por um responsável já cadastrado através de seu CPF;
 - [ ] O usuário deve poder reutilizar um responsável já cadastrado previamente através de seu id;
 - [ ] O usuário deve poder receber um e-mail informando que seu pedido de matrícula foi recebido e será processado;
 
@@ -20,7 +19,7 @@
 
 **RN**
 
-- [ ] O usuário não deve poder visualizar informações sensíveis do responsável buscado, somente seu nome;
+- [x] O usuário não deve poder visualizar informações sensíveis do responsável buscado, somente seu nome;
 - [x] O usuário não deve poder cadastrar dois responsáveis do mesmo tipo;
 - [x] O usuário não deve poder cadastrar responsáveis com o mesmo e-mail, cpf ou rg;
 - [x] O usuário não deve poder cadastrar um responsável com e-mail, cpf ou rg que já estão em uso;
