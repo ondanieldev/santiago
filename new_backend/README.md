@@ -33,11 +33,11 @@
 
 - [x] O usuário deve poder listar todas as matrículas que estão em análise ou pendentes;
 - [x] O usuário deve poder visualizar todos os dados referentes a uma matrícula;
-- [ ] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
+- [x] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
     - 1. [x] Dados do aluno.
-    - 2. [ ] Dados de cada um dos responsáveis;
-    - 3. [ ] Turma desejada;
-- [ ] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar e um comentário opcional;
+    - 2. [x] Dados de cada um dos responsáveis;
+    - 3. [x] Turma desejada;
+- [ ] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar, um comentário opcional e o id do contrato;
 - [ ] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
 - [ ] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
 
@@ -51,9 +51,8 @@
 - [x] O usuário não deve poder listar matrículas que não estejam com status de análise ou de pendência;
 - [ ] Ao buscar as entradas no banco, apenas os dados essenciais de exibição devem ser baixados;
 - [x] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
-- [ ] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
-- [ ] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
-- [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não estiver logado no sistema;
+- [x] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
+- [x] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
 - [ ] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
 

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for persons/services/UpdatePersonService.ts</title>
+    <title>Code coverage report for contracts/services/UpdateContractGradeService.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">persons/services</a> UpdatePersonService.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">contracts/services</a> UpdateContractGradeService.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -84,9 +84,21 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,6 +119,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,28 +128,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { injectable, inject } from 'tsyringe';
 &nbsp;
 import AppError from '@shared/errors/AppError';
-import Person from '../infra/typeorm/entities/Person';
-import IPersonsRepository from '../repositories/IPersonsRepository';
+import IContractsRepository from '../repositories/IContractsRepository';
+import Contract from '../infra/typeorm/entities/Contract';
+&nbsp;
+interface IRequest {
+    id: string;
+    grade_id: string;
+}
 &nbsp;
 @injectable()
-export default class UpdatePersonService {
+export default class UpdateContractGradeService {
     constructor(
-        @inject('PersonsRepository')
-        private personsRepository: IPersonsRepository,
+        @inject('ContractsRepository')
+        private contractsRepository: IContractsRepository,
     ) {}
 &nbsp;
-    public async execute({ id, ...rest }: Person): Promise&lt;Person&gt; {
-        const person = await this.personsRepository.findById(id);
+    public async execute({ id, grade_id }: IRequest): Promise&lt;Contract&gt; {
+        const contract = await this.contractsRepository.findById(id);
 &nbsp;
-        if (!person) {
+        if (!contract) {
             throw new AppError(
-                'Não é possível atualizar os dados de um responsável inexistente!',
+                'Não é possível atualizar a turma de um contrato inexistente!',
             );
         }
 &nbsp;
-        Object.assign(person, rest);
+        contract.grade_id = grade_id;
 &nbsp;
-        return person;
+        await this.contractsRepository.save(contract);
+&nbsp;
+        return contract;
     }
 }
 &nbsp;</pre></td></tr></table></pre>

@@ -12,7 +12,7 @@ export default class FakeContractsRepository implements IContractsRepository {
 
         Object.assign(
             contract,
-            { id: v4(), status: 'underAnalysis', agreements: [] },
+            { id: v4(), status: 'underAnalysis', agreements: [], grade: {} },
             data,
         );
 
