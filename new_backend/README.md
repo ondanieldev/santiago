@@ -97,7 +97,7 @@
 - [ ] **!** Pesquisar;
 - [x] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
     - [ ] **!** Desconto e juros;
-- [ ] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
+- [x] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
     - [ ] **!** Desconto e juros;
 - [ ] O usuário deve poder receber um recibo informando que o débito foi pago;
 - [ ] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
@@ -113,11 +113,11 @@
 **RN**
 
 - [x] O usuário não deve poder listar débitos de um contrato inexistente;
-- [ ] O usuário não deve poder listar débitos de um contrato que não foi aprovado;
-- [ ] O usuário não deve poder pagar um débito se não estiver logado no sistema;
-- [ ] O usuário não deve poder pagar um débito inexistente;
-- [ ] O usuário não deve poder pagar um débito que já foi pago;
-- [ ] O usuário não deve poder pagar um débito com um método de pagamento inválido;
+- [x] O usuário não deve poder listar débitos de um contrato que não foi aprovado;
+- [x] O usuário não deve poder pagar um débito se não estiver logado no sistema;
+- [x] O usuário não deve poder pagar um débito inexistente;
+- [x] O usuário não deve poder pagar um débito que já foi pago;
+- [x] O usuário não deve poder pagar um débito com um método de pagamento inválido;
 
 # Recebimento de pagamentos
 
