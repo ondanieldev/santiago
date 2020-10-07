@@ -79,15 +79,15 @@
 
 **RF**
 
-- [ ] O usuário deve poder atualizar as fotos do aluno através de seu id;
+- [x] O usuário deve poder atualizar as fotos do aluno através de seu id;
 
 **RNF**
 
-- [ ] As fotos devem ser armazenadas em disco em ambiente de desenvolvimento;
+- [x] As fotos devem ser armazenadas em disco em ambiente de desenvolvimento;
 
 **RN**
 
-- [ ] As fotos devem ser substituídas caso novas fotos sejam enviadas;
+- [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
 # Pagamento de débitos
 

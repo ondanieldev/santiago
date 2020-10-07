@@ -1,11 +1,9 @@
 import { injectable, inject } from 'tsyringe';
-import path from 'path';
-import fs from 'fs';
 
-import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
-import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
 import Student from '@modules/students/infra/typeorm/entities/Student';
+import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
 interface IRequest {
     id: string;
@@ -32,7 +30,10 @@ interface IPhoto {
 export default class UpdateStudentPhotosService {
     constructor(
         @inject('StudentsRepository')
-        private ormRepository: IStudentsRepository,
+        private studentsRepository: IStudentsRepository,
+
+        @inject('StorageProvider')
+        private storageProvider: IStorageProvider,
     ) {}
 
     public async execute({
@@ -44,10 +45,10 @@ export default class UpdateStudentPhotosService {
         transfer_declaration_photo,
         vaccine_card_photo,
     }: IRequest): Promise<Student> {
-        const student = await this.ormRepository.findById(id);
+        const student = await this.studentsRepository.findById(id);
 
         if (!student) {
-            throw new AppError('Student not found!');
+            throw new AppError('ID inválido!');
         }
 
         const photos = [] as IPhoto[];
@@ -89,25 +90,16 @@ export default class UpdateStudentPhotosService {
             });
 
         for (const photo of photos) {
+            await this.storageProvider.saveFile(photo.filename);
+
             if (student[photo.field]) {
-                const filePath = path.join(
-                    uploadConfig.directory,
-                    student[photo.field],
-                );
-
-                try {
-                    const fileExists = await fs.promises.stat(filePath);
-
-                    if (fileExists) {
-                        await fs.promises.unlink(filePath);
-                    }
-                } catch {}
+                await this.storageProvider.deleteFile(student[photo.field]);
             }
 
-            student[photo.field] = `http://localhost:3333/${photo.filename}`;
+            student[photo.field] = photo.filename;
         }
 
-        await this.ormRepository.save(student);
+        await this.studentsRepository.save(student);
 
         return student;
     }

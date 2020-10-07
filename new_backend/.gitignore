@@ -6,6 +6,5 @@ temp/
 coverage/
 
 tmp/*
-!tmp/upload
 upload/*
 !tmp/upload/.gitkeep
