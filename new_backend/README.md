@@ -93,8 +93,8 @@
 
 **RF**
 
-- [ ] O usuário deve poder listar todos os contratos que estão aprovados;
-- [ ] **!** pesquisar;
+- [x] O usuário deve poder listar todos os contratos que estão aprovados;
+- [ ] **!** Pesquisar;
 - [ ] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
     - [ ] **!** Desconto e juros;
 - [ ] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;

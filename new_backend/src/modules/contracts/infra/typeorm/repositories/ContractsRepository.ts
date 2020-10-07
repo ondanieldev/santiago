@@ -28,6 +28,14 @@ export default class ContractsRepository implements IContractsRepository {
         return contracts;
     }
 
+    public async findAcceptedAndActive(): Promise<Contract[] | []> {
+        const contracts = this.ormRepository.find({
+            where: [{ status: 'accepted' }, { status: 'active' }],
+        });
+
+        return contracts;
+    }
+
     public async findById(id: string): Promise<Contract | undefined> {
         const contract = await this.ormRepository.findOne({
             where: { id },

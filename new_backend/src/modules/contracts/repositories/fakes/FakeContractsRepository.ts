@@ -31,6 +31,16 @@ export default class FakeContractsRepository implements IContractsRepository {
         return contracts;
     }
 
+    public async findAcceptedAndActive(): Promise<Contract[] | []> {
+        const contracts = this.contracts.filter(
+            findContract =>
+                findContract.status === 'accepted' ||
+                findContract.status === 'active',
+        );
+
+        return contracts;
+    }
+
     public async findById(id: string): Promise<Contract | undefined> {
         const contract = this.contracts.find(
             findContract => findContract.id === id,
