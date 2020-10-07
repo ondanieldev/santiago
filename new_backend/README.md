@@ -61,7 +61,7 @@
 **CHANGES**
 - [x] Dia de pagamento
 
-# Atualização de fotos do responsável (update responsible photos and delete the previous ones)
+# - [ ] Atualização de fotos do responsável (update responsible photos and delete the previous ones)
 
 **RF**
 
