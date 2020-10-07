@@ -99,16 +99,17 @@
     - [ ] **!** Desconto e juros;
 - [x] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
     - [ ] **!** Desconto e juros;
-- [ ] O usuário deve poder receber um recibo informando que o débito foi pago;
+- [x] O usuário deve poder receber um recibo informando que o débito foi pago;
 - [ ] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
 - [ ] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso com perfil estático;
 - [ ] Caso o débito seja referente à primeira parcela de matrícula, cada um dos responsáveis ligados ao contrato deverá receber um e-mail contendo o nome de usuário e a senha de acesso seu e do aluno;
+- [ ] Formatar o débito para ficar apresentável
 
 **RNF**
 
 - [ ] A lista de contratos deve ser armazenada em cache;
-- [ ] O recibo deve ser gerado como um arquivo de texto;
-- [ ] O recibo deve ser armazenado em disco em ambiente de desenvolvimento;
+- [x] O recibo deve ser gerado como um arquivo de texto;
+- [x] O recibo deve ser armazenado em disco em ambiente de desenvolvimento;
 
 **RN**
 

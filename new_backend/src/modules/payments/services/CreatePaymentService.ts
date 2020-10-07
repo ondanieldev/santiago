@@ -1,11 +1,11 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Payment from '@modules/payments/infra/typeorm/entities/Payment';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
+import IReceiptProvider from '@shared/container/providers/ReceiptProvider/models/IReceiptProvider';
 
 @injectable()
 export default class CreatePaymentService {
@@ -18,13 +18,16 @@ export default class CreatePaymentService {
 
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('ReceiptRepository')
+        private receiptProvider: IReceiptProvider,
     ) {}
 
     public async execute({
         method,
         debit_id,
         user_id,
-    }: Omit<ICreatePaymentDTO, 'amount'>): Promise<Payment> {
+    }: Omit<ICreatePaymentDTO, 'amount'>): Promise<string> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
@@ -43,7 +46,7 @@ export default class CreatePaymentService {
             throw new AppError('This debit is already paid!');
         }
 
-        const payment = this.paymentsRepository.create({
+        await this.paymentsRepository.create({
             amount: debit.value,
             debit_id,
             method,
@@ -54,6 +57,13 @@ export default class CreatePaymentService {
 
         await this.debitsRepository.save(debit);
 
-        return payment;
+        const receipt = await this.receiptProvider.generate([
+            {
+                item: debit.description,
+                value: debit.value,
+            },
+        ]);
+
+        return receipt;
     }
 }

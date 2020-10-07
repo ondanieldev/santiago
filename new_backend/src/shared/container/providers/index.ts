@@ -9,6 +9,9 @@ import EtherealMailProvider from './MailProvider/implementations/EtherealMailPro
 import IStorageProvider from './StorageProvider/models/IStorageProvider';
 import DiskStorageProvider from './StorageProvider/implementations/DiskStorageProvider';
 
+import IReceiptProvider from './ReceiptProvider/models/IReceiptProvider';
+import DiskReceiptProvider from './ReceiptProvider/implementations/DiskReceiptProvider';
+
 container.registerInstance<IMailTemplateProvider>(
     'MailTemplateProvider',
     container.resolve(HandlebarsMailTemplateProvider),
@@ -22,4 +25,9 @@ container.registerInstance<IMailProvider>(
 container.registerInstance<IStorageProvider>(
     'StorageProvider',
     container.resolve(DiskStorageProvider),
+);
+
+container.registerInstance<IReceiptProvider>(
+    'ReceiptProvider',
+    container.resolve(DiskReceiptProvider),
 );

@@ -6,5 +6,5 @@ temp/
 coverage/
 
 tmp/*
-upload/*
 !tmp/upload/.gitkeep
+!tmp/receipts/.gitkeep

@@ -2,27 +2,33 @@ import AppError from '@shared/errors/AppError';
 import FakeDebitsRepository from '@modules/debits/repositories/fakes/FakeDebitsRepository';
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
+import FakeReceiptProvider from '@shared/container/providers/ReceiptProvider/fakes/FakeReceiptProvider';
 import CreatePaymentService from './CreatePaymentService';
 
 let createPayment: CreatePaymentService;
 let fakeDebitsRepository: FakeDebitsRepository;
 let fakePaymentsRepository: FakePaymentsRepository;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeReceiptProvider: FakeReceiptProvider;
 
 describe('PayDebit', () => {
     beforeEach(() => {
         fakeDebitsRepository = new FakeDebitsRepository();
         fakePaymentsRepository = new FakePaymentsRepository();
         fakeUsersRepository = new FakeUsersRepository();
+        fakeReceiptProvider = new FakeReceiptProvider();
 
         createPayment = new CreatePaymentService(
             fakeDebitsRepository,
             fakePaymentsRepository,
             fakeUsersRepository,
+            fakeReceiptProvider,
         );
     });
 
-    it('should be able to pay a debit by changing its paid status and creating a new payment', async () => {
+    it('should be able to pay a debit by changing its paid status, creating a new payment and generating receipt', async () => {
+        const generateReceipt = jest.spyOn(fakeReceiptProvider, 'generate');
+
         const debit = await fakeDebitsRepository.create({
             contract_id: 'contract',
             description: 'description',
@@ -42,6 +48,8 @@ describe('PayDebit', () => {
             debit_id: debit.id,
             method: 'cash',
         });
+
+        expect(generateReceipt).toBeCalled();
     });
 
     it('should not be able to pay a debit if the user is logged out', async () => {
