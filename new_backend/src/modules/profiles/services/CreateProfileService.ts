@@ -27,7 +27,9 @@ class CreateProfileService {
         );
 
         if (profileWithSameName) {
-            throw new AppError('um perfil com o mesmo nome já existe!');
+            throw new AppError(
+                'Não é possível criar um perfil com o mesmo nome de otro perfil já existente!',
+            );
         }
 
         const profile = await this.profilesRepository.create({

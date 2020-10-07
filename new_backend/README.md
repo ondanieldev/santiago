@@ -162,10 +162,9 @@
 
 **RF**
 
-- [ ] O usuário deve poder criar uma perfil atráves do nome e permissões;
-- [ ] O usuário deve poder listar os perfis existentes;
-- [ ] O usuário deve poder visualizar todos os dados referentes a um determinado perfil;
-- [ ] O usuário deve poder atualizar todos os dados referentes a um determinado perfil;
+- [x] O usuário deve poder criar uma perfil atráves do nome e permissões;
+- [x] O usuário deve poder listar os perfis existentes;
+- [x] O usuário deve poder atualizar todos os dados referentes a um determinado perfil;
 
 **RNF**
 
@@ -173,10 +172,9 @@
 
 **RN**
 
-- [ ] O usuário não deve poder criar um perfil com nome igual ao de outro perfil;
-- [ ] O usuário não deve poder visualizar os dados de um perfil que não existe;
-- [ ] O usuário não deve poder atualizar um perfil que não existe;
-- [ ] O usuário não deve poder atualizar um perfil com nome igual ao de outro perfil;
+- [x] O usuário não deve poder criar um perfil com nome igual ao de outro perfil;
+- [x] O usuário não deve poder atualizar um perfil que não existe;
+- [x] O usuário não deve poder atualizar um perfil com nome igual ao de outro perfil;
 
 # CRUD de usuários
 
