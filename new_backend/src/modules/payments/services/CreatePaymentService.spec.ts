@@ -49,6 +49,9 @@ describe('PayDebit', () => {
             method: 'cash',
         });
 
+        const debitAfterPaid = await fakeDebitsRepository.findById(debit.id);
+
+        expect(debitAfterPaid?.paid).toBe(true);
         expect(generateReceipt).toBeCalled();
     });
 

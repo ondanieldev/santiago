@@ -1,32 +1,49 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
-import IDischargesRepository from '@modules/discharges/repositories/IDischargesRepository';
 import Discharge from '@modules/discharges/infra/typeorm/entities/Discharge';
 import ICreateDischargeDTO from '@modules/discharges/dtos/ICreateDischargeDTO';
+import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
+import IDischargesRepository from '@modules/discharges/repositories/IDischargesRepository';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 @injectable()
 export default class CreateDischargeService {
     constructor(
         @inject('PaymentsRepository')
         private paymentsRepository: IPaymentsRepository,
+
         @inject('DischargesRepository')
         private dischargesRepository: IDischargesRepository,
+
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository,
     ) {}
 
     public async execute({
         payment_id,
         user_id,
     }: ICreateDischargeDTO): Promise<Discharge> {
+        const user = await this.usersRepository.findById(user_id);
+
+        if (!user) {
+            throw new AppError(
+                'Não é possível receber um pagamento sem estar logado no sistema!',
+            );
+        }
+
         const payment = await this.paymentsRepository.findById(payment_id);
 
         if (!payment) {
-            throw new AppError('This payment does not exists!');
+            throw new AppError(
+                'Não é possível recebr um pagamento inexistente!',
+            );
         }
 
         if (payment.discharged) {
-            throw new AppError('This payment is already discharged!');
+            throw new AppError(
+                'Não é possível receber um pagamento que já foi recebido!',
+            );
         }
 
         const discharge = this.dischargesRepository.create({
