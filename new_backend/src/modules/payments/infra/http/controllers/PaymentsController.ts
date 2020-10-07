@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import IndexPaymentsService from '@modules/payments/services/IndexPaymentsService';
+import IndexPaymentsService from '@modules/payments/services/IndexUndischargedPaymentsService';
 import CreatePaymentService from '@modules/payments/services/CreatePaymentService';
 
 export default class PaymentsController {

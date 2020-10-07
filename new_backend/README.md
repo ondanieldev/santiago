@@ -124,7 +124,7 @@
 
 **RF**
 
-- [ ] O usuário deve poder listar todos os pagamentos que já foram realizados e que não foram recebidos;
+- [x] O usuário deve poder listar todos os pagamentos que já foram realizados e que não foram recebidos;
 - [ ] O usuário deve poder receber um pagamento;
 
 **RNF**
@@ -133,7 +133,7 @@
 
 **RN**
 
-- [ ] O usuário não deve poder listar os pagamentos que já foram recebidos;
+- [x] O usuário não deve poder listar os pagamentos que já foram recebidos;
 - [ ] O usuário não deve poder receber um pagamento se não estiver logado no sistema;
 - [ ] O usuário não deve poder receber um pagamento que não existe;
 - [ ] O usuário não deve poder receber um pagamento que já foi recebido;
