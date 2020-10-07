@@ -20,11 +20,9 @@ export default class DebitsRepository implements IDebitsRepository {
         return debit;
     }
 
-    public async findUnpaidByContract(
-        contract_id: string,
-    ): Promise<Debit[] | []> {
+    public async findByContract(contract_id: string): Promise<Debit[] | []> {
         const debits = await this.ormRepository.find({
-            where: { contract_id, paid: false },
+            where: { contract_id },
         });
 
         return debits;

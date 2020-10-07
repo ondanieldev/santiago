@@ -13,11 +13,9 @@ export default class DebitsRepository implements IDebitsRepository {
         return debit;
     }
 
-    public async findUnpaidByContract(
-        contract_id: string,
-    ): Promise<Debit[] | []> {
+    public async findByContract(contract_id: string): Promise<Debit[] | []> {
         const debits = this.debits.filter(
-            debit => debit.contract_id === contract_id && !debit.paid,
+            debit => debit.contract_id === contract_id,
         );
 
         return debits;

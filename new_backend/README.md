@@ -95,7 +95,7 @@
 
 - [x] O usuário deve poder listar todos os contratos que estão aprovados;
 - [ ] **!** Pesquisar;
-- [ ] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
+- [x] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
     - [ ] **!** Desconto e juros;
 - [ ] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
     - [ ] **!** Desconto e juros;
@@ -112,7 +112,7 @@
 
 **RN**
 
-- [ ] O usuário não deve poder listar débitos de um contrato inexistente;
+- [x] O usuário não deve poder listar débitos de um contrato inexistente;
 - [ ] O usuário não deve poder listar débitos de um contrato que não foi aprovado;
 - [ ] O usuário não deve poder pagar um débito se não estiver logado no sistema;
 - [ ] O usuário não deve poder pagar um débito inexistente;

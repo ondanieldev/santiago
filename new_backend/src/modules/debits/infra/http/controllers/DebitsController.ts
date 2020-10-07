@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import IndexDebitsService from '@modules/debits/services/IndexDebitsService';
+import IndexDebitsService from '@modules/debits/services/IndexDebitsByContractService';
 
 export default class DebitsController {
     public async index(
