@@ -39,11 +39,15 @@ export default class CreatePaymentService {
         const debit = await this.debitsRepository.findById(debit_id);
 
         if (!debit) {
-            throw new AppError('This debit does not exists!');
+            throw new AppError(
+                'Não é possível pagar um débito que não existe!',
+            );
         }
 
         if (debit.paid) {
-            throw new AppError('This debit is already paid!');
+            throw new AppError(
+                'Não é possível pagar um débito que já foi pago!',
+            );
         }
 
         await this.paymentsRepository.create({

@@ -26,6 +26,17 @@ export default class GradesRepository implements IGradesRepository {
         return grade;
     }
 
+    public async findByNameAndYear(
+        name: string,
+        year: string,
+    ): Promise<Grade | undefined> {
+        const grade = await this.ormRepository.findOne({
+            where: [{ name }, { year }],
+        });
+
+        return grade;
+    }
+
     public async create(data: ICreateGradeDTO): Promise<Grade> {
         const grade = this.ormRepository.create(data);
 

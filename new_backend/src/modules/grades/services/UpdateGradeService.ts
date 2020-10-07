@@ -12,21 +12,27 @@ export default class CreateGradeService {
         private gradesRepository: IGradesRepository,
     ) {}
 
-    public async execute({
-        id,
-        name,
-        value,
-        year,
-    }: IUpdateGradeDTO): Promise<Grade> {
-        const grade = await this.gradesRepository.findById(id);
+    public async execute(data: IUpdateGradeDTO): Promise<Grade> {
+        const grade = await this.gradesRepository.findById(data.id);
 
         if (!grade) {
-            throw new AppError('esta turma não existe!');
+            throw new AppError(
+                'Não é possível atualizar os dados de uma turma inexistente!',
+            );
         }
 
-        grade.name = name;
-        grade.value = value;
-        grade.year = year;
+        const gradeWithTheSameNameAndYear = await this.gradesRepository.findByNameAndYear(
+            data.name,
+            data.year,
+        );
+
+        if (gradeWithTheSameNameAndYear) {
+            throw new AppError(
+                'Não é possível atualizar os dados de uma turma utilizando o mesmo conjunto de nome e ano de outra!',
+            );
+        }
+
+        Object.assign(grade, data);
 
         await this.gradesRepository.save(grade);
 

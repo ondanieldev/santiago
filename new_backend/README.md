@@ -1,4 +1,4 @@
-# Criação de matrículas
+# Criação de matrículas (create enrollment and notify responsible)
 
 **RF**
 
@@ -27,7 +27,7 @@
 - [x] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
 - [ ] O usuário não deve poder reutilizar um responsável que não existe;
 
-# Aprovação/Reprovação de matrículas
+# Aprovação/Reprovação de matrículas (aproove or disaproove enrollment and notify responsible)
 
 **RF**
 
@@ -61,7 +61,7 @@
 **CHANGES**
 - [x] Dia de pagamento
 
-# Atualização de fotos do responsável
+# Atualização de fotos do responsável (update responsible photos and delete the previous ones)
 
 **RF**
 
@@ -75,7 +75,7 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# Atualização de fotos do aluno
+# Atualização de fotos do aluno (update student photos and delete the previous ones)
 
 **RF**
 
@@ -89,7 +89,7 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# Pagamento de débitos
+# Pagamento de débitos (create a new payment and change debit's paid field to true)
 
 **RF**
 
@@ -120,7 +120,7 @@
 - [x] O usuário não deve poder pagar um débito que já foi pago;
 - [x] O usuário não deve poder pagar um débito com um método de pagamento inválido;
 
-# Recebimento de pagamentos
+# Recebimento de pagamentos (create a new discharge and change payment's discharged field to true)
 
 **RF**
 
@@ -138,14 +138,14 @@
 - [x] O usuário não deve poder receber um pagamento que não existe;
 - [x] O usuário não deve poder receber um pagamento que já foi recebido;
 
-# CRUD de turmas
+# CRUD de turmas (create, update and list grades)
 
 **RF**
 
-- [ ] O usuário deve poder criar uma turma atráves do nome, ano e valor;
-- [ ] O usuário deve poder listar as turmas existentes;
-- [ ] O usuário deve poder visualizar todos os dados referentes a uma determinada turma;
-- [ ] O usuário deve poder atualizar todos os dados referentes a uma determinada turma;
+- [x] O usuário deve poder criar uma turma atráves do nome, ano e valor;
+- [x] O usuário deve poder listar as turmas existentes;
+- [x] O usuário deve poder visualizar todos os dados referentes a uma determinada turma;
+- [x] O usuário deve poder atualizar todos os dados referentes a uma determinada turma;
 
 **RNF**
 
@@ -153,10 +153,10 @@
 
 **RN**
 
-- [ ] O usuário não deve poder criar uma turma com o conjunto nome e ano igual ao de outra turma;
-- [ ] O usuário não deve poder visualizar os dados de uma turma que não existe;
-- [ ] O usuário não deve poder atualizar uma turma que não existe;
-- [ ] O usuário não deve poder atualizar uma turma com o conjunto nome e ano igual ao de outra turma;
+- [x] O usuário não deve poder criar uma turma com o conjunto nome e ano igual ao de outra turma;
+- [x] O usuário não deve poder visualizar os dados de uma turma que não existe;
+- [x] O usuário não deve poder atualizar uma turma que não existe;
+- [x] O usuário não deve poder atualizar uma turma com o conjunto nome e ano igual ao de outra turma;
 
 # CRUD de perfis
 
