@@ -31,13 +31,14 @@
 
 **RF**
 
-- [x] O usuário deve poder listar todas as matrículas que estão em análise ou pendentes;
+- [x] O usuário deve poder listar todas as matrículas que estão em análise ou pendente;
 - [x] O usuário deve poder visualizar todos os dados referentes a uma matrícula;
 - [x] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
     - 1. [x] Dados do aluno.
     - 2. [x] Dados de cada um dos responsáveis;
     - 3. [x] Turma desejada;
-- [x] O usuário deve poder aprovar ou desaprovar uma matrícula informando a operação que deseja realizar, um comentário opcional, o id do contrato e um contato de e-mail opcional;
+- [x] O usuário deve poder aprovar uma matrícula informando o id do contrato, um comentário opcional e um contato de e-mail opcional;
+- [x] O usuário deve poder desaprovar uma matrícula informando o id do contrato, um comentário opcional e um contato de e-mail opcional;
 - [x] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
 - [x] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
 - [ ] **!** Deixar o template bonito e com dados pertinentes
@@ -64,7 +65,7 @@
 
 **RF**
 
-- [ ] O usuário deve poder atualizar as fotos do responsável;
+- [ ] O usuário deve poder atualizar as fotos do responsável através de seu id;
 
 **RNF**
 
@@ -78,7 +79,7 @@
 
 **RF**
 
-- [ ] O usuário deve poder atualizar as fotos do aluno;
+- [ ] O usuário deve poder atualizar as fotos do aluno através de seu id;
 
 **RNF**
 

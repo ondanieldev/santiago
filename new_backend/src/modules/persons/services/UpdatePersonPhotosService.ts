@@ -1,11 +1,9 @@
 import { injectable, inject } from 'tsyringe';
-import path from 'path';
-import fs from 'fs';
 
-import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
-import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
 import Person from '@modules/persons/infra/typeorm/entities/Person';
+import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
 interface IRequest {
     person_id: string;
@@ -23,7 +21,10 @@ interface IPhoto {
 export default class UpdatePersonPhotosService {
     constructor(
         @inject('PersonsRepository')
-        private ormRepository: IPersonsRepository,
+        private personsRepository: IPersonsRepository,
+
+        @inject('StorageProvider')
+        private storageProvider: IStorageProvider,
     ) {}
 
     public async execute({
@@ -32,7 +33,7 @@ export default class UpdatePersonPhotosService {
         cpf_photo,
         residencial_proof_photo,
     }: IRequest): Promise<Person> {
-        const person = await this.ormRepository.findById(person_id);
+        const person = await this.personsRepository.findById(person_id);
 
         if (!person) {
             throw new AppError('Person not found!');
@@ -49,25 +50,16 @@ export default class UpdatePersonPhotosService {
             });
 
         for (const photo of photos) {
+            await this.storageProvider.saveFile(photo.filename);
+
             if (person[photo.field]) {
-                const filePath = path.join(
-                    uploadConfig.directory,
-                    person[photo.field],
-                );
-
-                try {
-                    const fileExists = await fs.promises.stat(filePath);
-
-                    if (fileExists) {
-                        await fs.promises.unlink(filePath);
-                    }
-                } catch {}
+                await this.storageProvider.deleteFile(person[photo.field]);
             }
 
-            person[photo.field] = `http://localhost:3333/${photo.filename}`;
+            person[photo.field] = photo.filename;
         }
 
-        await this.ormRepository.save(person);
+        await this.personsRepository.save(person);
 
         return person;
     }
