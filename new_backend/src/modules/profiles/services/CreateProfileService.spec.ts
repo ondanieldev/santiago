@@ -1,5 +1,5 @@
 import AppError from '@shared/errors/AppError';
-import FakeProfileRepository from '@modules/profiles/repositories/fakes/FakeProfileRepository';
+import FakeProfileRepository from '@modules/profiles/repositories/fakes/FakeProfilesRepository';
 import CreateProfileService from './CreateProfileService';
 
 let fakeProfileRepository: FakeProfileRepository;

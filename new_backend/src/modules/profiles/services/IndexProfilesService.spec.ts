@@ -1,4 +1,4 @@
-import FakeProfileRepository from '@modules/profiles/repositories/fakes/FakeProfileRepository';
+import FakeProfileRepository from '@modules/profiles/repositories/fakes/FakeProfilesRepository';
 import IndexProfilesService from './IndexProfilesService';
 
 let fakeProfileRepository: FakeProfileRepository;

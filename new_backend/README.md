@@ -180,23 +180,25 @@
 
 **RF**
 
-- [ ] O usuário deve poder criar um usuário atráves do nome de usuário, senha e perfil;
-- [ ] O usuário deve poder listar os usuários existentes;
-- [ ] O usuário deve poder visualizar o nome de usuário e perfil referentes a um determinado usuário;
-- [ ] O usuário deve poder atualizar todos os dados referentes a um determinado usuário;
+- [x] O usuário deve poder criar um usuário atráves do nome de usuário, senha e perfil;
+- [x] O usuário deve poder listar os usuários existentes;
+- [x] O usuário deve poder visualizar o nome de usuário e perfil referentes a um determinado usuário;
+- [x] O usuário deve poder atualizar todos os dados referentes a um determinado usuário;
 
 **RNF**
 
 - [ ] A lista de usuários deve ser armazenada em cache;
-- [ ] A senha do usuário deve ser encriptada usando o jbcrypt;
+- [x] A senha do usuário deve ser encriptada usando o jbcrypt;
 
 **RN**
 
-- [ ] O usuário não deve poder criar um usuário com nome de usuário igual ao de outro usuário;
-- [ ] O sistema deve encriptar a senha do usuário;
-- [ ] O usuário não deve poder visualizar os dados de um usuário que não existe;
-- [ ] O usuário não deve poder atualizar um usuário que não existe;
-- [ ] O usuário não deve poder atualizar um usuário com nome de usuário igual ao de outro usuário;
+- [x] O usuário não deve poder criar um usuário com nome de usuário igual ao de outro usuário;
+- [x] O usuário não deve poder criar um usuário com um perfil inexistente;
+- [x] O sistema deve encriptar a senha do usuário;
+- [x] O usuário não deve poder visualizar os dados de um usuário que não existe;
+- [x] O usuário não deve poder atualizar um usuário que não existe;
+- [x] O usuário não deve poder atualizar um usuário com nome de usuário igual ao de outro usuário;
+- [x] O usuário não deve poder atualizar um usuário com um perfil inexistente;
 
 # Autenticação de usuários
 

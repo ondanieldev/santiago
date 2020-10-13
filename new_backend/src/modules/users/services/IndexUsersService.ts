@@ -13,10 +13,6 @@ export default class IndexUsersService {
     async execute(): Promise<User[] | []> {
         const users = await this.usersRepository.find();
 
-        users.forEach(user => {
-            delete user.password;
-        });
-
         return users;
     }
 }

@@ -12,6 +12,9 @@ import DiskStorageProvider from './StorageProvider/implementations/DiskStoragePr
 import IReceiptProvider from './ReceiptProvider/models/IReceiptProvider';
 import DiskReceiptProvider from './ReceiptProvider/implementations/DiskReceiptProvider';
 
+import IHashProvider from './HashProvider/models/IHashProvider';
+import BCryptHashProvider from './HashProvider/implementations/BCryptHashProvider';
+
 container.registerInstance<IMailTemplateProvider>(
     'MailTemplateProvider',
     container.resolve(HandlebarsMailTemplateProvider),
@@ -30,4 +33,9 @@ container.registerInstance<IStorageProvider>(
 container.registerInstance<IReceiptProvider>(
     'ReceiptProvider',
     container.resolve(DiskReceiptProvider),
+);
+
+container.registerInstance<IHashProvider>(
+    'HashProvider',
+    container.resolve(BCryptHashProvider),
 );
