@@ -6,6 +6,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
     username: string;
@@ -22,6 +23,9 @@ export default class AuthenticateUserService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('HashProvider')
+        private hashProvider: IHashProvider,
     ) {}
 
     public async execute({ username, password }: IRequest): Promise<IResponse> {
@@ -31,7 +35,10 @@ export default class AuthenticateUserService {
             throw new AppError('Credenciais incorretas!', 401);
         }
 
-        const passwordsMatches = await compare(password, user.password);
+        const passwordsMatches = await this.hashProvider.compare(
+            password,
+            user.password,
+        );
 
         if (!passwordsMatches) {
             throw new AppError('Credenciais incorretas!', 401);

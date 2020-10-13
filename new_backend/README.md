@@ -204,14 +204,15 @@
 
 **RF**
 
-- [ ] O usuário deve poder acessar o sistema informando seu nome de usuário e senha;
-- [ ] O usuário deve poder receber um token de acesso contendo as suas permissões de acesso, as quais são definidas pelo perfil atribuído ao usuário;
+- [x] O usuário deve poder acessar o sistema informando seu nome de usuário e senha;
+- [x] O usuário deve poder receber um token de acesso contendo as suas permissões de acesso, as quais são definidas pelo perfil atribuído ao usuário;
 
 **RNF**
 
-- [ ] O token de acesso deve ser gerado usando o jsonwebtoken;
+- [x] O token de acesso deve ser gerado usando o jsonwebtoken;
 
 **RN**
 
-- [ ] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
+- [x] O usuário não deve poder acessar o sistema caso não esteja cadastrado no sistema;
+- [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
 - [ ] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
