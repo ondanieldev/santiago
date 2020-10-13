@@ -62,7 +62,39 @@ describe('UpdatePersonPhotos', () => {
         expect(updatedStudent.vaccine_card_photo).toBe('vaccine-card.png');
     });
 
-    it('should be able to update student photos and delete the previous photos', async () => {
+    it('should be able to update students photos when any photo had been passed', async () => {
+        const student = await fakeStudentsRepository.create({
+            birth_city: 'birth_city',
+            birth_date: new Date(),
+            birth_state: 'birth_state',
+            ease_relating: true,
+            father_name: 'father_name',
+            gender: 'male',
+            mother_name: 'mother_name',
+            nacionality: 'nacionality',
+            name: 'name',
+            race: 'white',
+            food_alergy: 'food_alergy',
+            health_plan: 'health_plan',
+            health_problem: 'health_problem',
+            medication_alergy: 'medication_alergy',
+            origin_school: 'origin_school',
+            special_necessities: 'special_necessities',
+        });
+
+        const updatedStudent = await updateStudentPhotos.execute({
+            id: student.id,
+        });
+
+        expect(updatedStudent.birth_certificate_photo).toBeUndefined();
+        expect(updatedStudent.health_plan_photo).toBeUndefined();
+        expect(updatedStudent.monthly_declaration_photo).toBeUndefined();
+        expect(updatedStudent.school_records_photo).toBeUndefined();
+        expect(updatedStudent.transfer_declaration_photo).toBeUndefined();
+        expect(updatedStudent.vaccine_card_photo).toBeUndefined();
+    });
+
+    it('should be able to update student photos and delete the previous ones', async () => {
         const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
 
         const student = await fakeStudentsRepository.create({

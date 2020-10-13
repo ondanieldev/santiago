@@ -57,6 +57,40 @@ describe('UpdatePersonPhotos', () => {
         );
     });
 
+    it('should not be able to update person photos when any photo had been passed', async () => {
+        const person = await fakePersonsRepository.create({
+            address_cep: 'address_cep',
+            address_city: 'address_city',
+            address_neighborhood: 'address_neighborhood',
+            address_number: 'address_number',
+            address_street: 'address_street',
+            birth_date: new Date(),
+            civil_state: 'civil_state',
+            commercial_phone: 'commercial_phone',
+            cpf: 'cpf',
+            education_level: 'education_level',
+            email: 'email',
+            income_tax: true,
+            monthly_income: 1000,
+            nacionality: 'nacionality',
+            name: 'name',
+            personal_phone: 'personal_phone',
+            profission: 'profission',
+            residencial_phone: 'residencial_phone',
+            rg: 'rg',
+            workplace: 'workplace',
+            address_complement: 'address_complement',
+        });
+
+        const updatedPerson = await updatePersonPhotos.execute({
+            person_id: person.id,
+        });
+
+        expect(updatedPerson.rg_photo).toBeUndefined();
+        expect(updatedPerson.cpf_photo).toBeUndefined();
+        expect(updatedPerson.residencial_proof_photo).toBeUndefined();
+    });
+
     it('should be able to update person photos and delete the previous photos', async () => {
         const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
 

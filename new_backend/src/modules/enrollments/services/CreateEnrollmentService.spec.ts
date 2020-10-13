@@ -235,7 +235,18 @@ describe('CreateEnrollment', () => {
     });
 
     it('should not be able to create a new enrollment with responsible that does not have a valid CPF', async () => {
-        financialResponsible.cpf = 'non-valid-cpf';
+        financialResponsible.cpf = '12345678911';
+
+        await expect(
+            createEnrollment.execute({
+                student,
+                grade_id: grade.id,
+                financial_responsible: financialResponsible,
+                supportive_responsible: supportiveResponsible,
+            }),
+        ).rejects.toBeInstanceOf(AppError);
+
+        financialResponsible.cpf = 'string-cpf';
 
         await expect(
             createEnrollment.execute({
