@@ -4,7 +4,7 @@ import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 
 @injectable()
-export default class IndexUnderAnalysisAndPendentEnrollmentsService {
+export default class IndexUnderAnalysisAndPendentContractsService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,

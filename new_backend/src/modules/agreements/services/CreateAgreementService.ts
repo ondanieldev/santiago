@@ -9,7 +9,7 @@ import ICreateAgreementDTO from '../dtos/ICreateAgreementDTO';
 import IAgreementsRepository from '../repositories/IAgreementsRepository';
 
 @injectable()
-export default class CreateEnrollmentService {
+export default class CreateAgreementService {
     constructor(
         @inject('AgreementsRepository')
         private agreementsRepository: IAgreementsRepository,

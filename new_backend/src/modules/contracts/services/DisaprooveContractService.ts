@@ -17,7 +17,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class AprooveOrDisaprooveEnrollmentService {
+export default class DisaprooveContractService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,

@@ -5,7 +5,7 @@ import ICreateStudentDTO from '../dtos/ICreateStudentDTO';
 import Student from '../infra/typeorm/entities/Student';
 
 @injectable()
-export default class CreateEnrollmentService {
+export default class CreateStudentService {
     constructor(
         @inject('StudentsRepository')
         private studentsRepository: IStudentsRepository,

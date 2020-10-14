@@ -5,7 +5,7 @@ import UpdateGradeService from './UpdateGradeService';
 let fakeGradesRepository: FakeGradesRepository;
 let updateGrade: UpdateGradeService;
 
-describe('FindGradeById', () => {
+describe('UpdateGrade', () => {
     beforeEach(() => {
         fakeGradesRepository = new FakeGradesRepository();
 

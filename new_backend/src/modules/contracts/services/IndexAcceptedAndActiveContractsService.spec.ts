@@ -13,7 +13,7 @@ describe('IndexAcceptedAndActiveContracts', () => {
         );
     });
 
-    it('should be able to list all enrollments with accepted or active status', async () => {
+    it('should be able to list all contracts with accepted or active status', async () => {
         const acceptedContract = await fakeContractsRepository.create({
             grade_id: 'grade1',
             status: 'accepted',
@@ -32,7 +32,7 @@ describe('IndexAcceptedAndActiveContracts', () => {
         expect(contracts[1].id).toBe(activeContract.id);
     });
 
-    it('should not be able to list enrollments without accepted or active status', async () => {
+    it('should not be able to list contracts without accepted or active status', async () => {
         await fakeContractsRepository.create({
             grade_id: 'grade1',
             status: 'underAnalysis',

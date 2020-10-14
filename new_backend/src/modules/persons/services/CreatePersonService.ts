@@ -7,7 +7,7 @@ import Person from '../infra/typeorm/entities/Person';
 import ICreatePersonDTO from '../dtos/ICreatePersonDTO';
 
 @injectable()
-export default class CreateEnrollmentService {
+export default class CreatePersonService {
     constructor(
         @inject('PersonsRepository')
         private personsRepository: IPersonsRepository,

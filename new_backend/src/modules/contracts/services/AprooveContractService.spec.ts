@@ -22,7 +22,7 @@ describe('AprooveContract', () => {
         );
     });
 
-    it('should be able to aproove enrollment, generate debit and send a notify email', async () => {
+    it('should be able to aproove contract, generate debit and send a notify email', async () => {
         const createDebit = jest.spyOn(fakeDebitsRepository, 'create');
 
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
@@ -46,7 +46,7 @@ describe('AprooveContract', () => {
         expect(sendMail).toBeCalled();
     });
 
-    it('should be able to aproove enrollment, generate debit and do not send email', async () => {
+    it('should be able to aproove contract, generate debit and do not send email', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
         const contract = await fakeContractsRepository.create({
@@ -62,7 +62,7 @@ describe('AprooveContract', () => {
         expect(sendMail).toBeCalledTimes(0);
     });
 
-    it('should not be able to aproove a non-existing enrollment', async () => {
+    it('should not be able to aproove a non-existing contract', async () => {
         await expect(
             aprooveContract.execute({
                 id: 'non-existing-enrollment',

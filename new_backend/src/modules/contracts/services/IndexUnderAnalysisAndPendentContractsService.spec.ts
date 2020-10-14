@@ -13,7 +13,7 @@ describe('IndexUnderAnalysisAndPendentContracts', () => {
         );
     });
 
-    it('should be able to list all enrollments with underAnalysis or pendent status', async () => {
+    it('should be able to list all contracts with underAnalysis or pendent status', async () => {
         const pendentContract = await fakeContractsRepository.create({
             grade_id: '1',
             status: 'pendent',
@@ -32,7 +32,7 @@ describe('IndexUnderAnalysisAndPendentContracts', () => {
         expect(contracts[1].id).toBe(underAnalysisContract.id);
     });
 
-    it('should not be able to list enrollments without underAnalysis or pendent status', async () => {
+    it('should not be able to list contracts without underAnalysis or pendent status', async () => {
         await fakeContractsRepository.create({
             grade_id: 'grade1',
             status: 'accepted',

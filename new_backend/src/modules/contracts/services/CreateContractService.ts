@@ -9,7 +9,7 @@ import ICreateContractDTO from '../dtos/ICreateContractDTO';
 import Contract from '../infra/typeorm/entities/Contract';
 
 @injectable()
-export default class CreateEnrollmentService {
+export default class CreateContractService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,

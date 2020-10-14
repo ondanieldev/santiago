@@ -7,7 +7,7 @@ let fakeStudentsRepository: FakeStudentsRepository;
 let fakeStorageProvider: FakeStorageProvider;
 let updateStudentPhotos: UpdateStudentPhotosService;
 
-describe('UpdatePersonPhotos', () => {
+describe('UpdateStudentPhotos', () => {
     beforeEach(() => {
         fakeStudentsRepository = new FakeStudentsRepository();
         fakeStorageProvider = new FakeStorageProvider();

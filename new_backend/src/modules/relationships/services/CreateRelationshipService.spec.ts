@@ -9,7 +9,7 @@ let fakeStudentsRepository: FakeStudentsRepository;
 let fakePersonsRepository: FakePersonsRepository;
 let createRelationship: CreateRelationshipService;
 
-describe('CreateContract', () => {
+describe('CreateRelationship', () => {
     beforeEach(() => {
         fakeRelationshipsRepository = new FakeRelationshipsRepository();
         fakeStudentsRepository = new FakeStudentsRepository();

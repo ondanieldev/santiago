@@ -5,7 +5,7 @@ import CreatePersonService from './CreatePersonService';
 let fakePersonsRepository: FakePersonsRepository;
 let createPerson: CreatePersonService;
 
-describe('CreateContract', () => {
+describe('CreatePerson', () => {
     beforeEach(() => {
         fakePersonsRepository = new FakePersonsRepository();
 

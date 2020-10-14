@@ -7,7 +7,7 @@ import UpdatePersonService from './UpdatePersonService';
 let fakePersonsRepository: FakePersonsRepository;
 let updatePerson: UpdatePersonService;
 
-describe('UpdateStudent', () => {
+describe('UpdatePerson', () => {
     beforeEach(() => {
         fakePersonsRepository = new FakePersonsRepository();
 

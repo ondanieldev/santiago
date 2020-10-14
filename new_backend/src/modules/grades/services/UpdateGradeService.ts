@@ -6,7 +6,7 @@ import IUpdateGradeDTO from '@modules/grades/dtos/IUpdateGradeDTO';
 import Grade from '@modules/grades/infra/typeorm/entities/Grade';
 
 @injectable()
-export default class CreateGradeService {
+export default class UpdateGradeService {
     constructor(
         @inject('GradesRepository')
         private gradesRepository: IGradesRepository,

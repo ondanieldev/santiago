@@ -6,7 +6,7 @@ import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 
 @injectable()
-export default class IndexDebitsService {
+export default class IndexDebitsByContractService {
     constructor(
         @inject('DebitsRepository')
         private debitsRepository: IDebitsRepository,

@@ -5,7 +5,7 @@ import IContractsRepository from '@modules/contracts/repositories/IContractsRepo
 import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
 
 @injectable()
-export default class FindEnrollmentByIdService {
+export default class FindContractByIdService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,

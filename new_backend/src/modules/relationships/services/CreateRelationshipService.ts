@@ -8,7 +8,7 @@ import ICreateRelationshipDTO from '../dtos/ICreateRelationshipDTO';
 import IRelationshipsRepository from '../repositories/IRelationshipsRepository';
 
 @injectable()
-export default class CreateEnrollmentService {
+export default class CreaterelationshipService {
     constructor(
         @inject('RelationshipsRepository')
         private relationshipsRepository: IRelationshipsRepository,

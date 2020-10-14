@@ -1,4 +1,5 @@
 import AppError from '@shared/errors/AppError';
+import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakePersonsRepository from '@modules/persons/repositories/fakes/FakePersonsRepository';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeAgreementsRepository from '../repositories/fakes/FakeAgreementsRepository';
@@ -6,19 +7,22 @@ import CreateAgreementService from './CreateAgreementService';
 
 let fakeAgreementsRepository: FakeAgreementsRepository;
 let fakeContractsRepository: FakeContractsRepository;
+let fakeMailProvider: FakeMailProvider;
 let fakePersonsRepository: FakePersonsRepository;
 let createAgreement: CreateAgreementService;
 
-describe('CreateContract', () => {
+describe('CreateAgreement', () => {
     beforeEach(() => {
         fakeAgreementsRepository = new FakeAgreementsRepository();
         fakeContractsRepository = new FakeContractsRepository();
         fakePersonsRepository = new FakePersonsRepository();
+        fakeMailProvider = new FakeMailProvider();
 
         createAgreement = new CreateAgreementService(
             fakeAgreementsRepository,
             fakeContractsRepository,
             fakePersonsRepository,
+            fakeMailProvider,
         );
     });
 

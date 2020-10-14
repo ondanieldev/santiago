@@ -13,7 +13,7 @@ describe('FindContractById', () => {
         findContractById = new FindContractByIdService(fakeContractsRepository);
     });
 
-    it('should be able to find enrollment by id', async () => {
+    it('should be able to find contract by id', async () => {
         const contract = await fakeContractsRepository.create({
             grade_id: 'grade',
             student_id: 'student',
@@ -24,7 +24,7 @@ describe('FindContractById', () => {
         expect(findContract.id).toBe(contract.id);
     });
 
-    it('should not be able to find a non-existing enrollment', async () => {
+    it('should not be able to find a non-existing contract', async () => {
         await fakeContractsRepository.create({
             grade_id: 'grade',
             student_id: 'student',

@@ -7,7 +7,7 @@ let fakeContractsRepository: FakeContractsRepository;
 let fakeMailProvider: FakeMailProvider;
 let disaprooveContract: DisaprooveContractService;
 
-describe('DisaprooveEnrollment', () => {
+describe('DisaprooveContract', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeMailProvider = new FakeMailProvider();
@@ -18,7 +18,7 @@ describe('DisaprooveEnrollment', () => {
         );
     });
 
-    it('should be able to disaproove enrollment and send a notify email', async () => {
+    it('should be able to disaproove contract and send a notify email', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
         const contract = await fakeContractsRepository.create({
@@ -40,7 +40,7 @@ describe('DisaprooveEnrollment', () => {
         expect(sendMail).toBeCalled();
     });
 
-    it('should be able to disaproove enrollment without sending email', async () => {
+    it('should be able to disaproove contract without sending email', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
         const contract = await fakeContractsRepository.create({
@@ -57,7 +57,7 @@ describe('DisaprooveEnrollment', () => {
         expect(sendMail).toBeCalledTimes(0);
     });
 
-    it('should not be able to aproove a non-existing enrollment', async () => {
+    it('should not be able to aproove a non-existing contract', async () => {
         await expect(
             disaprooveContract.execute({
                 id: 'non-existing-enrollment',
