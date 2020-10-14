@@ -12,14 +12,14 @@ interface IPhotos {
     school_records_photo?: string;
 }
 
-export default class PersonPhotosController {
+export default class StudentsPhotosController {
     public async update(
         request: Request,
         response: Response,
     ): Promise<Response> {
         const files = request.files as Express.Multer.File[];
 
-        const { id } = request.params;
+        const { student_id } = request.params;
 
         const photos = {} as IPhotos;
 
@@ -39,7 +39,7 @@ export default class PersonPhotosController {
         const updateStudentPhotos = container.resolve(UpdateStudentPhotos);
 
         const person = await updateStudentPhotos.execute({
-            id,
+            id: student_id,
             birth_certificate_photo: photos.birth_certificate_photo,
             health_plan_photo: photos.health_plan_photo,
             monthly_declaration_photo: photos.monthly_declaration_photo,

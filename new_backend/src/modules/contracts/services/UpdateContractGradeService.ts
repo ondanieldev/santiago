@@ -5,7 +5,7 @@ import IContractsRepository from '../repositories/IContractsRepository';
 import Contract from '../infra/typeorm/entities/Contract';
 
 interface IRequest {
-    id: string;
+    contract_id: string;
     grade_id: string;
 }
 
@@ -16,8 +16,11 @@ export default class UpdateContractGradeService {
         private contractsRepository: IContractsRepository,
     ) {}
 
-    public async execute({ id, grade_id }: IRequest): Promise<Contract> {
-        const contract = await this.contractsRepository.findById(id);
+    public async execute({
+        contract_id,
+        grade_id,
+    }: IRequest): Promise<Contract> {
+        const contract = await this.contractsRepository.findById(contract_id);
 
         if (!contract) {
             throw new AppError(

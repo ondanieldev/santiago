@@ -13,7 +13,7 @@ interface IResponsibleContact {
 }
 
 interface IRequest {
-    id: string;
+    contract_id: string;
     comment?: string;
     responsible_contact?: IResponsibleContact;
 }
@@ -32,11 +32,11 @@ export default class AprooveContractService {
     ) {}
 
     public async execute({
-        id,
+        contract_id,
         comment,
         responsible_contact,
     }: IRequest): Promise<Contract> {
-        const contract = await this.contractsRepository.findById(id);
+        const contract = await this.contractsRepository.findById(contract_id);
 
         if (!contract) {
             throw new AppError(
@@ -49,7 +49,7 @@ export default class AprooveContractService {
         await this.contractsRepository.save(contract);
 
         await this.debitsRepository.create({
-            contract_id: id,
+            contract_id,
             description: 'Primeira parcela - Matrícula',
             initial_date: new Date(),
             final_date: addMonths(new Date(), 1),

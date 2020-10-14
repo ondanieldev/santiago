@@ -7,6 +7,7 @@ const paymentsRouter = Router();
 const paymentsController = new PaymentsController();
 
 paymentsRouter.use(ensureAuthenticated);
+
 paymentsRouter.get('/', paymentsController.index);
 paymentsRouter.post('/', paymentsController.create);
 

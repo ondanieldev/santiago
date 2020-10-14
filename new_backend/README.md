@@ -1,10 +1,10 @@
-# Criação de matrículas (create enrollment and notify responsible)
+# :white_check_mark: Criação de matrículas (create enrollment and notify responsible)
 
 **RF**
 
 - [x] O usuário deve poder criar uma matrícula informando os dados dos responsáveis financeiro e solidário, os dados do aluno e a turma desejada;
 - [x] O usuário deve poder buscar por um responsável já cadastrado através de seu CPF;
-- [ ] O usuário deve poder reutilizar um responsável já cadastrado previamente através de seu id;
+- [x] O usuário deve poder reutilizar um responsável já cadastrado previamente através de seu id;
 - [x] O usuário deve poder receber um e-mail informando que seu pedido de matrícula foi recebido e será processado;
 
 **RNF**
@@ -25,7 +25,7 @@
 - [x] O usuário não deve poder cadastrar responsáveis com o mesmo e-mail, cpf ou rg;
 - [x] O usuário não deve poder cadastrar um responsável com e-mail, cpf ou rg que já estão em uso;
 - [x] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
-- [ ] O usuário não deve poder reutilizar um responsável que não existe;
+- [x] O usuário não deve poder reutilizar um responsável que não existe;
 
 # Aprovação/Reprovação de matrículas (aproove or disaproove enrollment and notify responsible)
 
@@ -61,7 +61,7 @@
 **CHANGES**
 - [x] Dia de pagamento
 
-# Atualização de fotos do responsável (update responsible photos and delete the previous ones)
+# :white_check_mark: Atualização de fotos do responsável (update responsible photos and delete the previous ones)
 
 **RF**
 
@@ -75,7 +75,7 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# Atualização de fotos do aluno (update student photos and delete the previous ones)
+# :white_check_mark: Atualização de fotos do aluno (update student photos and delete the previous ones)
 
 **RF**
 

@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import IndexDebitsService from '@modules/debits/services/IndexDebitsByContractService';
 
-export default class DebitsController {
+export default class ContractDebitsController {
     public async index(
         request: Request,
         response: Response,

@@ -63,12 +63,12 @@ export default class ProfilesController {
             crud_users_permiss,
         } = request.body;
 
-        const { id } = request.params;
+        const { profile_id } = request.params;
 
         const updateProfile = container.resolve(UpdateProfileService);
 
         const profile = await updateProfile.execute({
-            id,
+            id: profile_id,
             name,
             new_enrollment_permiss,
             discharge_payment_permiss,

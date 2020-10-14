@@ -3,15 +3,22 @@ import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
+import StudentsController from '@modules/students/infra/http/controllers/StudentsController';
 import StudentsPhotosController from '@modules/students/infra/http/controllers/StudentsPhotosController';
 
 const studentsRouter = Router();
+
 const upload = multer(uploadConfig);
+
+const studentsController = new StudentsController();
 const studentsPhotosController = new StudentsPhotosController();
 
 studentsRouter.use(ensureAuthenticated);
+
+studentsRouter.post('/', studentsController.create);
+studentsRouter.put('/:student_id', studentsController.update);
 studentsRouter.patch(
-    '/photos/:id',
+    '/photos/:student_id',
     upload.any(),
     studentsPhotosController.update,
 );

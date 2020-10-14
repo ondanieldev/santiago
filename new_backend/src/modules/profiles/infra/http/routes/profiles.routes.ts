@@ -7,8 +7,9 @@ const profilesController = new ProfilesController();
 const profilesRouter = Router();
 
 profilesRouter.use(ensureAuthenticated);
+
 profilesRouter.get('/', profilesController.index);
 profilesRouter.post('/', profilesController.create);
-profilesRouter.put('/:id', profilesController.update);
+profilesRouter.put('/:profile_id', profilesController.update);
 
 export default profilesRouter;

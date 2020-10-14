@@ -9,6 +9,6 @@ const usersRouter = Router();
 usersRouter.use(ensureAuthenticated);
 usersRouter.get('/', usersController.index);
 usersRouter.post('/', usersController.create);
-usersRouter.put('/:id', usersController.update);
+usersRouter.put('/:user_id', usersController.update);
 
 export default usersRouter;

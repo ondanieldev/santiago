@@ -38,14 +38,14 @@ export default class UsersController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { username, password, profile_id } = request.body;
+        const { user_id } = request.params;
 
-        const { id } = request.params;
+        const { username, password, profile_id } = request.body;
 
         const updateUser = container.resolve(UpdateUserService);
 
         const user = await updateUser.execute({
-            id,
+            id: user_id,
             username,
             password,
             profile_id,

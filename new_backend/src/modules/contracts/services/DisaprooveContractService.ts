@@ -11,7 +11,7 @@ interface IResponsibleContact {
 }
 
 interface IRequest {
-    id: string;
+    contract_id: string;
     comment?: string;
     responsible_contact?: IResponsibleContact;
 }
@@ -27,11 +27,11 @@ export default class DisaprooveContractService {
     ) {}
 
     public async execute({
-        id,
+        contract_id,
         comment,
         responsible_contact,
     }: IRequest): Promise<Contract> {
-        const contract = await this.contractsRepository.findById(id);
+        const contract = await this.contractsRepository.findById(contract_id);
 
         if (!contract) {
             throw new AppError(

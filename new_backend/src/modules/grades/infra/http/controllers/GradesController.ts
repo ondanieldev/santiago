@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import IndexGradesService from '@modules/grades/services/IndexGradesService';
+import FindGradeByIdService from '@modules/grades/services/FindGradeByIdService';
 import CreateGradeService from '@modules/grades/services/CreateGradeService';
 import UpdateGradeService from '@modules/grades/services/UpdateGradeService';
 
@@ -13,6 +14,16 @@ export default class GradesController {
         const indexGrades = container.resolve(IndexGradesService);
 
         const grades = await indexGrades.execute();
+
+        return response.json(grades);
+    }
+
+    public async show(request: Request, response: Response): Promise<Response> {
+        const { grade_id } = request.params;
+
+        const findGradeById = container.resolve(FindGradeByIdService);
+
+        const grades = await findGradeById.execute(grade_id);
 
         return response.json(grades);
     }
@@ -40,12 +51,12 @@ export default class GradesController {
     ): Promise<Response> {
         const { name, year, value } = request.body;
 
-        const { id } = request.params;
+        const { grade_id } = request.params;
 
         const updateGrade = container.resolve(UpdateGradeService);
 
         const grade = await updateGrade.execute({
-            id,
+            id: grade_id,
             name,
             year,
             value,

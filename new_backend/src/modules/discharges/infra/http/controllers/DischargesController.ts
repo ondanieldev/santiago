@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import CreateDischargeService from '@modules/discharges/services/CreateDischargeService';
+import CreateDischargeService from '../../../services/CreateDischargeService';
 
 export default class DischargesController {
     public async create(
