@@ -57,7 +57,8 @@
 - [x] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
 - [x] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
 - [x] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
-- [x] O usuário não deve poder desaprovar um contrato que já foi aprovado ou que já está ativo
+- [x] O usuário não deve poder aprovar ou desaprovar um contrato que já foi aprovado ou que já está ativo
+
 
 **CHANGES**
 - [x] Dia de pagamento
