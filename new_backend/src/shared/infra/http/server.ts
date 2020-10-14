@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(
     '/files',
-    express.static(uploadConfig.directory),
+    express.static(uploadConfig.uploadFolder),
     express.static(mailImagesPath),
 );
 app.use(routes);

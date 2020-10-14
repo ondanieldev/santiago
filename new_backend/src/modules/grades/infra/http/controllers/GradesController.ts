@@ -23,9 +23,9 @@ export default class GradesController {
 
         const findGradeById = container.resolve(FindGradeByIdService);
 
-        const grades = await findGradeById.execute(grade_id);
+        const grade = await findGradeById.execute(grade_id);
 
-        return response.json(grades);
+        return response.json(grade);
     }
 
     public async create(

@@ -6,11 +6,9 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 const gradesRouter = Router();
 const gradesController = new GradesController();
 
-gradesRouter.use(ensureAuthenticated);
-
 gradesRouter.get('/', gradesController.index);
-gradesRouter.post('/', gradesController.create);
-gradesRouter.put('/:grade_id', gradesController.update);
-gradesRouter.get('/:grade_id', gradesController.show);
+gradesRouter.post('/', ensureAuthenticated, gradesController.create);
+gradesRouter.put('/:grade_id', ensureAuthenticated, gradesController.update);
+gradesRouter.get('/:grade_id', ensureAuthenticated, gradesController.show);
 
 export default gradesRouter;

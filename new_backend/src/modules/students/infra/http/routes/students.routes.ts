@@ -13,10 +13,12 @@ const upload = multer(uploadConfig);
 const studentsController = new StudentsController();
 const studentsPhotosController = new StudentsPhotosController();
 
-studentsRouter.use(ensureAuthenticated);
-
 studentsRouter.post('/', studentsController.create);
-studentsRouter.put('/:student_id', studentsController.update);
+studentsRouter.put(
+    '/:student_id',
+    ensureAuthenticated,
+    studentsController.update,
+);
 studentsRouter.patch(
     '/photos/:student_id',
     upload.any(),

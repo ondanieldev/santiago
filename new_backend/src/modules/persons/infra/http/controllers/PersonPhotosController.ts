@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import UpdatePersonPhotosService from '@modules/persons/services/UpdatePersonPhotosService';
@@ -13,6 +13,7 @@ export default class PersonPhotosController {
     public async update(
         request: Request,
         response: Response,
+        _: NextFunction,
     ): Promise<Response> {
         const files = request.files as Express.Multer.File[];
 

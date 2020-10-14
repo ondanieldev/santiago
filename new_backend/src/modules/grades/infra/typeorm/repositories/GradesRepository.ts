@@ -31,7 +31,7 @@ export default class GradesRepository implements IGradesRepository {
         year: string,
     ): Promise<Grade | undefined> {
         const grade = await this.ormRepository.findOne({
-            where: [{ name }, { year }],
+            where: [{ name, year }],
         });
 
         return grade;

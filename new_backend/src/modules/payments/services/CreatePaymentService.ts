@@ -19,7 +19,7 @@ export default class CreatePaymentService {
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
 
-        @inject('ReceiptRepository')
+        @inject('ReceiptProvider')
         private receiptProvider: IReceiptProvider,
     ) {}
 

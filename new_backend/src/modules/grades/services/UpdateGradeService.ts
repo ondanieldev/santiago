@@ -26,7 +26,10 @@ export default class UpdateGradeService {
             data.year,
         );
 
-        if (gradeWithTheSameNameAndYear) {
+        if (
+            gradeWithTheSameNameAndYear &&
+            gradeWithTheSameNameAndYear.id !== grade.id
+        ) {
             throw new AppError(
                 'Não é possível atualizar os dados de uma turma utilizando o mesmo conjunto de nome e ano de outra!',
             );

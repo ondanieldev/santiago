@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import FindPersonByCpfService from '../../../services/FindPersonByCpfService';
@@ -6,7 +6,11 @@ import CreatePersonService from '../../../services/CreatePersonService';
 import UpdatePersonService from '../../../services/UpdatePersonService';
 
 export default class PersonsController {
-    public async get(request: Request, response: Response): Promise<Response> {
+    public async show(
+        request: Request,
+        response: Response,
+        _: NextFunction,
+    ): Promise<Response> {
         const { cpf } = request.params;
 
         const findPersonByCpf = container.resolve(FindPersonByCpfService);
@@ -19,6 +23,7 @@ export default class PersonsController {
     public async create(
         request: Request,
         response: Response,
+        _: NextFunction,
     ): Promise<Response> {
         const {
             name,
@@ -76,6 +81,7 @@ export default class PersonsController {
     public async update(
         request: Request,
         response: Response,
+        _: NextFunction,
     ): Promise<Response> {
         const { person_id } = request.params;
 

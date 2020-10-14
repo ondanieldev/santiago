@@ -9,6 +9,6 @@ const contractDebitsController = new ContractDebitsController();
 
 debitsRouter.use(ensureAuthenticated);
 
-debitsRouter.get('debits/:contract_id', contractDebitsController.index);
+debitsRouter.get('/:contract_id/debits', contractDebitsController.index);
 
 export default debitsRouter;

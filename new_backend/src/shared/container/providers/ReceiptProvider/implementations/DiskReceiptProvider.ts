@@ -16,6 +16,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
             '..',
             '..',
             '..',
+            '..',
             'tmp',
             'receipts',
         );
@@ -32,7 +33,11 @@ export default class DiskReceiptProvider implements IReceiptProvider {
 
         const filePath = path.resolve(this.receiptsFolder, filename);
 
-        await fs.promises.writeFile(filePath, text);
+        // await fs.promises.
+
+        await fs.promises.writeFile(filePath, text, {
+            encoding: 'utf-8',
+        });
 
         return filename;
     }

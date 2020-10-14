@@ -13,11 +13,9 @@ const upload = multer(uploadConfig);
 const personsController = new PersonsController();
 const personPhotosController = new PersonPhotosController();
 
-personsRouter.use(ensureAuthenticated);
-
 personsRouter.post('/', personsController.create);
-personsRouter.get('/:cpf', personsController.get);
-personsRouter.put('/:person_id', personsController.update);
+personsRouter.get('/:cpf', personsController.show);
+personsRouter.put('/:person_id', ensureAuthenticated, personsController.update);
 personsRouter.patch(
     '/photos/:person_id',
     upload.any(),

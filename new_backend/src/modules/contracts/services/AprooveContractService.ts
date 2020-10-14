@@ -27,7 +27,7 @@ export default class AprooveContractService {
         @inject('DebitsRepository')
         private debitsRepository: IDebitsRepository,
 
-        @inject('MailRepository')
+        @inject('MailProvider')
         private mailProvider: IMailProvider,
     ) {}
 
@@ -41,6 +41,12 @@ export default class AprooveContractService {
         if (!contract) {
             throw new AppError(
                 'Não é possível aprovar um contrato inexistente!',
+            );
+        }
+
+        if (contract.status === 'accepted' || contract.status === 'active') {
+            throw new AppError(
+                'Não é possível aprovar um contrato que já foi aprovado ou que já está ativo!',
             );
         }
 

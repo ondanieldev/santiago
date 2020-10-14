@@ -19,26 +19,6 @@ const underAnalysisAndPendentContractsController = new UnderAnalysisAndPendentCo
 
 agreementsRouter.post('/', contractsController.create);
 agreementsRouter.get(
-    '/:contract_id',
-    ensureAuthenticated,
-    contractsController.show,
-);
-agreementsRouter.patch(
-    'grade/:contract_id',
-    ensureAuthenticated,
-    contractsGradeController.update,
-);
-agreementsRouter.patch(
-    'aproove/:contract_id',
-    ensureAuthenticated,
-    aproovedContractsController.update,
-);
-agreementsRouter.patch(
-    'disaproove/:contract_id',
-    ensureAuthenticated,
-    disaproovedContractsController.update,
-);
-agreementsRouter.get(
     '/accepted-active',
     ensureAuthenticated,
     acceptedAndActiveContractsController.index,
@@ -47,6 +27,26 @@ agreementsRouter.get(
     '/under-analysis-pendent',
     ensureAuthenticated,
     underAnalysisAndPendentContractsController.index,
+);
+agreementsRouter.get(
+    '/:contract_id',
+    ensureAuthenticated,
+    contractsController.show,
+);
+agreementsRouter.patch(
+    '/:contract_id/grade',
+    ensureAuthenticated,
+    contractsGradeController.update,
+);
+agreementsRouter.patch(
+    '/:contract_id/aproove',
+    ensureAuthenticated,
+    aproovedContractsController.update,
+);
+agreementsRouter.patch(
+    '/:contract_id/disaproove',
+    ensureAuthenticated,
+    disaproovedContractsController.update,
 );
 
 export default agreementsRouter;

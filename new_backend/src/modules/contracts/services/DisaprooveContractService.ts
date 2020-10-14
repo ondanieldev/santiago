@@ -22,7 +22,7 @@ export default class DisaprooveContractService {
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,
 
-        @inject('MailRepository')
+        @inject('MailProvider')
         private mailProvider: IMailProvider,
     ) {}
 
@@ -36,6 +36,12 @@ export default class DisaprooveContractService {
         if (!contract) {
             throw new AppError(
                 'Não é possível reprovar um contrato inexistente!',
+            );
+        }
+
+        if (contract.status === 'accepted' || contract.status === 'active') {
+            throw new AppError(
+                'Não é possível reprovar um contrato que já foi aceitou ou que já está ativo!',
             );
         }
 
