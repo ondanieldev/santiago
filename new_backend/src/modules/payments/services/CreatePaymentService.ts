@@ -57,7 +57,7 @@ export default class CreatePaymentService {
             user_id,
         });
 
-        debit.paid = true;
+        Object.assign(debit, { paid: true, payday: new Date() });
 
         await this.debitsRepository.save(debit);
 

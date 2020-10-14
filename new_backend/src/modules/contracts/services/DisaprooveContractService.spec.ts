@@ -1,18 +1,18 @@
 import AppError from '@shared/errors/AppError';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
-import DisaprooveEnrollmentService from './DisaprooveEnrollmentService';
+import DisaprooveContractService from './DisaprooveContractService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeMailProvider: FakeMailProvider;
-let disaprooveEnrollment: DisaprooveEnrollmentService;
+let disaprooveContract: DisaprooveContractService;
 
-describe('AprooveEnrollment', () => {
+describe('DisaprooveEnrollment', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeMailProvider = new FakeMailProvider();
 
-        disaprooveEnrollment = new DisaprooveEnrollmentService(
+        disaprooveContract = new DisaprooveContractService(
             fakeContractsRepository,
             fakeMailProvider,
         );
@@ -27,7 +27,7 @@ describe('AprooveEnrollment', () => {
             student_id: 'student',
         });
 
-        const aproovedContract = await disaprooveEnrollment.execute({
+        const aproovedContract = await disaprooveContract.execute({
             id: contract.id,
             comment: 'disaprooving',
             responsible_contact: {
@@ -49,7 +49,7 @@ describe('AprooveEnrollment', () => {
             student_id: 'student',
         });
 
-        await disaprooveEnrollment.execute({
+        await disaprooveContract.execute({
             id: contract.id,
             comment: 'disaprooving',
         });
@@ -59,7 +59,7 @@ describe('AprooveEnrollment', () => {
 
     it('should not be able to aproove a non-existing enrollment', async () => {
         await expect(
-            disaprooveEnrollment.execute({
+            disaprooveContract.execute({
                 id: 'non-existing-enrollment',
                 comment: 'disaprooving',
                 responsible_contact: {

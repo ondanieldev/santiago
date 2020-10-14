@@ -1,14 +1,14 @@
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
-import IndexUnderAnalysisAndPendentEnrollmentsService from './IndexUnderAnalysisAndPendentEnrollmentsService';
+import IndexUnderAnalysisAndPendentContractsService from './IndexUnderAnalysisAndPendentContractsService';
 
 let fakeContractsRepository: FakeContractsRepository;
-let indexUnderAnalysisAndPendentEnrollments: IndexUnderAnalysisAndPendentEnrollmentsService;
+let indexUnderAnalysisAndPendentContracts: IndexUnderAnalysisAndPendentContractsService;
 
-describe('IndexUnderAnalysisAndPendentEnrollments', () => {
+describe('IndexUnderAnalysisAndPendentContracts', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
 
-        indexUnderAnalysisAndPendentEnrollments = new IndexUnderAnalysisAndPendentEnrollmentsService(
+        indexUnderAnalysisAndPendentContracts = new IndexUnderAnalysisAndPendentContractsService(
             fakeContractsRepository,
         );
     });
@@ -26,7 +26,7 @@ describe('IndexUnderAnalysisAndPendentEnrollments', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexUnderAnalysisAndPendentEnrollments.execute();
+        const contracts = await indexUnderAnalysisAndPendentContracts.execute();
 
         expect(contracts[0].id).toBe(pendentContract.id);
         expect(contracts[1].id).toBe(underAnalysisContract.id);
@@ -45,7 +45,7 @@ describe('IndexUnderAnalysisAndPendentEnrollments', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexUnderAnalysisAndPendentEnrollments.execute();
+        const contracts = await indexUnderAnalysisAndPendentContracts.execute();
 
         expect(contracts).toStrictEqual([]);
     });

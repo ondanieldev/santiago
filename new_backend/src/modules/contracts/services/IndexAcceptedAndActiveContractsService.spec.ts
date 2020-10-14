@@ -1,14 +1,14 @@
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
-import IndexAcceptedAndActiveEnrollmentsService from './IndexAcceptedAndActiveEnrollmentsService';
+import IndexAcceptedAndActiveContractsService from './IndexAcceptedAndActiveContractsService';
 
 let fakeContractsRepository: FakeContractsRepository;
-let indexAcceptedAndActiveEnrollments: IndexAcceptedAndActiveEnrollmentsService;
+let indexAcceptedAndActiveContracts: IndexAcceptedAndActiveContractsService;
 
-describe('IndexAcceptedAndActiveEnrollmentsService', () => {
+describe('IndexAcceptedAndActiveContracts', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
 
-        indexAcceptedAndActiveEnrollments = new IndexAcceptedAndActiveEnrollmentsService(
+        indexAcceptedAndActiveContracts = new IndexAcceptedAndActiveContractsService(
             fakeContractsRepository,
         );
     });
@@ -26,7 +26,7 @@ describe('IndexAcceptedAndActiveEnrollmentsService', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexAcceptedAndActiveEnrollments.execute();
+        const contracts = await indexAcceptedAndActiveContracts.execute();
 
         expect(contracts[0].id).toBe(acceptedContract.id);
         expect(contracts[1].id).toBe(activeContract.id);
@@ -45,7 +45,7 @@ describe('IndexAcceptedAndActiveEnrollmentsService', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexAcceptedAndActiveEnrollments.execute();
+        const contracts = await indexAcceptedAndActiveContracts.execute();
 
         expect(contracts).toStrictEqual([]);
     });

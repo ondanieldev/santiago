@@ -30,6 +30,15 @@ export default class Debit {
     @Column('date')
     final_date: Date;
 
+    @Column('date')
+    payday: Date;
+
+    @Column({
+        type: 'enum',
+        enum: ['enrollment', 'installment'],
+    })
+    type: 'enrollment' | 'installment';
+
     @Column()
     contract_id: string;
 

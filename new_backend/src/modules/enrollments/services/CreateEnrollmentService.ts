@@ -116,7 +116,6 @@ export default class CreateEnrollmentService {
         const createdContract = await this.contractsRepository.create({
             grade_id,
             student_id: createdStudent.id,
-            status: 'underAnalysis',
         });
 
         const responsibles_ids: string[] = [];

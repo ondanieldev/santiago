@@ -1,32 +1,25 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeAgreementsRepository from '@modules/agreements/repositories/fakes/FakeAgreementsRepository';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
-import FindEnrollmentByIdService from './FindEnrollmentByIdService';
+import FindContractByIdService from './FindContractByIdService';
 
-let fakeAgreementsRepository: FakeAgreementsRepository;
 let fakeContractsRepository: FakeContractsRepository;
-let findEnrollmentById: FindEnrollmentByIdService;
+let findContractById: FindContractByIdService;
 
-describe('FindEnrollmentByIdService', () => {
+describe('FindContractById', () => {
     beforeEach(() => {
-        fakeAgreementsRepository = new FakeAgreementsRepository();
         fakeContractsRepository = new FakeContractsRepository();
 
-        findEnrollmentById = new FindEnrollmentByIdService(
-            fakeContractsRepository,
-            fakeAgreementsRepository,
-        );
+        findContractById = new FindContractByIdService(fakeContractsRepository);
     });
 
     it('should be able to find enrollment by id', async () => {
         const contract = await fakeContractsRepository.create({
             grade_id: 'grade',
-            status: 'underAnalysis',
             student_id: 'student',
         });
 
-        const findContract = await findEnrollmentById.execute(contract.id);
+        const findContract = await findContractById.execute(contract.id);
 
         expect(findContract.id).toBe(contract.id);
     });
@@ -34,12 +27,11 @@ describe('FindEnrollmentByIdService', () => {
     it('should not be able to find a non-existing enrollment', async () => {
         await fakeContractsRepository.create({
             grade_id: 'grade',
-            status: 'underAnalysis',
             student_id: 'student',
         });
 
         expect(
-            findEnrollmentById.execute('non-existing-enrollment'),
+            findContractById.execute('non-existing-enrollment'),
         ).rejects.toBeInstanceOf(AppError);
     });
 });

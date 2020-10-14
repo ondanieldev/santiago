@@ -1,5 +1,4 @@
 import { injectable, inject } from 'tsyringe';
-import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
@@ -36,7 +35,7 @@ export default class AprooveOrDisaprooveEnrollmentService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível reprovar um contrato não existente!',
+                'Não é possível reprovar um contrato inexistente!',
             );
         }
 
@@ -45,13 +44,6 @@ export default class AprooveOrDisaprooveEnrollmentService {
         await this.contractsRepository.save(contract);
 
         if (responsible_contact) {
-            const templatePath = path.resolve(
-                __dirname,
-                '..',
-                'views',
-                'notify_disaproove_enrollment.hbs',
-            );
-
             await this.mailProvider.sendMail({
                 to: {
                     name: responsible_contact.name,
@@ -59,7 +51,7 @@ export default class AprooveOrDisaprooveEnrollmentService {
                 },
                 subject: '[Santiago] Matrícula Pendente',
                 body: {
-                    file: templatePath,
+                    file: 'notify_disaproove_enrollment.hbs',
                     variables: {
                         responsibleName: responsible_contact.name,
                     },

@@ -4,4 +4,5 @@ export default interface ICreateDeebitDTO {
     initial_date: Date;
     final_date: Date;
     contract_id: string;
+    type?: 'enrollment' | 'installment';
 }

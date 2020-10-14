@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 import { addMonths } from 'date-fns';
-import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
@@ -41,7 +40,7 @@ export default class AprooveOrDisaprooveEnrollmentService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível aprovar um contrato não existente!',
+                'Não é possível aprovar um contrato inexistente!',
             );
         }
 
@@ -55,16 +54,10 @@ export default class AprooveOrDisaprooveEnrollmentService {
             initial_date: new Date(),
             final_date: addMonths(new Date(), 1),
             value: contract.grade.value,
+            type: 'enrollment',
         });
 
         if (responsible_contact) {
-            const templatePath = path.resolve(
-                __dirname,
-                '..',
-                'views',
-                'notify_aproove_enrollment.hbs',
-            );
-
             await this.mailProvider.sendMail({
                 to: {
                     name: responsible_contact.name,
@@ -72,7 +65,7 @@ export default class AprooveOrDisaprooveEnrollmentService {
                 },
                 subject: '[Santiago] Matrícula Aprovada',
                 body: {
-                    file: templatePath,
+                    file: 'notify_aproove_enrollment.hbs',
                     variables: {
                         responsibleName: responsible_contact.name,
                     },
