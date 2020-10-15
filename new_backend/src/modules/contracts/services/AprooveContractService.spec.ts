@@ -2,11 +2,13 @@ import AppError from '@shared/errors/AppError';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeDebitsRepository from '@modules/debits/repositories/fakes/FakeDebitsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import AprooveContractService from './AprooveContractService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeDebitsRepository: FakeDebitsRepository;
 let fakeMailProvider: FakeMailProvider;
+let fakeCacheProvider: FakeCacheProvider;
 let aprooveContract: AprooveContractService;
 
 describe('AprooveContract', () => {
@@ -14,11 +16,13 @@ describe('AprooveContract', () => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeDebitsRepository = new FakeDebitsRepository();
         fakeMailProvider = new FakeMailProvider();
+        fakeCacheProvider = new FakeCacheProvider();
 
         aprooveContract = new AprooveContractService(
             fakeContractsRepository,
             fakeDebitsRepository,
             fakeMailProvider,
+            fakeCacheProvider,
         );
     });
 

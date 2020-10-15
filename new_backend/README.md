@@ -226,5 +226,5 @@
 - [x] Implementar class transformer para ocultar senhas e exibir urls
 - [ ] Implementar celebrate para filtrar dados vindos do front-end
 - [ ] Implementar express rate limit para evitar ataques de brute force
-- [ ] Configurar providers
-- [ ] Configurar variáveis de ambiente
+- [x] Configurar providers
+- [x] Configurar variáveis de ambiente

@@ -111,7 +111,7 @@ export default class Student {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.birth_certificate_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.birth_certificate_photo}`;
             default:
                 return null;
         }
@@ -125,7 +125,7 @@ export default class Student {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.vaccine_card_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.vaccine_card_photo}`;
             default:
                 return null;
         }
@@ -139,7 +139,7 @@ export default class Student {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.health_plan_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.health_plan_photo}`;
             default:
                 return null;
         }
@@ -153,7 +153,7 @@ export default class Student {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.transfer_declaration_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.transfer_declaration_photo}`;
             default:
                 return null;
         }
@@ -167,7 +167,7 @@ export default class Student {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.monthly_declaration_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.monthly_declaration_photo}`;
             default:
                 return null;
         }
@@ -181,7 +181,7 @@ export default class Student {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.school_records_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.school_records_photo}`;
             default:
                 return null;
         }

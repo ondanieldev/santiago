@@ -20,7 +20,7 @@ interface IUploadConfig {
 export default {
     tmpFolder,
     uploadFolder,
-    driver: process.env.STORAGE_DRIVER,
+    driver: 'disk',
     multer: {
         storage: multer.diskStorage({
             destination: tmpFolder,

@@ -1,20 +1,24 @@
 import AppError from '@shared/errors/AppError';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import DisaprooveContractService from './DisaprooveContractService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeMailProvider: FakeMailProvider;
+let fakeCacheProvider: FakeCacheProvider;
 let disaprooveContract: DisaprooveContractService;
 
 describe('DisaprooveContract', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeMailProvider = new FakeMailProvider();
+        fakeCacheProvider = new FakeCacheProvider();
 
         disaprooveContract = new DisaprooveContractService(
             fakeContractsRepository,
             fakeMailProvider,
+            fakeCacheProvider,
         );
     });
 

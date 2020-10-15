@@ -9,6 +9,10 @@ export default class FakeCacheProvider implements ICacheProvider {
     }
 
     public async recovery<T>(key: string): Promise<T | null> {
+        if (!this.cache[key]) {
+            return null;
+        }
+
         return JSON.parse(this.cache[key]) as T;
     }
 

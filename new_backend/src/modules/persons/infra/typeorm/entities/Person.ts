@@ -111,7 +111,7 @@ export default class Person {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.cpf_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.cpf_photo}`;
             default:
                 return null;
         }
@@ -125,7 +125,7 @@ export default class Person {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.rg_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.rg_photo}`;
             default:
                 return null;
         }
@@ -139,7 +139,7 @@ export default class Person {
 
         switch (uploadConfig.driver) {
             case 'disk':
-                return `http://localhost/files/${this.residencial_proof_photo}`;
+                return `${process.env.APP_API_URL}/files/${this.residencial_proof_photo}`;
             default:
                 return null;
         }

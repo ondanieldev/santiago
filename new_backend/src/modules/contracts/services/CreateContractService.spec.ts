@@ -1,12 +1,14 @@
 import AppError from '@shared/errors/AppError';
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
 import FakeStudentsRepository from '@modules/students/repositories/fakes/FakeStudentsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeContractsRepository from '../repositories/fakes/FakeContractsRepository';
 import CreateContractService from './CreateContractService';
 
 let fakeStudentsRepository: FakeStudentsRepository;
 let fakeGradesRepository: FakeGradesRepository;
 let fakeContractsRepository: FakeContractsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createContract: CreateContractService;
 
 describe('CreateContract', () => {
@@ -14,11 +16,13 @@ describe('CreateContract', () => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeStudentsRepository = new FakeStudentsRepository();
         fakeGradesRepository = new FakeGradesRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
         createContract = new CreateContractService(
             fakeContractsRepository,
             fakeStudentsRepository,
             fakeGradesRepository,
+            fakeCacheProvider,
         );
     });
 
