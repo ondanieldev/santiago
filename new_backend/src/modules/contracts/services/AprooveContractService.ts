@@ -6,6 +6,7 @@ import IContractsRepository from '@modules/contracts/repositories/IContractsRepo
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IResponsibleContact {
     name: string;
@@ -29,6 +30,9 @@ export default class AprooveContractService {
 
         @inject('MailProvider')
         private mailProvider: IMailProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     public async execute({
@@ -78,6 +82,12 @@ export default class AprooveContractService {
                 },
             });
         }
+
+        await this.cacheProvider.invalidate(
+            'under-analysis-and-pendent-contracts',
+        );
+
+        await this.cacheProvider.invalidate('accepted-and-active-contracts');
 
         return contract;
     }

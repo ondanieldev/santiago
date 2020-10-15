@@ -27,7 +27,7 @@
 - [x] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
 - [x] O usuário não deve poder reutilizar um responsável que não existe;
 
-# Aprovação/Reprovação de matrículas (aproove or disaproove enrollment and notify responsible)
+# :white_check_mark: Aprovação/Reprovação de matrículas (aproove or disaproove enrollment and notify responsible)
 
 **RF**
 
@@ -45,13 +45,13 @@
 
 **RNF**
 
-- [ ] A lista de matrículas deve ser armazenada em cache;
+- [x] A lista de matrículas deve ser armazenada em cache;
 - [x] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
 
 **RN**
 
 - [x] O usuário não deve poder listar matrículas que não estejam com status de análise ou de pendência;
-- [ ] Ao buscar as entradas no banco, apenas os dados essenciais de exibição devem ser baixados;
+- [x] Ao buscar as entradas no banco, apenas os dados essenciais de exibição devem ser baixados;
 - [x] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
 - [x] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
 - [x] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
@@ -226,3 +226,5 @@
 - [x] Implementar class transformer para ocultar senhas e exibir urls
 - [ ] Implementar celebrate para filtrar dados vindos do front-end
 - [ ] Implementar express rate limit para evitar ataques de brute force
+- [ ] Configurar providers
+- [ ] Configurar variáveis de ambiente

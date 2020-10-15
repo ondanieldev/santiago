@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
 import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IContractsRepository from '../repositories/IContractsRepository';
 import ICreateContractDTO from '../dtos/ICreateContractDTO';
 import Contract from '../infra/typeorm/entities/Contract';
@@ -19,6 +20,9 @@ export default class CreateContractService {
 
         @inject('GradesRepository')
         private gradesRepository: IGradesRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     public async execute({
@@ -49,6 +53,10 @@ export default class CreateContractService {
             grade_id,
             student_id,
         });
+
+        await this.cacheProvider.invalidate(
+            'under-analysis-and-pendent-contracts',
+        );
 
         return contract;
     }

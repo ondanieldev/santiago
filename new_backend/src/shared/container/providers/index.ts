@@ -1,4 +1,5 @@
 import './StorageProvider';
+import './CacheProvider';
 
 import { container } from 'tsyringe';
 

@@ -21,17 +21,39 @@ export default class ContractsRepository implements IContractsRepository {
     }
 
     public async findUnderAnalysisAndPendent(): Promise<Contract[] | []> {
-        const contracts = this.ormRepository.find({
-            where: [{ status: 'underAnalysis' }, { status: 'pendent' }],
-        });
+        const contracts = this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where(
+                "contract.status = 'underAnalysis' or contract.status = 'pendent'",
+            )
+            .getMany();
 
         return contracts;
     }
 
     public async findAcceptedAndActive(): Promise<Contract[] | []> {
-        const contracts = this.ormRepository.find({
-            where: [{ status: 'accepted' }, { status: 'active' }],
-        });
+        const contracts = this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where("contract.status = 'accepted' or contract.status = 'active'")
+            .getMany();
 
         return contracts;
     }
