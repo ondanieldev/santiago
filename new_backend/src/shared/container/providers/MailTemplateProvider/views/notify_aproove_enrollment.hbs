@@ -1,111 +1,22 @@
-<style>
-    body {
-        display: flex;
-        justify-content: center;
-    }
+<div class="regards">
+    <h1>
+        Sejam bem-vindos!
+    </h1>
+    <strong>
+        Nós estamos felizes por contarem conosco nesse
+        importante processo de aprendizagem!
+    </strong>
+</div>
 
-    .message-content {
-        font: Arial, Helvetica, sans-serif;
-        max-width: 600px;
-        font-size: 18px;
-        line-height: 21px;
-        text-align: justify;
-    }
-
-    .header {
-        background-color: #e0e0e0;
-        padding: 12px 24px;
-        display: flex;
-        justify-content: center;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .header img {
-        height: 80px;
-    }
-
-    .regards {
-        padding: 24px 24px 12px 24px;
-        text-align: center;
-        background-color: #f5f5f5;
-        color: #212529;
-    }
-
-    .message {
-        padding: 24px;
-        background-color: #f5f5f5;
-        color: #212529;
-    }
-
-    .message li + li {
-        margin-top: 4px;
-    }
-
-    .footer {
-        padding: 24px;
-        background-color: #013C64;
-        border-radius: 0 0 8px 8px;
-        color: #fafafa;
-    }
-
-    .footer div {
-        display: block;
-    }
-
-    .footer div + div {
-        margin-top: 2px;
-    }
-
-    .footer img {
-        height: 28px;
-    }
-
-    .footer span {
-        font-size: 14px;
-    }
-</style>
-
-<div class="message-content">
-    <center>
-        <div class="header">
-            <img src="http://localhost:3333/files/logo.png" alt="logo" />
-        </div>
-    </center>
-
-    <div class="regards">
-        <h1>
-            Sejam bem-vindos!
-        </h1>
-        <strong>
-            Nós estamos felizes por contarem conosco nesse
-            importante processo de aprendizagem!
-        </strong>
-    </div>
-
-    <div class="message">
-        <p>Olá, {{responsibleName}}!</p>
-        <p>
-            Sua solicitação de matrícula foi aprovada, retornaremos
-            em breve com as instruções para prosseguirmos!
-        </p>
-        <p>
-            Atenciosamente,
-            <br />
-            Equipe Santiago.
-        </p>
-    </div>
-
-    <div class="footer">
-        <center>
-            <div>
-                <img src="http://localhost:3333/files/placeholder.png" alt="svg" />
-                <span>R. Rio Grande do Sul, 863 - Espírito Santo, Betim - MG, 32671-686</span>
-            </div>
-
-            <div>
-                <img src="http://localhost:3333/files/phone.png" alt="svg" />
-                <span>(31) 98821-9096</span>
-            </div>
-        </center>
-    </div>
+<div class="message">
+    <p>Olá, {{responsibleName}}!</p>
+    <p>
+        Sua solicitação de matrícula foi aprovada, retornaremos
+        em breve com as instruções para prosseguirmos!
+    </p>
+    <p>
+        Atenciosamente,
+        <br />
+        Equipe Santiago.
+    </p>
 </div>
