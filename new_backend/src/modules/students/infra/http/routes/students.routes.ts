@@ -8,7 +8,7 @@ import StudentsPhotosController from '@modules/students/infra/http/controllers/S
 
 const studentsRouter = Router();
 
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 
 const studentsController = new StudentsController();
 const studentsPhotosController = new StudentsPhotosController();

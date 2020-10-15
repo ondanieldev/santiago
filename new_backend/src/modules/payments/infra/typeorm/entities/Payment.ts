@@ -6,6 +6,7 @@ import {
     JoinColumn,
     ManyToOne,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
 
 import Debit from '@modules/debits/infra/typeorm/entities/Debit';
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -29,6 +30,9 @@ export default class Payment {
     discharged: boolean;
 
     @Column()
+    receipt: string;
+
+    @Column()
     debit_id: string;
 
     @Column()
@@ -44,4 +48,13 @@ export default class Payment {
 
     @OneToOne(() => Discharge, discharge => discharge.payment)
     discharge: Discharge;
+
+    @Expose({ name: 'receipt_url' })
+    getReceiptURL(): string | null {
+        if (!this.receipt) {
+            return null;
+        }
+
+        return `http://localhost/files/${this.receipt}`;
+    }
 }

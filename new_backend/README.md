@@ -222,7 +222,7 @@
 # General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado
 - [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo
-- [ ] Configurar providers com variáveis de ambiente
-- [ ] Implementar class transformer para ocultar senhas e exibir urls
+- [x] Configurar providers com variáveis de ambiente
+- [x] Implementar class transformer para ocultar senhas e exibir urls
 - [ ] Implementar celebrate para filtrar dados vindos do front-end
 - [ ] Implementar express rate limit para evitar ataques de brute force

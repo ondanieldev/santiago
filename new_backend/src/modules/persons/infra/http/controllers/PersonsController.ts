@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import FindPersonByCpfService from '../../../services/FindPersonByCpfService';
 import CreatePersonService from '../../../services/CreatePersonService';
@@ -17,7 +18,7 @@ export default class PersonsController {
 
         const person = await findPersonByCpf.execute(cpf);
 
-        return response.json(person);
+        return response.json(classToClass(person));
     }
 
     public async create(
@@ -75,7 +76,7 @@ export default class PersonsController {
             email,
         });
 
-        return response.json(person);
+        return response.json(classToClass(person));
     }
 
     public async update(
@@ -136,6 +137,6 @@ export default class PersonsController {
             email,
         });
 
-        return response.json(person);
+        return response.json(classToClass(person));
     }
 }

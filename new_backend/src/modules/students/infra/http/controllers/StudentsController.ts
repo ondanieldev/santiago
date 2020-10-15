@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateStudentService from '../../../services/CreateStudentService';
 import UpdateStudentService from '../../../services/UpdateStudentService';
@@ -49,7 +50,7 @@ export default class StudentsController {
             special_necessities,
         });
 
-        return response.json(student);
+        return response.json(classToClass(student));
     }
 
     public async update(
@@ -99,6 +100,6 @@ export default class StudentsController {
             special_necessities,
         });
 
-        return response.json(student);
+        return response.json(classToClass(student));
     }
 }

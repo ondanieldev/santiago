@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import IndexUsersService from '@modules/users/services/IndexUsersService';
 import CreateUserService from '@modules/users/services/CreateUserService';
@@ -14,7 +15,7 @@ export default class UsersController {
 
         const users = await indexUsers.execute();
 
-        return response.json(users);
+        return response.json(classToClass(users));
     }
 
     public async create(
@@ -31,7 +32,7 @@ export default class UsersController {
             profile_id,
         });
 
-        return response.json(user);
+        return response.json(classToClass(user));
     }
 
     public async update(
@@ -51,6 +52,6 @@ export default class UsersController {
             profile_id,
         });
 
-        return response.json(user);
+        return response.json(classToClass(user));
     }
 }

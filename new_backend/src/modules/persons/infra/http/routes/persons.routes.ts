@@ -8,7 +8,7 @@ import PersonPhotosController from '@modules/persons/infra/http/controllers/Pers
 
 const personsRouter = Router();
 
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 
 const personsController = new PersonsController();
 const personPhotosController = new PersonPhotosController();

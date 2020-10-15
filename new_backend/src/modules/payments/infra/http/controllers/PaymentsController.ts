@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import IndexPaymentsService from '@modules/payments/services/IndexUndischargedPaymentsService';
 import CreatePaymentService from '@modules/payments/services/CreatePaymentService';
@@ -13,7 +14,7 @@ export default class PaymentsController {
 
         const payments = await indexPayments.execute();
 
-        return response.json(payments);
+        return response.json(classToClass(payments));
     }
 
     public async create(
@@ -32,6 +33,6 @@ export default class PaymentsController {
             user_id,
         });
 
-        return response.json(payment);
+        return response.json(classToClass(payment));
     }
 }

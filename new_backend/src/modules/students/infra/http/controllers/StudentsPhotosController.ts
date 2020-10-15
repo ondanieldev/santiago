@@ -1,5 +1,6 @@
 import { Request, Response, Express } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import UpdateStudentPhotos from '@modules/students/services/UpdateStudentPhotosService';
 
@@ -38,7 +39,7 @@ export default class StudentsPhotosController {
 
         const updateStudentPhotos = container.resolve(UpdateStudentPhotos);
 
-        const person = await updateStudentPhotos.execute({
+        const student = await updateStudentPhotos.execute({
             id: student_id,
             birth_certificate_photo: photos.birth_certificate_photo,
             health_plan_photo: photos.health_plan_photo,
@@ -48,6 +49,6 @@ export default class StudentsPhotosController {
             vaccine_card_photo: photos.vaccine_card_photo,
         });
 
-        return response.json(person);
+        return response.json(classToClass(student));
     }
 }

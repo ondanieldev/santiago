@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import UpdatePersonPhotosService from '@modules/persons/services/UpdatePersonPhotosService';
 
@@ -40,6 +41,6 @@ export default class PersonPhotosController {
             residencial_proof_photo: photos.residencial_proof_photo,
         });
 
-        return response.json(person);
+        return response.json(classToClass(person));
     }
 }

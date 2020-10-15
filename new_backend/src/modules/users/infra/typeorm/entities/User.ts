@@ -7,6 +7,7 @@ import {
     OneToMany,
     JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import Profile from '@modules/profiles/infra/typeorm/entities/Profile';
 import Person from '@modules/persons/infra/typeorm/entities/Person';
@@ -23,6 +24,7 @@ class User {
     username: string;
 
     @Column()
+    @Exclude()
     password: string;
 
     @Column()

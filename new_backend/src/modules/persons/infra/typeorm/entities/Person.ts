@@ -6,10 +6,12 @@ import {
     OneToMany,
     OneToOne,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import Relationship from '@modules/relationships/infra/typeorm/entities/Relationship';
 import Agreement from '@modules/agreements/infra/typeorm/entities/Agreement';
+import uploadConfig from '@config/upload';
 
 @Entity('persons')
 export default class Person {
@@ -100,4 +102,46 @@ export default class Person {
 
     @OneToMany(() => Agreement, agreement => agreement.person)
     agreements: Agreement[];
+
+    @Expose({ name: 'cpf_photo_url' })
+    getCpfPhotoURL(): string | null {
+        if (!this.cpf_photo) {
+            return null;
+        }
+
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `http://localhost/files/${this.cpf_photo}`;
+            default:
+                return null;
+        }
+    }
+
+    @Expose({ name: 'rg_photo_url' })
+    getRgPhotoURL(): string | null {
+        if (!this.rg_photo) {
+            return null;
+        }
+
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `http://localhost/files/${this.rg_photo}`;
+            default:
+                return null;
+        }
+    }
+
+    @Expose({ name: 'residencial_proof_photo_url' })
+    getResidencialProofPhotoURL(): string | null {
+        if (!this.residencial_proof_photo) {
+            return null;
+        }
+
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `http://localhost/files/${this.residencial_proof_photo}`;
+            default:
+                return null;
+        }
+    }
 }
