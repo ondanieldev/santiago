@@ -4,12 +4,16 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Grade from '@modules/grades/infra/typeorm/entities/Grade';
 import ICreateGradeDTO from '@modules/grades/dtos/ICreateGradeDTO';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 export default class CreateGradeService {
     constructor(
         @inject('GradesRepository')
         private gradesRepository: IGradesRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     public async execute({
@@ -33,6 +37,8 @@ export default class CreateGradeService {
             value,
             year,
         });
+
+        await this.cacheProvider.invalidate('grades');
 
         return grade;
     }

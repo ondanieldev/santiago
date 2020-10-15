@@ -1,15 +1,21 @@
 import AppError from '@shared/errors/AppError';
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import CreateGradeService from './CreateGradeService';
 
 let fakeGradesRepository: FakeGradesRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createGrade: CreateGradeService;
 
 describe('CreateGrade', () => {
     beforeEach(() => {
         fakeGradesRepository = new FakeGradesRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
-        createGrade = new CreateGradeService(fakeGradesRepository);
+        createGrade = new CreateGradeService(
+            fakeGradesRepository,
+            fakeCacheProvider,
+        );
     });
 
     it('should be able to create a grade by passing name, year and value', async () => {

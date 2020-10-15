@@ -140,7 +140,7 @@
 - [x] O usuário não deve poder receber um pagamento que não existe;
 - [x] O usuário não deve poder receber um pagamento que já foi recebido;
 
-# CRUD de turmas (create, update and list grades)
+# :white_check_mark: CRUD de turmas (create, update and list grades)
 
 **RF**
 
@@ -151,7 +151,7 @@
 
 **RNF**
 
-- [ ] A lista de turmas deve ser armazenada em cache;
+- [x] A lista de turmas deve ser armazenada em cache;
 
 **RN**
 
@@ -160,7 +160,7 @@
 - [x] O usuário não deve poder atualizar uma turma que não existe;
 - [x] O usuário não deve poder atualizar uma turma com o conjunto nome e ano igual ao de outra turma;
 
-# CRUD de perfis
+# :white_check_mark: CRUD de perfis (create, update and list profiles)
 
 **RF**
 
@@ -170,7 +170,7 @@
 
 **RNF**
 
-- [ ] A lista de perfis deve ser armazenada em cache;
+- [x] A lista de perfis deve ser armazenada em cache;
 
 **RN**
 
@@ -178,7 +178,7 @@
 - [x] O usuário não deve poder atualizar um perfil que não existe;
 - [x] O usuário não deve poder atualizar um perfil com nome igual ao de outro perfil;
 
-# CRUD de usuários
+# :white_check_mark: CRUD de usuários
 
 **RF**
 
@@ -189,7 +189,7 @@
 
 **RNF**
 
-- [ ] A lista de usuários deve ser armazenada em cache;
+- [x] A lista de usuários deve ser armazenada em cache;
 - [x] A senha do usuário deve ser encriptada usando o jbcrypt;
 
 **RN**

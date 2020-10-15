@@ -31,7 +31,9 @@ describe('IndexUndischargedPayments', () => {
     });
 
     it('should be able to index all cached undischarged payments', async () => {
-        const payment = await fakePaymentsRepository.create({
+        const registerCache = jest.spyOn(fakeCacheProvider, 'register');
+
+        await fakePaymentsRepository.create({
             amount: 100,
             debit_id: 'debit',
             method: 'cash',
@@ -40,8 +42,8 @@ describe('IndexUndischargedPayments', () => {
 
         await indexUndischargedPayments.execute();
 
-        const cachedPayments = await indexUndischargedPayments.execute();
+        await indexUndischargedPayments.execute();
 
-        expect(cachedPayments[0].id).toBe(payment.id);
+        expect(registerCache).toBeCalledTimes(1);
     });
 });

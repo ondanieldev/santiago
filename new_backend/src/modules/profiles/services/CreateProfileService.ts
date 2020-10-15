@@ -4,12 +4,16 @@ import Profile from '@modules/profiles/infra/typeorm/entities/Profile';
 import AppError from '@shared/errors/AppError';
 import ICreateProfileDTO from '@modules/profiles/dtos/ICreateProfileDTO';
 import IProfilesRepository from '@modules/profiles/repositories/IProfilesRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 class CreateProfileService {
     constructor(
         @inject('ProfilesRepository')
         private profilesRepository: IProfilesRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     async execute({
@@ -42,6 +46,8 @@ class CreateProfileService {
             crud_profiles_permiss,
             crud_users_permiss,
         });
+
+        await this.cacheProvider.invalidate('profiles');
 
         return profile;
     }

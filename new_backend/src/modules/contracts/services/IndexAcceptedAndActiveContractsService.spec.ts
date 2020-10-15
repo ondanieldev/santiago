@@ -37,13 +37,15 @@ describe('IndexAcceptedAndActiveContracts', () => {
     });
 
     it('should be able to list all cashed contracts with accepted or active status', async () => {
-        const acceptedContract = await fakeContractsRepository.create({
+        const registerCache = jest.spyOn(fakeCacheProvider, 'register');
+
+        await fakeContractsRepository.create({
             grade_id: 'grade1',
             status: 'accepted',
             student_id: 'student1',
         });
 
-        const activeContract = await fakeContractsRepository.create({
+        await fakeContractsRepository.create({
             grade_id: 'grade2',
             status: 'active',
             student_id: 'student2',
@@ -51,10 +53,9 @@ describe('IndexAcceptedAndActiveContracts', () => {
 
         await indexAcceptedAndActiveContracts.execute();
 
-        const cashedContracts = await indexAcceptedAndActiveContracts.execute();
+        await indexAcceptedAndActiveContracts.execute();
 
-        expect(cashedContracts[0].id).toBe(acceptedContract.id);
-        expect(cashedContracts[1].id).toBe(activeContract.id);
+        expect(registerCache).toBeCalledTimes(1);
     });
 
     it('should not be able to list contracts without accepted or active status', async () => {

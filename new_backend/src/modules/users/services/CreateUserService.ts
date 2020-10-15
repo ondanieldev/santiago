@@ -6,6 +6,7 @@ import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IProfilesRepository from '@modules/profiles/repositories/IProfilesRepository';
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 export default class CreateUserService {
@@ -18,6 +19,9 @@ export default class CreateUserService {
 
         @inject('HashProvider')
         private hashProvider: IHashProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     async execute({
@@ -50,6 +54,8 @@ export default class CreateUserService {
             password: hashedPassword,
             profile_id,
         });
+
+        await this.cacheProvider.invalidate('users');
 
         return user;
     }

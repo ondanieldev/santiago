@@ -2,11 +2,13 @@ import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeProfilesRepository from '@modules/profiles/repositories/fakes/FakeProfilesRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import CreateUserService from './CreateUserService';
 
 let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeProfilesRepository: FakeProfilesRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createUser: CreateUserService;
 
 describe('CreateUser', () => {
@@ -14,11 +16,13 @@ describe('CreateUser', () => {
         fakeUsersRepository = new FakeUsersRepository();
         fakeHashProvider = new FakeHashProvider();
         fakeProfilesRepository = new FakeProfilesRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
         createUser = new CreateUserService(
             fakeUsersRepository,
             fakeProfilesRepository,
             fakeHashProvider,
+            fakeCacheProvider,
         );
     });
 
