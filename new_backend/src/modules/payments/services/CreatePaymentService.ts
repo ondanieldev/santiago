@@ -6,6 +6,7 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import IReceiptProvider from '@shared/container/providers/ReceiptProvider/models/IReceiptProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 export default class CreatePaymentService {
@@ -21,6 +22,9 @@ export default class CreatePaymentService {
 
         @inject('ReceiptProvider')
         private receiptProvider: IReceiptProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     public async execute({
@@ -67,6 +71,8 @@ export default class CreatePaymentService {
                 value: debit.value,
             },
         ]);
+
+        await this.cacheProvider.invalidate('undischarged-payments');
 
         return receipt;
     }

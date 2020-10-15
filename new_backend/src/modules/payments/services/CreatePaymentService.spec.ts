@@ -3,6 +3,7 @@ import FakeDebitsRepository from '@modules/debits/repositories/fakes/FakeDebitsR
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeReceiptProvider from '@shared/container/providers/ReceiptProvider/fakes/FakeReceiptProvider';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import CreatePaymentService from './CreatePaymentService';
 
 let createPayment: CreatePaymentService;
@@ -10,6 +11,7 @@ let fakeDebitsRepository: FakeDebitsRepository;
 let fakePaymentsRepository: FakePaymentsRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeReceiptProvider: FakeReceiptProvider;
+let fakeCacheProvider: FakeCacheProvider;
 
 describe('PayDebit', () => {
     beforeEach(() => {
@@ -17,12 +19,14 @@ describe('PayDebit', () => {
         fakePaymentsRepository = new FakePaymentsRepository();
         fakeUsersRepository = new FakeUsersRepository();
         fakeReceiptProvider = new FakeReceiptProvider();
+        fakeCacheProvider = new FakeCacheProvider();
 
         createPayment = new CreatePaymentService(
             fakeDebitsRepository,
             fakePaymentsRepository,
             fakeUsersRepository,
             fakeReceiptProvider,
+            fakeCacheProvider,
         );
     });
 

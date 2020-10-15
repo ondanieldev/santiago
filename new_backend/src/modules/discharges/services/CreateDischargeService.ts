@@ -6,6 +6,7 @@ import ICreateDischargeDTO from '@modules/discharges/dtos/ICreateDischargeDTO';
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import IDischargesRepository from '@modules/discharges/repositories/IDischargesRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 export default class CreateDischargeService {
@@ -18,6 +19,9 @@ export default class CreateDischargeService {
 
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     public async execute({
@@ -54,6 +58,8 @@ export default class CreateDischargeService {
         payment.discharged = true;
 
         await this.paymentsRepository.save(payment);
+
+        await this.cacheProvider.invalidate('undischarged-payments');
 
         return discharge;
     }

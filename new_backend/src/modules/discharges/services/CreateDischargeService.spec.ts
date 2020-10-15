@@ -2,11 +2,13 @@ import AppError from '@shared/errors/AppError';
 import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePaymentsRepository';
 import FakeDischargesRepository from '@modules/discharges/repositories/fakes/FakeDischargesRepository';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import CreateDischargeService from './CreateDischargeService';
 
 let fakePaymentsRepository: FakePaymentsRepository;
 let fakeDischargesRepository: FakeDischargesRepository;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createDischarge: CreateDischargeService;
 
 describe('CreateDischarge', () => {
@@ -14,11 +16,13 @@ describe('CreateDischarge', () => {
         fakePaymentsRepository = new FakePaymentsRepository();
         fakeDischargesRepository = new FakeDischargesRepository();
         fakeUsersRepository = new FakeUsersRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
         createDischarge = new CreateDischargeService(
             fakePaymentsRepository,
             fakeDischargesRepository,
             fakeUsersRepository,
+            fakeCacheProvider,
         );
     });
 

@@ -122,7 +122,7 @@
 - [x] O usuário não deve poder pagar um débito que já foi pago;
 - [x] O usuário não deve poder pagar um débito com um método de pagamento inválido;
 
-# Recebimento de pagamentos (create a new discharge and change payment's discharged field to true)
+# :white_check_mark: Recebimento de pagamentos (create a new discharge and change payment's discharged field to true)
 
 **RF**
 
@@ -131,7 +131,7 @@
 
 **RNF**
 
-- [ ] A lista de pagamentos deve ser armazenada em cache;
+- [x] A lista de pagamentos deve ser armazenada em cache;
 
 **RN**
 
