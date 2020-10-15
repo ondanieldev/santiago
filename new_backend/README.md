@@ -96,7 +96,7 @@
 **RF**
 
 - [x] O usuário deve poder listar todos os contratos que estão aprovados;
-- [ ] **!** O usuário deve pode buscar por um contrato pelo nome do aluno;
+- [ ] **!** O usuário deve poder buscar por um contrato pelo nome do aluno;
 - [x] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
     - [ ] **!** Desconto e juros;
 - [x] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
@@ -109,7 +109,7 @@
 
 **RNF**
 
-- [ ] A lista de contratos deve ser armazenada em cache;
+- [x] A lista de contratos deve ser armazenada em cache;
 - [x] O recibo deve ser gerado como um arquivo de texto;
 - [x] O recibo deve ser armazenado em disco em ambiente de desenvolvimento;
 
@@ -220,11 +220,13 @@
 - [ ] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
 # General tasks
-- [x] Método para atualizar turma do contrato precisa ser revisado
-- [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo
-- [x] Configurar providers com variáveis de ambiente
-- [x] Implementar class transformer para ocultar senhas e exibir urls
-- [ ] Implementar celebrate para filtrar dados vindos do front-end
-- [ ] Implementar express rate limit para evitar ataques de brute force
-- [x] Configurar providers
-- [x] Configurar variáveis de ambiente
+- [x] Método para atualizar turma do contrato precisa ser revisado;
+- [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;
+    - [ ] Devolvê-lo como objeto e com URL;
+- [x] Configurar providers com variáveis de ambiente;
+- [x] Implementar class transformer para ocultar senhas e exibir urls;
+- [ ] Implementar celebrate para filtrar dados vindos do front-end;
+- [ ] Implementar express rate limit para evitar ataques de brute force;
+- [x] Configurar providers;
+- [x] Configurar variáveis de ambiente;
+- [ ] Filtrar dados retornados na listagem de pagamentos não descarregados

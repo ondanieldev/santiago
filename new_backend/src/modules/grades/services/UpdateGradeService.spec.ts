@@ -1,15 +1,21 @@
 import AppError from '@shared/errors/AppError';
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import UpdateGradeService from './UpdateGradeService';
 
 let fakeGradesRepository: FakeGradesRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let updateGrade: UpdateGradeService;
 
 describe('UpdateGrade', () => {
     beforeEach(() => {
         fakeGradesRepository = new FakeGradesRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
-        updateGrade = new UpdateGradeService(fakeGradesRepository);
+        updateGrade = new UpdateGradeService(
+            fakeGradesRepository,
+            fakeCacheProvider,
+        );
     });
 
     it('should be able to update all grade data by passing id', async () => {

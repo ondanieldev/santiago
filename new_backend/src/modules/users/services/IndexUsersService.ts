@@ -10,7 +10,7 @@ export default class IndexUsersService {
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
 
-        @inject('ICacheProvider')
+        @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
     ) {}
 

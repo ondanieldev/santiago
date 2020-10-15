@@ -1,20 +1,24 @@
 import AppError from '@shared/errors/AppError';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import UpdateContractGradeService from './UpdateContractGradeService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeGradesRepository: FakeGradesRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let updateContractGrade: UpdateContractGradeService;
 
 describe('UpdateContractGrade', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeGradesRepository = new FakeGradesRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
         updateContractGrade = new UpdateContractGradeService(
             fakeContractsRepository,
             fakeGradesRepository,
+            fakeCacheProvider,
         );
     });
 

@@ -6,6 +6,7 @@ import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IProfilesRepository from '@modules/profiles/repositories/IProfilesRepository';
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 export default class UpdateUserService {
@@ -18,6 +19,9 @@ export default class UpdateUserService {
 
         @inject('HashProvider')
         private hashProvider: IHashProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     async execute({
@@ -55,6 +59,8 @@ export default class UpdateUserService {
         user.profile_id = profile_id;
 
         await this.usersRepository.save(user);
+
+        await this.cacheProvider.invalidate('users');
 
         return user;
     }

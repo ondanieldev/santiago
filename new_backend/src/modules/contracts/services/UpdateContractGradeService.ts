@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IContractsRepository from '../repositories/IContractsRepository';
 import Contract from '../infra/typeorm/entities/Contract';
 
@@ -18,6 +19,9 @@ export default class UpdateContractGradeService {
 
         @inject('GradesRepository')
         private gradesRepository: IGradesRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ) {}
 
     public async execute({
@@ -43,6 +47,12 @@ export default class UpdateContractGradeService {
         contract.grade = grade;
 
         await this.contractsRepository.save(contract);
+
+        await this.cacheProvider.invalidate(
+            'under-analysis-and-pendent-contracts',
+        );
+
+        await this.cacheProvider.invalidate('accepted-and-active-contracts');
 
         return contract;
     }

@@ -1,15 +1,21 @@
 import AppError from '@shared/errors/AppError';
 import FakeProfileRepository from '@modules/profiles/repositories/fakes/FakeProfilesRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import UpdateProfileService from './UpdateProfileService';
 
 let fakeProfileRepository: FakeProfileRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let updateProfile: UpdateProfileService;
 
 describe('UpdateProfile', () => {
     beforeEach(() => {
         fakeProfileRepository = new FakeProfileRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
-        updateProfile = new UpdateProfileService(fakeProfileRepository);
+        updateProfile = new UpdateProfileService(
+            fakeProfileRepository,
+            fakeCacheProvider,
+        );
     });
 
     it('should be able to update all profile data', async () => {
