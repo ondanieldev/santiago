@@ -220,8 +220,8 @@
 - [ ] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
 # General tasks
-- [ ] Método para atualizar turma do contrato precisa ser revisado
-- [ ] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo
+- [x] Método para atualizar turma do contrato precisa ser revisado
+- [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo
 - [ ] Configurar providers com variáveis de ambiente
 - [ ] Implementar class transformer para ocultar senhas e exibir urls
 - [ ] Implementar celebrate para filtrar dados vindos do front-end

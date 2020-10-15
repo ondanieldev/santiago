@@ -28,7 +28,7 @@ describe('DisaprooveContract', () => {
         });
 
         const aproovedContract = await disaprooveContract.execute({
-            id: contract.id,
+            contract_id: contract.id,
             comment: 'disaprooving',
             responsible_contact: {
                 name: 'John Doe',
@@ -50,7 +50,7 @@ describe('DisaprooveContract', () => {
         });
 
         await disaprooveContract.execute({
-            id: contract.id,
+            contract_id: contract.id,
             comment: 'disaprooving',
         });
 
@@ -60,12 +60,30 @@ describe('DisaprooveContract', () => {
     it('should not be able to aproove a non-existing contract', async () => {
         await expect(
             disaprooveContract.execute({
-                id: 'non-existing-enrollment',
+                contract_id: 'non-existing-enrollment',
                 comment: 'disaprooving',
                 responsible_contact: {
                     name: 'John Doe',
                     email: 'johndoe@example.com',
                 },
+            }),
+        ).rejects.toBeInstanceOf(AppError);
+    });
+
+    it('should not be able to disaproove a contract already aprooved', async () => {
+        const contract = await fakeContractsRepository.create({
+            grade_id: 'grade',
+            student_id: 'student',
+        });
+
+        Object.assign(contract, { status: 'accepted' });
+
+        await fakeContractsRepository.save(contract);
+
+        await expect(
+            disaprooveContract.execute({
+                contract_id: contract.id,
+                comment: 'trying to disaproove a contract already aprooved',
             }),
         ).rejects.toBeInstanceOf(AppError);
     });

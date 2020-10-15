@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
 import IContractsRepository from '../repositories/IContractsRepository';
 import Contract from '../infra/typeorm/entities/Contract';
 
@@ -14,6 +15,9 @@ export default class UpdateContractGradeService {
     constructor(
         @inject('ContractsRepository')
         private contractsRepository: IContractsRepository,
+
+        @inject('GradesRepository')
+        private gradesRepository: IGradesRepository,
     ) {}
 
     public async execute({
@@ -28,7 +32,15 @@ export default class UpdateContractGradeService {
             );
         }
 
-        contract.grade_id = grade_id;
+        const grade = await this.gradesRepository.findById(grade_id);
+
+        if (!grade) {
+            throw new AppError(
+                'Não é possível atualizar o contrato com uma turma inexistente!',
+            );
+        }
+
+        contract.grade = grade;
 
         await this.contractsRepository.save(contract);
 
