@@ -227,4 +227,4 @@
 - [x] Configurar providers;
 - [x] Configurar variáveis de ambiente;
 - [x] Filtrar dados retornados na listagem de pagamentos não descarregados
-- [ ] Configurar provider de recibos
+- [x] Configurar provider de recibos

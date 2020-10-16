@@ -1,4 +1,7 @@
+import path from 'path';
+
 interface IMailConfig {
+    imagesFolder: string;
     driver: 'ethereal';
     defaults: {
         from: {
@@ -8,7 +11,10 @@ interface IMailConfig {
     };
 }
 
+const imagesFolder = path.resolve(__dirname, '..', 'assets', 'images');
+
 export default {
+    imagesFolder,
     driver: process.env.MAIL_PROVIDER || 'ethereal',
     defaults: {
         from: {

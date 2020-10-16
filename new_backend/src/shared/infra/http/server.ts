@@ -6,11 +6,10 @@ import 'express-async-errors';
 
 import cors from 'cors';
 
-import path from 'path';
-
 import AppError from '@shared/errors/AppError';
 
 import uploadConfig from 'config/upload';
+import mailConfig from 'config/mail';
 
 import routes from '@shared/infra/http/routes';
 
@@ -19,33 +18,12 @@ import '@shared/container';
 
 const app = express();
 
-const mailImagesPath = path.resolve(
-    __dirname,
-    '..',
-    '..',
-    '..',
-    'assets',
-    'images',
-);
-
-const receiptsPath = path.resolve(
-    __dirname,
-    '..',
-    '..',
-    '..',
-    '..',
-    'tmp',
-    'receipts',
-);
-
 app.use(cors());
 app.use(express.json());
 app.use(
     '/files',
     express.static(uploadConfig.uploadFolder),
-    express.static(mailImagesPath),
-    express.static(mailImagesPath),
-    express.static(receiptsPath),
+    express.static(mailConfig.imagesFolder),
 );
 app.use(routes);
 
