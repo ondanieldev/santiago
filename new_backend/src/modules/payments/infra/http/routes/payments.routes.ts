@@ -8,10 +8,20 @@ const paymentsRouter = Router();
 const paymentsController = new PaymentsController();
 const enrollmentPaymentsController = new EnrollmentPaymentsController();
 
-paymentsRouter.use(ensureAuthenticated);
-
-paymentsRouter.get('/', paymentsController.index);
-paymentsRouter.post('/', paymentsController.create);
-paymentsRouter.post('/enrollment', enrollmentPaymentsController.create);
+paymentsRouter.get(
+    '/',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    paymentsController.index,
+);
+paymentsRouter.post(
+    '/',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    paymentsController.create,
+);
+paymentsRouter.post(
+    '/enrollment',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    enrollmentPaymentsController.create,
+);
 
 export default paymentsRouter;

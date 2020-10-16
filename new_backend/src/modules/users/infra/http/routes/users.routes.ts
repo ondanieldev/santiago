@@ -6,10 +6,20 @@ import UsersController from '@modules/users/infra/http/controllers/UsersControll
 const usersController = new UsersController();
 const usersRouter = Router();
 
-usersRouter.use(ensureAuthenticated);
-
-usersRouter.get('/', usersController.index);
-usersRouter.post('/', usersController.create);
-usersRouter.put('/:user_id', usersController.update);
+usersRouter.get(
+    '/',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    usersController.index,
+);
+usersRouter.post(
+    '/',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    usersController.create,
+);
+usersRouter.put(
+    '/:user_id',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    usersController.update,
+);
 
 export default usersRouter;

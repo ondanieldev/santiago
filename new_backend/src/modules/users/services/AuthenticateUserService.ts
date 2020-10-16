@@ -53,7 +53,7 @@ export default class AuthenticateUserService {
                 discharge_payment_permiss:
                     user.profile.discharge_payment_permiss,
                 new_enrollment_permiss: user.profile.new_enrollment_permiss,
-                apay_debit_permiss: user.profile.pay_debit_permiss,
+                pay_debit_permiss: user.profile.pay_debit_permiss,
                 validate_enrollment_permiss:
                     user.profile.validate_enrollment_permiss,
             },

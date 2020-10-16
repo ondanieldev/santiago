@@ -7,7 +7,7 @@ declare namespace Express {
             crud_users_permiss: boolean;
             discharge_payment_permiss: boolean;
             new_enrollment_permiss: boolean;
-            apay_debit_permiss: boolean;
+            pay_debit_permiss: boolean;
             validate_enrollment_permiss: boolean;
         };
     }

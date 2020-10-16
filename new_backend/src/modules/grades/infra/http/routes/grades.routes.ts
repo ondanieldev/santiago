@@ -7,8 +7,20 @@ const gradesRouter = Router();
 const gradesController = new GradesController();
 
 gradesRouter.get('/', gradesController.index);
-gradesRouter.post('/', ensureAuthenticated, gradesController.create);
-gradesRouter.put('/:grade_id', ensureAuthenticated, gradesController.update);
-gradesRouter.get('/:grade_id', ensureAuthenticated, gradesController.show);
+gradesRouter.post(
+    '/',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    gradesController.create,
+);
+gradesRouter.put(
+    '/:grade_id',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    gradesController.update,
+);
+gradesRouter.get(
+    '/:grade_id',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    gradesController.show,
+);
 
 export default gradesRouter;

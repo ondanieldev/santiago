@@ -199,7 +199,7 @@
 - [x] O usuário não deve poder atualizar um usuário com nome de usuário igual ao de outro usuário;
 - [x] O usuário não deve poder atualizar um usuário com um perfil inexistente;
 
-# Autenticação de usuários
+# :white_check_mark: Autenticação de usuários
 
 **RF**
 
@@ -214,7 +214,7 @@
 
 - [x] O usuário não deve poder acessar o sistema caso não esteja cadastrado no sistema;
 - [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
-- [ ] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
+- [x] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
 # General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado;
@@ -222,9 +222,10 @@
     - [x] Devolvê-lo como objeto e com URL;
 - [x] Configurar providers com variáveis de ambiente;
 - [x] Implementar class transformer para ocultar senhas e exibir urls;
-- [ ] Implementar celebrate para filtrar dados vindos do front-end;
 - [x] Implementar express rate limit para evitar ataques de brute force;
 - [x] Configurar providers;
 - [x] Configurar variáveis de ambiente;
 - [x] Filtrar dados retornados na listagem de pagamentos não descarregados
 - [x] Configurar provider de recibos
+- [ ] Implementar celebrate para filtrar dados vindos do front-end;
+- [ ] Redefinir permissões de usuário

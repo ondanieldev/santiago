@@ -6,8 +6,10 @@ import DischargesController from '../controllers/DischargesController';
 const dischargesRouter = Router();
 const dischargesController = new DischargesController();
 
-dischargesRouter.use(ensureAuthenticated);
-
-dischargesRouter.post('/', dischargesController.create);
+dischargesRouter.post(
+    '/',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    dischargesController.create,
+);
 
 export default dischargesRouter;

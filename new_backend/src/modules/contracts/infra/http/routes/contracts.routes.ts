@@ -22,37 +22,39 @@ const studentsContractsController = new StudentsContractsController();
 contractsRouter.post('/', contractsController.create);
 contractsRouter.get(
     '/accepted-active',
-    ensureAuthenticated,
+    (req, res, next) =>
+        ensureAuthenticated('pay_debit_permiss')(req, res, next),
     acceptedAndActiveContractsController.index,
 );
 contractsRouter.get(
     '/under-analysis-pendent',
-    ensureAuthenticated,
+    (req, res, next) =>
+        ensureAuthenticated('validate_enrollment_permiss')(req, res, next),
     underAnalysisAndPendentContractsController.index,
 );
 contractsRouter.get(
     '/:contract_id',
-    ensureAuthenticated,
+    (req, res, next) => ensureAuthenticated()(req, res, next),
     contractsController.show,
 );
 contractsRouter.patch(
     '/:contract_id/grade',
-    ensureAuthenticated,
+    (req, res, next) => ensureAuthenticated()(req, res, next),
     contractsGradeController.update,
 );
 contractsRouter.patch(
     '/:contract_id/aproove',
-    ensureAuthenticated,
+    (req, res, next) => ensureAuthenticated()(req, res, next),
     aproovedContractsController.update,
 );
 contractsRouter.patch(
     '/:contract_id/disaproove',
-    ensureAuthenticated,
+    (req, res, next) => ensureAuthenticated()(req, res, next),
     disaproovedContractsController.update,
 );
 contractsRouter.get(
     '/:students/:student_name',
-    ensureAuthenticated,
+    (req, res, next) => ensureAuthenticated()(req, res, next),
     studentsContractsController.index,
 );
 

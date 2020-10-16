@@ -10,7 +10,7 @@ interface ITokenPayload {
     crud_users_permiss: boolean;
     discharge_payment_permiss: boolean;
     new_enrollment_permiss: boolean;
-    apay_debit_permiss: boolean;
+    pay_debit_permiss: boolean;
     validate_enrollment_permiss: boolean;
     iat: number;
     exp: number;
@@ -18,47 +18,64 @@ interface ITokenPayload {
 }
 
 export default (
-    request: Request,
-    response: Response,
-    next: NextFunction,
-): void => {
-    const authHeader = request.headers.authorization;
+    permission?:
+        | 'crud_grades_permiss'
+        | 'crud_profiles_permiss'
+        | 'crud_users_permiss'
+        | 'discharge_payment_permiss'
+        | 'new_enrollment_permiss'
+        | 'pay_debit_permiss'
+        | 'validate_enrollment_permiss',
+): Function => {
+    return (request: Request, response: Response, next: NextFunction): void => {
+        const authHeader = request.headers.authorization;
 
-    if (!authHeader) {
-        throw new AppError('JWT token is missing', 401);
-    }
+        if (!authHeader) {
+            throw new AppError('JWT token is missing', 401);
+        }
 
-    const [, token] = authHeader.split(' ');
+        const [, token] = authHeader.split(' ');
 
-    try {
-        verify(token, authConfig.jwt.secret);
+        try {
+            verify(token, authConfig.jwt.secret);
 
-        const decoded = decode(token);
+            const decoded = decode(token);
 
-        const {
-            sub,
-            crud_grades_permiss,
-            crud_profiles_permiss,
-            crud_users_permiss,
-            discharge_payment_permiss,
-            new_enrollment_permiss,
-            apay_debit_permiss,
-            validate_enrollment_permiss,
-        } = decoded as ITokenPayload;
+            const {
+                sub,
+                crud_grades_permiss,
+                crud_profiles_permiss,
+                crud_users_permiss,
+                discharge_payment_permiss,
+                new_enrollment_permiss,
+                pay_debit_permiss,
+                validate_enrollment_permiss,
+            } = decoded as ITokenPayload;
 
-        request.user = {
-            id: sub,
-            crud_grades_permiss,
-            crud_profiles_permiss,
-            crud_users_permiss,
-            discharge_payment_permiss,
-            new_enrollment_permiss,
-            apay_debit_permiss,
-            validate_enrollment_permiss,
-        };
+            request.user = {
+                id: sub,
+                crud_grades_permiss,
+                crud_profiles_permiss,
+                crud_users_permiss,
+                discharge_payment_permiss,
+                new_enrollment_permiss,
+                pay_debit_permiss,
+                validate_enrollment_permiss,
+            };
 
-        return next();
-    } catch (err) {
-        throw new AppError('Invalid JWT token.', 401);
-    }
+            if (permission) {
+                if (request.user[permission]) {
+                    return next();
+                }
+                throw new AppError('');
+            } else {
+                return next();
+            }
+        } catch (err) {
+            if (err instanceof AppError) {
+                throw new AppError('You do not have permiss!', 401);
+            }
+            throw new AppError('Invalid JWT token.', 401);
+        }
+    };
 };

@@ -16,7 +16,7 @@ const studentsPhotosController = new StudentsPhotosController();
 studentsRouter.post('/', studentsController.create);
 studentsRouter.put(
     '/:student_id',
-    ensureAuthenticated,
+    (req, res, next) => ensureAuthenticated()(req, res, next),
     studentsController.update,
 );
 studentsRouter.patch(

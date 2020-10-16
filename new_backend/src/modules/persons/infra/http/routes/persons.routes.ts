@@ -15,7 +15,11 @@ const personPhotosController = new PersonPhotosController();
 
 personsRouter.post('/', personsController.create);
 personsRouter.get('/:cpf', personsController.show);
-personsRouter.put('/:person_id', ensureAuthenticated, personsController.update);
+personsRouter.put(
+    '/:person_id',
+    (req, res, next) => ensureAuthenticated()(req, res, next),
+    personsController.update,
+);
 personsRouter.patch(
     '/photos/:person_id',
     upload.any(),
