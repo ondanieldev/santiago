@@ -223,7 +223,7 @@
 - [x] Configurar providers com variáveis de ambiente;
 - [x] Implementar class transformer para ocultar senhas e exibir urls;
 - [ ] Implementar celebrate para filtrar dados vindos do front-end;
-- [ ] Implementar express rate limit para evitar ataques de brute force;
+- [x] Implementar express rate limit para evitar ataques de brute force;
 - [x] Configurar providers;
 - [x] Configurar variáveis de ambiente;
 - [x] Filtrar dados retornados na listagem de pagamentos não descarregados
