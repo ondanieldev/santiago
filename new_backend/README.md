@@ -91,21 +91,18 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# Pagamento de débitos (create a new payment and change debit's paid field to true)
+# :white_check_mark: Pagamento de débitos da matrícula (create a new payment and change debit's paid field to true)
 
 **RF**
 
 - [x] O usuário deve poder listar todos os contratos que estão aprovados;
-- [ ] **!** O usuário deve poder buscar por um contrato pelo nome do aluno;
-- [x] O usuário deve poder listar todos os débitos referentes a um contrato aprovado, cujo valor é baseado no valor base do débito e nas aplicaçõs de desconto ou juros;
-    - [ ] **!** Desconto e juros;
+- [x] O usuário deve poder buscar por um contrato pelo nome do aluno;
+- [x] O usuário deve poder listar todos os débitos referentes a um contrato aprovado;
 - [x] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
-    - [ ] **!** Desconto e juros;
 - [x] O usuário deve poder receber um recibo informando que o débito foi pago;
-- [ ] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
-- [ ] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso com perfil estático;
-- [ ] Caso o débito seja referente à primeira parcela de matrícula, cada um dos responsáveis ligados ao contrato deverá receber um e-mail contendo o nome de usuário e a senha de acesso seu e do aluno;
-- [ ] Formatar o débito para ficar apresentável
+- [x] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
+- [x] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso com perfil estático;
+- [x] Caso o débito seja referente à primeira parcela de matrícula, cada um dos responsáveis ligados ao contrato deverá receber um e-mail contendo o nome de usuário e a senha de acesso seu e do aluno;
 
 **RNF**
 
@@ -222,11 +219,12 @@
 # General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado;
 - [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;
-    - [ ] Devolvê-lo como objeto e com URL;
+    - [x] Devolvê-lo como objeto e com URL;
 - [x] Configurar providers com variáveis de ambiente;
 - [x] Implementar class transformer para ocultar senhas e exibir urls;
 - [ ] Implementar celebrate para filtrar dados vindos do front-end;
 - [ ] Implementar express rate limit para evitar ataques de brute force;
 - [x] Configurar providers;
 - [x] Configurar variáveis de ambiente;
-- [ ] Filtrar dados retornados na listagem de pagamentos não descarregados
+- [x] Filtrar dados retornados na listagem de pagamentos não descarregados
+- [ ] Configurar provider de recibos

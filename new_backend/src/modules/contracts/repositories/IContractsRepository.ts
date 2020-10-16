@@ -7,4 +7,5 @@ export default interface IContractsRepository {
     findAcceptedAndActive(): Promise<Contract[] | []>;
     findById(id: string): Promise<Contract | undefined>;
     save(contract: Contract): Promise<Contract>;
+    findByStudentName(student_name: string): Promise<Contract[]>;
 }

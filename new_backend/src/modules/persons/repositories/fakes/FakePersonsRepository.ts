@@ -54,4 +54,17 @@ export default class PersonsRepository implements IPersonsRepository {
 
         return data;
     }
+
+    public async updateUser(
+        student_id: string,
+        user_id: string,
+    ): Promise<Person | undefined> {
+        const person = this.persons.find(
+            findPerson => findPerson.id === student_id,
+        );
+
+        Object.assign(person, { user_id });
+
+        return person;
+    }
 }

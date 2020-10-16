@@ -33,4 +33,21 @@ export default class StudentsRepository implements IStudentsrepository {
 
         return student;
     }
+
+    public async updateUser(
+        student_id: string,
+        user_id: string,
+    ): Promise<Student | undefined> {
+        const student = await this.ormRepository.findOne({
+            where: { id: student_id },
+        });
+
+        if (student) {
+            Object.assign(student, { user_id });
+
+            await this.ormRepository.save(student);
+        }
+
+        return student;
+    }
 }

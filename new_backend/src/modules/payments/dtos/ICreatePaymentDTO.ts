@@ -3,4 +3,5 @@ export default interface ICreatePaymentDTO {
     amount: number;
     debit_id: string;
     user_id: string;
+    receipt: string;
 }

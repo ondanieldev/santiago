@@ -61,10 +61,31 @@ export default class ContractsRepository implements IContractsRepository {
     public async findById(id: string): Promise<Contract | undefined> {
         const contract = await this.ormRepository.findOne({
             where: { id },
-            relations: ['student', 'grade', 'agreements'],
+            relations: ['student', 'grade', 'agreements', 'agreements.person'],
         });
 
         return contract;
+    }
+
+    public async findByStudentName(student_name: string): Promise<Contract[]> {
+        const contracts = this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where(
+                "(contract.status = 'accepted' or contract.status = 'active') and lower(student.name) like :student_name",
+                { student_name: `%${student_name}%` },
+            )
+            .getMany();
+
+        return contracts;
     }
 
     public async save(contract: Contract): Promise<Contract> {

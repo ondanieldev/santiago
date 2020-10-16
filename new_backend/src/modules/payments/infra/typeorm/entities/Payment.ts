@@ -55,6 +55,6 @@ export default class Payment {
             return null;
         }
 
-        return `http://localhost/files/${this.receipt}`;
+        return `${process.env.APP_API_URL}/files/${this.receipt}`;
     }
 }

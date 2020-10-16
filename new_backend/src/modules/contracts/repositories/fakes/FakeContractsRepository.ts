@@ -12,7 +12,13 @@ export default class FakeContractsRepository implements IContractsRepository {
 
         Object.assign(
             contract,
-            { id: v4(), status: 'underAnalysis', agreements: [], grade: {} },
+            {
+                id: v4(),
+                status: 'underAnalysis',
+                agreements: [],
+                grade: {},
+                student: {},
+            },
             data,
         );
 
@@ -47,6 +53,18 @@ export default class FakeContractsRepository implements IContractsRepository {
         );
 
         return contract;
+    }
+
+    public async findByStudentName(student_name: string): Promise<Contract[]> {
+        const contracts = this.contracts.filter(contract => {
+            if (contract.student.name) {
+                return contract.student.name.includes(student_name);
+            }
+
+            return false;
+        });
+
+        return contracts;
     }
 
     public async save(data: Contract): Promise<Contract> {

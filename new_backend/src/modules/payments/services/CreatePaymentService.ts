@@ -7,6 +7,7 @@ import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import IReceiptProvider from '@shared/container/providers/ReceiptProvider/models/IReceiptProvider';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import Payment from '../infra/typeorm/entities/Payment';
 
 @injectable()
 export default class CreatePaymentService {
@@ -31,7 +32,7 @@ export default class CreatePaymentService {
         method,
         debit_id,
         user_id,
-    }: Omit<ICreatePaymentDTO, 'amount'>): Promise<string> {
+    }: Omit<ICreatePaymentDTO, 'amount' | 'receipt'>): Promise<Payment> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
@@ -54,16 +55,11 @@ export default class CreatePaymentService {
             );
         }
 
-        await this.paymentsRepository.create({
-            amount: debit.value,
-            debit_id,
-            method,
-            user_id,
-        });
-
-        Object.assign(debit, { paid: true, payday: new Date() });
-
-        await this.debitsRepository.save(debit);
+        if (debit.type === 'enrollment') {
+            throw new AppError(
+                'Não é possível pagar um débito do tipo matrícula a partir deste serviço!',
+            );
+        }
 
         const receipt = await this.receiptProvider.generate([
             {
@@ -72,8 +68,20 @@ export default class CreatePaymentService {
             },
         ]);
 
+        const payment = await this.paymentsRepository.create({
+            amount: debit.value,
+            debit_id,
+            method,
+            user_id,
+            receipt,
+        });
+
+        Object.assign(debit, { paid: true, payday: new Date() });
+
+        await this.debitsRepository.save(debit);
+
         await this.cacheProvider.invalidate('undischarged-payments');
 
-        return receipt;
+        return payment;
     }
 }

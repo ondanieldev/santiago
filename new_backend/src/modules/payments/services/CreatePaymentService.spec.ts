@@ -114,4 +114,29 @@ describe('PayDebit', () => {
             }),
         ).rejects.toBeInstanceOf(AppError);
     });
+
+    it('should not be able to pay an enrollment typed debit', async () => {
+        const user = await fakeUsersRepository.create({
+            username: 'username',
+            password: 'password',
+            profile_id: 'profile',
+        });
+
+        const debit = await fakeDebitsRepository.create({
+            contract_id: 'contract',
+            description: 'description',
+            final_date: new Date(),
+            initial_date: new Date(),
+            value: 100,
+            type: 'enrollment',
+        });
+
+        await expect(
+            createPayment.execute({
+                user_id: user.id,
+                debit_id: debit.id,
+                method: 'cash',
+            }),
+        ).rejects.toBeInstanceOf(AppError);
+    });
 });

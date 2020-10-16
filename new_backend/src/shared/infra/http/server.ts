@@ -28,12 +28,24 @@ const mailImagesPath = path.resolve(
     'images',
 );
 
+const receiptsPath = path.resolve(
+    __dirname,
+    '..',
+    '..',
+    '..',
+    '..',
+    'tmp',
+    'receipts',
+);
+
 app.use(cors());
 app.use(express.json());
 app.use(
     '/files',
     express.static(uploadConfig.uploadFolder),
     express.static(mailImagesPath),
+    express.static(mailImagesPath),
+    express.static(receiptsPath),
 );
 app.use(routes);
 

@@ -34,4 +34,17 @@ export default class StudentsRepository implements IStudentsrepository {
 
         return data;
     }
+
+    public async updateUser(
+        student_id: string,
+        user_id: string,
+    ): Promise<Student | undefined> {
+        const student = this.students.find(
+            findStudent => findStudent.id === student_id,
+        );
+
+        Object.assign(student, { user_id });
+
+        return student;
+    }
 }

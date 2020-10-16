@@ -10,4 +10,8 @@ export default interface IPersonsRepository {
     ): Promise<Person | undefined>;
     create(data: ICreatePersonDTO): Promise<Person>;
     save(data: Person): Promise<Person>;
+    updateUser(
+        student_id: string,
+        user_id: string,
+    ): Promise<Person | undefined>;
 }

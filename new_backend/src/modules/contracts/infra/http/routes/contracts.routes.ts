@@ -7,8 +7,9 @@ import AproovedContractsController from '../controllers/AproovedContractsControl
 import DisaproovedContractsController from '../controllers/DisaproovedContractsController';
 import AcceptedAndActiveContractsController from '../controllers/AcceptedAndActiveContractsController';
 import UnderAnalysisAndPendentContractsController from '../controllers/UnderAnalysisAndPendentContractsController';
+import StudentsContractsController from '../controllers/StudentsContractsController';
 
-const agreementsRouter = Router();
+const contractsRouter = Router();
 
 const contractsController = new ContractsController();
 const contractsGradeController = new ContractsGradeController();
@@ -16,37 +17,43 @@ const aproovedContractsController = new AproovedContractsController();
 const disaproovedContractsController = new DisaproovedContractsController();
 const acceptedAndActiveContractsController = new AcceptedAndActiveContractsController();
 const underAnalysisAndPendentContractsController = new UnderAnalysisAndPendentContractsController();
+const studentsContractsController = new StudentsContractsController();
 
-agreementsRouter.post('/', contractsController.create);
-agreementsRouter.get(
+contractsRouter.post('/', contractsController.create);
+contractsRouter.get(
     '/accepted-active',
     ensureAuthenticated,
     acceptedAndActiveContractsController.index,
 );
-agreementsRouter.get(
+contractsRouter.get(
     '/under-analysis-pendent',
     ensureAuthenticated,
     underAnalysisAndPendentContractsController.index,
 );
-agreementsRouter.get(
+contractsRouter.get(
     '/:contract_id',
     ensureAuthenticated,
     contractsController.show,
 );
-agreementsRouter.patch(
+contractsRouter.patch(
     '/:contract_id/grade',
     ensureAuthenticated,
     contractsGradeController.update,
 );
-agreementsRouter.patch(
+contractsRouter.patch(
     '/:contract_id/aproove',
     ensureAuthenticated,
     aproovedContractsController.update,
 );
-agreementsRouter.patch(
+contractsRouter.patch(
     '/:contract_id/disaproove',
     ensureAuthenticated,
     disaproovedContractsController.update,
 );
+contractsRouter.get(
+    '/:students/:student_name',
+    ensureAuthenticated,
+    studentsContractsController.index,
+);
 
-export default agreementsRouter;
+export default contractsRouter;
