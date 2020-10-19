@@ -38,6 +38,7 @@ describe('CreateDischarge', () => {
             debit_id: 'debit',
             method: 'cash',
             user_id: 'any-user',
+            receipt: 'receipt',
         });
 
         await createDischarge.execute({
@@ -88,6 +89,7 @@ describe('CreateDischarge', () => {
             debit_id: 'debit',
             method: 'cash',
             user_id: 'any-user',
+            receipt: 'receipt',
         });
 
         await createDischarge.execute({

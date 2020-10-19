@@ -23,6 +23,7 @@ describe('IndexUndischargedPayments', () => {
             debit_id: 'debit',
             method: 'cash',
             user_id: 'user',
+            receipt: 'recibo',
         });
 
         const payments = await indexUndischargedPayments.execute();
@@ -38,6 +39,7 @@ describe('IndexUndischargedPayments', () => {
             debit_id: 'debit',
             method: 'cash',
             user_id: 'user',
+            receipt: 'recibo',
         });
 
         await indexUndischargedPayments.execute();
