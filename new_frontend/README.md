@@ -1,44 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Criação de matrículas
 
-## Available Scripts
+**Início: 2020/10/19**
+**Expectativa: 2020/10/20**
+**Término**
 
-In the project directory, you can run:
+- [ ] Cadastrar aluno
+- [ ] Atualizar fotos do aluno
+- [ ] Selecionar turma
+- [ ] Cadastrar ou resgatar um responsável financeiro
+- [ ] Atualizar fotos do responsável financeiro
+- [ ] Cadastrar ou resgatar um responsável solidário
+- [ ] Atualizar fotos do responsável solidário
+- [ ] Cadastrar relações de parentesco
 
-### `yarn start`
+# Aprovação/Reprovação de matrículas
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Expectativa: 2020/10/21**
+**Início:**
+**Expectativa: 2020/10/21**
+**Término**
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [ ] Listar matrículas
+- [ ] Pesquisar por matrículas pelo nome do aluno
+- [ ] Selecionar matrícula
+- [ ] Editar dados
+- [ ] Escrever comentário e aprovar/desaprovar
 
-### `yarn test`
+# Pagamento de débitos da matrícula
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Expectativa: 2020/10/22**
+**Início:**
+**Expectativa: 2020/10/22**
+**Término**
 
-### `yarn build`
+- [ ] Listar matrículas
+- [ ] Pesquisar por matrículas pelo nome do aluno
+- [ ] Selecionar matrícula
+- [ ] Exibir débitos
+- [ ] Selecionar débito
+- [ ] Escolher método de pagamento e pagar
+- [ ] Receber o recibo
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Recebimento de pagamentos
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Expectativa: 2020/10/23**
+**Início:**
+**Expectativa: 2020/10/23**
+**Término**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [ ] Listar pagamentos
+- [ ] Selecionar pagamento
+- [ ] Receber pagamento
 
-### `yarn eject`
+# CRUD de turmas
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [x] Listar turmas
+- [x] Cadastar turma
+- [x] Atualizar turma
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# CRUD de perfis
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [x] Listar perfis
+- [x] Cadastar perfil
+- [x] Atualizar perfil
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# CRUD de usuários
 
-## Learn More
+- [x] Listar usuários
+- [x] Cadastar usuário
+- [x] Atualizar usuário
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Autenticação de usuários
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] Acessar sistema
