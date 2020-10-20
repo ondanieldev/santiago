@@ -11,16 +11,16 @@ import AppError from '@shared/errors/AppError';
 import uploadConfig from 'config/upload';
 import mailConfig from 'config/mail';
 
-import routes from '@shared/infra/http/routes';
-
-import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
-
 import '@shared/infra/typeorm';
 import '@shared/container';
 
+// import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
+
+import routes from '@shared/infra/http/routes';
+
 const app = express();
 
-app.use(rateLimiter);
+// app.use(rateLimiter);
 
 app.use(cors());
 

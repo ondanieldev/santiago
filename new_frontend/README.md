@@ -2,16 +2,19 @@
 
 **Início: 2020/10/19**
 **Expectativa: 2020/10/20**
-**Término**
+**Término: 2020/10/21**
 
-- [ ] Cadastrar aluno
-- [ ] Atualizar fotos do aluno
-- [ ] Selecionar turma
-- [ ] Cadastrar ou resgatar um responsável financeiro
-- [ ] Atualizar fotos do responsável financeiro
-- [ ] Cadastrar ou resgatar um responsável solidário
-- [ ] Atualizar fotos do responsável solidário
-- [ ] Cadastrar relações de parentesco
+- [x] Cadastrar aluno
+- [x] Atualizar fotos do aluno
+- [x] Selecionar turma
+- [x] Cadastrar ou resgatar um responsável financeiro
+- [x] Atualizar fotos do responsável financeiro
+- [x] Cadastrar ou resgatar um responsável solidário
+- [x] Atualizar fotos do responsável solidário
+- [x] Cadastrar relações de parentesco
+- [ ] Revisar campos de radio
+- [ ] Utilizar configs
+- [ ] Reutilizar responsável na chamada API
 
 # Aprovação/Reprovação de matrículas
 

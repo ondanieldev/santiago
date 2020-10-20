@@ -24,5 +24,4 @@ export default Yup.object().shape({
   medication_alergy: Yup.string(),
   health_problem: Yup.string(),
   special_necessities: Yup.string(),
-  grade_id: Yup.string().required('Turma não informada'),
 });

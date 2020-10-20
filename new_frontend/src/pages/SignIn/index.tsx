@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { FiUser, FiLock } from 'react-icons/fi';
@@ -23,11 +23,19 @@ toast.configure();
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
+  const [loading, setLoading] = useState(false);
+
   const { signIn } = useAuth();
 
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
+      if (loading) {
+        return;
+      }
+
       try {
+        setLoading(true);
+
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -50,9 +58,11 @@ const SignIn: React.FC = () => {
         }
 
         toast.error('Credenciais incorretas!');
+      } finally {
+        setLoading(false);
       }
     },
-    [signIn],
+    [signIn, loading],
   );
 
   return (
@@ -76,7 +86,9 @@ const SignIn: React.FC = () => {
               type="password"
             />
 
-            <Button type="submit">Entrar</Button>
+            <Button loading={loading} type="submit">
+              Entrar
+            </Button>
           </Form>
         </AnimatedContent>
       </Content>

@@ -38,7 +38,7 @@ import Searchbar from '../../components/Searchbar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import Checkbox from '../../components/Checkbox';
-import FileInput from '../../components/FileInput';
+import FileInput from '../../components/File';
 import Button from '../../components/Button';
 import ResponsiblesList from '../../components/List';
 import responsibleSchema from '../../schemas/responsibleSchema';

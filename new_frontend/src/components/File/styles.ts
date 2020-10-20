@@ -3,17 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
-
-  img {
-    margin-bottom: 4px;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-`;
-
-export const InputGroup = styled.div`
-  display: flex;
   align-items: center;
   color: var(--black);
 

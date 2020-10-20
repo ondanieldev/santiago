@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 
-import FileInput from '../../components/FileInput';
+import FileInput from '../../components/File';
 import Button from '../../components/Button';
 
 interface IFormData {

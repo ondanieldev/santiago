@@ -30,7 +30,7 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
-import FileInput from '../../components/FileInput';
+import FileInput from '../../components/File';
 import studentSchema from '../../schemas/studentSchema';
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -152,9 +152,9 @@ const NewStudent: React.FC = () => {
           });
         });
 
-        const response = await api.post('/enrollments', enrollment);
+        // const response = await api.post('/enrollments', enrollment);
 
-        const { student_id, responsibles_ids } = response.data;
+        // const { student_id, responsibles_ids } = response.data;
 
         const studentPhotosFormData = new FormData();
 

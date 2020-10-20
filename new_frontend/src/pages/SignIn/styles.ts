@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-import singInBackgroundImage from '../../assets/sign-in-background.jpg';
+import singInBackgroundImage from '../../assets/images/sign-in-background.jpg';
 
 const appearFromLeft = keyframes`
   from {

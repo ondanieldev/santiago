@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
+import NewEnrollment from '../pages/NewEnrollment';
 import NewResponsibles from '../pages/NewResponsibles';
 import NewStudent from '../pages/NewStudent';
 import EnrollmentsForAprooveOrDisaproove from '../pages/EnrollmentsForAprooveOrDisaproove';
@@ -20,6 +21,8 @@ const Routes: React.FC = () => (
     <Route path="/" exact component={SignIn} />
 
     <Route path="/dashboard" component={Dashboard} isPrivate />
+
+    <Route path="/new-enrollment" component={NewEnrollment} isPrivate />
 
     <Route
       path="/enrollment-responsibles"

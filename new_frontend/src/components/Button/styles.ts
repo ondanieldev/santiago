@@ -7,14 +7,15 @@ interface ButtonProps {
 }
 
 export const Container = styled.button<ButtonProps>`
-  padding: 0 16px;
+  padding: 0 18px;
   border-radius: 5px;
   border: 0;
   height: 56px;
   font-weight: 500;
   transition: background-color 0.2s;
 
-  color: var(--white);
+  color: #f7f6fc;
+
   ${props =>
     props.color &&
     css`
@@ -39,6 +40,12 @@ export const Container = styled.button<ButtonProps>`
   }
 
   &:disabled {
-    background-color: var(--gray);
+    background-color: ${shade(0.2, '#013C64')};
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
   }
 `;

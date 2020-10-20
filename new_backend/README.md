@@ -229,3 +229,6 @@
 - [x] Configurar provider de recibos
 - [ ] Implementar celebrate para filtrar dados vindos do front-end;
 - [ ] Redefinir permissões de usuário
+- [ ] Atualizar campo de education level para enum
+- [ ] Atualizar campo de income_tax para default false
+- [ ] Listar apenas contratos que possuem acordos estabelecidos

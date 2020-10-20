@@ -16,7 +16,13 @@ export default interface IPerson {
   residencial_phone: string;
   commercial_phone: string;
   personal_phone: string;
-  education_level: string;
+  education_level:
+    | 'elementary_incompleted'
+    | 'elementary_completed'
+    | 'highschool_incompleted'
+    | 'highschool_completed'
+    | 'university_incompleted'
+    | 'university_completed';
   workplace: string;
   monthly_income: number;
   income_tax: boolean;

@@ -22,6 +22,7 @@ const Aside: React.FC = () => {
   useEffect(() => {
     const allLinks = [
       { path: '/dashboard', label: 'Dashboard' },
+      { path: '/new-enrollment', label: '! Nova matrícula' },
       {
         path: '/check-for-debits-enrollments',
         label: 'Pagar débitos',
