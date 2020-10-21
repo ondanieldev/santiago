@@ -26,8 +26,7 @@ export default Yup.object().shape({
   monthly_income: Yup.number()
     .typeError('Renda mensal inválida')
     .required('Renda mensal obrigatória'),
-  income_tax: Yup.string().matches(
-    /(yes|no)/,
+  income_tax: Yup.boolean().typeError(
     () => 'Declaração de imposto de renda inválida',
   ),
   email: Yup.string().email('E-mail inválido').required('E-mail obrigatório'),

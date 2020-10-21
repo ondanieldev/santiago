@@ -60,6 +60,8 @@ interface IConfigDTO {
   verify_financial_cpf: string;
   verify_supportive_cpf: string;
   reaproove_address: boolean;
+  financial_income_tax: 'no' | 'yes';
+  student_ease_relating: 'no' | 'yes';
 }
 
 interface IGradeDTO {
@@ -119,10 +121,10 @@ const NewEnrollment: React.FC = () => {
   const [showSpecialNecessities, setShowSpecialNecessities] = useState(false);
   const [financialVerified, setFinancialVerified] = useState(false);
   const [financialExists, setFinancialExists] = useState(false);
-  const [financialName, setFinancialName] = useState('');
+  const [financialFromDB, setFinancialFromDB] = useState({} as IPerson);
   const [supportiveVerified, setSupportiveVerified] = useState(false);
   const [supportiveExists, setSupportiveExists] = useState(false);
-  const [supportiveName, setSupportiveName] = useState('');
+  const [supportiveFromDB, setSupportiveFromDB] = useState({} as IPerson);
 
   const submitForm = useCallback(
     async (data: IFormData) => {
@@ -145,6 +147,11 @@ const NewEnrollment: React.FC = () => {
           student,
           grade,
         } = data;
+
+        financial_responsible.income_tax =
+          config.financial_income_tax === 'yes';
+
+        student.ease_relating = config.student_ease_relating === 'yes';
 
         if (!financialExists) {
           actualPrefixVerification = 'financial_responsible';
@@ -175,132 +182,150 @@ const NewEnrollment: React.FC = () => {
           student_id: createStudent.data.id,
         });
 
-        const createFinancial = await api.post(
-          '/persons',
-          financial_responsible,
-        );
+        let financialId = '';
+
+        if (!financialExists) {
+          const createFinancial = await api.post(
+            '/persons',
+            financial_responsible,
+          );
+
+          financialId = createFinancial.data.id;
+        } else {
+          financialId = financialFromDB.id;
+        }
 
         await api.post('/agreements', {
           contract_id: createContract.data.id,
-          person_id: createFinancial.data.id,
+          person_id: financialId,
           responsible_type: 'financial',
         });
 
         await api.post('/relationships', {
           student_id: createStudent.data.id,
-          person_id: createFinancial.data.id,
+          person_id: financialId,
           kinship: financial_responsible.kinship,
         });
 
-        const createSupportive = await api.post(
-          '/persons',
-          data.supportive_responsible,
-        );
+        let supportiveId = '';
+
+        if (!supportiveExists) {
+          const createSupportive = await api.post(
+            '/persons',
+            supportive_responsible,
+          );
+
+          supportiveId = createSupportive.data.id;
+        } else {
+          supportiveId = supportiveFromDB.id;
+        }
 
         await api.post('/agreements', {
           contract_id: createContract.data.id,
-          person_id: createSupportive.data.id,
+          person_id: supportiveId,
           responsible_type: 'supportive',
         });
 
         await api.post('/relationships', {
           student_id: createStudent.data.id,
-          person_id: createSupportive.data.id,
+          person_id: supportiveId,
           kinship: supportive_responsible.kinship,
         });
 
-        const financialPhotos = new FormData();
+        if (financial_photos) {
+          const financialPhotos = new FormData();
 
-        if (financial_photos.rg_photo) {
-          financialPhotos.append('rg_photo', financial_photos.rg_photo);
+          if (financial_photos.rg_photo) {
+            financialPhotos.append('rg_photo', financial_photos.rg_photo);
+          }
+
+          if (financial_photos.cpf_photo) {
+            financialPhotos.append('cpf_photo', financial_photos.cpf_photo);
+          }
+
+          if (financial_photos.residencial_proof_photo) {
+            financialPhotos.append(
+              'residencial_proof_photo',
+              financial_photos.residencial_proof_photo,
+            );
+          }
+
+          await api.patch(`/persons/photos/${financialId}`, financialPhotos);
         }
 
-        if (financial_photos.cpf_photo) {
-          financialPhotos.append('cpf_photo', financial_photos.cpf_photo);
+        if (supportive_photos) {
+          const supportivePhotos = new FormData();
+
+          if (supportive_photos.rg_photo) {
+            supportivePhotos.append('rg_photo', supportive_photos.rg_photo);
+          }
+
+          if (supportive_photos.cpf_photo) {
+            supportivePhotos.append('cpf_photo', supportive_photos.cpf_photo);
+          }
+
+          if (supportive_photos.residencial_proof_photo) {
+            supportivePhotos.append(
+              'residencial_proof_photo',
+              supportive_photos.residencial_proof_photo,
+            );
+          }
+
+          await api.patch(`/persons/photos/${supportiveId}`, supportivePhotos);
         }
 
-        if (financial_photos.residencial_proof_photo) {
-          financialPhotos.append(
-            'residencial_proof_photo',
-            financial_photos.residencial_proof_photo,
+        if (student_photos) {
+          const studentPhotos = new FormData();
+
+          if (student_photos.birth_certificate_photo) {
+            studentPhotos.append(
+              'birth_certificate_photo',
+              student_photos.birth_certificate_photo,
+            );
+          }
+
+          if (student_photos.health_plan_photo) {
+            studentPhotos.append(
+              'health_plan_photo',
+              student_photos.health_plan_photo,
+            );
+          }
+
+          if (student_photos.monthly_declaration_photo) {
+            studentPhotos.append(
+              '.monthly_declaration_photo',
+              student_photos.monthly_declaration_photo,
+            );
+          }
+
+          if (student_photos.school_records_photo) {
+            studentPhotos.append(
+              '.school_records_photo',
+              student_photos.school_records_photo,
+            );
+          }
+
+          if (student_photos.transfer_declaration_photo) {
+            studentPhotos.append(
+              '.transfer_declaration_photo',
+              student_photos.transfer_declaration_photo,
+            );
+          }
+
+          if (student_photos.vaccine_card_photo) {
+            studentPhotos.append(
+              '.vaccine_card_photo',
+              student_photos.vaccine_card_photo,
+            );
+          }
+
+          await api.patch(
+            `/students/photos/${createStudent.data.id}`,
+            studentPhotos,
           );
         }
 
-        await api.patch(
-          `/persons/photos/${createFinancial.data.id}`,
-          financialPhotos,
-        );
-
-        const supportivePhotos = new FormData();
-
-        if (supportive_photos.rg_photo) {
-          supportivePhotos.append('rg_photo', supportive_photos.rg_photo);
-        }
-
-        if (supportive_photos.cpf_photo) {
-          supportivePhotos.append('cpf_photo', supportive_photos.cpf_photo);
-        }
-
-        if (supportive_photos.residencial_proof_photo) {
-          supportivePhotos.append(
-            'residencial_proof_photo',
-            supportive_photos.residencial_proof_photo,
-          );
-        }
-
-        await api.patch(
-          `/persons/photos/${createSupportive.data.id}`,
-          supportivePhotos,
-        );
-
-        const studentPhotos = new FormData();
-
-        if (student_photos.birth_certificate_photo) {
-          studentPhotos.append(
-            'birth_certificate_photo',
-            student_photos.birth_certificate_photo,
-          );
-        }
-
-        if (student_photos.health_plan_photo) {
-          studentPhotos.append(
-            'health_plan_photo',
-            student_photos.health_plan_photo,
-          );
-        }
-
-        if (student_photos.monthly_declaration_photo) {
-          studentPhotos.append(
-            '.monthly_declaration_photo',
-            student_photos.monthly_declaration_photo,
-          );
-        }
-
-        if (student_photos.school_records_photo) {
-          studentPhotos.append(
-            '.school_records_photo',
-            student_photos.school_records_photo,
-          );
-        }
-
-        if (student_photos.transfer_declaration_photo) {
-          studentPhotos.append(
-            '.transfer_declaration_photo',
-            student_photos.transfer_declaration_photo,
-          );
-        }
-
-        if (student_photos.vaccine_card_photo) {
-          studentPhotos.append(
-            '.vaccine_card_photo',
-            student_photos.vaccine_card_photo,
-          );
-        }
-
-        await api.patch(
-          `/students/photos/${createStudent.data.id}`,
-          student_photos,
-        );
+        toast.success('Solicitação de matrícula enviada com sucesso!');
       } catch (err) {
         if (err instanceof YupValidationError) {
           err.inner.forEach(error => {
@@ -308,14 +333,23 @@ const NewEnrollment: React.FC = () => {
           });
 
           const errors = getValidationErrors(err);
+
           formRef.current?.setErrors(errors);
-          return;
+
+          toast.error(`Oops, alguns dados não foram preenchidos corretamente!`);
         }
 
         toast.error(`Dados incorretos: ${err.response.data.message}`);
       }
     },
-    [financialExists, supportiveExists, financialVerified, supportiveVerified],
+    [
+      financialExists,
+      supportiveExists,
+      financialVerified,
+      supportiveVerified,
+      financialFromDB.id,
+      supportiveFromDB.id,
+    ],
   );
 
   const handleSearchAddressByCep = useCallback((cep, responsible_type) => {
@@ -368,14 +402,14 @@ const NewEnrollment: React.FC = () => {
 
           if (person) {
             setFinancialExists(true);
-            setFinancialName(person.name);
+            setFinancialFromDB(person);
           }
         } else {
           setSupportiveVerified(true);
 
           if (person) {
             setSupportiveExists(true);
-            setSupportiveName(person.name);
+            setSupportiveFromDB(person);
           }
         }
       } catch {}
@@ -497,7 +531,7 @@ const NewEnrollment: React.FC = () => {
                   name="financial_responsible.name"
                   placeholder="Nome"
                   icon={FiUser}
-                  value={financialName}
+                  value={financialFromDB.name}
                   readOnly
                 />
 
@@ -668,7 +702,7 @@ const NewEnrollment: React.FC = () => {
 
                 <InputGroup displayColumn={window.innerWidth <= 700}>
                   <Radio
-                    name="financial_responsible.income_tax"
+                    name="config.financial_income_tax"
                     label="Declara imposto de renda?"
                     options={[
                       { id: 'fit1', label: 'Sim', value: 'yes' },
@@ -719,7 +753,7 @@ const NewEnrollment: React.FC = () => {
                   name="supportive_responsible.name"
                   placeholder="Nome"
                   icon={FiUser}
-                  value={supportiveName}
+                  value={supportiveFromDB.name}
                   readOnly
                 />
 
@@ -1117,7 +1151,7 @@ const NewEnrollment: React.FC = () => {
 
             <InputGroup displayColumn={window.innerWidth <= 700}>
               <Radio
-                name="student.ease_relating"
+                name="config.student_ease_relating"
                 label="Tem facilidade de se relacionar?"
                 options={[
                   { id: 'ser1', label: 'Sim', value: 'yes' },

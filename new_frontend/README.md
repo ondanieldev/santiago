@@ -12,9 +12,9 @@
 - [x] Cadastrar ou resgatar um responsável solidário
 - [x] Atualizar fotos do responsável solidário
 - [x] Cadastrar relações de parentesco
-- [ ] Revisar campos de radio
-- [ ] Utilizar configs
-- [ ] Reutilizar responsável na chamada API
+- [x] Revisar campos de radio
+- [x] Utilizar configs
+- [x] Reutilizar responsável na chamada API
 
 # Aprovação/Reprovação de matrículas
 

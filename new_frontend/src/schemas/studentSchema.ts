@@ -15,7 +15,7 @@ export default Yup.object().shape({
     /(white|brown|black|indigenous|yellow)/,
     () => 'Raça inválida',
   ),
-  ease_relating: Yup.string().required(
+  ease_relating: Yup.boolean().required(
     'Facilidade em se relacionar não informada',
   ),
   origin_school: Yup.string(),
