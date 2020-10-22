@@ -1,42 +1,49 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
 
-import api from '../../services/api';
-import IContract from '../../entities/IContract';
+import { Container } from './styles';
 import Table from '../Table';
-import Pagination from '../Pagination';
+import Input from '../Input';
+import Button from '../Button';
+import api from '../../services/api';
 
 interface IProps {
-  page: 'AprooveOrDisaproove' | 'CheckForDebits';
+  apiUrl: string;
+  handleSelectEnrollment(id: string): void;
+  showSearch?: boolean;
 }
 
-const Enrollments: React.FC<IProps> = ({ page }) => {
-  const history = useHistory();
+interface IEnrollment {
+  id: string;
+  status: 'accepted' | 'active' | 'underAnalysis' | 'pendent';
+  student: {
+    name: string;
+  };
+  grade: {
+    name: string;
+    year: string;
+  };
+}
 
-  const [enrollments, setEnrollments] = useState([] as IContract[]);
-  const [paginationPagesNumber, setPaginationPagesNumber] = useState(0);
-  const [paginationActivePage, setPaginationActivePage] = useState(1);
+interface IFormData {
+  student_name: string;
+}
 
-  const handleLoadEnrollments = useCallback(
-    (selectedPage: number) => {
-      const limitPerPage = 10;
+const Enrollments: React.FC<IProps> = ({
+  apiUrl,
+  handleSelectEnrollment,
+  showSearch,
+}) => {
+  const formRef = useRef<FormHandles>(null);
 
-      api
-        .get(
-          `/enrollments?debitsOrValidate=${page}&limit=${limitPerPage}&page=${selectedPage}`,
-        )
-        .then(response => {
-          setEnrollments(response.data.enrollments);
-          setPaginationPagesNumber(response.data.pagination);
-          setPaginationActivePage(selectedPage);
-        });
-    },
-    [page],
-  );
+  const [enrollments, setEnrollments] = useState([] as IEnrollment[]);
 
   useEffect(() => {
-    handleLoadEnrollments(1);
-  }, [handleLoadEnrollments]);
+    api.get(apiUrl).then(response => {
+      setEnrollments(response.data || []);
+    });
+  }, [apiUrl]);
 
   const formatStatus = useCallback(
     (status: 'underAnalysis' | 'pendent' | 'accepted' | 'active') => {
@@ -56,26 +63,30 @@ const Enrollments: React.FC<IProps> = ({ page }) => {
     [],
   );
 
-  const handleSelectEnrollment = useCallback(
-    (id: string) => {
-      if (page === 'AprooveOrDisaproove') {
-        history.push(`/enrollments/${id}`);
-      } else {
-        history.push(`/debits/${id}`);
-      }
-    },
-    [page, history],
-  );
+  const handleSubmitForm = useCallback(async ({ student_name }: IFormData) => {
+    try {
+      const response = await api.get(`/contracts/students/${student_name}`);
+
+      setEnrollments(response.data);
+    } catch {}
+  }, []);
 
   return (
-    <>
+    <Container>
+      {showSearch && (
+        <Form onSubmit={handleSubmitForm} ref={formRef}>
+          <Input
+            name="student_name"
+            placeholder="Pesquisar por nome do aluno"
+          />
+
+          <Button type="submit">Pesquisar</Button>
+        </Form>
+      )}
+
       <Table
         isVoid={enrollments.length <= 0}
-        voidMessage={
-          page === 'AprooveOrDisaproove'
-            ? 'Não há matrículas para serem validadas!'
-            : 'Não há matrículas para serem selecionadas!'
-        }
+        voidMessage="Não há matrículas nesta seção!"
       >
         <thead>
           <tr>
@@ -99,15 +110,7 @@ const Enrollments: React.FC<IProps> = ({ page }) => {
           ))}
         </tbody>
       </Table>
-
-      {paginationPagesNumber > 0 && (
-        <Pagination
-          pagesNumber={paginationPagesNumber}
-          activePage={paginationActivePage}
-          changePageEffect={selectedPage => handleLoadEnrollments(selectedPage)}
-        />
-      )}
-    </>
+    </Container>
   );
 };
 

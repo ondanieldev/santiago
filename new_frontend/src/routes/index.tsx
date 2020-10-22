@@ -5,11 +5,9 @@ import Route from './Route';
 import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import NewEnrollment from '../pages/NewEnrollment';
-import NewResponsibles from '../pages/NewResponsibles';
-import NewStudent from '../pages/NewStudent';
-import EnrollmentsForAprooveOrDisaproove from '../pages/EnrollmentsForAprooveOrDisaproove';
-import Enrollment from '../pages/Enrollment';
-import EnrollmentsForCheckForDebits from '../pages/EnrollmentsForCheckForDebits';
+import UnderAnalysisAndPendentEnrollments from '../pages/UnderAnalysisAndPendentEnrollments';
+import ValidateEnrollment from '../pages/ValidateEnrollment';
+import EditEnrollment from '../pages/EditEnrollment';
 import Debits from '../pages/Debits';
 import Payments from '../pages/Payments';
 import Profiles from '../pages/Profiles';
@@ -25,38 +23,21 @@ const Routes: React.FC = () => (
     <Route path="/new-enrollment" component={NewEnrollment} isPrivate />
 
     <Route
-      path="/enrollment-responsibles"
-      component={NewResponsibles}
+      path="/under-analysis-pendent-enrollments"
+      component={UnderAnalysisAndPendentEnrollments}
       isPrivate
-      needPermissions={['new_enrollment_permiss']}
     />
 
     <Route
-      path="/enrollment-student"
-      component={NewStudent}
+      path="/validate-enrollment/:contract_id"
+      component={ValidateEnrollment}
       isPrivate
-      needPermissions={['new_enrollment_permiss']}
     />
 
     <Route
-      path="/aproove-or-disaproove-enrollments"
-      component={EnrollmentsForAprooveOrDisaproove}
+      path="/edit-enrollment/:contract_id"
+      component={EditEnrollment}
       isPrivate
-      needPermissions={['validate_enrollment_permiss']}
-    />
-
-    <Route
-      path="/enrollments/:id"
-      component={Enrollment}
-      isPrivate
-      needPermissions={['validate_enrollment_permiss']}
-    />
-
-    <Route
-      path="/check-for-debits-enrollments"
-      component={EnrollmentsForCheckForDebits}
-      isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route

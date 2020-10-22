@@ -25,9 +25,12 @@ export default interface IPerson {
     | 'university_completed';
   workplace: string;
   monthly_income: number;
-  income_tax: boolean;
   email: string;
+  income_tax?: boolean;
   rg_photo?: string;
   cpf_photo?: string;
   residencial_proof_photo?: string;
+  rg_photo_url?: string;
+  cpf_photo_url?: string;
+  residencial_proof_photo_url?: string;
 }

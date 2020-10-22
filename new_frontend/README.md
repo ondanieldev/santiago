@@ -1,4 +1,4 @@
-# Criação de matrículas
+# :white_check_mark: Criação de matrículas
 
 **Início: 2020/10/19**
 **Expectativa: 2020/10/20**
@@ -19,20 +19,19 @@
 # Aprovação/Reprovação de matrículas
 
 **Expectativa: 2020/10/21**
-**Início:**
+**Início: 2020/10/21**
 **Expectativa: 2020/10/21**
-**Término**
+**Término: 2020/10/22**
 
-- [ ] Listar matrículas
-- [ ] Pesquisar por matrículas pelo nome do aluno
-- [ ] Selecionar matrícula
-- [ ] Editar dados
-- [ ] Escrever comentário e aprovar/desaprovar
+- [x] Listar matrículas
+- [x] Selecionar matrícula
+- [x] Editar dados
+- [x] Escrever comentário e aprovar/desaprovar
 
 # Pagamento de débitos da matrícula
 
 **Expectativa: 2020/10/22**
-**Início:**
+**Início: 2020/10/21**
 **Expectativa: 2020/10/22**
 **Término**
 
@@ -76,3 +75,10 @@
 # Autenticação de usuários
 
 - [x] Acessar sistema
+
+# Pendências
+
+- [ ] Tamanhos dos inputs
+- [ ] Field necessidades especiais
+- [x] Field turma desejada
+- [ ] Carregamento e vazios

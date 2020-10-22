@@ -38,6 +38,12 @@ export const AnimatedContent = styled.div`
     display: flex;
     flex-direction: column;
 
+    div {
+      & + div {
+        margin-top: 6px;
+      }
+    }
+
     button {
       margin-top: 12px;
     }

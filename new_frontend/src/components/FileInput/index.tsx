@@ -18,16 +18,18 @@ interface Props {
 
 type InputProps = JSX.IntrinsicElements['input'] & Props;
 
-const ImageInput: React.FC<InputProps> = ({
+const FileInputWithPreview: React.FC<InputProps> = ({
   name,
   buttonText,
+  defaultValue: inlineDefaultValue,
   showPreview,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { fieldName, registerField, defaultValue } = useField(name);
-  const [preview, setPreview] = useState(defaultValue);
+
+  const [preview, setPreview] = useState(defaultValue || inlineDefaultValue);
   const [filename, setFilename] = useState('Nenhum arquivo selecionado');
 
   const handlePreview = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -35,14 +37,12 @@ const ImageInput: React.FC<InputProps> = ({
 
     if (!file) {
       setPreview(null);
-      return;
+      setFilename('Nenhum arquivo selecionado');
+    } else {
+      const previewURL = URL.createObjectURL(file);
+      setPreview(previewURL);
+      setFilename(file.name);
     }
-
-    const previewURL = URL.createObjectURL(file);
-
-    setPreview(previewURL);
-
-    setFilename(file.name);
   }, []);
 
   useEffect(() => {
@@ -56,16 +56,18 @@ const ImageInput: React.FC<InputProps> = ({
       },
       setValue(_: HTMLInputElement, value: string) {
         setPreview(value);
+        setFilename('');
       },
     });
   }, [fieldName, registerField]);
 
   return (
     <Container>
-      {showPreview && preview && (
-        <img src={preview} alt="Preview" width="100" />
+      {preview && showPreview && (
+        <a href={preview} target="_blank" rel="noopener noreferrer">
+          <img src={preview} alt="Preview" height="150" width="150" />
+        </a>
       )}
-
       <InputGroup>
         <input
           type="file"
@@ -75,15 +77,13 @@ const ImageInput: React.FC<InputProps> = ({
           onChange={handlePreview}
           {...rest}
         />
-
         <Button type="button" backgroundColor="#CED4DA" color="#212529">
           <label htmlFor={name}>{buttonText}</label>
         </Button>
-
         <span>{filename}</span>
       </InputGroup>
     </Container>
   );
 };
 
-export default ImageInput;
+export default FileInputWithPreview;

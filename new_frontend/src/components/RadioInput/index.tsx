@@ -38,9 +38,9 @@ const RadioInput: React.FC<InputProps> = ({ name, label, options, change }) => {
       name: fieldName,
       ref: inputRef.current,
       path: 'value',
-      setValue(_: HTMLInputElement, value: boolean) {
-        setSelectedValue(value ? 'yes' : 'no');
-        setDefaultValue(value ? options[0].id : options[1].id);
+      setValue(_: HTMLInputElement, value: 'yes' | 'no') {
+        setSelectedValue(value);
+        setDefaultValue(value === 'yes' ? options[0].id : options[1].id);
       },
     });
   }, [fieldName, inputRef, registerField, options]);

@@ -56,7 +56,11 @@ const Select: React.FC<SelectProps> = ({
         {...rest}
       >
         {optionsArray.map(option => (
-          <option key={option.value} value={option.value}>
+          <option
+            selected={selectedOption === option.value}
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </option>
         ))}

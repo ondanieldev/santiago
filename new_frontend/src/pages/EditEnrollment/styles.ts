@@ -33,10 +33,6 @@ export const InputGroup = styled.div<InputGroupProps>`
     }
   }
 
-  button {
-    margin-left: 12px;
-  }
-
   ${props =>
     props.displayColumn &&
     css`

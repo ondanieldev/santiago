@@ -43,6 +43,7 @@
       "camelcase": "off",
       "no-param-reassign": "off",
       "no-plusplus": "off",
+      "@typescript-eslint/no-empty-function": "off",
       "import/extensions": [
         "error",
         "ignorePackages",

@@ -39,7 +39,7 @@ import {
   raceOptions,
   IOption,
 } from '../../utils/defaults';
-import { Container, Main, FormGroup, InputGroup, ButtonGroup } from './style';
+import { Container, Main, FormGroup, InputGroup, ButtonGroup } from './styles';
 import api from '../../services/api';
 import IGrade from '../../entities/IGrade';
 import IPerson from '../../entities/IPerson';
@@ -517,12 +517,14 @@ const NewEnrollment: React.FC = () => {
                 placeholder="Digite o CPF para verificar se já está cadastrado"
               />
 
-              <Button
-                type="button"
-                onClick={() => handleVerifyIfResponsibleExists('financial')}
-              >
-                Verificar registro
-              </Button>
+              <div>
+                <Button
+                  type="button"
+                  onClick={() => handleVerifyIfResponsibleExists('financial')}
+                >
+                  Verificar registro
+                </Button>
+              </div>
             </InputGroup>
 
             {financialVerified && financialExists && (
@@ -739,12 +741,14 @@ const NewEnrollment: React.FC = () => {
                 placeholder="Digite o CPF para verificar se já está cadastrado"
               />
 
-              <Button
-                type="button"
-                onClick={() => handleVerifyIfResponsibleExists('supportive')}
-              >
-                Verificar registro
-              </Button>
+              <div>
+                <Button
+                  type="button"
+                  onClick={() => handleVerifyIfResponsibleExists('supportive')}
+                >
+                  Verificar registro
+                </Button>
+              </div>
             </InputGroup>
 
             {supportiveVerified && supportiveExists && (

@@ -3,8 +3,8 @@ import React from 'react';
 import { Container, VoidMessage } from './styles';
 
 interface IProps {
-  isVoid: boolean;
-  voidMessage: string;
+  isVoid?: boolean;
+  voidMessage?: string;
 }
 
 const Table: React.FC<IProps> = ({ isVoid, voidMessage, children }) => {

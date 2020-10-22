@@ -4,12 +4,6 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  img {
-    margin-bottom: 4px;
-    border-radius: 4px;
-    overflow: hidden;
-  }
 `;
 
 export const InputGroup = styled.div`
@@ -28,5 +22,9 @@ export const InputGroup = styled.div`
 
   span {
     margin-left: 12px;
+  }
+
+  button {
+    margin-left: 0;
   }
 `;

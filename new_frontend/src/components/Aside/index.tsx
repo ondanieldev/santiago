@@ -24,14 +24,8 @@ const Aside: React.FC = () => {
       { path: '/dashboard', label: 'Dashboard' },
       { path: '/new-enrollment', label: '! Nova matrícula' },
       {
-        path: '/check-for-debits-enrollments',
-        label: 'Pagar débitos',
-        permiss: 'pay_debit_permiss',
-      },
-      {
-        path: '/enrollment-responsibles',
-        label: 'Nova matrícula',
-        permiss: 'new_enrollment_permiss',
+        path: '/under-analysis-pendent-enrollments',
+        label: 'Validar matrículas',
       },
       {
         path: '/profiles',
@@ -47,16 +41,6 @@ const Aside: React.FC = () => {
         path: '/users',
         label: 'Gerenciar usuários',
         permiss: 'crud_users_permiss',
-      },
-      {
-        path: '/aproove-or-disaproove-enrollments',
-        label: 'Validar matrículas',
-        permiss: 'validate_enrollment_permiss',
-      },
-      {
-        path: '/payments',
-        label: 'Receber pagamentos',
-        permiss: 'discharge_payment_permiss',
       },
     ] as ILink[];
 
