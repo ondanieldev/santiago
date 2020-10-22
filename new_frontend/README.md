@@ -2,8 +2,6 @@
 
 **Início: 2020/10/19**
 
-**Expectativa: 2020/10/20**
-
 **Término: 2020/10/21**
 
 - [x] Cadastrar aluno
@@ -20,11 +18,7 @@
 
 # :white_check_mark: Aprovação/Reprovação de matrículas
 
-**Expectativa: 2020/10/21**
-
 **Início: 2020/10/21**
-
-**Expectativa: 2020/10/21**
 
 **Término: 2020/10/22**
 
@@ -35,11 +29,7 @@
 
 # Pagamento de débitos da matrícula
 
-**Expectativa: 2020/10/22**
-
-**Início: 2020/10/21**
-
-**Expectativa: 2020/10/22**
+**Início: 2020/10/22**
 
 **Término**
 
@@ -53,11 +43,7 @@
 
 # Recebimento de pagamentos
 
-**Expectativa: 2020/10/23**
-
 **Início:**
-
-**Expectativa: 2020/10/23**
 
 **Término**
 
