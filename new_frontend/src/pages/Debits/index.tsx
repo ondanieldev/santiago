@@ -17,6 +17,7 @@ import Aside from '../../components/Aside';
 import Select from '../../components/SelectInput';
 import Button from '../../components/Button';
 import Popup from '../../components/Popup';
+import Document from '../../components/Document';
 import IDebit from '../../entities/IDebit';
 import IPayment from '../../entities/IPayment';
 import api from '../../services/api';
@@ -75,8 +76,6 @@ const Debits: React.FC = () => {
         Object.assign(updateDebit, { paid: true });
 
         setDebits([...debitsWithoutUpdated, updateDebit]);
-
-        setSelectedDebit({} as IDebit);
 
         toast.success('Débito pago com sucesso!');
       } catch (err) {
@@ -152,7 +151,9 @@ const Debits: React.FC = () => {
               </Form>
             )}
 
-            {payment.id && <a href={payment.receipt_url}>Recibo</a>}
+            {payment.id && payment.receipt_url && (
+              <Document name="Recibo" link={payment.receipt_url} />
+            )}
           </Popup>
         )}
       </Main>

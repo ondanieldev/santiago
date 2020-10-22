@@ -27,11 +27,11 @@
 - [x] Editar dados
 - [x] Escrever comentário e aprovar/desaprovar
 
-# Pagamento de débitos da matrícula
+# :white_check_mark: Pagamento de débitos da matrícula
 
 **Início: 2020/10/22**
 
-**Término**
+**Término: 2020/10/22**
 
 - [x] Listar matrículas
 - [x] Pesquisar por matrículas pelo nome do aluno
@@ -39,7 +39,7 @@
 - [x] Exibir débitos
 - [x] Selecionar débito
 - [x] Escolher método de pagamento e pagar
-- [ ] Receber o recibo
+- [x] Receber o recibo
 
 # Recebimento de pagamentos
 
