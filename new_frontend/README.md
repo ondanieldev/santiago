@@ -1,7 +1,9 @@
 # :white_check_mark: Criação de matrículas
 
 **Início: 2020/10/19**
+
 **Expectativa: 2020/10/20**
+
 **Término: 2020/10/21**
 
 - [x] Cadastrar aluno
@@ -16,11 +18,14 @@
 - [x] Utilizar configs
 - [x] Reutilizar responsável na chamada API
 
-# Aprovação/Reprovação de matrículas
+# :white_check_mark: Aprovação/Reprovação de matrículas
 
 **Expectativa: 2020/10/21**
+
 **Início: 2020/10/21**
+
 **Expectativa: 2020/10/21**
+
 **Término: 2020/10/22**
 
 - [x] Listar matrículas
@@ -31,13 +36,16 @@
 # Pagamento de débitos da matrícula
 
 **Expectativa: 2020/10/22**
+
 **Início: 2020/10/21**
+
 **Expectativa: 2020/10/22**
+
 **Término**
 
-- [ ] Listar matrículas
-- [ ] Pesquisar por matrículas pelo nome do aluno
-- [ ] Selecionar matrícula
+- [x] Listar matrículas
+- [x] Pesquisar por matrículas pelo nome do aluno
+- [x] Selecionar matrícula
 - [ ] Exibir débitos
 - [ ] Selecionar débito
 - [ ] Escolher método de pagamento e pagar
@@ -46,8 +54,11 @@
 # Recebimento de pagamentos
 
 **Expectativa: 2020/10/23**
+
 **Início:**
+
 **Expectativa: 2020/10/23**
+
 **Término**
 
 - [ ] Listar pagamentos
