@@ -5,5 +5,7 @@ export default interface IDebit {
   description: string;
   initial_date: Date;
   final_date: Date;
+  payday?: Date;
+  type: 'enrollment' | 'installment';
   contract_id: string;
 }

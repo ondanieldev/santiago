@@ -12,4 +12,6 @@ export default interface IPayment {
   debit_id: string;
   user_id: string;
   user: IUser;
+  receipt?: string;
+  receipt_url?: string;
 }

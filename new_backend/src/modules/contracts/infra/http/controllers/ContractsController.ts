@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateContractService from '../../../services/CreateContractService';
 import FindContractByIdService from '../../../services/FindContractByIdService';
@@ -33,6 +34,6 @@ export default class ContractsController {
 
         const contract = await findContractById.execute(contract_id);
 
-        return response.json(contract);
+        return response.json(classToClass(contract));
     }
 }

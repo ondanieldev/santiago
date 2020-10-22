@@ -19,12 +19,6 @@ export default class FindPersonByCpfService {
     public async execute(findCpf: string): Promise<IResponse | undefined> {
         const person = await this.personsRepository.findByCpf(findCpf);
 
-        // if (!person) {
-        //     throw new AppError(
-        //         'Não há nenhum usuário cadastrado com este CPF!',
-        //     );
-        // }
-
         if (!person) {
             return undefined;
         }

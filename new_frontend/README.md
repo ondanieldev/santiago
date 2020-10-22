@@ -36,9 +36,9 @@
 - [x] Listar matrículas
 - [x] Pesquisar por matrículas pelo nome do aluno
 - [x] Selecionar matrícula
-- [ ] Exibir débitos
-- [ ] Selecionar débito
-- [ ] Escolher método de pagamento e pagar
+- [x] Exibir débitos
+- [x] Selecionar débito
+- [x] Escolher método de pagamento e pagar
 - [ ] Receber o recibo
 
 # Recebimento de pagamentos
@@ -72,10 +72,16 @@
 # Autenticação de usuários
 
 - [x] Acessar sistema
+- [ ] Configurar permissões
 
 # Pendências
 
 - [ ] Tamanhos dos inputs
 - [ ] Field necessidades especiais
 - [x] Field turma desejada
-- [ ] Carregamento e vazios
+- [ ] Carregamento
+- [ ] Exibição de conteúdos vazios
+- [ ] Checar try catches
+- [ ] Clear fields
+- [ ] History push
+- [ ] Bugs de autenticação

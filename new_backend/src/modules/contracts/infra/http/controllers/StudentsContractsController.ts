@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import IndexContractsMatchesStudentNameService from '../../../services/IndexContractsMatchesStudentNameService';
 
-export default class UnderAnalysisAndPendentContractsController {
+export default class StudentsContractsController {
     public async index(
         request: Request,
         response: Response,

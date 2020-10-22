@@ -8,21 +8,27 @@ import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Container, Main, InputGroup } from './styles';
+import { Container, Main, InputGroup, Debit } from './styles';
+import { paymentMethods } from '../../utils/defaults';
 import Title from '../../components/Title';
 import Table from '../../components/Table';
 import Header from '../../components/Header';
 import Aside from '../../components/Aside';
-import Select from '../../components/Select';
+import Select from '../../components/SelectInput';
 import Button from '../../components/Button';
 import Popup from '../../components/Popup';
 import IDebit from '../../entities/IDebit';
+import IPayment from '../../entities/IPayment';
 import api from '../../services/api';
 import paymentSchema from '../../schemas/paymentSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-interface IPayDebitFormData {
+interface IFormData {
   method: 'creditCard' | 'debitCard' | 'cash' | 'check' | 'deposit' | 'slip';
+}
+
+interface IParams {
+  contract_id: string;
 }
 
 toast.configure();
@@ -30,31 +36,20 @@ toast.configure();
 const Debits: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { contractId } = useParams();
+  const { contract_id } = useParams<IParams>();
 
-  const [debitId, setDebitId] = useState('');
-  const [debitValue, setDebitValue] = useState(0);
   const [debits, setDebits] = useState([] as IDebit[]);
+  const [selectedDebit, setSelectedDebit] = useState({} as IDebit);
+  const [payment, setPayment] = useState({} as IPayment);
 
   useEffect(() => {
-    const getDebits = async () => {
-      try {
-        const response = await api.get(`/debits/${contractId}`);
-
-        setDebits(response.data);
-      } catch {}
-    };
-
-    getDebits();
-  }, [contractId]);
-
-  const handleSelectDebit = useCallback((id: string, value: number) => {
-    setDebitId(id);
-    setDebitValue(value);
-  }, []);
+    api.get(`contracts/${contract_id}/debits`).then(response => {
+      setDebits(response.data);
+    });
+  }, [contract_id]);
 
   const handlePayDebit = useCallback(
-    async (data: IPayDebitFormData) => {
+    async (data: IFormData) => {
       try {
         formRef.current?.setErrors({});
 
@@ -62,23 +57,41 @@ const Debits: React.FC = () => {
           abortEarly: false,
         });
 
-        await api.post('/payments', {
-          debit_id: debitId,
+        const response = await api.post('/payments/enrollment', {
+          debit_id: selectedDebit.id,
           method: data.method,
         });
+
+        const paymentData = response.data as IPayment;
+
+        setPayment(paymentData);
+
+        const debitsWithoutUpdated = debits.filter(
+          debit => debit.id !== selectedDebit.id,
+        );
+
+        const updateDebit = selectedDebit;
+
+        Object.assign(updateDebit, { paid: true });
+
+        setDebits([...debitsWithoutUpdated, updateDebit]);
+
+        setSelectedDebit({} as IDebit);
 
         toast.success('Débito pago com sucesso!');
       } catch (err) {
         if (err instanceof YupValidationError) {
           const errors = getValidationErrors(err);
+
           formRef.current?.setErrors(errors);
+
           return;
         }
 
-        toast.error('Erro ao realizar pagamento!');
+        toast.error('Erro interno do servidor!');
       }
     },
-    [debitId],
+    [selectedDebit, debits],
   );
 
   return (
@@ -88,7 +101,7 @@ const Debits: React.FC = () => {
       <Aside />
 
       <Main>
-        <Title title="Pagar débitos" subtitle={`Contrato #${contractId}`} />
+        <Title title="Pagar débitos" subtitle={`Contrato #${contract_id}`} />
 
         <Table
           isVoid={debits.length <= 0}
@@ -100,46 +113,49 @@ const Debits: React.FC = () => {
               <td>Descrição</td>
               <td>Data inicial</td>
               <td>Data final</td>
+              <td>Data de pagamento</td>
             </tr>
           </thead>
           <tbody>
             {debits.map(debit => (
-              <tr
+              <Debit
+                paid={debit.paid}
                 key={debit.id}
-                onClick={() => handleSelectDebit(debit.id, debit.value)}
+                onClick={() => !debit.paid && setSelectedDebit(debit)}
               >
                 <td>{debit.value}</td>
                 <td>{debit.description}</td>
                 <td>{debit.initial_date}</td>
                 <td>{debit.final_date}</td>
-              </tr>
+                <td>{debit.payday ? debit.payday : '-'}</td>
+              </Debit>
             ))}
           </tbody>
         </Table>
+
+        {!!selectedDebit.id && (
+          <Popup
+            title={`Débito: R$ ${selectedDebit.value}`}
+            handleClosePopup={() => setSelectedDebit({} as IDebit)}
+          >
+            {!payment.id && (
+              <Form ref={formRef} onSubmit={handlePayDebit}>
+                <InputGroup>
+                  <Select
+                    name="method"
+                    icon={FiDollarSign}
+                    optionsArray={paymentMethods}
+                  />
+                </InputGroup>
+
+                <Button type="submit">Pagar</Button>
+              </Form>
+            )}
+
+            {payment.id && <a href={payment.receipt_url}>Recibo</a>}
+          </Popup>
+        )}
       </Main>
-
-      {!!debitId && (
-        <Popup
-          title={`Débito: ${debitValue}`}
-          handleClosePopup={() => setDebitId('')}
-        >
-          <Form ref={formRef} onSubmit={handlePayDebit}>
-            <InputGroup>
-              <Select name="method" icon={FiDollarSign} defaultValue="null">
-                <option value="null">Selecionar método de pagamento</option>
-                <option value="creditCard">Cartão de crédito</option>
-                <option value="debitCard">Cartão de débito</option>
-                <option value="cash">Dinheiro</option>
-                <option value="check">Chque</option>
-                <option value="deposit">Depósito</option>
-                <option value="slip">Boleto</option>
-              </Select>
-            </InputGroup>
-
-            <Button type="submit">Pagar</Button>
-          </Form>
-        </Popup>
-      )}
     </Container>
   );
 };

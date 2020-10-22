@@ -34,7 +34,7 @@ export default class CreatePaymentService {
         @inject('StudentsRepository')
         private studentsRepository: IStudentsRepository,
 
-        @inject('StudentsRepository')
+        @inject('PersonsRepository')
         private personsRepository: IPersonsRepository,
 
         @inject('ProfilesRepository')
@@ -166,20 +166,28 @@ export default class CreatePaymentService {
         for (const agreement of contract.agreements) {
             const { person } = agreement;
 
-            const responsiblePassword = v4().slice(0, 6);
+            let responsibleUsername = 'usuário já utilizado no sistema.';
 
-            const responsibleUser = await this.usersRepository.create({
-                username: v4(),
-                password: await this.hashProvider.generateHash(
-                    responsiblePassword,
-                ),
-                profile_id: responsibleProfile.id,
-            });
+            let responsiblePassword = 'senha já utilizada no sistema.';
 
-            await this.personsRepository.updateUser(
-                person.id,
-                responsibleUser.id,
-            );
+            if (!person.user_id) {
+                responsibleUsername = v4();
+
+                responsiblePassword = v4().slice(0, 6);
+
+                const responsibleUser = await this.usersRepository.create({
+                    username: responsibleUsername,
+                    password: await this.hashProvider.generateHash(
+                        responsiblePassword,
+                    ),
+                    profile_id: responsibleProfile.id,
+                });
+
+                await this.personsRepository.updateUser(
+                    person.id,
+                    responsibleUser.id,
+                );
+            }
 
             const studentArticleWithNoun =
                 student.gender === 'male' ? 'do aluno' : 'da aluna';
@@ -196,7 +204,7 @@ export default class CreatePaymentService {
                     file: 'notify_active_enrollment.hbs',
                     variables: {
                         responsibleName: person.name,
-                        responsibleUsername: responsibleUser.username,
+                        responsibleUsername,
                         responsiblePassword,
                         studentName: student.name,
                         studentUsername: studentUser.username,

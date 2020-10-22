@@ -63,13 +63,20 @@ const Enrollments: React.FC<IProps> = ({
     [],
   );
 
-  const handleSubmitForm = useCallback(async ({ student_name }: IFormData) => {
-    try {
-      const response = await api.get(`/contracts/students/${student_name}`);
+  const handleSubmitForm = useCallback(
+    async ({ student_name }: IFormData) => {
+      try {
+        const response = await api.get(`/contracts/students/${student_name}`);
 
-      setEnrollments(response.data);
-    } catch {}
-  }, []);
+        setEnrollments(response.data);
+      } catch {
+        api.get(apiUrl).then(response => {
+          setEnrollments(response.data || []);
+        });
+      }
+    },
+    [apiUrl],
+  );
 
   return (
     <Container>

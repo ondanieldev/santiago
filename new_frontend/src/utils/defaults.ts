@@ -23,6 +23,16 @@ export const raceOptions = [
   { value: 'yellow', label: 'Amarelo' },
 ];
 
+export const paymentMethods = [
+  { value: '', label: 'Selecionar método de pagamento' },
+  { value: 'creditCard', label: 'Cartão de crédito' },
+  { value: 'debitCard', label: 'Cartão de débito' },
+  { value: 'cash', label: 'Dinheiro' },
+  { value: 'check', label: 'Cheque' },
+  { value: 'deposit', label: 'Depósito' },
+  { value: 'slip', label: 'Boleto' },
+];
+
 export interface IOption {
   value: string;
   label: string;

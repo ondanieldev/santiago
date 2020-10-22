@@ -63,9 +63,9 @@ export default class PersonsRepository implements IPersonsRepository {
             where: { id: person_id },
         });
 
-        Object.assign(person, { user_id });
-
         if (person) {
+            Object.assign(person, { user_id });
+
             await this.ormRepository.save(person);
         }
 

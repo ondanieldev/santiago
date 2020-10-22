@@ -53,7 +53,7 @@ contractsRouter.patch(
     disaproovedContractsController.update,
 );
 contractsRouter.get(
-    '/:students/:student_name',
+    '/students/:student_name',
     (req, res, next) => ensureAuthenticated()(req, res, next),
     studentsContractsController.index,
 );

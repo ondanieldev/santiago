@@ -6,8 +6,9 @@ import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import NewEnrollment from '../pages/NewEnrollment';
 import UnderAnalysisAndPendentEnrollments from '../pages/UnderAnalysisAndPendentEnrollments';
-import ValidateEnrollment from '../pages/ValidateEnrollment';
 import EditEnrollment from '../pages/EditEnrollment';
+import ValidateEnrollment from '../pages/ValidateEnrollment';
+import AcceptedAndActiveEnrollments from '../pages/AcceptedAndActiveEnrollments';
 import Debits from '../pages/Debits';
 import Payments from '../pages/Payments';
 import Profiles from '../pages/Profiles';
@@ -29,19 +30,25 @@ const Routes: React.FC = () => (
     />
 
     <Route
-      path="/validate-enrollment/:contract_id"
-      component={ValidateEnrollment}
-      isPrivate
-    />
-
-    <Route
       path="/edit-enrollment/:contract_id"
       component={EditEnrollment}
       isPrivate
     />
 
     <Route
-      path="/debits/:contractId"
+      path="/validate-enrollment/:contract_id"
+      component={ValidateEnrollment}
+      isPrivate
+    />
+
+    <Route
+      path="/accepted-active-enrollments"
+      component={AcceptedAndActiveEnrollments}
+      isPrivate
+    />
+
+    <Route
+      path="/debits/:contract_id"
       component={Debits}
       isPrivate
       needPermissions={['pay_debit_permiss']}

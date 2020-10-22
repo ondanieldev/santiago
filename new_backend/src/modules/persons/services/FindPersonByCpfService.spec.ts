@@ -1,4 +1,3 @@
-import AppError from '@shared/errors/AppError';
 import FakePersonsRepository from '../repositories/fakes/FakePersonsRepository';
 import FindPersonByCpfService from './FindPersonByCpfService';
 
@@ -39,7 +38,7 @@ describe('FindPersonByCpfService', () => {
 
         const findPerson = await findPersonByCpf.execute('cpf');
 
-        expect(findPerson.id).toBe(person.id);
+        expect(findPerson?.id).toBe(person.id);
     });
 
     it('should not be able to get name and id of a person from a non-existing-cpf', async () => {
@@ -67,8 +66,6 @@ describe('FindPersonByCpfService', () => {
             address_complement: 'address_complement',
         });
 
-        await expect(
-            findPersonByCpf.execute('non-existing-cpf'),
-        ).rejects.toBeInstanceOf(AppError);
+        expect(findPersonByCpf.execute('non-existing-cpf')).toBeUndefined();
     });
 });

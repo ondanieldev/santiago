@@ -7,7 +7,7 @@ import Aside from '../../components/Aside';
 import Title from '../../components/Title';
 import Enrollments from '../../components/Enrollments';
 
-const UnderAnalysisAndPendentEnrollments: React.FC = () => {
+const AcceptedAndActiveEnrollments: React.FC = () => {
   const history = useHistory();
 
   return (
@@ -17,12 +17,13 @@ const UnderAnalysisAndPendentEnrollments: React.FC = () => {
       <Aside />
 
       <Main>
-        <Title title="Validar matrículas" />
+        <Title title="Pagar débitos" subtitle="Selecionar matrícula" />
 
         <Enrollments
-          apiUrl="/contracts/under-analysis-pendent"
+          showSearch
+          apiUrl="/contracts/accepted-active"
           handleSelectEnrollment={(id: string) => {
-            history.push(`/validate-enrollment/${id}`);
+            history.push(`debits/${id}`);
           }}
         />
       </Main>
@@ -30,4 +31,4 @@ const UnderAnalysisAndPendentEnrollments: React.FC = () => {
   );
 };
 
-export default UnderAnalysisAndPendentEnrollments;
+export default AcceptedAndActiveEnrollments;
