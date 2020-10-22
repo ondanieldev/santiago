@@ -3,8 +3,6 @@ import { Form } from '@unform/web';
 import { FiCheck } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 import { Container, Main, InputGroup, WarnMessage } from './styles';
 import Table from '../../components/Table';
 import Header from '../../components/Header';
@@ -15,8 +13,7 @@ import Button from '../../components/Button';
 import Popup from '../../components/Popup';
 import IPayment from '../../entities/IPayment';
 import api from '../../services/api';
-
-toast.configure();
+import { formatPaymentMethod } from '../../utils/formatFunctions';
 
 const Payments: React.FC = () => {
   const [payments, setPayments] = useState([] as IPayment[]);
@@ -27,36 +24,6 @@ const Payments: React.FC = () => {
     api.get('payments').then(response => setPayments(response.data));
   }, []);
 
-  const formatMethod = useCallback(
-    (
-      method:
-        | 'creditCard'
-        | 'debitCard'
-        | 'cash'
-        | 'check'
-        | 'deposit'
-        | 'slip',
-    ) => {
-      switch (method) {
-        case 'creditCard':
-          return 'Cartão de crédito';
-        case 'debitCard':
-          return 'Cartão de débito';
-        case 'cash':
-          return 'Dinheiro';
-        case 'check':
-          return 'Cheque';
-        case 'deposit':
-          return 'Depósito';
-        case 'slip':
-          return 'Boleto';
-        default:
-          return '-';
-      }
-    },
-    [],
-  );
-
   const handleDischargePayment = useCallback(() => {
     api
       .post('/discharges', {
@@ -64,6 +31,12 @@ const Payments: React.FC = () => {
       })
       .then(() => {
         toast.success('Pagamento recebido com sucesso!');
+
+        const paymentsWithoutDischarged = payments.filter(
+          payment => payment.id !== paymentId,
+        );
+
+        setPayments(paymentsWithoutDischarged);
       })
       .catch(() => {
         toast.error('Erro ao receber pagamento!');
@@ -72,7 +45,7 @@ const Payments: React.FC = () => {
         setPaymentId('');
         setConfirmMessage('');
       });
-  }, [paymentId]);
+  }, [paymentId, payments]);
 
   return (
     <Container>
@@ -99,7 +72,7 @@ const Payments: React.FC = () => {
               <tr key={payment.id} onClick={() => setPaymentId(payment.id)}>
                 <td>{payment.user.username}</td>
                 <td>{payment.amount}</td>
-                <td>{formatMethod(payment.method)}</td>
+                <td>{formatPaymentMethod(payment.method)}</td>
               </tr>
             ))}
           </tbody>

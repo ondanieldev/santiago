@@ -47,19 +47,9 @@ const Routes: React.FC = () => (
       isPrivate
     />
 
-    <Route
-      path="/debits/:contract_id"
-      component={Debits}
-      isPrivate
-      needPermissions={['pay_debit_permiss']}
-    />
+    <Route path="/debits/:contract_id" component={Debits} isPrivate />
 
-    <Route
-      path="/payments"
-      component={Payments}
-      isPrivate
-      needPermissions={['discharge_payment_permiss']}
-    />
+    <Route path="/payments" component={Payments} isPrivate />
 
     <Route
       path="/profiles"

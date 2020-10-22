@@ -32,6 +32,10 @@ const Aside: React.FC = () => {
         label: 'Pagar débitos',
       },
       {
+        path: '/payments',
+        label: 'Receber pagamentos',
+      },
+      {
         path: '/profiles',
         label: 'Gerenciar perfis',
         permiss: 'crud_profiles_permiss',

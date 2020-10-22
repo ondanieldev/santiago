@@ -43,13 +43,13 @@
 
 # Recebimento de pagamentos
 
-**Início:**
+**Início: 2020/10/22**
 
-**Término**
+**Término 2020/10/22**
 
-- [ ] Listar pagamentos
-- [ ] Selecionar pagamento
-- [ ] Receber pagamento
+- [x] Listar pagamentos
+- [x] Selecionar pagamento
+- [x] Receber pagamento
 
 # CRUD de turmas
 

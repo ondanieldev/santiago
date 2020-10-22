@@ -1,4 +1,4 @@
-export const formatDate = (date: Date): string => {
+export function formatDate(date: Date): string {
   const d = new Date(date);
 
   let month = `${d.getMonth() + 1}`;
@@ -14,9 +14,9 @@ export const formatDate = (date: Date): string => {
   }
 
   return [year, month, day].join('-');
-};
+}
 
-export const prettyDate = (date: Date): string => {
+export function prettyDate(date: Date): string {
   const d = new Date(date);
 
   let month = `${d.getMonth() + 1}`;
@@ -32,9 +32,9 @@ export const prettyDate = (date: Date): string => {
   }
 
   return [day, month, year].join('/');
-};
+}
 
-export const formatEducationLevel = (educationLevel: string): string => {
+export function formatEducationLevel(educationLevel: string): string {
   switch (educationLevel) {
     case 'elementary_incompleted':
       return 'Fundamental incompleto';
@@ -56,9 +56,9 @@ export const formatEducationLevel = (educationLevel: string): string => {
     default:
       return '';
   }
-};
+}
 
-export const formatGender = (gender: string): string => {
+export function formatGender(gender: string): string {
   switch (gender) {
     case 'male':
       return 'Masculino';
@@ -69,9 +69,9 @@ export const formatGender = (gender: string): string => {
     default:
       return '';
   }
-};
+}
 
-export const formatRace = (race: string): string => {
+export function formatRace(race: string): string {
   switch (race) {
     case 'white':
       return 'Branco';
@@ -91,7 +91,7 @@ export const formatRace = (race: string): string => {
     default:
       return '';
   }
-};
+}
 
 export function formatGrade(
   grade:
@@ -145,6 +145,27 @@ export function formatGrade(
     case 'nineth_year':
       return '9º Ano';
 
+    default:
+      return '-';
+  }
+}
+
+export function formatPaymentMethod(
+  method: 'creditCard' | 'debitCard' | 'cash' | 'check' | 'deposit' | 'slip',
+): string {
+  switch (method) {
+    case 'creditCard':
+      return 'Cartão de crédito';
+    case 'debitCard':
+      return 'Cartão de débito';
+    case 'cash':
+      return 'Dinheiro';
+    case 'check':
+      return 'Cheque';
+    case 'deposit':
+      return 'Depósito';
+    case 'slip':
+      return 'Boleto';
     default:
       return '-';
   }
