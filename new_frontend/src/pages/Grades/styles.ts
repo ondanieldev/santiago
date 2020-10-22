@@ -5,6 +5,14 @@ import { BaseGridTemplate, BaseGridMain } from '../../styles/grid';
 export const Container = styled(BaseGridTemplate)``;
 
 export const Main = styled(BaseGridMain)`
+  form {
+    > div {
+      & + div {
+        margin-top: 12px;
+      }
+    }
+  }
+
   ul {
     margin-top: 0;
     margin-left: 24px;

@@ -132,6 +132,8 @@ export default class CreatePaymentService {
                 pay_debit_permiss: false,
                 validate_enrollment_permiss: false,
             });
+
+            this.cacheProvider.invalidate('profiles');
         }
 
         const studentPassword = v4().slice(0, 6);
@@ -161,6 +163,8 @@ export default class CreatePaymentService {
                 pay_debit_permiss: false,
                 validate_enrollment_permiss: false,
             });
+
+            this.cacheProvider.invalidate('profiles');
         }
 
         for (const agreement of contract.agreements) {
@@ -217,6 +221,8 @@ export default class CreatePaymentService {
         }
 
         await this.cacheProvider.invalidate('undischarged-payments');
+
+        await this.cacheProvider.invalidate('users');
 
         return payment;
     }

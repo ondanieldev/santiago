@@ -41,7 +41,7 @@
 - [x] Escolher método de pagamento e pagar
 - [x] Receber o recibo
 
-# Recebimento de pagamentos
+# :white_check_mark: Recebimento de pagamentos
 
 **Início: 2020/10/22**
 
@@ -51,19 +51,19 @@
 - [x] Selecionar pagamento
 - [x] Receber pagamento
 
-# CRUD de turmas
+# :white_check_mark: CRUD de turmas
 
 - [x] Listar turmas
 - [x] Cadastar turma
 - [x] Atualizar turma
 
-# CRUD de perfis
+# :white_check_mark: CRUD de perfis
 
 - [x] Listar perfis
 - [x] Cadastar perfil
 - [x] Atualizar perfil
 
-# CRUD de usuários
+# :white_check_mark: CRUD de usuários
 
 - [x] Listar usuários
 - [x] Cadastar usuário

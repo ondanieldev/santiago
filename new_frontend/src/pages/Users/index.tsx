@@ -118,14 +118,6 @@ const Users: React.FC = () => {
     [users, userId],
   );
 
-  const handleRemoveUser = useCallback(
-    (id: string) => {
-      if (userId) return;
-      console.log(id);
-    },
-    [userId],
-  );
-
   return (
     <Container>
       <Header />
@@ -182,10 +174,10 @@ const Users: React.FC = () => {
               {users.map(user => (
                 <li key={user.id}>
                   <FiEdit2 size={20} onClick={() => handleGetUser(user)} />
-                  <FiTrash
+                  {/* <FiTrash
                     size={20}
                     onClick={() => handleRemoveUser(user.id)}
-                  />
+                  /> */}
                   <span>{user.username}</span>
                 </li>
               ))}

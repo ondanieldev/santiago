@@ -23,10 +23,6 @@ import api from '../../services/api';
 import gradeSchema from '../../schemas/gradeSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import 'react-toastify/dist/ReactToastify.css';
-
-toast.configure();
-
 const Users: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
@@ -118,14 +114,6 @@ const Users: React.FC = () => {
     [grades, gradeId],
   );
 
-  const handleRemoveGrade = useCallback(
-    (id: string) => {
-      if (gradeId) return;
-      console.log(id);
-    },
-    [gradeId],
-  );
-
   return (
     <Container>
       <Header />
@@ -175,10 +163,10 @@ const Users: React.FC = () => {
               {grades.map(grade => (
                 <li key={grade.id}>
                   <FiEdit2 size={20} onClick={() => handleGetGrade(grade)} />
-                  <FiTrash
+                  {/* <FiTrash
                     size={20}
                     onClick={() => handleRemoveGrade(grade.id)}
-                  />
+                  /> */}
                   <span>{`${grade.name} - ${grade.year}`}</span>
                 </li>
               ))}

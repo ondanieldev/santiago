@@ -18,10 +18,6 @@ import api from '../../services/api';
 import profileSchema from '../../schemas/profileSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import 'react-toastify/dist/ReactToastify.css';
-
-toast.configure();
-
 const Profiles: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
@@ -113,14 +109,6 @@ const Profiles: React.FC = () => {
     [profiles, profileId],
   );
 
-  const handleRemoveProfile = useCallback(
-    (id: string) => {
-      if (profileId) return;
-      console.log(id);
-    },
-    [profileId],
-  );
-
   return (
     <Container>
       <Header />
@@ -187,10 +175,10 @@ const Profiles: React.FC = () => {
                     size={20}
                     onClick={() => handleGetProfile(profile)}
                   />
-                  <FiTrash
+                  {/* <FiTrash
                     size={20}
                     onClick={() => handleRemoveProfile(profile.id)}
-                  />
+                  /> */}
                   <span>{profile.name}</span>
                 </li>
               ))}
