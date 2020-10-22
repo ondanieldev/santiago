@@ -229,6 +229,12 @@
 - [x] Configurar provider de recibos
 - [ ] Implementar celebrate para filtrar dados vindos do front-end;
 - [ ] Redefinir permissões de usuário
+
+# Issues
 - [ ] Atualizar campo de education level para enum
-- [ ] Atualizar campo de income_tax para default false
+- [x] Atualizar campo de income_tax para default false
 - [ ] Listar apenas contratos que possuem acordos estabelecidos
+- [ ] Integridade dos dados na criação de matrícula
+- [ ] Usuário do recebimento bugado
+- [ ] Data de descarga
+- [ ] Gerar recibo de descarga

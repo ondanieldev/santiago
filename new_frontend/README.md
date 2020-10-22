@@ -85,3 +85,4 @@
 - [ ] Clear fields
 - [ ] History push
 - [ ] Bugs de autenticação
+- [ ] Cabeçalho estático
