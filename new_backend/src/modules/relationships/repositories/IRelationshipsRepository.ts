@@ -3,4 +3,5 @@ import Relationship from '@modules/relationships/infra/typeorm/entities/Relation
 
 export default interface IRelationshipsRepository {
     create(data: ICreateRelationshipDTO): Promise<Relationship>;
+    dangerouslyDelete(id: string): Promise<void>;
 }

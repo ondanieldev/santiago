@@ -20,4 +20,12 @@ export default class RelationshipsRepository
 
         return relationship;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        await this.ormRepository
+            .createQueryBuilder()
+            .delete()
+            .where('id = :id', { id })
+            .execute();
+    }
 }

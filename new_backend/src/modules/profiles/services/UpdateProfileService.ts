@@ -4,6 +4,7 @@ import Profile from '@modules/profiles/infra/typeorm/entities/Profile';
 import AppError from '@shared/errors/AppError';
 import IProfilesRepository from '@modules/profiles/repositories/IProfilesRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IUpdateProfileDTO from '../dtos/IUpdateProfileDTO';
 
 @injectable()
 class UpdateProfileService {
@@ -25,7 +26,7 @@ class UpdateProfileService {
         crud_grades_permiss,
         crud_profiles_permiss,
         crud_users_permiss,
-    }: Omit<Profile, 'users'>): Promise<Profile> {
+    }: IUpdateProfileDTO): Promise<Profile> {
         const profile = await this.profilesRepository.findById(id);
 
         if (!profile) {

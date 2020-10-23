@@ -14,4 +14,5 @@ export default interface IPersonsRepository {
         student_id: string,
         user_id: string,
     ): Promise<Person | undefined>;
+    dangerouslyDelete(id: string): Promise<void>;
 }

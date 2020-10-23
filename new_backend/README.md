@@ -233,8 +233,10 @@
 # Issues
 - [x] Atualizar campo de education level para enum
 - [x] Atualizar campo de income_tax para default false
-- [ ] Listar apenas contratos que possuem acordos estabelecidos
-- [ ] Integridade dos dados na criação de matrícula
-- [ ] Usuário do recebimento bugado
-- [ ] Data de descarga
-- [ ] Gerar recibo de descarga
+- [x] Integridade dos dados na criação de matrícula
+- [x] Usuário do recebimento bugado
+- [x] Data de descarga
+- [x] Gerar recibo de descarga
+- [x] Filtragem de erros criação de nova matrícula
+- [ ] Reescrever mensagens de erro
+- [ ] Refatorar testes

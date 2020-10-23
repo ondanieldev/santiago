@@ -28,4 +28,12 @@ export default class UsersRepository implements IAgreementsRepository {
 
         return agreement;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        await this.ormRepository
+            .createQueryBuilder()
+            .delete()
+            .where('id = :id', { id })
+            .execute();
+    }
 }

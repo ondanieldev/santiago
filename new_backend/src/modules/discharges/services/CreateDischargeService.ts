@@ -7,6 +7,7 @@ import IPaymentsRepository from '@modules/payments/repositories/IPaymentsReposit
 import IDischargesRepository from '@modules/discharges/repositories/IDischargesRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IReceiptProvider from '@shared/container/providers/ReceiptProvider/models/IReceiptProvider';
 
 @injectable()
 export default class CreateDischargeService {
@@ -22,12 +23,15 @@ export default class CreateDischargeService {
 
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
+
+        @inject('ReceiptProvider')
+        private receiptProvider: IReceiptProvider,
     ) {}
 
     public async execute({
         payment_id,
         user_id,
-    }: ICreateDischargeDTO): Promise<Discharge> {
+    }: Omit<ICreateDischargeDTO, 'receipt'>): Promise<Discharge> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
@@ -50,12 +54,17 @@ export default class CreateDischargeService {
             );
         }
 
+        const receipt = await this.receiptProvider.generate([
+            { item: 'Baixa', value: payment.amount },
+        ]);
+
         const discharge = this.dischargesRepository.create({
             payment_id,
             user_id,
+            receipt,
         });
 
-        payment.discharged = true;
+        Object.assign(payment, { discharged: true, discharge_day: new Date() });
 
         await this.paymentsRepository.save(payment);
 

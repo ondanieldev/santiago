@@ -50,4 +50,12 @@ export default class StudentsRepository implements IStudentsrepository {
 
         return student;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        await this.ormRepository
+            .createQueryBuilder()
+            .delete()
+            .where('id = :id', { id })
+            .execute();
+    }
 }

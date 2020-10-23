@@ -3,7 +3,6 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
-import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import Agreement from '../infra/typeorm/entities/Agreement';
 import ICreateAgreementDTO from '../dtos/ICreateAgreementDTO';
 import IAgreementsRepository from '../repositories/IAgreementsRepository';
@@ -19,9 +18,6 @@ export default class CreateAgreementService {
 
         @inject('PersonsRepository')
         private personsRepository: IPersonsRepository,
-
-        @inject('MailProvider')
-        private mailProvider: IMailProvider,
     ) {}
 
     public async execute({
@@ -49,20 +45,6 @@ export default class CreateAgreementService {
             contract_id,
             person_id,
             responsible_type,
-        });
-
-        await this.mailProvider.sendMail({
-            to: {
-                name: person.name,
-                email: person.email,
-            },
-            subject: '[Santiago] Solicitação de Matrícula',
-            body: {
-                file: 'notify_create_enrollment.hbs',
-                variables: {
-                    responsibleName: person.name,
-                },
-            },
         });
 
         return agreement;

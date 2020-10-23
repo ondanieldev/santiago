@@ -93,4 +93,12 @@ export default class ContractsRepository implements IContractsRepository {
 
         return contract;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        await this.ormRepository
+            .createQueryBuilder()
+            .delete()
+            .where('id = :id', { id })
+            .execute();
+    }
 }

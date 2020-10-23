@@ -8,4 +8,5 @@ export default interface IContractsRepository {
     findById(id: string): Promise<Contract | undefined>;
     save(contract: Contract): Promise<Contract>;
     findByStudentName(student_name: string): Promise<Contract[]>;
+    dangerouslyDelete(id: string): Promise<void>;
 }

@@ -4,6 +4,7 @@ import agreementsRouter from '@modules/agreements/infra/http/routes/agreements.r
 import contractsRouter from '@modules/contracts/infra/http/routes/contracts.routes';
 import contractDebitsRouter from '@modules/contracts/infra/http/routes/debits.routes';
 import dischargesRouter from '@modules/discharges/infra/http/routes/discharges.routes';
+import enrollmentsRouter from '@modules/enrollments/infra/http/routes/enrollments.routes';
 import gradesRouter from '@modules/grades/infra/http/routes/grades.routes';
 import paymentsRouter from '@modules/payments/infra/http/routes/payments.routes';
 import personsRouter from '@modules/persons/infra/http/routes/persons.routes';
@@ -19,6 +20,7 @@ routes.use('/agreements', agreementsRouter);
 routes.use('/contracts', contractsRouter);
 routes.use('/contracts', contractDebitsRouter);
 routes.use('/discharges', dischargesRouter);
+routes.use('/enrollments', enrollmentsRouter);
 routes.use('/grades', gradesRouter);
 routes.use('/payments', paymentsRouter);
 routes.use('/persons', personsRouter);

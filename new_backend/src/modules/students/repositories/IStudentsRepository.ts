@@ -9,4 +9,5 @@ export default interface IStudentsRepository {
         student_id: string,
         user_id: string,
     ): Promise<Student | undefined>;
+    dangerouslyDelete(id: string): Promise<void>;
 }

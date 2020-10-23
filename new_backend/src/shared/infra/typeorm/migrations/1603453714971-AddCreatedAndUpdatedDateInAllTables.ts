@@ -49,7 +49,7 @@ export default class AddCreatedAndUpdatedDateInAllTables1603453714971
         );
 
         await queryRunner.addColumn(
-            'classes',
+            'grades',
             new TableColumn({
                 name: 'created_at',
                 type: 'timestamp',
@@ -99,7 +99,7 @@ export default class AddCreatedAndUpdatedDateInAllTables1603453714971
         await queryRunner.dropColumn('debits', 'created_at');
         await queryRunner.dropColumn('agreements', 'created_at');
         await queryRunner.dropColumn('contracts', 'created_at');
-        await queryRunner.dropColumn('classes', 'created_at');
+        await queryRunner.dropColumn('grades', 'created_at');
         await queryRunner.dropColumn('relationships', 'created_at');
         await queryRunner.dropColumn('students', 'created_at');
         await queryRunner.dropColumn('persons', 'created_at');
