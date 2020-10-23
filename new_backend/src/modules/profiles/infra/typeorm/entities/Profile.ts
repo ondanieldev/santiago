@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    CreateDateColumn,
+} from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -30,6 +36,9 @@ class Profile {
 
     @Column('boolean')
     crud_grades_permiss: boolean;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @OneToMany(() => User, user => user.profile)
     users: User[];

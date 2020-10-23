@@ -5,6 +5,7 @@ import {
     JoinColumn,
     OneToOne,
     OneToMany,
+    CreateDateColumn,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 
@@ -89,6 +90,9 @@ export default class Student {
 
     @Column()
     school_records_photo: string;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @Column()
     user_id: string;

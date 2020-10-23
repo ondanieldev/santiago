@@ -5,6 +5,7 @@ import {
     ManyToOne,
     JoinColumn,
     OneToOne,
+    CreateDateColumn,
 } from 'typeorm';
 
 import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
@@ -38,6 +39,9 @@ export default class Debit {
         enum: ['enrollment', 'installment'],
     })
     type: 'enrollment' | 'installment';
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @Column()
     contract_id: string;

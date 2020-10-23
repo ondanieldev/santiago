@@ -231,7 +231,7 @@
 - [ ] Redefinir permissões de usuário
 
 # Issues
-- [ ] Atualizar campo de education level para enum
+- [x] Atualizar campo de education level para enum
 - [x] Atualizar campo de income_tax para default false
 - [ ] Listar apenas contratos que possuem acordos estabelecidos
 - [ ] Integridade dos dados na criação de matrícula

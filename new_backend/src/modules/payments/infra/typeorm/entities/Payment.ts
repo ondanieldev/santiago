@@ -5,6 +5,7 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
+    CreateDateColumn,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 
@@ -32,11 +33,17 @@ export default class Payment {
     @Column()
     receipt: string;
 
+    @Column('date')
+    discharge_day: Date;
+
     @Column()
     debit_id: string;
 
     @Column()
     user_id: string;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @OneToOne(() => Debit, debit => debit.payment)
     @JoinColumn({ name: 'debit_id' })

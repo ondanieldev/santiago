@@ -5,6 +5,7 @@ import {
     JoinColumn,
     OneToMany,
     Entity,
+    CreateDateColumn,
 } from 'typeorm';
 
 import Grade from '@modules/grades/infra/typeorm/entities/Grade';
@@ -25,6 +26,9 @@ export default class Contract {
 
     @Column()
     comment: string;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @Column()
     student_id: string;

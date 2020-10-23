@@ -4,6 +4,7 @@ import {
     ManyToOne,
     JoinColumn,
     Entity,
+    CreateDateColumn,
 } from 'typeorm';
 
 import Person from '@modules/persons/infra/typeorm/entities/Person';
@@ -19,6 +20,9 @@ export default class Agreement {
         enum: ['financial', 'supportive', 'educational'],
     })
     responsible_type: 'financial' | 'supportive' | 'educational';
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @Column()
     person_id: string;

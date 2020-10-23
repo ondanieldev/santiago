@@ -5,6 +5,7 @@ import {
     JoinColumn,
     OneToMany,
     OneToOne,
+    CreateDateColumn,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 
@@ -67,7 +68,13 @@ export default class Person {
     personal_phone: string;
 
     @Column()
-    education_level: string;
+    education_level:
+        | 'elementary_incompleted'
+        | 'elementary_completed'
+        | 'highschool_incompleted'
+        | 'highschool_completed'
+        | 'university_incompleted'
+        | 'university_completed';
 
     @Column()
     workplace: string;
@@ -89,6 +96,9 @@ export default class Person {
 
     @Column()
     email: string;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @Column()
     user_id: string;

@@ -4,6 +4,7 @@ import {
     Column,
     ManyToOne,
     JoinColumn,
+    CreateDateColumn,
 } from 'typeorm';
 
 import Person from '@modules/persons/infra/typeorm/entities/Person';
@@ -22,6 +23,9 @@ export default class Relationship {
 
     @Column()
     student_id: string;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @ManyToOne(() => Person, person => person.relationships)
     @JoinColumn({ name: 'person_id' })

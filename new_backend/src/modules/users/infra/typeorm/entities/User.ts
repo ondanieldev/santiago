@@ -6,6 +6,7 @@ import {
     ManyToOne,
     OneToMany,
     JoinColumn,
+    CreateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -26,6 +27,9 @@ class User {
     @Column()
     @Exclude()
     password: string;
+
+    @CreateDateColumn()
+    created_at: Date;
 
     @Column()
     profile_id: string;
