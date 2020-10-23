@@ -1,13 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import {
-  FiInfo,
-  FiCalendar,
-  FiDollarSign,
-  FiTrash,
-  FiEdit2,
-} from 'react-icons/fi';
+import { FiInfo, FiCalendar, FiDollarSign, FiEdit2 } from 'react-icons/fi';
 import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
 

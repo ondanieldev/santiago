@@ -79,12 +79,12 @@ type IStudentDTO = Omit<
 >;
 
 interface IStudentPhotosDTO {
-  birth_certificate_photo: string;
-  vaccine_card_photo: string;
-  health_plan_photo: string;
-  transfer_declaration_photo: string;
-  monthly_declaration_photo: string;
-  school_records_photo: string;
+  birth_certificate_photo?: string;
+  vaccine_card_photo?: string;
+  health_plan_photo?: string;
+  transfer_declaration_photo?: string;
+  monthly_declaration_photo?: string;
+  school_records_photo?: string;
 }
 
 interface IResponsibleDTO
@@ -175,62 +175,16 @@ const NewEnrollment: React.FC = () => {
           abortEarly: false,
         });
 
-        const createStudent = await api.post('/students', student);
-
-        const createContract = await api.post('/contracts', {
-          grade_id: grade.id,
-          student_id: createStudent.data.id,
+        const response = await api.post('/enrollments', {
+          grade,
+          student,
+          financial_responsible,
+          financial_responsible_id: financialFromDB.id,
+          supportive_responsible,
+          supportive_responsible_id: supportiveFromDB.id,
         });
 
-        let financialId = '';
-
-        if (!financialExists) {
-          const createFinancial = await api.post(
-            '/persons',
-            financial_responsible,
-          );
-
-          financialId = createFinancial.data.id;
-        } else {
-          financialId = financialFromDB.id;
-        }
-
-        await api.post('/agreements', {
-          contract_id: createContract.data.id,
-          person_id: financialId,
-          responsible_type: 'financial',
-        });
-
-        await api.post('/relationships', {
-          student_id: createStudent.data.id,
-          person_id: financialId,
-          kinship: financial_responsible.kinship,
-        });
-
-        let supportiveId = '';
-
-        if (!supportiveExists) {
-          const createSupportive = await api.post(
-            '/persons',
-            supportive_responsible,
-          );
-
-          supportiveId = createSupportive.data.id;
-        } else {
-          supportiveId = supportiveFromDB.id;
-        }
-
-        await api.post('/agreements', {
-          contract_id: createContract.data.id,
-          person_id: supportiveId,
-          responsible_type: 'supportive',
-        });
-
-        await api.post('/relationships', {
-          student_id: createStudent.data.id,
-          person_id: supportiveId,
-          kinship: supportive_responsible.kinship,
-        });
+        const { financial_id, supportive_id, student_id } = response.data;
 
         if (financial_photos) {
           const financialPhotos = new FormData();
@@ -250,7 +204,7 @@ const NewEnrollment: React.FC = () => {
             );
           }
 
-          await api.patch(`/persons/photos/${financialId}`, financialPhotos);
+          await api.patch(`/persons/photos/${financial_id}`, financialPhotos);
         }
 
         if (supportive_photos) {
@@ -271,7 +225,7 @@ const NewEnrollment: React.FC = () => {
             );
           }
 
-          await api.patch(`/persons/photos/${supportiveId}`, supportivePhotos);
+          await api.patch(`/persons/photos/${supportive_id}`, supportivePhotos);
         }
 
         if (student_photos) {
@@ -319,10 +273,7 @@ const NewEnrollment: React.FC = () => {
             );
           }
 
-          await api.patch(
-            `/students/photos/${createStudent.data.id}`,
-            studentPhotos,
-          );
+          await api.patch(`/students/photos/${student_id}`, studentPhotos);
         }
 
         toast.success('Solicitação de matrícula enviada com sucesso!');
@@ -339,7 +290,11 @@ const NewEnrollment: React.FC = () => {
           toast.error(`Oops, alguns dados não foram preenchidos corretamente!`);
         }
 
-        toast.error(`Dados incorretos: ${err.response.data.message}`);
+        console.log(err);
+
+        if (err.response) {
+          toast.error(`Dados incorretos: ${err.response.data.message}`);
+        }
       }
     },
     [
