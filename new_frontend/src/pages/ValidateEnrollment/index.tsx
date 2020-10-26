@@ -11,6 +11,7 @@ import {
   TitleContainer,
   ButtonGroup,
 } from './styles';
+import Loading from '../../components/Loading';
 import Header from '../../components/Header';
 import Aside from '../../components/Aside';
 import Title from '../../components/Title';
@@ -41,9 +42,17 @@ const Enrollment: React.FC = () => {
   const [showFinancialData, setshowFinancialData] = useState(true);
   const [showSupportiveData, setshowSupportiveData] = useState(true);
   const [showStudentData, setshowStudentData] = useState(true);
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const handleSubmitForm = useCallback(
     async (status: 'aproove' | 'disaproove') => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         const { contract_id } = params;
 
@@ -64,9 +73,11 @@ const Enrollment: React.FC = () => {
         history.push('/dashboard');
       } catch (err) {
         toast.error('Erro interno do servidor!');
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [enrollment, params, history],
+    [enrollment, params, history, loadingSubmit],
   );
 
   const handleEditEnrollment = useCallback(() => {
@@ -76,14 +87,29 @@ const Enrollment: React.FC = () => {
   }, [params, history]);
 
   useEffect(() => {
+    setLoadingPage(true);
+
     const { contract_id } = params;
-    api.get(`/contracts/${contract_id}`).then(response => {
-      setEnrollment(response.data);
-    });
+
+    api
+      .get(`/contracts/${contract_id}`)
+      .then(response => {
+        setEnrollment(response.data);
+      })
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar dados da matrícula! Por favor, tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
   }, [params]);
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -408,6 +434,7 @@ const Enrollment: React.FC = () => {
               type="button"
               onClick={() => handleSubmitForm('disaproove')}
               backgroundColor="#f44336"
+              loading={loadingSubmit}
             >
               Desaprovar
             </Button>
@@ -416,6 +443,7 @@ const Enrollment: React.FC = () => {
               type="button"
               onClick={() => handleSubmitForm('aproove')}
               backgroundColor="#4caf50"
+              loading={loadingSubmit}
             >
               Aprovar
             </Button>

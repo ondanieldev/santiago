@@ -4,6 +4,7 @@ import { FiCheck } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 import { Container, Main, InputGroup, WarnMessage } from './styles';
+import Loading from '../../components/Loading';
 import Table from '../../components/Table';
 import Header from '../../components/Header';
 import Aside from '../../components/Aside';
@@ -19,12 +20,31 @@ const Payments: React.FC = () => {
   const [payments, setPayments] = useState([] as IPayment[]);
   const [confirmMessage, setConfirmMessage] = useState('');
   const [paymentId, setPaymentId] = useState('');
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    api.get('payments').then(response => setPayments(response.data));
+    setLoadingPage(true);
+    api
+      .get('payments')
+      .then(response => setPayments(response.data))
+      .catch(() => {
+        toast.error(
+          'Erro ao carragar pagamentos! Por favor, tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
   }, []);
 
   const handleDischargePayment = useCallback(() => {
+    if (loadingSubmit) {
+      return;
+    }
+
+    setLoadingSubmit(true);
+
     api
       .post('/discharges', {
         payment_id: paymentId,
@@ -44,11 +64,14 @@ const Payments: React.FC = () => {
       .finally(() => {
         setPaymentId('');
         setConfirmMessage('');
+        setLoadingSubmit(false);
       });
-  }, [paymentId, payments]);
+  }, [paymentId, payments, loadingSubmit]);
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -98,7 +121,11 @@ const Payments: React.FC = () => {
               />
             </InputGroup>
 
-            <Button disabled={confirmMessage !== 'CONFIRMAR'} type="submit">
+            <Button
+              disabled={confirmMessage !== 'CONFIRMAR'}
+              type="submit"
+              loading={loadingSubmit}
+            >
               Receber
             </Button>
           </Form>

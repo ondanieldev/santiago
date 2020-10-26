@@ -79,10 +79,10 @@
 - [ ] Tamanhos dos inputs
 - [ ] Field necessidades especiais
 - [x] Field turma desejada
-- [ ] Carregamento
-- [ ] Exibição de conteúdos vazios
+- [x] Carregamento
+- [x] Exibição de conteúdos vazios
 - [ ] Checar try catches
 - [ ] Clear fields
 - [ ] History push
-- [ ] Bugs de autenticação
-- [ ] Cabeçalho estático
+- [x] Bugs de autenticação
+- [x] Cabeçalho estático

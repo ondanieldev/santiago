@@ -6,6 +6,7 @@ import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
 
 import { Container, Main, ButtonGroup, DoubleColumn } from './styles';
+import Loading from '../../components/Loading';
 import Header from '../../components/Header';
 import Aside from '../../components/Aside';
 import Title from '../../components/Title';
@@ -22,11 +23,23 @@ const Profiles: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const [profiles, setProfiles] = useState([] as IProfile[]);
-
   const [profileId, setProfileId] = useState('');
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    api.get('/profiles').then(response => setProfiles(response.data));
+    setLoadingPage(true);
+    api
+      .get('/profiles')
+      .then(response => setProfiles(response.data))
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar perfis! Por favor, tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
   }, []);
 
   const handleGetProfile = useCallback((data: IProfile) => {
@@ -47,6 +60,12 @@ const Profiles: React.FC = () => {
 
   const handleAddProfile = useCallback(
     async (data: Omit<IProfile, 'id'>, { reset }) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -68,14 +87,26 @@ const Profiles: React.FC = () => {
           return;
         }
 
-        toast.error(`Erro ao criar perfil: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(`Erro ao criar perfil: ${err.response.data.message}`);
+        } else {
+          toast.error('Erro interno do servidor!');
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [profiles],
+    [profiles, loadingSubmit],
   );
 
   const handleUpdateProfile = useCallback(
     async (data: Omit<IProfile, 'id'>, { reset }) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -103,14 +134,22 @@ const Profiles: React.FC = () => {
           return;
         }
 
-        toast.error(`Erro ao atualizar perfil: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(`Erro ao atualizar perfil: ${err.response.data.message}`);
+        } else {
+          toast.error('Erro interno do servidor!');
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [profiles, profileId],
+    [profiles, profileId, loadingSubmit],
   );
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -150,10 +189,14 @@ const Profiles: React.FC = () => {
 
             <ButtonGroup>
               {!profileId ? (
-                <Button type="submit">Adicionar</Button>
+                <Button type="submit" loading={loadingSubmit}>
+                  Adicionar
+                </Button>
               ) : (
                 <>
-                  <Button type="submit">Atualizar</Button>
+                  <Button type="submit" loading={loadingSubmit}>
+                    Atualizar
+                  </Button>
 
                   <Button
                     type="submit"

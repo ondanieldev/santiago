@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import {
@@ -33,6 +34,7 @@ import Radio from '../../components/RadioInput';
 import Checkbox from '../../components/Checkbox';
 import File from '../../components/FileInput';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 import {
   educationLevelOptions,
   genderOptions,
@@ -111,6 +113,9 @@ interface IFormData {
 
 const NewEnrollment: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
+  const history = useHistory();
+
   const [reuseAddress, setReuseAddress] = useState(false);
   const [gradeOptions, setGradeOptions] = useState([] as IOption[]);
   const [showOriginSchool, setShowOriginSchool] = useState(false);
@@ -125,9 +130,18 @@ const NewEnrollment: React.FC = () => {
   const [supportiveVerified, setSupportiveVerified] = useState(false);
   const [supportiveExists, setSupportiveExists] = useState(false);
   const [supportiveFromDB, setSupportiveFromDB] = useState({} as IPerson);
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingVerify, setLoadingVerify] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const submitForm = useCallback(
     async (data: IFormData) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       let actualPrefixVerification = '';
 
       if (!financialVerified || !supportiveVerified) {
@@ -277,6 +291,8 @@ const NewEnrollment: React.FC = () => {
         }
 
         toast.success('Solicitação de matrícula enviada com sucesso!');
+
+        history.push('dashboard');
       } catch (err) {
         if (err instanceof YupValidationError) {
           err.inner.forEach(error => {
@@ -290,11 +306,11 @@ const NewEnrollment: React.FC = () => {
           toast.error(`Oops, alguns dados não foram preenchidos corretamente!`);
         }
 
-        console.log(err);
-
         if (err.response) {
           toast.error(`Dados incorretos: ${err.response.data.message}`);
         }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
     [
@@ -304,6 +320,8 @@ const NewEnrollment: React.FC = () => {
       supportiveVerified,
       financialFromDB.id,
       supportiveFromDB.id,
+      loadingSubmit,
+      history,
     ],
   );
 
@@ -343,6 +361,12 @@ const NewEnrollment: React.FC = () => {
 
   const handleVerifyIfResponsibleExists = useCallback(
     async (responsible_type: 'financial' | 'supportive') => {
+      if (loadingVerify) {
+        return;
+      }
+
+      setLoadingVerify(true);
+
       try {
         const cpf = formRef.current?.getFieldValue(
           `config.verify_${responsible_type}_cpf`,
@@ -358,6 +382,13 @@ const NewEnrollment: React.FC = () => {
           if (person) {
             setFinancialExists(true);
             setFinancialFromDB(person);
+            toast.success(
+              'Os dados foram resgatados com sucesso! Preencha apenas o campo de parentesco.',
+            );
+          } else {
+            toast.info(
+              'Responsável não encontrado! Por favor, preencha as informações de cadastro.',
+            );
           }
         } else {
           setSupportiveVerified(true);
@@ -365,11 +396,24 @@ const NewEnrollment: React.FC = () => {
           if (person) {
             setSupportiveExists(true);
             setSupportiveFromDB(person);
+            toast.success(
+              'Os dados foram resgatados com sucesso! Preencha apenas o campo de parentesco.',
+            );
+          } else {
+            toast.info(
+              'Responsável não encontrado! Por favor, preencha as informações de cadastro.',
+            );
           }
         }
-      } catch {}
+      } catch {
+        toast.error(
+          'Erro ao tentar buscar responsável! Preencha o campo de busca.',
+        );
+      } finally {
+        setLoadingVerify(false);
+      }
     },
-    [formRef],
+    [formRef, loadingVerify],
   );
 
   useEffect(() => {
@@ -437,23 +481,37 @@ const NewEnrollment: React.FC = () => {
   }, [reuseAddress]);
 
   useEffect(() => {
-    api.get('/grades').then(response => {
-      const grades = [] as IOption[];
+    setLoadingPage(true);
 
-      const gradesFromApi = response.data as IGrade[];
+    api
+      .get('/grades')
+      .then(response => {
+        const grades = [] as IOption[];
 
-      grades.push({ value: '', label: 'Turma desejada' });
+        const gradesFromApi = response.data as IGrade[];
 
-      gradesFromApi.forEach(grade => {
-        grades.push({ value: grade.id, label: grade.name });
+        grades.push({ value: '', label: 'Turma desejada' });
+
+        gradesFromApi.forEach(grade => {
+          grades.push({ value: grade.id, label: grade.name });
+        });
+
+        setGradeOptions(grades);
+      })
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar informações do servidor! Tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
       });
-
-      setGradeOptions(grades);
-    });
   }, []);
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -476,6 +534,7 @@ const NewEnrollment: React.FC = () => {
                 <Button
                   type="button"
                   onClick={() => handleVerifyIfResponsibleExists('financial')}
+                  loading={loadingVerify}
                 >
                   Verificar registro
                 </Button>
@@ -700,6 +759,7 @@ const NewEnrollment: React.FC = () => {
                 <Button
                   type="button"
                   onClick={() => handleVerifyIfResponsibleExists('supportive')}
+                  loading={loadingVerify}
                 >
                   Verificar registro
                 </Button>
@@ -1163,7 +1223,7 @@ const NewEnrollment: React.FC = () => {
           </FormGroup>
 
           <ButtonGroup>
-            <Button type="submit">
+            <Button type="submit" loading={loadingSubmit}>
               Enviar
               <FiArrowRight size={20} />
             </Button>

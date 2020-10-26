@@ -24,6 +24,7 @@ import cepPromise from 'cep-promise';
 import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
 
+import Loading from '../../components/Loading';
 import Aside from '../../components/Aside';
 import Header from '../../components/Header';
 import Title from '../../components/Title';
@@ -127,10 +128,18 @@ const NewEnrollment: React.FC = () => {
   const [showFoodAlergy, setShowFoodAlergy] = useState(false);
   const [showHealthProblem, setShowHealthProblem] = useState(false);
   const [showSpecialNecessities, setShowSpecialNecessities] = useState(false);
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const submitForm = useCallback(
     async (data: IFormData) => {
+      if (loadingSubmit) {
+        return;
+      }
+
       let actualPrefixVerification = '';
+
+      setLoadingSubmit(true);
 
       try {
         formRef.current?.setErrors({});
@@ -306,10 +315,16 @@ const NewEnrollment: React.FC = () => {
           return;
         }
 
-        toast.error(`Dados incorretos: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(`Dados incorretos: ${err.response.data.message}`);
+        } else {
+          toast.error(`Erro interno do servidor!`);
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [enrollment, history],
+    [enrollment, history, loadingSubmit],
   );
 
   const handleSearchAddressByCep = useCallback((cep, responsible_type) => {
@@ -411,148 +426,164 @@ const NewEnrollment: React.FC = () => {
   }, [reuseAddress]);
 
   useEffect(() => {
+    setLoadingPage(true);
+
     const { contract_id } = params;
 
-    api.get('/grades').then(gradesResponse => {
-      const grades = [] as IOption[];
+    api
+      .get('/grades')
+      .then(gradesResponse => {
+        const grades = [] as IOption[];
 
-      const gradesFromApi = gradesResponse.data as IGrade[];
+        const gradesFromApi = gradesResponse.data as IGrade[];
 
-      grades.push({ value: '', label: 'Turma desejada' });
+        grades.push({ value: '', label: 'Turma desejada' });
 
-      gradesFromApi.forEach(grade => {
-        grades.push({ value: grade.id, label: grade.name });
-      });
+        gradesFromApi.forEach(grade => {
+          grades.push({ value: grade.id, label: grade.name });
+        });
 
-      setGradeOptions(grades);
+        setGradeOptions(grades);
 
-      api.get(`/contracts/${contract_id}`).then(response => {
-        const enrollmentFromApi = response.data as IEnrollment;
+        api.get(`/contracts/${contract_id}`).then(response => {
+          const enrollmentFromApi = response.data as IEnrollment;
 
-        setEnrollment(enrollmentFromApi);
+          setEnrollment(enrollmentFromApi);
 
-        setShowHealthPlan(!!enrollmentFromApi.student.health_plan);
-        setShowFoodAlergy(!!enrollmentFromApi.student.food_alergy);
-        setShowOriginSchool(!!enrollmentFromApi.student.origin_school);
-        setShowHealthProblem(!!enrollmentFromApi.student.health_problem);
-        setShowMedicationAlergy(!!enrollmentFromApi.student.medication_alergy);
-        setShowSpecialNecessities(
-          !!enrollmentFromApi.student.special_necessities,
+          setShowHealthPlan(!!enrollmentFromApi.student.health_plan);
+          setShowFoodAlergy(!!enrollmentFromApi.student.food_alergy);
+          setShowOriginSchool(!!enrollmentFromApi.student.origin_school);
+          setShowHealthProblem(!!enrollmentFromApi.student.health_problem);
+          setShowMedicationAlergy(
+            !!enrollmentFromApi.student.medication_alergy,
+          );
+          setShowSpecialNecessities(
+            !!enrollmentFromApi.student.special_necessities,
+          );
+
+          enrollmentFromApi.student.birth_certificate_photo =
+            enrollmentFromApi.student.birth_certificate_photo_url;
+
+          enrollmentFromApi.student.health_plan_photo =
+            enrollmentFromApi.student.health_plan_photo_url;
+
+          enrollmentFromApi.student.vaccine_card_photo =
+            enrollmentFromApi.student.vaccine_card_photo_url;
+
+          enrollmentFromApi.student.school_records_photo =
+            enrollmentFromApi.student.school_records_photo_url;
+
+          enrollmentFromApi.student.transfer_declaration_photo =
+            enrollmentFromApi.student.transfer_declaration_photo_url;
+
+          enrollmentFromApi.student.monthly_declaration_photo =
+            enrollmentFromApi.student.monthly_declaration_photo_url;
+
+          enrollmentFromApi.agreements[0].person.rg_photo =
+            enrollmentFromApi.agreements[0].person.rg_photo_url;
+
+          enrollmentFromApi.agreements[0].person.cpf_photo =
+            enrollmentFromApi.agreements[0].person.cpf_photo_url;
+
+          enrollmentFromApi.agreements[0].person.residencial_proof_photo =
+            enrollmentFromApi.agreements[0].person.residencial_proof_photo_url;
+
+          enrollmentFromApi.agreements[1].person.rg_photo =
+            enrollmentFromApi.agreements[1].person.rg_photo_url;
+
+          enrollmentFromApi.agreements[1].person.cpf_photo =
+            enrollmentFromApi.agreements[1].person.cpf_photo_url;
+
+          enrollmentFromApi.agreements[1].person.residencial_proof_photo =
+            enrollmentFromApi.agreements[1].person.residencial_proof_photo_url;
+
+          const formData = {
+            config: {
+              financial_income_tax: enrollmentFromApi.agreements[0].person
+                .income_tax
+                ? 'yes'
+                : 'no',
+              has_food_alergy: enrollmentFromApi.student.food_alergy
+                ? 'yes'
+                : 'no',
+              has_health_plan: enrollmentFromApi.student.health_plan
+                ? 'yes'
+                : 'no',
+              has_health_problem: enrollmentFromApi.student.health_problem
+                ? 'yes'
+                : 'no',
+              has_medication_alergy: enrollmentFromApi.student.medication_alergy
+                ? 'yes'
+                : 'no',
+              has_origin_school: enrollmentFromApi.student.origin_school
+                ? 'yes'
+                : 'no',
+              has_special_necessities: enrollmentFromApi.student
+                .special_necessities
+                ? 'yes'
+                : 'no',
+              reaproove_address: false,
+              student_ease_relating: enrollmentFromApi.student.ease_relating
+                ? 'yes'
+                : 'no',
+            },
+            grade: {
+              id: enrollmentFromApi.grade.id,
+            },
+            student: {
+              ...enrollmentFromApi.student,
+            },
+            student_photos: {
+              birth_certificate_photo:
+                enrollmentFromApi.student.birth_certificate_photo,
+              health_plan_photo: enrollmentFromApi.student.health_plan_photo,
+              monthly_declaration_photo:
+                enrollmentFromApi.student.monthly_declaration_photo,
+              school_records_photo:
+                enrollmentFromApi.student.school_records_photo,
+              transfer_declaration_photo:
+                enrollmentFromApi.student.transfer_declaration_photo,
+              vaccine_card_photo: enrollmentFromApi.student.vaccine_card_photo,
+            },
+            financial_responsible: {
+              ...enrollmentFromApi.agreements[0].person,
+              kinship: '',
+            },
+            financial_photos: {
+              cpf_photo: enrollmentFromApi.agreements[0].person.cpf_photo,
+              residencial_proof_photo:
+                enrollmentFromApi.agreements[0].person.residencial_proof_photo,
+              rg_photo: enrollmentFromApi.agreements[0].person.rg_photo,
+            },
+            supportive_responsible: {
+              ...enrollmentFromApi.agreements[1].person,
+              kinship: '',
+            },
+            supportive_photos: {
+              cpf_photo: enrollmentFromApi.agreements[1].person.cpf_photo,
+              residencial_proof_photo:
+                enrollmentFromApi.agreements[1].person.residencial_proof_photo,
+              rg_photo: enrollmentFromApi.agreements[1].person.rg_photo,
+            },
+          } as IFormData;
+
+          formRef.current?.setData(formData);
+        });
+      })
+      .catch(() => {
+        toast.error(
+          'Erro interno do servidor! Por favor, tente novamente mais tarde.',
         );
-
-        enrollmentFromApi.student.birth_certificate_photo =
-          enrollmentFromApi.student.birth_certificate_photo_url;
-
-        enrollmentFromApi.student.health_plan_photo =
-          enrollmentFromApi.student.health_plan_photo_url;
-
-        enrollmentFromApi.student.vaccine_card_photo =
-          enrollmentFromApi.student.vaccine_card_photo_url;
-
-        enrollmentFromApi.student.school_records_photo =
-          enrollmentFromApi.student.school_records_photo_url;
-
-        enrollmentFromApi.student.transfer_declaration_photo =
-          enrollmentFromApi.student.transfer_declaration_photo_url;
-
-        enrollmentFromApi.student.monthly_declaration_photo =
-          enrollmentFromApi.student.monthly_declaration_photo_url;
-
-        enrollmentFromApi.agreements[0].person.rg_photo =
-          enrollmentFromApi.agreements[0].person.rg_photo_url;
-
-        enrollmentFromApi.agreements[0].person.cpf_photo =
-          enrollmentFromApi.agreements[0].person.cpf_photo_url;
-
-        enrollmentFromApi.agreements[0].person.residencial_proof_photo =
-          enrollmentFromApi.agreements[0].person.residencial_proof_photo_url;
-
-        enrollmentFromApi.agreements[1].person.rg_photo =
-          enrollmentFromApi.agreements[1].person.rg_photo_url;
-
-        enrollmentFromApi.agreements[1].person.cpf_photo =
-          enrollmentFromApi.agreements[1].person.cpf_photo_url;
-
-        enrollmentFromApi.agreements[1].person.residencial_proof_photo =
-          enrollmentFromApi.agreements[1].person.residencial_proof_photo_url;
-
-        const formData = {
-          config: {
-            financial_income_tax: enrollmentFromApi.agreements[0].person
-              .income_tax
-              ? 'yes'
-              : 'no',
-            has_food_alergy: enrollmentFromApi.student.food_alergy
-              ? 'yes'
-              : 'no',
-            has_health_plan: enrollmentFromApi.student.health_plan
-              ? 'yes'
-              : 'no',
-            has_health_problem: enrollmentFromApi.student.health_problem
-              ? 'yes'
-              : 'no',
-            has_medication_alergy: enrollmentFromApi.student.medication_alergy
-              ? 'yes'
-              : 'no',
-            has_origin_school: enrollmentFromApi.student.origin_school
-              ? 'yes'
-              : 'no',
-            has_special_necessities: enrollmentFromApi.student
-              .special_necessities
-              ? 'yes'
-              : 'no',
-            reaproove_address: false,
-            student_ease_relating: enrollmentFromApi.student.ease_relating
-              ? 'yes'
-              : 'no',
-          },
-          grade: {
-            id: enrollmentFromApi.grade.id,
-          },
-          student: {
-            ...enrollmentFromApi.student,
-          },
-          student_photos: {
-            birth_certificate_photo:
-              enrollmentFromApi.student.birth_certificate_photo,
-            health_plan_photo: enrollmentFromApi.student.health_plan_photo,
-            monthly_declaration_photo:
-              enrollmentFromApi.student.monthly_declaration_photo,
-            school_records_photo:
-              enrollmentFromApi.student.school_records_photo,
-            transfer_declaration_photo:
-              enrollmentFromApi.student.transfer_declaration_photo,
-            vaccine_card_photo: enrollmentFromApi.student.vaccine_card_photo,
-          },
-          financial_responsible: {
-            ...enrollmentFromApi.agreements[0].person,
-            kinship: '',
-          },
-          financial_photos: {
-            cpf_photo: enrollmentFromApi.agreements[0].person.cpf_photo,
-            residencial_proof_photo:
-              enrollmentFromApi.agreements[0].person.residencial_proof_photo,
-            rg_photo: enrollmentFromApi.agreements[0].person.rg_photo,
-          },
-          supportive_responsible: {
-            ...enrollmentFromApi.agreements[1].person,
-            kinship: '',
-          },
-          supportive_photos: {
-            cpf_photo: enrollmentFromApi.agreements[1].person.cpf_photo,
-            residencial_proof_photo:
-              enrollmentFromApi.agreements[1].person.residencial_proof_photo,
-            rg_photo: enrollmentFromApi.agreements[1].person.rg_photo,
-          },
-        } as IFormData;
-
-        formRef.current?.setData(formData);
+      })
+      .finally(() => {
+        setLoadingPage(false);
       });
-    });
   }, [params]);
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -1231,7 +1262,7 @@ const NewEnrollment: React.FC = () => {
           </FormGroup>
 
           <ButtonGroup>
-            <Button type="submit">
+            <Button type="submit" loading={loadingSubmit}>
               Atualizar
               <FiArrowRight size={20} />
             </Button>

@@ -6,6 +6,7 @@ import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
 
 import { Container, Main, ButtonGroup, DoubleColumn } from './styles';
+import Loading from '../../components/Loading';
 import Header from '../../components/Header';
 import Aside from '../../components/Aside';
 import Title from '../../components/Title';
@@ -21,11 +22,23 @@ const Users: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const [grades, setGrades] = useState([] as IGrade[]);
-
   const [gradeId, setGradeId] = useState('');
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    api.get('/grades').then(response => setGrades(response.data));
+    setLoadingPage(true);
+    api
+      .get('/grades')
+      .then(response => setGrades(response.data))
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar turmas! Por favor, tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
   }, []);
 
   const handleGetGrade = useCallback((data: IGrade) => {
@@ -46,6 +59,12 @@ const Users: React.FC = () => {
 
   const handleAddGrade = useCallback(
     async (data: Omit<IGrade, 'id'>, { reset }) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -67,14 +86,26 @@ const Users: React.FC = () => {
           return;
         }
 
-        toast.error(`Erro ao criar turma: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(`Erro ao criar turma: ${err.response.data.message}`);
+        } else {
+          toast.error('Erro interno do servidor!');
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [grades],
+    [grades, loadingSubmit],
   );
 
   const handleUpdateGrade = useCallback(
     async (data: IGrade, { reset }) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -102,14 +133,22 @@ const Users: React.FC = () => {
           return;
         }
 
-        toast.error(`Erro ao atualizar turma: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(`Erro ao atualizar turma: ${err.response.data.message}`);
+        } else {
+          toast.error('Erro interno do servidor!');
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [grades, gradeId],
+    [grades, gradeId, loadingSubmit],
   );
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -135,10 +174,14 @@ const Users: React.FC = () => {
 
             <ButtonGroup>
               {!gradeId ? (
-                <Button type="submit">Adicionar</Button>
+                <Button type="submit" loading={loadingSubmit}>
+                  Adicionar
+                </Button>
               ) : (
                 <>
-                  <Button type="submit">Atualizar</Button>
+                  <Button type="submit" loading={loadingSubmit}>
+                    Atualizar
+                  </Button>
 
                   <Button
                     type="submit"

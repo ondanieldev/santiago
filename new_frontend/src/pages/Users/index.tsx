@@ -6,6 +6,7 @@ import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
 
 import { Container, Main, ButtonGroup, DoubleColumn } from './styles';
+import Loading from '../../components/Loading';
 import Header from '../../components/Header';
 import Aside from '../../components/Aside';
 import Title from '../../components/Title';
@@ -27,17 +28,35 @@ const Users: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const [users, setUsers] = useState([] as IUser[]);
-
   const [profiles, setProfiles] = useState([] as IProfile[]);
-
   const [userId, setUserId] = useState('');
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    api.get('/users').then(response => setUsers(response.data));
+    setLoadingPage(true);
+    api
+      .get('/users')
+      .then(response => setUsers(response.data))
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar usuários! Por favor, tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
   }, []);
 
   useEffect(() => {
-    api.get('/profiles').then(response => setProfiles(response.data));
+    api
+      .get('/profiles')
+      .then(response => setProfiles(response.data))
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar perfis! Por favor, tente novamente mais tarde.',
+        );
+      });
   }, []);
 
   const handleGetUser = useCallback((data: Omit<IUser, 'profile'>) => {
@@ -58,6 +77,12 @@ const Users: React.FC = () => {
 
   const handleAddUser = useCallback(
     async (data: Omit<IUser, 'id' | 'profile'>, { reset }) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -79,14 +104,26 @@ const Users: React.FC = () => {
           return;
         }
 
-        toast.error(`Erro ao criar usuário: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(`Erro ao criar usuário: ${err.response.data.message}`);
+        } else {
+          toast.error('Erro interno do servidor!');
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [users],
+    [users, loadingSubmit],
   );
 
   const handleUpdateUser = useCallback(
     async (data: Omit<IUser, 'id' | 'profile'>, { reset }) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -112,14 +149,24 @@ const Users: React.FC = () => {
           return;
         }
 
-        toast.error(`Erro ao atualizar usuário: ${err.response.data.message}`);
+        if (err.response) {
+          toast.error(
+            `Erro ao atualizar usuário: ${err.response.data.message}`,
+          );
+        } else {
+          toast.error('Erro interno do servidor!');
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [users, userId],
+    [users, userId, loadingSubmit],
   );
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -152,10 +199,14 @@ const Users: React.FC = () => {
 
             <ButtonGroup>
               {!userId ? (
-                <Button type="submit">Adicionar</Button>
+                <Button type="submit" loading={loadingSubmit}>
+                  Adicionar
+                </Button>
               ) : (
                 <>
-                  <Button type="submit">Atualizar</Button>
+                  <Button type="submit" loading={loadingSubmit}>
+                    Atualizar
+                  </Button>
 
                   <Button
                     type="submit"

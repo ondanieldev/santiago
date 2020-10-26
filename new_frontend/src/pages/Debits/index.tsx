@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Container, Main, InputGroup, Debit } from './styles';
 import { paymentMethods } from '../../utils/defaults';
+import Loading from '../../components/Loading';
 import Title from '../../components/Title';
 import Table from '../../components/Table';
 import Header from '../../components/Header';
@@ -42,15 +43,34 @@ const Debits: React.FC = () => {
   const [debits, setDebits] = useState([] as IDebit[]);
   const [selectedDebit, setSelectedDebit] = useState({} as IDebit);
   const [payment, setPayment] = useState({} as IPayment);
+  const [loadingPage, setLoadingPage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   useEffect(() => {
-    api.get(`contracts/${contract_id}/debits`).then(response => {
-      setDebits(response.data);
-    });
+    setLoadingPage(true);
+    api
+      .get(`contracts/${contract_id}/debits`)
+      .then(response => {
+        setDebits(response.data);
+      })
+      .catch(() => {
+        toast.error(
+          'Erro ao carregar débitos! Por favor, tente novamente mais tarde.',
+        );
+      })
+      .finally(() => {
+        setLoadingPage(false);
+      });
   }, [contract_id]);
 
   const handlePayDebit = useCallback(
     async (data: IFormData) => {
+      if (loadingSubmit) {
+        return;
+      }
+
+      setLoadingSubmit(true);
+
       try {
         formRef.current?.setErrors({});
 
@@ -87,14 +107,24 @@ const Debits: React.FC = () => {
           return;
         }
 
-        toast.error('Erro interno do servidor!');
+        if (err.response) {
+          toast.error(`Erro ao pagar débito: ${err.response.data.message}`);
+        } else {
+          toast.error(
+            `Erro ao pagar débito! Por favor, tente novamente mais tarde.`,
+          );
+        }
+      } finally {
+        setLoadingSubmit(false);
       }
     },
-    [selectedDebit, debits],
+    [selectedDebit, debits, loadingSubmit],
   );
 
   return (
     <Container>
+      <Loading show={loadingPage} />
+
       <Header />
 
       <Aside />
@@ -147,7 +177,9 @@ const Debits: React.FC = () => {
                   />
                 </InputGroup>
 
-                <Button type="submit">Pagar</Button>
+                <Button type="submit" loading={loadingSubmit}>
+                  Pagar
+                </Button>
               </Form>
             )}
 
