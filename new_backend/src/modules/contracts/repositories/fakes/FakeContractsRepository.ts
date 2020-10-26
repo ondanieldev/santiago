@@ -76,4 +76,8 @@ export default class FakeContractsRepository implements IContractsRepository {
 
         return data;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        this.contracts.filter(contract => contract.id !== id);
+    }
 }

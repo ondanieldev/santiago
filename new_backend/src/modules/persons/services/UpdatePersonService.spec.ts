@@ -25,7 +25,7 @@ describe('UpdatePerson', () => {
             civil_state: 'civil_state',
             commercial_phone: 'commercial_phone',
             cpf: 'cpf',
-            education_level: 'education_level',
+            education_level: 'elementary_completed',
             email: 'email',
             income_tax: true,
             monthly_income: 1000,

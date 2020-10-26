@@ -17,4 +17,8 @@ export default class RelationshipsRepository
 
         return relationship;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        this.relationships.filter(relationship => relationship.id !== id);
+    }
 }

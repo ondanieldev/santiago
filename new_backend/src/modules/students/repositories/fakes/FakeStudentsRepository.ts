@@ -47,4 +47,8 @@ export default class StudentsRepository implements IStudentsrepository {
 
         return student;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        this.students.filter(student => student.id !== id);
+    }
 }

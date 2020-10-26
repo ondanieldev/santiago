@@ -67,4 +67,8 @@ export default class PersonsRepository implements IPersonsRepository {
 
         return person;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        this.persons.filter(person => person.id !== id);
+    }
 }

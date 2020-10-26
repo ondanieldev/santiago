@@ -24,4 +24,8 @@ export default class UsersRepository implements IAgreementsRepository {
 
         return agreement;
     }
+
+    public async dangerouslyDelete(id: string): Promise<void> {
+        this.agreements.filter(agreement => agreement.id !== id);
+    }
 }

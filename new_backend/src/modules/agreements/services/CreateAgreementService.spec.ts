@@ -1,5 +1,4 @@
 import AppError from '@shared/errors/AppError';
-import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakePersonsRepository from '@modules/persons/repositories/fakes/FakePersonsRepository';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeAgreementsRepository from '../repositories/fakes/FakeAgreementsRepository';
@@ -7,7 +6,6 @@ import CreateAgreementService from './CreateAgreementService';
 
 let fakeAgreementsRepository: FakeAgreementsRepository;
 let fakeContractsRepository: FakeContractsRepository;
-let fakeMailProvider: FakeMailProvider;
 let fakePersonsRepository: FakePersonsRepository;
 let createAgreement: CreateAgreementService;
 
@@ -16,13 +14,11 @@ describe('CreateAgreement', () => {
         fakeAgreementsRepository = new FakeAgreementsRepository();
         fakeContractsRepository = new FakeContractsRepository();
         fakePersonsRepository = new FakePersonsRepository();
-        fakeMailProvider = new FakeMailProvider();
 
         createAgreement = new CreateAgreementService(
             fakeAgreementsRepository,
             fakeContractsRepository,
             fakePersonsRepository,
-            fakeMailProvider,
         );
     });
 
@@ -37,7 +33,7 @@ describe('CreateAgreement', () => {
             civil_state: 'Civil',
             commercial_phone: '00',
             cpf: '53318849545',
-            education_level: 'Education',
+            education_level: 'elementary_completed',
             email: 'johndoe@example.com',
             income_tax: true,
             monthly_income: 100,
@@ -76,7 +72,7 @@ describe('CreateAgreement', () => {
             civil_state: 'Civil',
             commercial_phone: '00',
             cpf: '53318849545',
-            education_level: 'Education',
+            education_level: 'elementary_completed',
             email: 'johndoe@example.com',
             income_tax: true,
             monthly_income: 100,

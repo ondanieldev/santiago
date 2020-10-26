@@ -86,7 +86,7 @@ describe('PayDebit', () => {
             civil_state: 'civil',
             commercial_phone: '123456',
             cpf: 'cpf',
-            education_level: 'education',
+            education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
             monthly_income: 1000,
@@ -109,6 +109,110 @@ describe('PayDebit', () => {
             id: 'agreement',
             person_id: responsible.id,
             responsible_type: 'financial',
+            created_at: new Date(),
+        });
+
+        await fakeContractsRepository.save(contract);
+
+        const debit = await fakeDebitsRepository.create({
+            contract_id: contract.id,
+            description: 'description',
+            final_date: new Date(),
+            initial_date: new Date(),
+            value: 100,
+            type: 'enrollment',
+        });
+
+        const user = await fakeUsersRepository.create({
+            username: 'paid-user',
+            password: '123456',
+            profile_id: 'paid-profile',
+        });
+
+        const payment = await createEnrollmentPayment.execute({
+            debit_id: debit.id,
+            method: 'cash',
+            user_id: user.id,
+        });
+
+        const debitAfterPayment = await fakeDebitsRepository.findById(debit.id);
+
+        const contractAfterPayment = await fakeContractsRepository.findById(
+            contract.id,
+        );
+
+        const studentAfterPayment = await fakeStudentsRepository.findById(
+            student.id,
+        );
+
+        const responsibleAfterPayment = await fakePersonsRepository.findById(
+            responsible.id,
+        );
+
+        expect(payment).toHaveProperty('receipt');
+        expect(debitAfterPayment?.paid).toBe(true);
+        expect(contractAfterPayment?.status).toBe('active');
+        expect(studentAfterPayment).toHaveProperty('user_id');
+        expect(responsibleAfterPayment).toHaveProperty('user_id');
+        expect(sendMail).toBeCalled();
+    });
+
+    it('should be able to pay a enrollment debit by changing its paid status, creating a new payment, generating receipt, generating users and sending mails with female articles', async () => {
+        const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
+
+        const contract = await fakeContractsRepository.create({
+            grade_id: 'grade',
+            student_id: 'student',
+            status: 'underAnalysis',
+        });
+
+        const student = await fakeStudentsRepository.create({
+            birth_city: 'city',
+            birth_date: new Date(),
+            birth_state: 'state',
+            ease_relating: true,
+            father_name: 'father',
+            gender: 'female',
+            mother_name: 'mother',
+            nacionality: 'nacionality',
+            name: 'Jane Doe',
+            race: 'white',
+        });
+
+        const responsible = await fakePersonsRepository.create({
+            address_cep: 'cep',
+            address_city: 'city',
+            address_neighborhood: 'neighborhood',
+            address_number: '1',
+            address_street: 'strret',
+            birth_date: new Date(),
+            civil_state: 'civil',
+            commercial_phone: '123456',
+            cpf: 'cpf',
+            education_level: 'elementary_completed',
+            email: 'johntre@gmail.com',
+            income_tax: true,
+            monthly_income: 1000,
+            nacionality: 'nacionality',
+            name: 'John Tre',
+            personal_phone: '123456',
+            profission: 'profisison',
+            residencial_phone: '123456',
+            rg: 'rg',
+            workplace: 'woork',
+            address_complement: 'complement',
+        });
+
+        contract.student = student;
+
+        contract.agreements.push({
+            person: responsible,
+            contract,
+            contract_id: contract.id,
+            id: 'agreement',
+            person_id: responsible.id,
+            responsible_type: 'financial',
+            created_at: new Date(),
         });
 
         await fakeContractsRepository.save(contract);
@@ -210,7 +314,7 @@ describe('PayDebit', () => {
             civil_state: 'civil',
             commercial_phone: '123456',
             cpf: 'cpf',
-            education_level: 'education',
+            education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
             monthly_income: 1000,
@@ -233,6 +337,7 @@ describe('PayDebit', () => {
             id: 'agreement',
             person_id: responsible.id,
             responsible_type: 'financial',
+            created_at: new Date(),
         });
 
         await fakeContractsRepository.save(contract);
@@ -336,7 +441,7 @@ describe('PayDebit', () => {
             civil_state: 'civil',
             commercial_phone: '123456',
             cpf: 'cpf',
-            education_level: 'education',
+            education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
             monthly_income: 1000,
@@ -359,6 +464,7 @@ describe('PayDebit', () => {
             id: 'agreement',
             person_id: responsible.id,
             responsible_type: 'financial',
+            created_at: new Date(),
         });
 
         await fakeContractsRepository.save(contract);

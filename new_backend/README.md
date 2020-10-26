@@ -239,4 +239,4 @@
 - [x] Gerar recibo de descarga
 - [x] Filtragem de erros criação de nova matrícula
 - [x] Reescrever mensagens de erro
-- [ ] Refatorar testes
+- [x] Refatorar testes
