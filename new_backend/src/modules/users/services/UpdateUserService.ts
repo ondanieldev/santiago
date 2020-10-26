@@ -35,7 +35,9 @@ export default class UpdateUserService {
         );
 
         if (userWithSameUsername && userWithSameUsername.id !== id) {
-            throw new AppError('este nome de usuário já está em uso!');
+            throw new AppError(
+                'não é possível atualizar um usuário com um nome de usuário que já está em uso!',
+            );
         }
 
         const verifyIfProfileExists = await this.profilesRepository.findById(

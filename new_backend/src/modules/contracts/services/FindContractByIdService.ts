@@ -15,7 +15,7 @@ export default class FindContractByIdService {
         const contract = await this.contractsRepository.findById(id);
 
         if (!contract) {
-            throw new AppError('Essa matrícula não existe!');
+            throw new AppError('a matrícula selecionada não existe!');
         }
 
         return contract;

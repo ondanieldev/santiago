@@ -62,7 +62,7 @@ export default class CreatePaymentService {
 
         if (!user) {
             throw new AppError(
-                'Não é possível pagar uma matrícula sem estar logado no sistema!',
+                'não é possível pagar uma matrícula sem estar logado no sistema!',
             );
         }
 
@@ -70,19 +70,19 @@ export default class CreatePaymentService {
 
         if (!debit) {
             throw new AppError(
-                'Não é possível pagar uma matrícula que não existe!',
+                'não é possível pagar uma matrícula que não existe!',
             );
         }
 
         if (debit.paid) {
             throw new AppError(
-                'Não é possível pagar uma matrícula que já foi paga!',
+                'não é possível pagar uma matrícula que já foi paga!',
             );
         }
 
         if (debit.type !== 'enrollment') {
             throw new AppError(
-                'Não é possível pagar um débito que não é do tipo matrícula a partir deste serviço!',
+                'não é possível pagar um débito que não é do tipo matrícula a partir deste serviço!',
             );
         }
 
@@ -92,7 +92,7 @@ export default class CreatePaymentService {
 
         if (!contract) {
             throw new AppError(
-                'O contrato referenciado pelo débito não foi encontrado!',
+                'não é possível pagar um débito de um contrato inexistente!',
             );
         }
 

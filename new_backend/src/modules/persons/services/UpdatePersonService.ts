@@ -17,7 +17,7 @@ export default class UpdatePersonService {
 
         if (!person) {
             throw new AppError(
-                'Não é possível atualizar os dados de um responsável inexistente!',
+                'não é possível atualizar os dados de uma pessoa inexistente!',
             );
         }
 

@@ -28,7 +28,7 @@ export default class CreateGradeService {
 
         if (gradeWithTheSameNameAndYear) {
             throw new AppError(
-                'Não é possível criar uma turma com o mesmo nome e ano de outra!',
+                'não é possível criar uma turma com o mesmo conjunto de nome e ano de outra!',
             );
         }
 

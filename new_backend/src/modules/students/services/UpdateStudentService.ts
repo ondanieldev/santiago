@@ -17,7 +17,7 @@ export default class UpdateStudentService {
 
         if (!student) {
             throw new AppError(
-                'Não é possível atualizar os dados de um aluno inexistente!',
+                'não é possível atualizar os dados de um aluno inexistente!',
             );
         }
 

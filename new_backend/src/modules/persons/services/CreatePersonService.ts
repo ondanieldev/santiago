@@ -18,7 +18,7 @@ export default class CreatePersonService {
 
         if (!validCPF) {
             throw new AppError(
-                'Não é possível criar um responsável com CPF inválido!',
+                'não é possível criar um responsável com um CPF inválido!',
             );
         }
 
@@ -32,7 +32,7 @@ export default class CreatePersonService {
 
         if (responsibleWithTheSameCredentials) {
             throw new AppError(
-                'Não é possível criar um responsável com um CPF, RG ou e-mail que já está em uso!',
+                'não é possível criar um responsável com um CPF, RG ou e-mail que já está em uso!',
             );
         }
 

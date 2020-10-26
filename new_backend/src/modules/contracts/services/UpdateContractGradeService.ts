@@ -32,7 +32,7 @@ export default class UpdateContractGradeService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível atualizar a turma de um contrato inexistente!',
+                'não é possível atualizar a turma de um contrato inexistente!',
             );
         }
 
@@ -40,7 +40,7 @@ export default class UpdateContractGradeService {
 
         if (!grade) {
             throw new AppError(
-                'Não é possível atualizar o contrato com uma turma inexistente!',
+                'não é possível atualizar o contrato com uma turma inexistente!',
             );
         }
 

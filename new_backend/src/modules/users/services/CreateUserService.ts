@@ -35,7 +35,7 @@ export default class CreateUserService {
 
         if (!checkIfProfilesExists) {
             throw new AppError(
-                'Não é possível criar um usuário associado a um perfil inexistente!',
+                'não é possível criar um usuário associado a um perfil inexistente!',
             );
         }
 
@@ -44,7 +44,9 @@ export default class CreateUserService {
         );
 
         if (userWithSameUsername) {
-            throw new AppError('Este nome de usuário já está em uso!');
+            throw new AppError(
+                'não é possível criar um usuário com um nome de usuário que já está em uso!',
+            );
         }
 
         const hashedPassword = await this.hashProvider.generateHash(password);

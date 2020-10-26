@@ -16,7 +16,7 @@ export default class FindGradeByIdService {
 
         if (!grade) {
             throw new AppError(
-                'Não é possível obter os dados de uma turma inexistente',
+                'não é possível obter os dados de uma turma inexistente',
             );
         }
 

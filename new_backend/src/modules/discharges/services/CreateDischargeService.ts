@@ -36,7 +36,7 @@ export default class CreateDischargeService {
 
         if (!user) {
             throw new AppError(
-                'Não é possível receber um pagamento sem estar logado no sistema!',
+                'não é possível receber um pagamento sem estar logado no sistema!',
             );
         }
 
@@ -44,13 +44,13 @@ export default class CreateDischargeService {
 
         if (!payment) {
             throw new AppError(
-                'Não é possível recebr um pagamento inexistente!',
+                'não é possível recebr um pagamento inexistente!',
             );
         }
 
         if (payment.discharged) {
             throw new AppError(
-                'Não é possível receber um pagamento que já foi recebido!',
+                'não é possível receber um pagamento que já foi recebido!',
             );
         }
 

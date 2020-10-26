@@ -15,9 +15,6 @@ export default class IndexAcceptedAndActiveContractsService {
     ) {}
 
     public async execute(): Promise<Contract[] | []> {
-        // this.cacheProvider.invalidate('under-analysis-and-pendent-contracts');
-        // this.cacheProvider.invalidate('accepted-and-active-contracts');
-
         let contracts = await this.cacheProvider.recovery<Contract[]>(
             'accepted-and-active-contracts',
         );

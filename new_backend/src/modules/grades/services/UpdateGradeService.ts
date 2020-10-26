@@ -21,7 +21,7 @@ export default class UpdateGradeService {
 
         if (!grade) {
             throw new AppError(
-                'Não é possível atualizar os dados de uma turma inexistente!',
+                'não é possível atualizar os dados de uma turma inexistente!',
             );
         }
 
@@ -35,7 +35,7 @@ export default class UpdateGradeService {
             gradeWithTheSameNameAndYear.id !== grade.id
         ) {
             throw new AppError(
-                'Não é possível atualizar os dados de uma turma utilizando o mesmo conjunto de nome e ano de outra!',
+                'não é possível atualizar os dados de uma turma utilizando o mesmo conjunto de nome e ano de outra!',
             );
         }
 

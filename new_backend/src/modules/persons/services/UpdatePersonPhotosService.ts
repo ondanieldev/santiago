@@ -36,7 +36,9 @@ export default class UpdatePersonPhotosService {
         const person = await this.personsRepository.findById(person_id);
 
         if (!person) {
-            throw new AppError('ID inválido!');
+            throw new AppError(
+                'não é possível atualizar as fotos de uma pessoa inexistente!',
+            );
         }
 
         const photos = [] as IPhoto[];

@@ -20,13 +20,13 @@ export default class IndexDebitsByContractService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível listar os débitos de um contrato inexistente!',
+                'não é possível listar os débitos de um contrato inexistente!',
             );
         }
 
         if (contract.status !== 'accepted' && contract.status !== 'active') {
             throw new AppError(
-                'Não é possível listar os débitos de um contrato que não foi aprovado!',
+                'não é possível listar os débitos de um contrato que não foi aprovado!',
             );
         }
 

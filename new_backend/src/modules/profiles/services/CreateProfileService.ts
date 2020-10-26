@@ -32,7 +32,7 @@ class CreateProfileService {
 
         if (profileWithSameName) {
             throw new AppError(
-                'Não é possível criar um perfil com o mesmo nome de otro perfil já existente!',
+                'não é possível criar um perfil com o mesmo nome de outro perfil já existente!',
             );
         }
 

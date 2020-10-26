@@ -39,13 +39,13 @@ export default class DisaprooveContractService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível reprovar um contrato inexistente!',
+                'não é possível reprovar um contrato inexistente!',
             );
         }
 
         if (contract.status === 'accepted' || contract.status === 'active') {
             throw new AppError(
-                'Não é possível reprovar um contrato que já foi aceitou ou que já está ativo!',
+                'não é possível reprovar um contrato que já foi aceitou ou que já está ativo!',
             );
         }
 

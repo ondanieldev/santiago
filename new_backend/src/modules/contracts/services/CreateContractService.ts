@@ -35,7 +35,7 @@ export default class CreateContractService {
 
         if (!checkIfStudentExists) {
             throw new AppError(
-                'Não é possível criar uma matrícula sem um aluno!',
+                'não é possível criar uma matrícula sem um aluno!',
             );
         }
 
@@ -45,7 +45,7 @@ export default class CreateContractService {
 
         if (!checkIfGradeExists) {
             throw new AppError(
-                'Não é possível matrícular um aluno em uma turma inexistente!',
+                'não é possível matrícular um aluno em uma turma inexistente!',
             );
         }
 

@@ -238,5 +238,5 @@
 - [x] Data de descarga
 - [x] Gerar recibo de descarga
 - [x] Filtragem de erros criação de nova matrícula
-- [ ] Reescrever mensagens de erro
+- [x] Reescrever mensagens de erro
 - [ ] Refatorar testes

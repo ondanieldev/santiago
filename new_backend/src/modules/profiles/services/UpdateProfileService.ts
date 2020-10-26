@@ -30,7 +30,9 @@ class UpdateProfileService {
         const profile = await this.profilesRepository.findById(id);
 
         if (!profile) {
-            throw new AppError('este perfil não existe!');
+            throw new AppError(
+                'não é possível atualizar os dados de um perfil inexistente!',
+            );
         }
 
         const profileWithSameName = await this.profilesRepository.findByName(
@@ -38,7 +40,9 @@ class UpdateProfileService {
         );
 
         if (profileWithSameName && profileWithSameName.id !== id) {
-            throw new AppError('um perfil com o mesmo nome já existe!');
+            throw new AppError(
+                'não é possível atualizar um perfil com o mesmo nome de outro!',
+            );
         }
 
         profile.name = name;

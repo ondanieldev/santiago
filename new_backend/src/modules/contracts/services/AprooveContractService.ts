@@ -44,13 +44,13 @@ export default class AprooveContractService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível aprovar um contrato inexistente!',
+                'não é possível aprovar um contrato inexistente!',
             );
         }
 
         if (contract.status === 'accepted' || contract.status === 'active') {
             throw new AppError(
-                'Não é possível aprovar um contrato que já foi aprovado ou que já está ativo!',
+                'não é possível aprovar um contrato que já foi aprovado ou que já está ativo!',
             );
         }
 

@@ -48,7 +48,9 @@ export default class UpdateStudentPhotosService {
         const student = await this.studentsRepository.findById(id);
 
         if (!student) {
-            throw new AppError('ID inválido!');
+            throw new AppError(
+                'não é possível atualizar as fotos de um aluno inexistente!',
+            );
         }
 
         const photos = [] as IPhoto[];

@@ -29,7 +29,7 @@ export default class CreateAgreementService {
 
         if (!contract) {
             throw new AppError(
-                'Não é possível criar um acordo com um contrato inexistente!',
+                'não é possível criar um acordo com um contrato inexistente!',
             );
         }
 
@@ -37,7 +37,7 @@ export default class CreateAgreementService {
 
         if (!person) {
             throw new AppError(
-                'Não é possível criar um acordo com um responsável inexistente!',
+                'não é possível criar um acordo com um responsável inexistente!',
             );
         }
 

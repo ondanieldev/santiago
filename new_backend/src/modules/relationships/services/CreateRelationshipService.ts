@@ -29,7 +29,7 @@ export default class CreaterelationshipService {
 
         if (!student) {
             throw new AppError(
-                'Não é possível criar um relacinamento com um aluno inexistente!',
+                'não é possível criar um relacinamento com um aluno inexistente!',
             );
         }
 
@@ -37,7 +37,7 @@ export default class CreaterelationshipService {
 
         if (!person) {
             throw new AppError(
-                'Não é possível criar um relacinamento com um responsável inexistente!',
+                'não é possível criar um relacinamento com um responsável inexistente!',
             );
         }
 
