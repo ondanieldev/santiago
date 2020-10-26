@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import agreementsRouter from '@modules/agreements/infra/http/routes/agreements.routes';
+import cacheRouter from '@shared/container/providers/CacheProvider/infra/http/routes/cache.routes';
 import contractsRouter from '@modules/contracts/infra/http/routes/contracts.routes';
 import contractDebitsRouter from '@modules/contracts/infra/http/routes/debits.routes';
 import dischargesRouter from '@modules/discharges/infra/http/routes/discharges.routes';
@@ -17,6 +18,7 @@ import usersRouter from '@modules/users/infra/http/routes/users.routes';
 const routes = Router();
 
 routes.use('/agreements', agreementsRouter);
+routes.use('/cache', cacheRouter);
 routes.use('/contracts', contractsRouter);
 routes.use('/contracts', contractDebitsRouter);
 routes.use('/discharges', dischargesRouter);
