@@ -58,8 +58,16 @@ const Payments: React.FC = () => {
 
         setPayments(paymentsWithoutDischarged);
       })
-      .catch(() => {
-        toast.error('Erro ao receber pagamento!');
+      .catch(err => {
+        if (err.response) {
+          toast.error(
+            `Erro ao receber pagamento: ${err.response.data.message}`,
+          );
+        } else {
+          toast.error(
+            'Erro interno do servidor! Por favor, tente novamente mais tarde.',
+          );
+        }
       })
       .finally(() => {
         setPaymentId('');

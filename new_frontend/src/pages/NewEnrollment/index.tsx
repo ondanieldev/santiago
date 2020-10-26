@@ -307,7 +307,13 @@ const NewEnrollment: React.FC = () => {
         }
 
         if (err.response) {
-          toast.error(`Dados incorretos: ${err.response.data.message}`);
+          toast.error(
+            `Erro ao solicitar matrícula: ${err.response.data.message}`,
+          );
+        } else {
+          toast.error(
+            'Erro interno do servidor! Por favor, tente novamente mais tarde.',
+          );
         }
       } finally {
         setLoadingSubmit(false);
@@ -407,7 +413,7 @@ const NewEnrollment: React.FC = () => {
         }
       } catch {
         toast.error(
-          'Erro ao tentar buscar responsável! Preencha o campo de busca.',
+          'Erro ao tentar buscar responsável! Por favor, preencha o campo de busca.',
         );
       } finally {
         setLoadingVerify(false);

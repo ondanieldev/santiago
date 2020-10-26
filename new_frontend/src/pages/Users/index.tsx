@@ -107,7 +107,9 @@ const Users: React.FC = () => {
         if (err.response) {
           toast.error(`Erro ao criar usuário: ${err.response.data.message}`);
         } else {
-          toast.error('Erro interno do servidor!');
+          toast.error(
+            'Erro interno do servidor! Por favor, tente novamente mais tarde.',
+          );
         }
       } finally {
         setLoadingSubmit(false);
@@ -154,7 +156,9 @@ const Users: React.FC = () => {
             `Erro ao atualizar usuário: ${err.response.data.message}`,
           );
         } else {
-          toast.error('Erro interno do servidor!');
+          toast.error(
+            'Erro interno do servidor! Por favor, tente novamente mais tarde.',
+          );
         }
       } finally {
         setLoadingSubmit(false);

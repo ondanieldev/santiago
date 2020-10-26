@@ -72,7 +72,15 @@ const Enrollment: React.FC = () => {
 
         history.push('/dashboard');
       } catch (err) {
-        toast.error('Erro interno do servidor!');
+        if (err.response) {
+          toast.error(
+            `Erro ao validar matrícula: ${err.response.data.message}`,
+          );
+        } else {
+          toast.error(
+            'Erro interno do servidor! Por favor, tente novamente mais tarde.',
+          );
+        }
       } finally {
         setLoadingSubmit(false);
       }

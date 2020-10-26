@@ -90,7 +90,9 @@ const Profiles: React.FC = () => {
         if (err.response) {
           toast.error(`Erro ao criar perfil: ${err.response.data.message}`);
         } else {
-          toast.error('Erro interno do servidor!');
+          toast.error(
+            'Erro interno do servidor! Por favor, tente novamente mais tarde.',
+          );
         }
       } finally {
         setLoadingSubmit(false);
@@ -137,7 +139,9 @@ const Profiles: React.FC = () => {
         if (err.response) {
           toast.error(`Erro ao atualizar perfil: ${err.response.data.message}`);
         } else {
-          toast.error('Erro interno do servidor!');
+          toast.error(
+            'Erro interno do servidor! Por favor tente novamente mais tarde.',
+          );
         }
       } finally {
         setLoadingSubmit(false);

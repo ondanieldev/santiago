@@ -81,8 +81,8 @@
 - [x] Field turma desejada
 - [x] Carregamento
 - [x] Exibição de conteúdos vazios
-- [ ] Checar try catches
-- [ ] Clear fields
+- [x] Checar try catches
+- [x] Clear fields
 - [ ] History push
 - [x] Bugs de autenticação
 - [x] Cabeçalho estático

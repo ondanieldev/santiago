@@ -316,7 +316,9 @@ const NewEnrollment: React.FC = () => {
         }
 
         if (err.response) {
-          toast.error(`Dados incorretos: ${err.response.data.message}`);
+          toast.error(
+            `Erro ao atualizar matrícula: ${err.response.data.message}`,
+          );
         } else {
           toast.error(`Erro interno do servidor!`);
         }
