@@ -59,3 +59,22 @@ export const ButtonGroup = styled.div`
     }
   }
 `;
+
+export const Documents = styled.div`
+  margin-top: 12px;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+
+  a {
+    & + a {
+      margin-left: 12px;
+    }
+  }
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+  }
+`;

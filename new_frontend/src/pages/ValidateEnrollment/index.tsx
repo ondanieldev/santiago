@@ -10,6 +10,7 @@ import {
   DataGroup,
   TitleContainer,
   ButtonGroup,
+  Documents,
 } from './styles';
 import Loading from '../../components/Loading';
 import Header from '../../components/Header';
@@ -148,98 +149,146 @@ const Enrollment: React.FC = () => {
                 />
 
                 {showFinancialData && (
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td>Nome</td>
-                        <td>{enrollment.agreements[0].person.name}</td>
-                      </tr>
-                      <tr>
-                        <td>Data de nascimento</td>
-                        <td>
-                          {prettyDate(
-                            enrollment.agreements[0].person.birth_date,
-                          )}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Nacionalidade</td>
-                        <td>{enrollment.agreements[0].person.nacionality}</td>
-                      </tr>
-                      <tr>
-                        <td>Estado civil</td>
-                        <td>{enrollment.agreements[0].person.civil_state}</td>
-                      </tr>
-                      <tr>
-                        <td>Profissão</td>
-                        <td>{enrollment.agreements[0].person.profission}</td>
-                      </tr>
-                      <tr>
-                        <td>CPF</td>
-                        <td>{enrollment.agreements[0].person.cpf}</td>
-                      </tr>
-                      <tr>
-                        <td>RG</td>
-                        <td>{enrollment.agreements[0].person.rg}</td>
-                      </tr>
-                      <tr>
-                        <td>Endereço</td>
-                        <td>{`${enrollment.agreements[0].person.address_street} - ${enrollment.agreements[0].person.address_number} ${enrollment.agreements[0].person.address_complement} - ${enrollment.agreements[0].person.address_neighborhood} - ${enrollment.agreements[0].person.address_city}`}</td>
-                      </tr>
-                      <tr>
-                        <td>CEP</td>
-                        <td>{enrollment.agreements[0].person.address_cep}</td>
-                      </tr>
-                      <tr>
-                        <td>Telefone residencial</td>
-                        <td>
-                          {enrollment.agreements[0].person.residencial_phone}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Telefone comercial</td>
-                        <td>
-                          {enrollment.agreements[0].person.commercial_phone}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Telefone pesssoal</td>
-                        <td>
-                          {enrollment.agreements[0].person.personal_phone}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Grau de escolaridade</td>
-                        <td>
-                          {formatEducationLevel(
-                            enrollment.agreements[0].person.education_level,
-                          )}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Local de trabalho</td>
-                        <td>{enrollment.agreements[0].person.workplace}</td>
-                      </tr>
-                      <tr>
-                        <td>Renda mensal</td>
-                        <td>
-                          {enrollment.agreements[0].person.monthly_income}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Declara imposto de renda?</td>
-                        <td>
-                          {enrollment.agreements[0].person.income_tax
-                            ? 'Sim'
-                            : 'Não'}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>E-mail</td>
-                        <td>{enrollment.agreements[0].person.email}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                  <>
+                    <Table>
+                      <tbody>
+                        <tr>
+                          <td>Nome</td>
+                          <td>{enrollment.agreements[0].person.name}</td>
+                        </tr>
+                        <tr>
+                          <td>Data de nascimento</td>
+                          <td>
+                            {prettyDate(
+                              enrollment.agreements[0].person.birth_date,
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Nacionalidade</td>
+                          <td>{enrollment.agreements[0].person.nacionality}</td>
+                        </tr>
+                        <tr>
+                          <td>Estado civil</td>
+                          <td>{enrollment.agreements[0].person.civil_state}</td>
+                        </tr>
+                        <tr>
+                          <td>Profissão</td>
+                          <td>{enrollment.agreements[0].person.profission}</td>
+                        </tr>
+                        <tr>
+                          <td>CPF</td>
+                          <td>{enrollment.agreements[0].person.cpf}</td>
+                        </tr>
+                        <tr>
+                          <td>RG</td>
+                          <td>{enrollment.agreements[0].person.rg}</td>
+                        </tr>
+                        <tr>
+                          <td>Endereço</td>
+                          <td>{`${enrollment.agreements[0].person.address_street} - ${enrollment.agreements[0].person.address_number} ${enrollment.agreements[0].person.address_complement} - ${enrollment.agreements[0].person.address_neighborhood} - ${enrollment.agreements[0].person.address_city}`}</td>
+                        </tr>
+                        <tr>
+                          <td>CEP</td>
+                          <td>{enrollment.agreements[0].person.address_cep}</td>
+                        </tr>
+                        <tr>
+                          <td>Telefone residencial</td>
+                          <td>
+                            {enrollment.agreements[0].person.residencial_phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Telefone comercial</td>
+                          <td>
+                            {enrollment.agreements[0].person.commercial_phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Telefone pesssoal</td>
+                          <td>
+                            {enrollment.agreements[0].person.personal_phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Grau de escolaridade</td>
+                          <td>
+                            {formatEducationLevel(
+                              enrollment.agreements[0].person.education_level,
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Local de trabalho</td>
+                          <td>{enrollment.agreements[0].person.workplace}</td>
+                        </tr>
+                        <tr>
+                          <td>Renda mensal</td>
+                          <td>
+                            {enrollment.agreements[0].person.monthly_income}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Declara imposto de renda?</td>
+                          <td>
+                            {enrollment.agreements[0].person.income_tax
+                              ? 'Sim'
+                              : 'Não'}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>E-mail</td>
+                          <td>{enrollment.agreements[0].person.email}</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    <Documents>
+                      {enrollment.agreements[0].person.rg_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.agreements[0].person.rg_photo_url}
+                        >
+                          <img
+                            alt="cpf"
+                            src={enrollment.agreements[0].person.rg_photo_url}
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.agreements[0].person.rg_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.agreements[0].person.cpf_photo_url}
+                        >
+                          <img
+                            alt="rg"
+                            src={enrollment.agreements[0].person.cpf_photo_url}
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.agreements[0].person.rg_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={
+                            enrollment.agreements[0].person
+                              .residencial_proof_photo_url
+                          }
+                        >
+                          <img
+                            alt="residencial"
+                            src={
+                              enrollment.agreements[0].person
+                                .residencial_proof_photo_url
+                            }
+                          />
+                        </a>
+                      )}
+                    </Documents>
+                  </>
                 )}
               </DataGroup>
 
@@ -252,90 +301,138 @@ const Enrollment: React.FC = () => {
                 />
 
                 {showSupportiveData && (
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td>Nome</td>
-                        <td>{enrollment.agreements[1].person.name}</td>
-                      </tr>
-                      <tr>
-                        <td>Data de nascimento</td>
-                        <td>
-                          {prettyDate(
-                            enrollment.agreements[1].person.birth_date,
-                          )}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Nacionalidade</td>
-                        <td>{enrollment.agreements[1].person.nacionality}</td>
-                      </tr>
-                      <tr>
-                        <td>Estado civil</td>
-                        <td>{enrollment.agreements[1].person.civil_state}</td>
-                      </tr>
-                      <tr>
-                        <td>Profissão</td>
-                        <td>{enrollment.agreements[1].person.profission}</td>
-                      </tr>
-                      <tr>
-                        <td>CPF</td>
-                        <td>{enrollment.agreements[1].person.cpf}</td>
-                      </tr>
-                      <tr>
-                        <td>RG</td>
-                        <td>{enrollment.agreements[1].person.rg}</td>
-                      </tr>
-                      <tr>
-                        <td>Endereço</td>
-                        <td>{`${enrollment.agreements[1].person.address_street} - ${enrollment.agreements[1].person.address_number} ${enrollment.agreements[1].person.address_complement} - ${enrollment.agreements[1].person.address_neighborhood} - ${enrollment.agreements[1].person.address_city}`}</td>
-                      </tr>
-                      <tr>
-                        <td>CEP</td>
-                        <td>{enrollment.agreements[1].person.address_cep}</td>
-                      </tr>
-                      <tr>
-                        <td>Telefone residencial</td>
-                        <td>
-                          {enrollment.agreements[1].person.residencial_phone}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Telefone comercial</td>
-                        <td>
-                          {enrollment.agreements[1].person.commercial_phone}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Telefone pesssoal</td>
-                        <td>
-                          {enrollment.agreements[1].person.personal_phone}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Grau de escolaridade</td>
-                        <td>
-                          {formatEducationLevel(
-                            enrollment.agreements[1].person.education_level,
-                          )}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Local de trabalho</td>
-                        <td>{enrollment.agreements[1].person.workplace}</td>
-                      </tr>
-                      <tr>
-                        <td>Renda mensal</td>
-                        <td>
-                          {enrollment.agreements[1].person.monthly_income}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>E-mail</td>
-                        <td>{enrollment.agreements[1].person.email}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                  <>
+                    <Table>
+                      <tbody>
+                        <tr>
+                          <td>Nome</td>
+                          <td>{enrollment.agreements[1].person.name}</td>
+                        </tr>
+                        <tr>
+                          <td>Data de nascimento</td>
+                          <td>
+                            {prettyDate(
+                              enrollment.agreements[1].person.birth_date,
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Nacionalidade</td>
+                          <td>{enrollment.agreements[1].person.nacionality}</td>
+                        </tr>
+                        <tr>
+                          <td>Estado civil</td>
+                          <td>{enrollment.agreements[1].person.civil_state}</td>
+                        </tr>
+                        <tr>
+                          <td>Profissão</td>
+                          <td>{enrollment.agreements[1].person.profission}</td>
+                        </tr>
+                        <tr>
+                          <td>CPF</td>
+                          <td>{enrollment.agreements[1].person.cpf}</td>
+                        </tr>
+                        <tr>
+                          <td>RG</td>
+                          <td>{enrollment.agreements[1].person.rg}</td>
+                        </tr>
+                        <tr>
+                          <td>Endereço</td>
+                          <td>{`${enrollment.agreements[1].person.address_street} - ${enrollment.agreements[1].person.address_number} ${enrollment.agreements[1].person.address_complement} - ${enrollment.agreements[1].person.address_neighborhood} - ${enrollment.agreements[1].person.address_city}`}</td>
+                        </tr>
+                        <tr>
+                          <td>CEP</td>
+                          <td>{enrollment.agreements[1].person.address_cep}</td>
+                        </tr>
+                        <tr>
+                          <td>Telefone residencial</td>
+                          <td>
+                            {enrollment.agreements[1].person.residencial_phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Telefone comercial</td>
+                          <td>
+                            {enrollment.agreements[1].person.commercial_phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Telefone pesssoal</td>
+                          <td>
+                            {enrollment.agreements[1].person.personal_phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Grau de escolaridade</td>
+                          <td>
+                            {formatEducationLevel(
+                              enrollment.agreements[1].person.education_level,
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Local de trabalho</td>
+                          <td>{enrollment.agreements[1].person.workplace}</td>
+                        </tr>
+                        <tr>
+                          <td>Renda mensal</td>
+                          <td>
+                            {enrollment.agreements[1].person.monthly_income}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>E-mail</td>
+                          <td>{enrollment.agreements[1].person.email}</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    <Documents>
+                      {enrollment.agreements[1].person.rg_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.agreements[1].person.rg_photo_url}
+                        >
+                          <img
+                            alt="cpf"
+                            src={enrollment.agreements[1].person.rg_photo_url}
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.agreements[1].person.rg_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.agreements[1].person.cpf_photo_url}
+                        >
+                          <img
+                            alt="rg"
+                            src={enrollment.agreements[1].person.cpf_photo_url}
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.agreements[1].person.rg_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={
+                            enrollment.agreements[1].person
+                              .residencial_proof_photo_url
+                          }
+                        >
+                          <img
+                            alt="residencial"
+                            src={
+                              enrollment.agreements[1].person
+                                .residencial_proof_photo_url
+                            }
+                          />
+                        </a>
+                      )}
+                    </Documents>
+                  </>
                 )}
               </DataGroup>
 
@@ -348,88 +445,177 @@ const Enrollment: React.FC = () => {
                 />
 
                 {showStudentData && (
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td>Nome</td>
-                        <td>{enrollment.student.name}</td>
-                      </tr>
-                      <tr>
-                        <td>Nome do pai</td>
-                        <td>{enrollment.student.father_name}</td>
-                      </tr>
-                      <tr>
-                        <td>Nome da mãe</td>
-                        <td>{enrollment.student.mother_name}</td>
-                      </tr>
-                      <tr>
-                        <td>Data de nascimento</td>
-                        <td>{prettyDate(enrollment.student.birth_date)}</td>
-                      </tr>
-                      <tr>
-                        <td>Nacionalidade</td>
-                        <td>{enrollment.student.nacionality}</td>
-                      </tr>
-                      <tr>
-                        <td>Cidade natal</td>
-                        <td>{enrollment.student.birth_city}</td>
-                      </tr>
-                      <tr>
-                        <td>Estado natal</td>
-                        <td>{enrollment.student.birth_state}</td>
-                      </tr>
-                      <tr>
-                        <td>Gênero</td>
-                        <td>{formatGender(enrollment.student.gender)}</td>
-                      </tr>
-                      <tr>
-                        <td>Raça</td>
-                        <td>{formatRace(enrollment.student.race)}</td>
-                      </tr>
-                      <tr>
-                        <td>Facilidade em se relacionar</td>
-                        <td>
-                          {enrollment.student.ease_relating ? 'Sim' : 'Não'}
-                        </td>
-                      </tr>
-                      {enrollment.student.origin_school && (
+                  <>
+                    <Table>
+                      <tbody>
                         <tr>
-                          <td>Escola de origem</td>
-                          <td>{enrollment.student.origin_school}</td>
+                          <td>Nome</td>
+                          <td>{enrollment.student.name}</td>
                         </tr>
-                      )}
-                      {enrollment.student.health_plan && (
                         <tr>
-                          <td>Plano de saúde</td>
-                          <td>{enrollment.student.health_plan}</td>
+                          <td>Nome do pai</td>
+                          <td>{enrollment.student.father_name}</td>
                         </tr>
-                      )}
-                      {enrollment.student.food_alergy && (
                         <tr>
-                          <td>Alergia a alimentos</td>
-                          <td>{enrollment.student.food_alergy}</td>
+                          <td>Nome da mãe</td>
+                          <td>{enrollment.student.mother_name}</td>
                         </tr>
-                      )}
-                      {enrollment.student.medication_alergy && (
                         <tr>
-                          <td>Alergia a medicamentos</td>
-                          <td>{enrollment.student.medication_alergy}</td>
+                          <td>Data de nascimento</td>
+                          <td>{prettyDate(enrollment.student.birth_date)}</td>
                         </tr>
-                      )}
-                      {enrollment.student.health_problem && (
                         <tr>
-                          <td>Problema de sáude</td>
-                          <td>{enrollment.student.health_problem}</td>
+                          <td>Nacionalidade</td>
+                          <td>{enrollment.student.nacionality}</td>
                         </tr>
-                      )}
-                      {enrollment.student.special_necessities && (
                         <tr>
-                          <td>Necessidades especiais</td>
-                          <td>{enrollment.student.special_necessities}</td>
+                          <td>Cidade natal</td>
+                          <td>{enrollment.student.birth_city}</td>
                         </tr>
+                        <tr>
+                          <td>Estado natal</td>
+                          <td>{enrollment.student.birth_state}</td>
+                        </tr>
+                        <tr>
+                          <td>Gênero</td>
+                          <td>{formatGender(enrollment.student.gender)}</td>
+                        </tr>
+                        <tr>
+                          <td>Raça</td>
+                          <td>{formatRace(enrollment.student.race)}</td>
+                        </tr>
+                        <tr>
+                          <td>Facilidade em se relacionar</td>
+                          <td>
+                            {enrollment.student.ease_relating ? 'Sim' : 'Não'}
+                          </td>
+                        </tr>
+                        {enrollment.student.origin_school && (
+                          <tr>
+                            <td>Escola de origem</td>
+                            <td>{enrollment.student.origin_school}</td>
+                          </tr>
+                        )}
+                        {enrollment.student.health_plan && (
+                          <tr>
+                            <td>Plano de saúde</td>
+                            <td>{enrollment.student.health_plan}</td>
+                          </tr>
+                        )}
+                        {enrollment.student.food_alergy && (
+                          <tr>
+                            <td>Alergia a alimentos</td>
+                            <td>{enrollment.student.food_alergy}</td>
+                          </tr>
+                        )}
+                        {enrollment.student.medication_alergy && (
+                          <tr>
+                            <td>Alergia a medicamentos</td>
+                            <td>{enrollment.student.medication_alergy}</td>
+                          </tr>
+                        )}
+                        {enrollment.student.health_problem && (
+                          <tr>
+                            <td>Problema de sáude</td>
+                            <td>{enrollment.student.health_problem}</td>
+                          </tr>
+                        )}
+                        {enrollment.student.special_necessities && (
+                          <tr>
+                            <td>Necessidades especiais</td>
+                            <td>{enrollment.student.special_necessities}</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </Table>
+                    <Documents>
+                      {enrollment.student.birth_certificate_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.student.birth_certificate_photo_url}
+                        >
+                          <img
+                            alt="certidão"
+                            src={enrollment.student.birth_certificate_photo_url}
+                          />
+                        </a>
                       )}
-                    </tbody>
-                  </Table>
+
+                      {enrollment.student.vaccine_card_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.student.vaccine_card_photo_url}
+                        >
+                          <img
+                            alt="cartão de vacina"
+                            src={enrollment.student.vaccine_card_photo_url}
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.student.health_plan_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.student.health_plan_photo_url}
+                        >
+                          <img
+                            alt="plano de saúde"
+                            src={enrollment.student.health_plan_photo_url}
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.student.transfer_declaration_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={
+                            enrollment.student.transfer_declaration_photo_url
+                          }
+                        >
+                          <img
+                            alt="declaração de transferência"
+                            src={
+                              enrollment.student.transfer_declaration_photo_url
+                            }
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.student.monthly_declaration_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={
+                            enrollment.student.monthly_declaration_photo_url
+                          }
+                        >
+                          <img
+                            alt="declaração de quitação de débito"
+                            src={
+                              enrollment.student.monthly_declaration_photo_url
+                            }
+                          />
+                        </a>
+                      )}
+
+                      {enrollment.student.school_records_photo && (
+                        <a
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href={enrollment.student.school_records_photo_url}
+                        >
+                          <img
+                            alt="histórico escolar"
+                            src={enrollment.student.school_records_photo_url}
+                          />
+                        </a>
+                      )}
+                    </Documents>
+                  </>
                 )}
               </DataGroup>
             </>

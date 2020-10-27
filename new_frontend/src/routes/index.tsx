@@ -11,6 +11,7 @@ import ValidateEnrollment from '../pages/ValidateEnrollment';
 import PayDebitsMenu from '../pages/PayDebitsMenu';
 import PayDebits from '../pages/PayDebits';
 import ReceivePaymentsMenu from '../pages/ReceivePaymentsMenu';
+import ReceivePayments from '../pages/ReceivePayments';
 import Profiles from '../pages/Profiles';
 import Users from '../pages/Users';
 import Grades from '../pages/Grades';
@@ -24,15 +25,15 @@ const Routes: React.FC = () => (
     <Route path="/new-enrollment" component={NewEnrollment} isPrivate />
 
     <Route
-      path="/validate-enrollments"
-      component={ValidateEnrollmentsMenu}
+      path="/validate-enrollments/:contract_id"
+      component={ValidateEnrollment}
       isPrivate
       needPermissions={['validate_enrollment_permiss']}
     />
 
     <Route
-      path="/validate-enrollments/:contract_id"
-      component={ValidateEnrollment}
+      path="/validate-enrollments"
+      component={ValidateEnrollmentsMenu}
       isPrivate
       needPermissions={['validate_enrollment_permiss']}
     />
@@ -45,6 +46,13 @@ const Routes: React.FC = () => (
     />
 
     <Route
+      path="/pay-debits/:contract_id"
+      component={PayDebits}
+      isPrivate
+      needPermissions={['pay_debit_permiss']}
+    />
+
+    <Route
       path="/pay-debits"
       component={PayDebitsMenu}
       isPrivate
@@ -52,10 +60,10 @@ const Routes: React.FC = () => (
     />
 
     <Route
-      path="/pay-debits/:contract_id"
-      component={PayDebits}
+      path="/receive-payments/:contract_id"
+      component={ReceivePayments}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
+      needPermissions={['discharge_payment_permiss']}
     />
 
     <Route
@@ -64,13 +72,6 @@ const Routes: React.FC = () => (
       isPrivate
       needPermissions={['discharge_payment_permiss']}
     />
-
-    {/* <Route
-      path="/receive-payments/:contract_id"
-      component={ReceivePayments}
-      isPrivate
-      needPermissions={['discharge_payment_permiss']}
-    /> */}
 
     <Route
       path="/profiles"

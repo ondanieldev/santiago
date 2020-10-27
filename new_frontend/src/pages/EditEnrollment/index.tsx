@@ -448,8 +448,6 @@ const NewEnrollment: React.FC = () => {
         api.get(`/contracts/${contract_id}`).then(response => {
           const enrollmentFromApi = response.data as IEnrollment;
 
-          console.log(enrollmentFromApi.student);
-
           setEnrollment(enrollmentFromApi);
 
           setShowHealthPlan(!!enrollmentFromApi.student.health_plan);
