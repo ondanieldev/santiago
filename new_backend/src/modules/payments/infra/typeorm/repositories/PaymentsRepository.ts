@@ -21,10 +21,14 @@ export default class PaymentsRepository implements IPaymentsRepository {
     }
 
     public async findByContract(contract_id: string): Promise<Payment[] | []> {
-        const payments = await this.ormRepository.find({
-            where: { debit: { contract_id } },
-            relations: ['user'],
-        });
+        const payments = await this.ormRepository
+            .createQueryBuilder('payment')
+            .select('payment')
+            .addSelect('user')
+            .leftJoin('payment.user', 'user', 'user.id = payment.user_id')
+            .leftJoin('payment.debit', 'debit', 'debit.id = payment.debit_id')
+            .where('debit.contract_id = :contract_id', { contract_id })
+            .getMany();
 
         return payments;
     }
