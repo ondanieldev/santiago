@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateDischargeService from '../../../services/CreateDischargeService';
 
@@ -19,6 +20,6 @@ export default class DischargesController {
             user_id,
         });
 
-        return response.json(discharge);
+        return response.json(classToClass(discharge));
     }
 }

@@ -60,7 +60,7 @@ export default class AprooveContractService {
 
         await this.debitsRepository.create({
             contract_id,
-            description: 'Primeira parcela - Matrícula',
+            description: '1ª parcela - Matrícula',
             initial_date: new Date(),
             final_date: addMonths(new Date(), 1),
             value: contract.grade.value,

@@ -8,11 +8,6 @@ const paymentsRouter = Router();
 const paymentsController = new PaymentsController();
 const enrollmentPaymentsController = new EnrollmentPaymentsController();
 
-paymentsRouter.get(
-    '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
-    paymentsController.index,
-);
 paymentsRouter.post(
     '/',
     (req, res, next) => ensureAuthenticated()(req, res, next),

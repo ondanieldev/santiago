@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 import { v4 } from 'uuid';
+import { startOfMonth, endOfMonth } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
@@ -14,6 +15,7 @@ import IStudentsRepository from '@modules/students/repositories/IStudentsReposit
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IProfilesRepository from '@modules/profiles/repositories/IProfilesRepository';
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
 import Payment from '../infra/typeorm/entities/Payment';
 
 @injectable()
@@ -39,6 +41,9 @@ export default class CreatePaymentService {
 
         @inject('ProfilesRepository')
         private profilesRepository: IProfilesRepository,
+
+        @inject('GradesRepository')
+        private gradesRepository: IGradesRepository,
 
         @inject('ReceiptProvider')
         private receiptProvider: IReceiptProvider,
@@ -93,6 +98,14 @@ export default class CreatePaymentService {
         if (!contract) {
             throw new AppError(
                 'não é possível pagar um débito de um contrato inexistente!',
+            );
+        }
+
+        const grade = await this.gradesRepository.findById(contract.grade_id);
+
+        if (!grade) {
+            throw new AppError(
+                'não é possível pagar um débito de uma turma inexistente!',
             );
         }
 
@@ -217,6 +230,17 @@ export default class CreatePaymentService {
                         studentArticle,
                     },
                 },
+            });
+        }
+
+        for (let i = 1; i < 12; ++i) {
+            await this.debitsRepository.create({
+                contract_id: contract.id,
+                description: `${i + 1}ª parcela`,
+                initial_date: startOfMonth(new Date(2020, i)),
+                final_date: endOfMonth(new Date(2020, i)),
+                value: grade.value,
+                type: 'installment',
             });
         }
 

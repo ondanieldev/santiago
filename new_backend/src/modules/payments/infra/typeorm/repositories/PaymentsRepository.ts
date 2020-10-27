@@ -20,9 +20,9 @@ export default class PaymentsRepository implements IPaymentsRepository {
         return payment;
     }
 
-    public async findUndischarged(): Promise<Payment[] | []> {
+    public async findByContract(contract_id: string): Promise<Payment[] | []> {
         const payments = await this.ormRepository.find({
-            where: { discharged: false },
+            where: { debit: { contract_id } },
             relations: ['user'],
         });
 

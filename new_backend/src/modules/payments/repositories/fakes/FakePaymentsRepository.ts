@@ -13,9 +13,9 @@ export default class PaymentsRepository implements IPaymentsRepository {
         return payment;
     }
 
-    public async findUndischarged(): Promise<Payment[] | []> {
+    public async findByContract(contract_id: string): Promise<Payment[] | []> {
         const payments = this.payments.filter(
-            findPayment => !findPayment.discharged,
+            findPayment => findPayment.debit.contract_id === contract_id,
         );
 
         return payments;

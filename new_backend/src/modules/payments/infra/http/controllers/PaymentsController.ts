@@ -2,21 +2,9 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import IndexPaymentsService from '@modules/payments/services/IndexUndischargedPaymentsService';
 import CreatePaymentService from '@modules/payments/services/CreatePaymentService';
 
 export default class PaymentsController {
-    public async index(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
-        const indexPayments = container.resolve(IndexPaymentsService);
-
-        const payments = await indexPayments.execute();
-
-        return response.json(classToClass(payments));
-    }
-
     public async create(
         request: Request,
         response: Response,
