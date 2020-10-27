@@ -24,16 +24,19 @@ const Aside: React.FC = () => {
       { path: '/dashboard', label: 'Dashboard' },
       { path: '/new-enrollment', label: 'Nova matrícula' },
       {
-        path: '/under-analysis-pendent-enrollments',
+        path: '/validate-enrollments',
         label: 'Validar matrículas',
+        permiss: 'validate_enrollment_permiss',
       },
       {
-        path: '/accepted-active-enrollments',
+        path: '/pay-debits',
         label: 'Pagar débitos',
+        permiss: 'pay_debit_permiss',
       },
       {
-        path: '/payments',
+        path: '/receive-payments',
         label: 'Receber pagamentos',
+        permiss: 'discharge_payment_permiss',
       },
       {
         path: '/profiles',

@@ -70,7 +70,7 @@ const Enrollment: React.FC = () => {
           } com sucesso! O responsável será notificado.`,
         );
 
-        history.push('/dashboard');
+        history.push('dashboard');
       } catch (err) {
         if (err.response) {
           toast.error(

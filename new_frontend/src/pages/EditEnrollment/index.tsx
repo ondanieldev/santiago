@@ -51,8 +51,6 @@ import studentSchema from '../../schemas/studentSchema';
 import responsibleSchema from '../../schemas/responsibleSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 interface IParams {
   contract_id: string;
 }
@@ -265,28 +263,28 @@ const NewEnrollment: React.FC = () => {
 
           if (student_photos.monthly_declaration_photo) {
             studentPhotos.append(
-              '.monthly_declaration_photo',
+              'monthly_declaration_photo',
               student_photos.monthly_declaration_photo,
             );
           }
 
           if (student_photos.school_records_photo) {
             studentPhotos.append(
-              '.school_records_photo',
+              'school_records_photo',
               student_photos.school_records_photo,
             );
           }
 
           if (student_photos.transfer_declaration_photo) {
             studentPhotos.append(
-              '.transfer_declaration_photo',
+              'transfer_declaration_photo',
               student_photos.transfer_declaration_photo,
             );
           }
 
           if (student_photos.vaccine_card_photo) {
             studentPhotos.append(
-              '.vaccine_card_photo',
+              'vaccine_card_photo',
               student_photos.vaccine_card_photo,
             );
           }
@@ -450,6 +448,8 @@ const NewEnrollment: React.FC = () => {
         api.get(`/contracts/${contract_id}`).then(response => {
           const enrollmentFromApi = response.data as IEnrollment;
 
+          console.log(enrollmentFromApi.student);
+
           setEnrollment(enrollmentFromApi);
 
           setShowHealthPlan(!!enrollmentFromApi.student.health_plan);
@@ -532,9 +532,7 @@ const NewEnrollment: React.FC = () => {
             grade: {
               id: enrollmentFromApi.grade.id,
             },
-            student: {
-              ...enrollmentFromApi.student,
-            },
+            student: enrollmentFromApi.student,
             student_photos: {
               birth_certificate_photo:
                 enrollmentFromApi.student.birth_certificate_photo,

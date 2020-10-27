@@ -83,6 +83,6 @@
 - [x] Exibição de conteúdos vazios
 - [x] Checar try catches
 - [x] Clear fields
-- [ ] History push
+- [x] History push
 - [x] Bugs de autenticação
 - [x] Cabeçalho estático

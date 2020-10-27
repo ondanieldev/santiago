@@ -6,8 +6,6 @@ import { FiDollarSign } from 'react-icons/fi';
 import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 import { Container, Main, InputGroup, Debit } from './styles';
 import { paymentMethods } from '../../utils/defaults';
 import Loading from '../../components/Loading';
@@ -78,7 +76,12 @@ const Debits: React.FC = () => {
           abortEarly: false,
         });
 
-        const response = await api.post('/payments/enrollment', {
+        const apiUrl =
+          selectedDebit.type === 'enrollment'
+            ? '/payments/enrollment'
+            : '/payments';
+
+        const response = await api.post(apiUrl, {
           debit_id: selectedDebit.id,
           method: data.method,
         });

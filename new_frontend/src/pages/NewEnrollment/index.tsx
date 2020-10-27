@@ -50,8 +50,6 @@ import studentSchema from '../../schemas/studentSchema';
 import responsibleSchema from '../../schemas/responsibleSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 interface IConfigDTO {
   has_food_alergy: 'no' | 'yes';
   has_health_plan: 'no' | 'yes';
@@ -140,13 +138,23 @@ const NewEnrollment: React.FC = () => {
         return;
       }
 
-      setLoadingSubmit(true);
-
       let actualPrefixVerification = '';
 
       if (!financialVerified || !supportiveVerified) {
+        toast.error(
+          'É preciso que os dois responsáveis sejam cadastrados ou resgatados do sitema!',
+        );
         return;
       }
+
+      const gradeField = formRef.current?.getFieldValue('grade.id');
+
+      if (!gradeField) {
+        toast.error('É preciso que uma turma seja selecionada!');
+        return;
+      }
+
+      setLoadingSubmit(true);
 
       try {
         formRef.current?.setErrors({});
@@ -232,7 +240,12 @@ const NewEnrollment: React.FC = () => {
             supportivePhotos.append('cpf_photo', supportive_photos.cpf_photo);
           }
 
-          if (supportive_photos.residencial_proof_photo) {
+          if (reuseAddress && financial_photos.residencial_proof_photo) {
+            supportivePhotos.append(
+              'residencial_proof_photo',
+              financial_photos.residencial_proof_photo,
+            );
+          } else if (supportive_photos.residencial_proof_photo) {
             supportivePhotos.append(
               'residencial_proof_photo',
               supportive_photos.residencial_proof_photo,
@@ -261,28 +274,28 @@ const NewEnrollment: React.FC = () => {
 
           if (student_photos.monthly_declaration_photo) {
             studentPhotos.append(
-              '.monthly_declaration_photo',
+              'monthly_declaration_photo',
               student_photos.monthly_declaration_photo,
             );
           }
 
           if (student_photos.school_records_photo) {
             studentPhotos.append(
-              '.school_records_photo',
+              'school_records_photo',
               student_photos.school_records_photo,
             );
           }
 
           if (student_photos.transfer_declaration_photo) {
             studentPhotos.append(
-              '.transfer_declaration_photo',
+              'transfer_declaration_photo',
               student_photos.transfer_declaration_photo,
             );
           }
 
           if (student_photos.vaccine_card_photo) {
             studentPhotos.append(
-              '.vaccine_card_photo',
+              'vaccine_card_photo',
               student_photos.vaccine_card_photo,
             );
           }
@@ -304,6 +317,8 @@ const NewEnrollment: React.FC = () => {
           formRef.current?.setErrors(errors);
 
           toast.error(`Oops, alguns dados não foram preenchidos corretamente!`);
+
+          return;
         }
 
         if (err.response) {
@@ -328,6 +343,7 @@ const NewEnrollment: React.FC = () => {
       supportiveFromDB.id,
       loadingSubmit,
       history,
+      reuseAddress,
     ],
   );
 
@@ -395,6 +411,7 @@ const NewEnrollment: React.FC = () => {
             toast.info(
               'Responsável não encontrado! Por favor, preencha as informações de cadastro.',
             );
+            formRef.current?.setFieldValue('financial_responsible.cpf', cpf);
           }
         } else {
           setSupportiveVerified(true);
@@ -409,6 +426,7 @@ const NewEnrollment: React.FC = () => {
             toast.info(
               'Responsável não encontrado! Por favor, preencha as informações de cadastro.',
             );
+            formRef.current?.setFieldValue('supportive_responsible.cpf', cpf);
           }
         }
       } catch {
@@ -963,12 +981,14 @@ const NewEnrollment: React.FC = () => {
                   <File name="supportive_photos.cpf_photo" buttonText="CPF" />
                 </InputGroup>
 
-                <InputGroup>
-                  <File
-                    name="supportive_photos.residencial_proof_photo"
-                    buttonText="Comprovante de endereço"
-                  />
-                </InputGroup>
+                {!reuseAddress && (
+                  <InputGroup>
+                    <File
+                      name="supportive_photos.residencial_proof_photo"
+                      buttonText="Comprovante de endereço"
+                    />
+                  </InputGroup>
+                )}
               </>
             )}
           </FormGroup>

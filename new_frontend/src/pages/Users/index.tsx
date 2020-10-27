@@ -20,10 +20,6 @@ import api from '../../services/api';
 import userSchema from '../../schemas/userSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import 'react-toastify/dist/ReactToastify.css';
-
-toast.configure();
-
 const Users: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 

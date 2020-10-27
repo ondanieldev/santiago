@@ -23,7 +23,7 @@ const AcceptedAndActiveEnrollments: React.FC = () => {
           showSearch
           apiUrl="/contracts/accepted-active"
           handleSelectEnrollment={(id: string) => {
-            history.push(`debits/${id}`);
+            history.push(`pay-debits/${id}`);
           }}
         />
       </Main>

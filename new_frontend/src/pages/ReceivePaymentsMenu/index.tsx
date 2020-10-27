@@ -12,7 +12,9 @@ import Title from '../../components/Title';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Popup from '../../components/Popup';
+import Document from '../../components/Document';
 import IPayment from '../../entities/IPayment';
+import IDischarge from '../../entities/IDischarge';
 import api from '../../services/api';
 import { formatPaymentMethod } from '../../utils/formatFunctions';
 
@@ -20,6 +22,7 @@ const Payments: React.FC = () => {
   const [payments, setPayments] = useState([] as IPayment[]);
   const [confirmMessage, setConfirmMessage] = useState('');
   const [paymentId, setPaymentId] = useState('');
+  const [discharge, setDischarge] = useState({} as IDischarge);
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
@@ -49,14 +52,18 @@ const Payments: React.FC = () => {
       .post('/discharges', {
         payment_id: paymentId,
       })
-      .then(() => {
-        toast.success('Pagamento recebido com sucesso!');
+      .then(response => {
+        const dischargeData = response.data as IDischarge;
 
         const paymentsWithoutDischarged = payments.filter(
           payment => payment.id !== paymentId,
         );
 
+        setDischarge(dischargeData);
+
         setPayments(paymentsWithoutDischarged);
+
+        toast.success('Pagamento recebido com sucesso!');
       })
       .catch(err => {
         if (err.response) {
@@ -70,11 +77,15 @@ const Payments: React.FC = () => {
         }
       })
       .finally(() => {
-        setPaymentId('');
         setConfirmMessage('');
         setLoadingSubmit(false);
       });
   }, [paymentId, payments, loadingSubmit]);
+
+  const handleClosePopup = useCallback(() => {
+    setPaymentId('');
+    setDischarge({} as IDischarge);
+  }, []);
 
   return (
     <Container>
@@ -111,32 +122,38 @@ const Payments: React.FC = () => {
       </Main>
 
       {!!paymentId && (
-        <Popup title="Receber" handleClosePopup={() => setPaymentId('')}>
-          <Form onSubmit={handleDischargePayment}>
-            <WarnMessage>
-              <strong> ATENÇÃO: </strong>
-              esta ação não pode ser desfeita! Digite
-              <b> CONFIRMAR </b>
-              para receber o pagamento.
-            </WarnMessage>
+        <Popup title="Receber" handleClosePopup={handleClosePopup}>
+          {!discharge.id && (
+            <Form onSubmit={handleDischargePayment}>
+              <WarnMessage>
+                <strong> ATENÇÃO: </strong>
+                esta ação não pode ser desfeita! Digite
+                <b> CONFIRMAR </b>
+                para receber o pagamento.
+              </WarnMessage>
 
-            <InputGroup>
-              <Input
-                name="confirm_message"
-                icon={FiCheck}
-                value={confirmMessage}
-                onChange={e => setConfirmMessage(e.target.value)}
-              />
-            </InputGroup>
+              <InputGroup>
+                <Input
+                  name="confirm_message"
+                  icon={FiCheck}
+                  value={confirmMessage}
+                  onChange={e => setConfirmMessage(e.target.value)}
+                />
+              </InputGroup>
 
-            <Button
-              disabled={confirmMessage !== 'CONFIRMAR'}
-              type="submit"
-              loading={loadingSubmit}
-            >
-              Receber
-            </Button>
-          </Form>
+              <Button
+                disabled={confirmMessage !== 'CONFIRMAR'}
+                type="submit"
+                loading={loadingSubmit}
+              >
+                Receber
+              </Button>
+            </Form>
+          )}
+
+          {discharge.id && (
+            <Document name="Recibo" link={discharge.receipt_url} />
+          )}
         </Popup>
       )}
     </Container>

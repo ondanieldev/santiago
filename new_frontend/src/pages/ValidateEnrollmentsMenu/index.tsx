@@ -22,7 +22,7 @@ const UnderAnalysisAndPendentEnrollments: React.FC = () => {
         <Enrollments
           apiUrl="/contracts/under-analysis-pendent"
           handleSelectEnrollment={(id: string) => {
-            history.push(`/validate-enrollment/${id}`);
+            history.push(`validate-enrollments/${id}`);
           }}
         />
       </Main>

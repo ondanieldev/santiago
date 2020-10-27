@@ -11,8 +11,6 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 interface SignInFormData {
   username: string;
   password: string;
