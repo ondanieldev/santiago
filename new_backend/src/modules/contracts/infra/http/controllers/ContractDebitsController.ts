@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import IndexDebitsService from '@modules/debits/services/IndexDebitsByContractService';
 
@@ -14,6 +15,6 @@ export default class ContractDebitsController {
 
         const debits = await indexDebits.execute(contract_id);
 
-        return response.json(debits);
+        return response.json(classToClass(debits));
     }
 }

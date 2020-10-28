@@ -109,12 +109,10 @@ export default class CreatePaymentService {
             );
         }
 
-        const receipt = await this.receiptProvider.generate([
-            {
-                item: debit.description,
-                value: debit.value,
-            },
-        ]);
+        const receipt = await this.receiptProvider.generate({
+            file: 'payment_receipt.hbs',
+            variables: {},
+        });
 
         const payment = await this.paymentsRepository.create({
             amount: debit.value,

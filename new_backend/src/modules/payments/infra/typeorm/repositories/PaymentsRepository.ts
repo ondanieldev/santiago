@@ -27,6 +27,7 @@ export default class PaymentsRepository implements IPaymentsRepository {
             .addSelect('user')
             .leftJoin('payment.user', 'user', 'user.id = payment.user_id')
             .leftJoin('payment.debit', 'debit', 'debit.id = payment.debit_id')
+            .leftJoinAndSelect('payment.discharge', 'discharge')
             .where('debit.contract_id = :contract_id', { contract_id })
             .getMany();
 

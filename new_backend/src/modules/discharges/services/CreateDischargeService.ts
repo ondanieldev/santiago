@@ -54,9 +54,30 @@ export default class CreateDischargeService {
             );
         }
 
-        const receipt = await this.receiptProvider.generate([
-            { item: 'Baixa', value: payment.amount },
-        ]);
+        const receipt = await this.receiptProvider.generate({
+            file: 'discharge_receipt.hbs',
+            variables: {
+                financialResponsibleName: 'financial',
+                financialResponsibleCPF: 'cpf',
+                operativeName: 'operative',
+                items: [
+                    {
+                        description: 'a',
+                        quantity: 1,
+                        value: 2,
+                        variation: 3,
+                        subtotal: 4,
+                    },
+                    {
+                        description: 'b',
+                        quantity: 5,
+                        value: 6,
+                        variation: 7,
+                        subtotal: 8,
+                    },
+                ],
+            },
+        });
 
         const discharge = this.dischargesRepository.create({
             payment_id,

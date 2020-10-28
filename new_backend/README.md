@@ -1,4 +1,4 @@
-# :white_check_mark: Criação de matrículas (create enrollment and notify responsible)
+# :white_check_mark: Criação de matrículas
 
 **RF**
 
@@ -27,7 +27,7 @@
 - [x] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
 - [x] O usuário não deve poder reutilizar um responsável que não existe;
 
-# :white_check_mark: Aprovação/Reprovação de matrículas (aproove or disaproove enrollment and notify responsible)
+# :white_check_mark: Aprovação/Reprovação de matrículas
 
 **RF**
 
@@ -63,7 +63,7 @@
 **CHANGES**
 - [x] Dia de pagamento
 
-# :white_check_mark: Atualização de fotos do responsável (update responsible photos and delete the previous ones)
+# :white_check_mark: Atualização de fotos do responsável
 
 **RF**
 
@@ -77,7 +77,7 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# :white_check_mark: Atualização de fotos do aluno (update student photos and delete the previous ones)
+# :white_check_mark: Atualização de fotos do aluno
 
 **RF**
 
@@ -91,7 +91,7 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# :white_check_mark: Pagamento de débitos da matrícula (create a new payment and change debit's paid field to true)
+# :white_check_mark: Pagamento de débitos da matrícula
 
 **RF**
 
@@ -119,7 +119,7 @@
 - [x] O usuário não deve poder pagar um débito que já foi pago;
 - [x] O usuário não deve poder pagar um débito com um método de pagamento inválido;
 
-# :white_check_mark: Recebimento de pagamentos (create a new discharge and change payment's discharged field to true)
+# :white_check_mark: Recebimento de pagamentos
 
 **RF**
 
@@ -137,7 +137,7 @@
 - [x] O usuário não deve poder receber um pagamento que não existe;
 - [x] O usuário não deve poder receber um pagamento que já foi recebido;
 
-# :white_check_mark: CRUD de turmas (create, update and list grades)
+# :white_check_mark: CRUD de turmas
 
 **RF**
 
@@ -157,7 +157,7 @@
 - [x] O usuário não deve poder atualizar uma turma que não existe;
 - [x] O usuário não deve poder atualizar uma turma com o conjunto nome e ano igual ao de outra turma;
 
-# :white_check_mark: CRUD de perfis (create, update and list profiles)
+# :white_check_mark: CRUD de perfis
 
 **RF**
 
@@ -216,6 +216,8 @@
 - [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
 - [x] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
+# Criação de débitos
+
 # General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado;
 - [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;
@@ -240,3 +242,6 @@
 - [x] Filtragem de erros criação de nova matrícula
 - [x] Reescrever mensagens de erro
 - [x] Refatorar testes
+- [ ] Remodelar o recibo
+- [ ] Configurar campos de data dos débitos
+- [ ] Configuar descontos e juros

@@ -8,8 +8,8 @@ import cors from 'cors';
 
 import AppError from '@shared/errors/AppError';
 
-import uploadConfig from 'config/upload';
-import mailConfig from 'config/mail';
+import uploadConfig from '@config/upload';
+import mailConfig from '@config/mail';
 
 import '@shared/infra/typeorm';
 import '@shared/container';

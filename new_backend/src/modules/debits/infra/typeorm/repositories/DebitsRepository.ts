@@ -23,6 +23,7 @@ export default class DebitsRepository implements IDebitsRepository {
     public async findByContract(contract_id: string): Promise<Debit[] | []> {
         const debits = await this.ormRepository.find({
             where: { contract_id },
+            relations: ['payment'],
         });
 
         return debits;
