@@ -110,8 +110,22 @@ export default class CreatePaymentService {
         }
 
         const receipt = await this.receiptProvider.generate({
-            file: 'payment_receipt.hbs',
-            variables: {},
+            client: {
+                name: contract.agreements[0].person.name,
+                cpf: contract.agreements[0].person.cpf,
+            },
+            operative: {
+                name: user.username,
+            },
+            items: [
+                {
+                    description: debit.description,
+                    value: Number(debit.value),
+                    quantity: 1,
+                    variation: 0,
+                },
+            ],
+            method,
         });
 
         const payment = await this.paymentsRepository.create({

@@ -7,6 +7,7 @@ import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import IReceiptProvider from '@shared/container/providers/ReceiptProvider/models/IReceiptProvider';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
 import Payment from '../infra/typeorm/entities/Payment';
 
 @injectable()
@@ -20,6 +21,9 @@ export default class CreatePaymentService {
 
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('ContractsRepository')
+        private contractsRepository: IContractsRepository,
 
         @inject('ReceiptProvider')
         private receiptProvider: IReceiptProvider,
@@ -61,9 +65,33 @@ export default class CreatePaymentService {
             );
         }
 
+        const contract = await this.contractsRepository.findById(
+            debit.contract_id,
+        );
+
+        if (!contract) {
+            throw new AppError(
+                'não é possível pagar um débito de um contrato inexistente!',
+            );
+        }
+
         const receipt = await this.receiptProvider.generate({
-            file: 'payment_receipt.hbs',
-            variables: {},
+            client: {
+                name: contract.agreements[0].person.name,
+                cpf: contract.agreements[0].person.cpf,
+            },
+            operative: {
+                name: user.username,
+            },
+            items: [
+                {
+                    description: debit.description,
+                    value: Number(debit.value),
+                    quantity: 1,
+                    variation: 0,
+                },
+            ],
+            method,
         });
 
         const payment = await this.paymentsRepository.create({

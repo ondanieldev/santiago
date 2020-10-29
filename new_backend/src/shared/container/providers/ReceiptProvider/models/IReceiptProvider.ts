@@ -1,5 +1,5 @@
-import IParseReceiptTemplateDTO from '@shared/container/providers/ReceiptTemplateProvider/dtos/IParseReceiptTemplateDTO';
+import IGenerateReceiptDTO from '../dtos/IGenerateReceiptDTO';
 
 export default interface IReceiptProvider {
-    generate(data: IParseReceiptTemplateDTO): Promise<string>;
+    generate(data: IGenerateReceiptDTO): Promise<string>;
 }

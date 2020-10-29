@@ -12,9 +12,9 @@ export default class PDFMakePDFProvider implements IPDFProvider {
         documentDefinition: TDocumentDefinitions,
     ): Promise<string> {
         const fonts = {
-            Arial: {
-                normal: path.resolve(__dirname, '..', 'fonts', 'arial.ttf'),
-                bold: path.resolve(__dirname, '..', 'fonts', 'arialbd.ttf'),
+            Bank: {
+                normal: path.resolve(__dirname, '..', 'fonts', 'bank.otf'),
+                bold: path.resolve(__dirname, '..', 'fonts', 'bankbd.otf'),
             },
         };
 

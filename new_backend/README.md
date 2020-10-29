@@ -242,6 +242,6 @@
 - [x] Filtragem de erros criação de nova matrícula
 - [x] Reescrever mensagens de erro
 - [x] Refatorar testes
-- [ ] Remodelar o recibo
+- [x] Remodelar o recibo
 - [ ] Configurar campos de data dos débitos
 - [ ] Configuar descontos e juros
