@@ -26,10 +26,10 @@ export default class Debit {
     description: string;
 
     @Column('date')
-    initial_date: Date;
+    payment_limit_date: Date;
 
-    @Column('date')
-    final_date: Date;
+    @Column('decimal')
+    discount: number;
 
     @Column('date')
     payday: Date;

@@ -36,6 +36,9 @@ export default class Contract {
     @Column()
     grade_id: string;
 
+    @Column('decimal')
+    discount: number;
+
     @ManyToOne(() => Student, student => student.contracts)
     @JoinColumn({ name: 'student_id' })
     student: Student;

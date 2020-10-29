@@ -42,6 +42,7 @@
 - [x] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
 - [x] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
 - [x] Deixar o template bonito e com dados pertinentes
+- [ ] O usuário deve poder inserir um valor de desconto no ato da aprovação
 
 **RNF**
 
@@ -58,7 +59,6 @@
 - [x] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
 - [x] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
 - [x] O usuário não deve poder aprovar ou desaprovar um contrato que já foi aprovado ou que já está ativo
-
 
 **CHANGES**
 - [x] Dia de pagamento
@@ -91,7 +91,7 @@
 
 - [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
 
-# :white_check_mark: Pagamento de débitos da matrícula
+# :white_check_mark: Pagamento de débitos
 
 **RF**
 
@@ -103,6 +103,10 @@
 - [x] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
 - [x] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso com perfil estático;
 - [x] Caso o débito seja referente à primeira parcela de matrícula, cada um dos responsáveis ligados ao contrato deverá receber um e-mail contendo o nome de usuário e a senha de acesso seu e do aluno;
+- [x] Caso o débito seja referente à primeira parcela de matrícula, as outras 11 parcelas deverão ser geradas, de modo que recebam o desconto aplicado ao contrato;
+- [x] Caso o débito seja pago antes da data limite de desconto, o desconto será aplicado;
+- [x] Caso o débito seja pago após a data limite de desconto, o desconto não será aplicado;
+- [x] Caso o débito seja pago após a data limite de pagamento, o desconto não será aplicado e juros serão aplicados;
 
 **RNF**
 
@@ -118,6 +122,7 @@
 - [x] O usuário não deve poder pagar um débito inexistente;
 - [x] O usuário não deve poder pagar um débito que já foi pago;
 - [x] O usuário não deve poder pagar um débito com um método de pagamento inválido;
+- [x] A data limite do desconto deve ser o dia 10 de cada mês ou o dia útil imediatamente posterior ao dia 10;
 
 # :white_check_mark: Recebimento de pagamentos
 
@@ -243,5 +248,4 @@
 - [x] Reescrever mensagens de erro
 - [x] Refatorar testes
 - [x] Remodelar o recibo
-- [ ] Configurar campos de data dos débitos
-- [ ] Configuar descontos e juros
+- [x] Alterar campos de data dos débitos

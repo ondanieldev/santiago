@@ -24,6 +24,7 @@ export default class DebitsRepository implements IDebitsRepository {
         const debits = await this.ormRepository.find({
             where: { contract_id },
             relations: ['payment'],
+            order: { payment_limit_date: 'ASC' },
         });
 
         return debits;

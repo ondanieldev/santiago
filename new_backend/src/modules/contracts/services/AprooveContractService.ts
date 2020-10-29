@@ -14,6 +14,7 @@ interface IResponsibleContact {
 }
 
 interface IRequest {
+    discount?: number;
     contract_id: string;
     comment?: string;
     responsible_contact?: IResponsibleContact;
@@ -39,6 +40,7 @@ export default class AprooveContractService {
         contract_id,
         comment,
         responsible_contact,
+        discount,
     }: IRequest): Promise<Contract> {
         const contract = await this.contractsRepository.findById(contract_id);
 
@@ -54,15 +56,18 @@ export default class AprooveContractService {
             );
         }
 
-        Object.assign(contract, { comment, status: 'accepted' });
+        Object.assign(contract, {
+            comment,
+            status: 'accepted',
+            discount,
+        });
 
         await this.contractsRepository.save(contract);
 
         await this.debitsRepository.create({
             contract_id,
             description: '1ª parcela - Matrícula',
-            initial_date: new Date(),
-            final_date: addMonths(new Date(), 1),
+            payment_limit_date: addMonths(new Date(), 1),
             value: contract.grade.value,
             type: 'enrollment',
         });

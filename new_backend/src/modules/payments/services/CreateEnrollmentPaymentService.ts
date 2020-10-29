@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import { v4 } from 'uuid';
-import { startOfMonth, endOfMonth } from 'date-fns';
+import { getYear } from 'date-fns';
+import axios from 'axios';
 
 import AppError from '@shared/errors/AppError';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
@@ -16,7 +17,17 @@ import IMailProvider from '@shared/container/providers/MailProvider/models/IMail
 import IProfilesRepository from '@modules/profiles/repositories/IProfilesRepository';
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
+import recursiveReturnNextBusinessDay from '@shared/utils/recursiveReturnNextBusinessDay';
 import Payment from '../infra/typeorm/entities/Payment';
+
+interface IHoliday {
+    date: string;
+    name: string;
+    link: string;
+    type: string;
+    description: string;
+    type_code: string;
+}
 
 @injectable()
 export default class CreatePaymentService {
@@ -245,14 +256,31 @@ export default class CreatePaymentService {
             });
         }
 
+        const actualYear = getYear(new Date());
+
+        let holidays = [] as IHoliday[];
+
+        try {
+            const response = await axios.get(
+                `https://api.calendario.com.br/?json=true&ano=${actualYear}&estado=MG&cidade=BETIM&token=b2ZpY2lhbC5kYW5pZWxvbGl2ZWlyYUBnbWFpbC5jb20maGFzaD0xMzgxMjA4NDA`,
+            );
+
+            holidays = response.data as IHoliday[];
+        } catch {}
+
         for (let i = 1; i < 12; ++i) {
+            const payment_limit_date = await recursiveReturnNextBusinessDay(
+                new Date(actualYear, i, 10, 0, 0, 0),
+                holidays,
+            );
+
             await this.debitsRepository.create({
                 contract_id: contract.id,
                 description: `${i + 1}ª parcela`,
-                initial_date: startOfMonth(new Date(2020, i)),
-                final_date: endOfMonth(new Date(2020, i)),
+                payment_limit_date,
                 value: grade.value,
                 type: 'installment',
+                discount: contract.discount,
             });
         }
 

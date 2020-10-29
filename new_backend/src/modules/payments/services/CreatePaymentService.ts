@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { isPast } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
@@ -75,6 +76,14 @@ export default class CreatePaymentService {
             );
         }
 
+        let paymentValue = Number(debit.value);
+
+        if (isPast(debit.payment_limit_date)) {
+            // aplicar juros
+        } else {
+            paymentValue = debit.value - (debit.value * debit.discount) / 100;
+        }
+
         const receipt = await this.receiptProvider.generate({
             client: {
                 name: contract.agreements[0].person.name,
@@ -86,7 +95,7 @@ export default class CreatePaymentService {
             items: [
                 {
                     description: debit.description,
-                    value: Number(debit.value),
+                    value: paymentValue,
                     quantity: 1,
                     variation: 0,
                 },
@@ -95,7 +104,7 @@ export default class CreatePaymentService {
         });
 
         const payment = await this.paymentsRepository.create({
-            amount: debit.value,
+            amount: paymentValue,
             debit_id,
             method,
             user_id,
