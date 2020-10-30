@@ -221,8 +221,6 @@
 - [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
 - [x] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
-# Criação de débitos
-
 # General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado;
 - [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;

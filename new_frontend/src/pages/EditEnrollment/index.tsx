@@ -593,7 +593,7 @@ const NewEnrollment: React.FC = () => {
           <FormGroup>
             <Heading title="Dados do responsável financeiro" />
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.name"
                 placeholder="Nome"
@@ -601,7 +601,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.rg"
                 placeholder="RG"
@@ -615,7 +615,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.nacionality"
                 placeholder="Nacionalidade"
@@ -629,7 +629,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Select
                 name="financial_responsible.education_level"
                 icon={FiInfo}
@@ -643,7 +643,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.workplace"
                 placeholder="Local de trabalho"
@@ -657,7 +657,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.residencial_phone"
                 placeholder="Telefone residencial"
@@ -671,7 +671,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.address_cep"
                 placeholder="CEP"
@@ -688,7 +688,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="number"
                 name="financial_responsible.address_number"
@@ -703,7 +703,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="financial_responsible.address_neighborhood"
                 placeholder="Bairro"
@@ -717,7 +717,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="email"
                 name="financial_responsible.email"
@@ -733,7 +733,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="date"
                 name="financial_responsible.birth_date"
@@ -742,7 +742,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.financial_income_tax"
                 label="Declara imposto de renda?"
@@ -786,7 +786,7 @@ const NewEnrollment: React.FC = () => {
           <FormGroup>
             <Heading title="Dados do responsável solidário" />
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.name"
                 placeholder="Nome"
@@ -794,7 +794,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.rg"
                 placeholder="RG"
@@ -808,7 +808,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.nacionality"
                 placeholder="Nacionalidade"
@@ -822,7 +822,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Select
                 name="supportive_responsible.education_level"
                 icon={FiInfo}
@@ -836,7 +836,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.workplace"
                 placeholder="Local de trabalho"
@@ -850,7 +850,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.residencial_phone"
                 placeholder="Telefone residencial"
@@ -864,7 +864,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Checkbox
                 name="config.reaproove_address"
                 label="Utilizar o mesmo endereço do responsável financeiro?"
@@ -872,7 +872,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.address_cep"
                 placeholder="CEP"
@@ -889,7 +889,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="number"
                 name="supportive_responsible.address_number"
@@ -904,7 +904,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="supportive_responsible.address_neighborhood"
                 placeholder="Bairro"
@@ -918,7 +918,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="email"
                 name="supportive_responsible.email"
@@ -934,7 +934,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="date"
                 name="supportive_responsible.birth_date"
@@ -971,11 +971,11 @@ const NewEnrollment: React.FC = () => {
           <FormGroup>
             <Heading title="Dados do aluno" />
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input name="student.name" placeholder="Nome" icon={FiUser} />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="student.nacionality"
                 placeholder="Nacionalidade"
@@ -983,7 +983,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="student.birth_city"
                 placeholder="Cidade natal"
@@ -997,7 +997,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 name="student.father_name"
                 placeholder="Nome do pai"
@@ -1011,7 +1011,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Select
                 name="student.gender"
                 icon={FiInfo}
@@ -1025,7 +1025,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Input
                 type="date"
                 name="student.birth_date"
@@ -1040,7 +1040,7 @@ const NewEnrollment: React.FC = () => {
               />
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.has_origin_school"
                 label="Selecione uma opção:"
@@ -1069,7 +1069,7 @@ const NewEnrollment: React.FC = () => {
               )}
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.has_health_plan"
                 label="Possui algum plano de saúde?"
@@ -1094,7 +1094,7 @@ const NewEnrollment: React.FC = () => {
               )}
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.has_medication_alergy"
                 label="Possui alergia a algum medicamento?"
@@ -1119,7 +1119,7 @@ const NewEnrollment: React.FC = () => {
               )}
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.has_food_alergy"
                 label="Possui alergia a algum alimento?"
@@ -1144,7 +1144,7 @@ const NewEnrollment: React.FC = () => {
               )}
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.has_health_problem"
                 label="Possui algum problema de saúde?"
@@ -1169,7 +1169,7 @@ const NewEnrollment: React.FC = () => {
               )}
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.has_special_necessities"
                 label="Possui alguma necessidade especial?"
@@ -1194,7 +1194,7 @@ const NewEnrollment: React.FC = () => {
               )}
             </InputGroup>
 
-            <InputGroup displayColumn={window.innerWidth <= 700}>
+            <InputGroup>
               <Radio
                 name="config.student_ease_relating"
                 label="Tem facilidade de se relacionar?"

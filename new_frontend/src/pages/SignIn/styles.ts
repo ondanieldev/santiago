@@ -33,6 +33,7 @@ export const AnimatedContent = styled.div`
   animation: ${appearFromLeft} 1s;
 
   form {
+    padding: 12px;
     width: 300px;
     margin: 40px 0;
     display: flex;
@@ -51,7 +52,7 @@ export const AnimatedContent = styled.div`
 `;
 
 export const Background = styled.div`
-  flex: 1%;
+  flex: 1;
   background: url(${singInBackgroundImage}) no-repeat center;
   background-size: cover;
 `;

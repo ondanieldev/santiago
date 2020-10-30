@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
+import { Container, AnimatedContainer, Mask } from './styles';
 import { useAuth } from '../../hooks/auth';
-import { Container } from './styles';
+import { useAside } from '../../hooks/aside';
 
 interface ILink {
   path: string;
@@ -16,8 +17,17 @@ interface ILink {
 
 const Aside: React.FC = () => {
   const { user, signOut } = useAuth();
+  const { show, toggle } = useAside();
+
+  const history = useHistory();
 
   const [links, setLinks] = useState([] as ILink[]);
+
+  useEffect(() => {
+    if (show && window.innerWidth <= 900) {
+      toggle();
+    }
+  }, [history]); // eslint-disable-line
 
   useEffect(() => {
     const allLinks = [
@@ -68,18 +78,23 @@ const Aside: React.FC = () => {
 
   return (
     <Container>
-      <ul>
-        {links.map(link => (
-          <li key={link.path}>
-            <Link to={link.path}>{link.label}</Link>
-          </li>
-        ))}
-        <li>
-          <button type="button" onClick={signOut}>
-            Logout
-          </button>
-        </li>
-      </ul>
+      {show && (
+        <AnimatedContainer>
+          <ul>
+            {links.map(link => (
+              <li key={link.path}>
+                <Link to={link.path}>{link.label}</Link>
+              </li>
+            ))}
+            <li>
+              <button type="button" onClick={signOut}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </AnimatedContainer>
+      )}
+      {show && window.innerWidth <= 900 && <Mask />}
     </Container>
   );
 };

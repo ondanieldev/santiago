@@ -80,6 +80,7 @@
 
 - [ ] Tamanhos dos inputs
 - [ ] Field necessidades especiais
+- [ ] Login
 - [x] Field turma desejada
 - [x] Carregamento
 - [x] Exibição de conteúdos vazios
@@ -90,5 +91,5 @@
 - [x] Cabeçalho estático
 - [x] Limpar state na página de débitos
 - [x] Configurar popups dos débitos e pagamentos para exibir recibos
-- [ ] Responsividade
-- [ ] Formatações
+- [x] Responsividade
+- [x] Formatações

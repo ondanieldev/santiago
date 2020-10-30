@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { FiMenu } from 'react-icons/fi';
 
-import { Container, UserInfo, Logo } from './style';
+import { Container, UserInfo, Logo, IconsContainer } from './style';
 import logoImage from '../../assets/images/logo.png';
 import { useAuth } from '../../hooks/auth';
+import { useAside } from '../../hooks/aside';
 
 interface IUserData {
   username: string;
@@ -11,6 +13,7 @@ interface IUserData {
 
 const Header: React.FC = () => {
   const { user } = useAuth();
+  const { show, toggle } = useAside();
 
   const [userData] = useState<IUserData>(() => {
     if (!user) {
@@ -25,8 +28,11 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <Logo src={logoImage} alt="logo" />
+      <IconsContainer show={show}>
+        <FiMenu size={40} color="#F7F6FC" onClick={toggle} />
 
+        <Logo src={logoImage} alt="logo" />
+      </IconsContainer>
       <UserInfo>
         <div>
           <p>{userData.username}</p>

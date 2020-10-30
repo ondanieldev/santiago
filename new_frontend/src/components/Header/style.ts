@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.header`
   grid-area: header;
@@ -9,6 +9,42 @@ export const Container = styled.header`
 
   padding: 0 10px;
   background: var(--blue);
+
+  @media (max-width: 900px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+  }
+`;
+
+interface IIconsContainerProps {
+  show: boolean;
+}
+
+export const IconsContainer = styled.div<IIconsContainerProps>`
+  display: flex;
+  align-items: center;
+
+  svg {
+    display: none;
+    visibility: hidden;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: transform 0.5s;
+
+    ${props =>
+      props.show &&
+      css`
+        transform: rotate(90deg);
+      `}
+
+    @media (max-width: 900px) {
+      display: block;
+      visibility: visible;
+    }
+  }
 `;
 
 export const Logo = styled.img`

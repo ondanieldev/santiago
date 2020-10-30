@@ -23,6 +23,8 @@ export default class UpdatePersonService {
 
         Object.assign(person, rest);
 
+        await this.personsRepository.save(person);
+
         return person;
     }
 }

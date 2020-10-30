@@ -17,7 +17,7 @@ import Document from '../../components/Document';
 import IPayment from '../../entities/IPayment';
 import IDischarge from '../../entities/IDischarge';
 import api from '../../services/api';
-import { formatPaymentMethod } from '../../utils/formatFunctions';
+import { formatPaymentMethod, formatCoin } from '../../utils/formatFunctions';
 
 interface IParams {
   contract_id: string;
@@ -66,8 +66,10 @@ const Payments: React.FC = () => {
 
         paymentsList.forEach(p => {
           if (p.id === payment.id) {
-            p.discharged = true;
-            // p.discharge.receipt_url = dischargeData.receipt_url;
+            Object.assign(p, {
+              discharged: true,
+              discharge: dischargeData,
+            });
           }
         });
 
@@ -130,7 +132,7 @@ const Payments: React.FC = () => {
                 onClick={() => setPayment(actualPayment)}
               >
                 <td>{actualPayment.user.username}</td>
-                <td>{actualPayment.amount}</td>
+                <td>{formatCoin(actualPayment.amount)}</td>
                 <td>{formatPaymentMethod(actualPayment.method)}</td>
                 <td>
                   {actualPayment.discharged ? actualPayment.discharge_day : '-'}

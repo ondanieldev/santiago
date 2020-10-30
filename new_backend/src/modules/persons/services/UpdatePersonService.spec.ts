@@ -63,13 +63,15 @@ describe('UpdatePerson', () => {
             address_complement: 'address_complement_updated',
         };
 
-        const updatedPerson = await updatePerson.execute({
+        await updatePerson.execute({
             id: createdPerson.id,
             ...updatePersonData,
         } as Person);
 
-        expect(updatedPerson.id).toBe(createdPerson.id);
-        expect(updatedPerson.name).toBe('name_updated');
+        const person = await fakePersonsRepository.findById(createdPerson.id);
+
+        expect(person?.id).toBe(createdPerson.id);
+        expect(person?.name).toBe('name_updated');
     });
 
     it('should not be able to update data of a non-existing person', async () => {

@@ -5,7 +5,6 @@ export default interface IDebit {
   value: number;
   paid: boolean;
   description: string;
-  dicount_limit_date: Date;
   payment_limit_date: Date;
   discount: number;
   payday?: Date;

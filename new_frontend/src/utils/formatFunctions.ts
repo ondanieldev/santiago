@@ -1,37 +1,16 @@
+import { format, parseISO } from 'date-fns';
+
+export function formatCoin(value: number | string): string {
+  const parsedValue = Number(value);
+  return `R$ ${parsedValue.toFixed(2).toString().replace('.', ',')}`;
+}
+
 export function formatDate(date: Date): string {
-  const d = new Date(date);
-
-  let month = `${d.getMonth() + 1}`;
-  let day = `${d.getDate()}`;
-  const year = d.getFullYear();
-
-  if (month.length < 2) {
-    month = `0${month}`;
-  }
-
-  if (day.length < 2) {
-    day = `0${day}`;
-  }
-
-  return [year, month, day].join('-');
+  return format(parseISO(date.toString()), 'yyyy-MM-dd');
 }
 
 export function prettyDate(date: Date): string {
-  const d = new Date(date);
-
-  let month = `${d.getMonth() + 1}`;
-  let day = `${d.getDate()}`;
-  const year = d.getFullYear();
-
-  if (month.length < 2) {
-    month = `0${month}`;
-  }
-
-  if (day.length < 2) {
-    day = `0${day}`;
-  }
-
-  return [day, month, year].join('/');
+  return format(parseISO(date.toString()), 'dd/MM/yyyy');
 }
 
 export function formatEducationLevel(educationLevel: string): string {

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { BaseGridTemplate, BaseGridMain } from '../../styles/grid';
 
@@ -16,11 +16,7 @@ export const FormGroup = styled.div`
   }
 `;
 
-interface InputGroupProps {
-  displayColumn?: boolean;
-}
-
-export const InputGroup = styled.div<InputGroupProps>`
+export const InputGroup = styled.div`
   display: flex;
 
   & + div {
@@ -33,18 +29,16 @@ export const InputGroup = styled.div<InputGroupProps>`
     }
   }
 
-  ${props =>
-    props.displayColumn &&
-    css`
-      flex-direction: column;
+  @media (max-width: 900px) {
+    flex-direction: column;
 
-      > div {
-        & + div {
-          margin-left: 0;
-          margin-top: 12px;
-        }
+    > div {
+      & + div {
+        margin-left: 0;
+        margin-top: 12px;
       }
-    `}
+    }
+  }
 `;
 
 export const ButtonGroup = styled.div`

@@ -24,10 +24,22 @@ export const Main = styled(BaseGridMain)`
 `;
 
 export const DoubleColumn = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+
+    ul {
+      margin-top: 24px;
+      margin-left: 0px;
+      width: 100%;
+      max-width: 1000px;
+    }
+  }
 `;
 
 export const ButtonGroup = styled.div`

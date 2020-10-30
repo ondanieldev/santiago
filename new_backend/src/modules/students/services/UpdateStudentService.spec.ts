@@ -53,13 +53,17 @@ describe('UpdateStudent', () => {
             special_necessities: 'special_necessities_update',
         };
 
-        const updatedStudent = await updateStudent.execute({
+        await updateStudent.execute({
             id: createdStudent.id,
             ...updateStudentData,
         } as Student);
 
-        expect(updatedStudent.id).toBe(createdStudent.id);
-        expect(updatedStudent.name).toBe('name_updated');
+        const student = await fakeStudentsRepository.findById(
+            createdStudent.id,
+        );
+
+        expect(student?.id).toBe(createdStudent.id);
+        expect(student?.name).toBe('name_updated');
     });
 
     it('should not be able to update a non-existing student', async () => {

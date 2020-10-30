@@ -22,6 +22,7 @@ import IPayment from '../../entities/IPayment';
 import api from '../../services/api';
 import paymentSchema from '../../schemas/paymentSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { prettyDate, formatCoin } from '../../utils/formatFunctions';
 
 interface IFormData {
   method: 'creditCard' | 'debitCard' | 'cash' | 'check' | 'deposit' | 'slip';
@@ -94,14 +95,22 @@ const Debits: React.FC = () => {
 
         debitsList.forEach(debit => {
           if (debit.id === selectedDebit.id) {
-            debit.paid = true;
-            // debit.payment.receipt_url = paymentData.receipt_url;
+            Object.assign(debit, {
+              paid: true,
+              payment: paymentData,
+            });
           }
         });
 
         setDebits(debitsList);
 
         toast.success('Débito pago com sucesso!');
+
+        if (selectedDebit.type === 'enrollment') {
+          const newDebits = await api.get(`contracts/${contract_id}/debits`);
+
+          setDebits(newDebits.data);
+        }
       } catch (err) {
         if (err instanceof YupValidationError) {
           const errors = getValidationErrors(err);
@@ -122,7 +131,7 @@ const Debits: React.FC = () => {
         setLoadingSubmit(false);
       }
     },
-    [selectedDebit, debits, loadingSubmit],
+    [selectedDebit, debits, loadingSubmit, contract_id],
   );
 
   const handleClosePopup = useCallback(() => {
@@ -149,7 +158,6 @@ const Debits: React.FC = () => {
             <tr>
               <td>Valor</td>
               <td>Descrição</td>
-              <td>Data limite do desconto</td>
               <td>Data limite do pagamento</td>
               <td>Data de pagamento</td>
             </tr>
@@ -161,11 +169,10 @@ const Debits: React.FC = () => {
                 key={debit.id}
                 onClick={() => setSelectedDebit(debit)}
               >
-                <td>{debit.value}</td>
+                <td>{formatCoin(debit.value)}</td>
                 <td>{debit.description}</td>
-                <td>{debit.dicount_limit_date}</td>
-                <td>{debit.payment_limit_date}</td>
-                <td>{debit.payday ? debit.payday : '-'}</td>
+                <td>{prettyDate(debit.payment_limit_date)}</td>
+                <td>{debit.payday ? prettyDate(debit.payday) : '-'}</td>
               </Debit>
             ))}
           </tbody>

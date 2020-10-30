@@ -8,6 +8,12 @@ export const BaseGridTemplate = styled.div`
   grid-template-areas:
     'header header'
     'aside main';
+
+  @media (max-width: 900px) {
+    grid-template-areas:
+      'header header'
+      'main main';
+  }
 `;
 
 export const BaseGridMain = styled.main`
