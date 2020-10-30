@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { BaseGridTemplate, BaseGridMain } from '../../styles/grid';
 
@@ -17,4 +17,16 @@ export const WarnMessage = styled.p`
   strong {
     color: var(--red);
   }
+`;
+
+interface IPaymentProps {
+  discharged: boolean;
+}
+
+export const Payment = styled.tr<IPaymentProps>`
+  ${props =>
+    props.discharged &&
+    css`
+      color: #4caf50;
+    `}
 `;

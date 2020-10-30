@@ -56,6 +56,10 @@ export default class AprooveContractService {
             );
         }
 
+        if (discount && discount < 0) {
+            throw new AppError('não é possível aplicar um desconto negativo!');
+        }
+
         Object.assign(contract, {
             comment,
             status: 'accepted',

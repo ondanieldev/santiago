@@ -24,7 +24,7 @@ export default class PaymentsRepository implements IPaymentsRepository {
     public async create(data: ICreatePaymentDTO): Promise<Payment> {
         const payment = new Payment();
 
-        Object.assign(payment, data);
+        Object.assign(payment, data, { debit: {} });
 
         this.payments.push(payment);
 

@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { FiCheck } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-import { Container, Main, InputGroup, WarnMessage } from './styles';
+import { Container, Main, InputGroup, WarnMessage, Payment } from './styles';
 import Loading from '../../components/Loading';
 import Table from '../../components/Table';
 import Header from '../../components/Header';
@@ -28,7 +28,7 @@ const Payments: React.FC = () => {
 
   const [payments, setPayments] = useState([] as IPayment[]);
   const [confirmMessage, setConfirmMessage] = useState('');
-  const [paymentId, setPaymentId] = useState('');
+  const [payment, setPayment] = useState({} as IPayment);
   const [discharge, setDischarge] = useState({} as IDischarge);
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -57,18 +57,23 @@ const Payments: React.FC = () => {
 
     api
       .post('/discharges', {
-        payment_id: paymentId,
+        payment_id: payment.id,
       })
       .then(response => {
         const dischargeData = response.data as IDischarge;
 
-        const paymentsWithoutDischarged = payments.filter(
-          payment => payment.id !== paymentId,
-        );
+        const paymentsList = payments;
+
+        paymentsList.forEach(p => {
+          if (p.id === payment.id) {
+            p.discharged = true;
+            // p.discharge.receipt_url = dischargeData.receipt_url;
+          }
+        });
 
         setDischarge(dischargeData);
 
-        setPayments(paymentsWithoutDischarged);
+        setPayments(paymentsList);
 
         toast.success('Pagamento recebido com sucesso!');
       })
@@ -87,10 +92,10 @@ const Payments: React.FC = () => {
         setConfirmMessage('');
         setLoadingSubmit(false);
       });
-  }, [paymentId, payments, loadingSubmit]);
+  }, [payment, payments, loadingSubmit]);
 
   const handleClosePopup = useCallback(() => {
-    setPaymentId('');
+    setPayment({} as IPayment);
     setDischarge({} as IDischarge);
   }, []);
 
@@ -114,23 +119,31 @@ const Payments: React.FC = () => {
               <td>Operador</td>
               <td>Valor</td>
               <td>Método utilizado</td>
+              <td>Data de recebimento</td>
             </tr>
           </thead>
           <tbody>
-            {payments.map(payment => (
-              <tr key={payment.id} onClick={() => setPaymentId(payment.id)}>
-                <td>{payment.user.username}</td>
-                <td>{payment.amount}</td>
-                <td>{formatPaymentMethod(payment.method)}</td>
-              </tr>
+            {payments.map(actualPayment => (
+              <Payment
+                discharged={actualPayment.discharged}
+                key={actualPayment.id}
+                onClick={() => setPayment(actualPayment)}
+              >
+                <td>{actualPayment.user.username}</td>
+                <td>{actualPayment.amount}</td>
+                <td>{formatPaymentMethod(actualPayment.method)}</td>
+                <td>
+                  {actualPayment.discharged ? actualPayment.discharge_day : '-'}
+                </td>
+              </Payment>
             ))}
           </tbody>
         </Table>
       </Main>
 
-      {!!paymentId && (
+      {!!payment.id && (
         <Popup title="Receber" handleClosePopup={handleClosePopup}>
-          {!discharge.id && (
+          {!discharge.id && !payment.discharged && (
             <Form onSubmit={handleDischargePayment}>
               <WarnMessage>
                 <strong> ATENÇÃO: </strong>
@@ -158,8 +171,14 @@ const Payments: React.FC = () => {
             </Form>
           )}
 
-          {discharge.id && (
-            <Document name="Recibo" link={discharge.receipt_url} />
+          {(discharge.id ||
+            (payment.discharge && payment.discharge.receipt_url)) && (
+            <Document
+              name="Recibo"
+              link={
+                discharge.receipt_url || payment.discharge.receipt_url || ''
+              }
+            />
           )}
         </Popup>
       )}

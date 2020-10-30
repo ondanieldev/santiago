@@ -1,3 +1,5 @@
+import IDischarge from './IDischarge';
+
 interface IUser {
   id: string;
   username: string;
@@ -11,7 +13,9 @@ export default interface IPayment {
   discharged: boolean;
   debit_id: string;
   user_id: string;
+  discharge_day?: Date;
   user: IUser;
   receipt?: string;
   receipt_url?: string;
+  discharge: IDischarge;
 }

@@ -6,6 +6,7 @@ import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeC
 import FakeStudentsRepository from '@modules/students/repositories/fakes/FakeStudentsRepository';
 import FakePersonsRepository from '@modules/persons/repositories/fakes/FakePersonsRepository';
 import FakeProfilesRepository from '@modules/profiles/repositories/fakes/FakeProfilesRepository';
+import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
 import FakeReceiptProvider from '@shared/container/providers/ReceiptProvider/fakes/FakeReceiptProvider';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
@@ -19,6 +20,7 @@ let fakeContractsRepository: FakeContractsRepository;
 let fakeStudentsRepository: FakeStudentsRepository;
 let fakePersonsRepository: FakePersonsRepository;
 let fakeProfilesRepository: FakeProfilesRepository;
+let fakeGradesRepository: FakeGradesRepository;
 let fakeReceiptProvider: FakeReceiptProvider;
 let fakeCacheProvider: FakeCacheProvider;
 let fakeMailProvider: FakeMailProvider;
@@ -34,6 +36,7 @@ describe('PayDebit', () => {
         fakeStudentsRepository = new FakeStudentsRepository();
         fakePersonsRepository = new FakePersonsRepository();
         fakeProfilesRepository = new FakeProfilesRepository();
+        fakeGradesRepository = new FakeGradesRepository();
         fakeReceiptProvider = new FakeReceiptProvider();
         fakeCacheProvider = new FakeCacheProvider();
         fakeMailProvider = new FakeMailProvider();
@@ -47,6 +50,7 @@ describe('PayDebit', () => {
             fakeStudentsRepository,
             fakePersonsRepository,
             fakeProfilesRepository,
+            fakeGradesRepository,
             fakeReceiptProvider,
             fakeCacheProvider,
             fakeMailProvider,
@@ -57,8 +61,14 @@ describe('PayDebit', () => {
     it('should be able to pay a enrollment debit by changing its paid status, creating a new payment, generating receipt, generating users and sending mails', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
+        const grade = await fakeGradesRepository.create({
+            name: 'grade',
+            value: 100,
+            year: '2020',
+        });
+
         const contract = await fakeContractsRepository.create({
-            grade_id: 'grade',
+            grade_id: grade.id,
             student_id: 'student',
             status: 'underAnalysis',
         });
@@ -117,8 +127,7 @@ describe('PayDebit', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'enrollment',
         });
@@ -160,8 +169,14 @@ describe('PayDebit', () => {
     it('should be able to pay a enrollment debit by changing its paid status, creating a new payment, generating receipt, generating users and sending mails with female articles', async () => {
         const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
 
+        const grade = await fakeGradesRepository.create({
+            name: 'grade',
+            value: 100,
+            year: '2020',
+        });
+
         const contract = await fakeContractsRepository.create({
-            grade_id: 'grade',
+            grade_id: grade.id,
             student_id: 'student',
             status: 'underAnalysis',
         });
@@ -220,8 +235,7 @@ describe('PayDebit', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'enrollment',
         });
@@ -285,8 +299,14 @@ describe('PayDebit', () => {
             validate_enrollment_permiss: false,
         });
 
+        const grade = await fakeGradesRepository.create({
+            name: 'grade',
+            value: 100,
+            year: '2020',
+        });
+
         const contract = await fakeContractsRepository.create({
-            grade_id: 'grade',
+            grade_id: grade.id,
             student_id: 'student',
             status: 'underAnalysis',
         });
@@ -345,8 +365,7 @@ describe('PayDebit', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'enrollment',
         });
@@ -412,8 +431,14 @@ describe('PayDebit', () => {
     });
 
     it('should not be able to pay a enrollment debit if the debit is already paid', async () => {
+        const grade = await fakeGradesRepository.create({
+            name: 'grade',
+            value: 100,
+            year: '2020',
+        });
+
         const contract = await fakeContractsRepository.create({
-            grade_id: 'grade',
+            grade_id: grade.id,
             student_id: 'student',
             status: 'underAnalysis',
         });
@@ -472,8 +497,7 @@ describe('PayDebit', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'enrollment',
         });
@@ -503,8 +527,7 @@ describe('PayDebit', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: 'contract',
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'installment',
         });
@@ -528,8 +551,7 @@ describe('PayDebit', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: 'non-existing-contract',
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'enrollment',
         });

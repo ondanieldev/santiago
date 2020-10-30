@@ -26,6 +26,7 @@
 - [x] Selecionar matrícula
 - [x] Editar dados
 - [x] Escrever comentário e aprovar/desaprovar
+- [x] Inserir desconto
 
 # :white_check_mark: Pagamento de débitos da matrícula
 
@@ -40,6 +41,7 @@
 - [x] Selecionar débito
 - [x] Escolher método de pagamento e pagar
 - [x] Receber o recibo
+- [ ] Exibir descontos e juros
 
 # :white_check_mark: Recebimento de pagamentos
 
@@ -74,7 +76,7 @@
 - [x] Acessar sistema
 - [ ] Configurar permissões
 
-# Pendências
+# Issues
 
 - [ ] Tamanhos dos inputs
 - [ ] Field necessidades especiais
@@ -86,3 +88,7 @@
 - [x] History push
 - [x] Bugs de autenticação
 - [x] Cabeçalho estático
+- [x] Limpar state na página de débitos
+- [x] Configurar popups dos débitos e pagamentos para exibir recibos
+- [ ] Responsividade
+- [ ] Formatações

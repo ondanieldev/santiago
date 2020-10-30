@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import { isPast } from 'date-fns';
+import { isPast, parseISO, differenceInCalendarMonths } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 import ICreatePaymentDTO from '@modules/payments/dtos/ICreatePaymentDTO';
@@ -78,8 +78,15 @@ export default class CreatePaymentService {
 
         let paymentValue = Number(debit.value);
 
-        if (isPast(debit.payment_limit_date)) {
-            // aplicar juros
+        const parsedDebitDate = parseISO(debit.payment_limit_date.toString());
+
+        if (isPast(parsedDebitDate)) {
+            const months = differenceInCalendarMonths(
+                new Date(),
+                parsedDebitDate,
+            );
+
+            paymentValue = debit.value * 1.03 ** months;
         } else {
             paymentValue = debit.value - (debit.value * debit.discount) / 100;
         }

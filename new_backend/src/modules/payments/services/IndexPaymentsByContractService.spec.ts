@@ -19,7 +19,7 @@ describe('IndexPaymentsByContract', () => {
         );
     });
 
-    it('should be able to index all undischarged payments', async () => {
+    it('should be able to index all contracts payments', async () => {
         const contract = await fakeContractsRepository.create({
             grade_id: 'grade',
             student_id: 'student',
@@ -29,8 +29,7 @@ describe('IndexPaymentsByContract', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'new installment',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
             value: 100,
             type: 'installment',
         });
@@ -42,6 +41,10 @@ describe('IndexPaymentsByContract', () => {
             user_id: 'user',
             receipt: 'recibo',
         });
+
+        Object.assign(payment, debit);
+
+        await fakePaymentsRepository.save(payment);
 
         const payments = await indexPaymentsByContract.execute(contract.id);
 

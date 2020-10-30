@@ -28,8 +28,9 @@ describe('IndexContractDebits', () => {
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
+            discount: 0,
+            type: 'installment',
             value: 1000,
         });
 
@@ -54,8 +55,9 @@ describe('IndexContractDebits', () => {
         await fakeDebitsRepository.create({
             contract_id: anotherContract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
+            discount: 0,
+            type: 'installment',
             value: 1000,
         });
 
@@ -80,8 +82,9 @@ describe('IndexContractDebits', () => {
         await fakeDebitsRepository.create({
             contract_id: contract.id,
             description: 'description',
-            final_date: new Date(),
-            initial_date: new Date(),
+            payment_limit_date: new Date(),
+            discount: 0,
+            type: 'installment',
             value: 1000,
         });
 

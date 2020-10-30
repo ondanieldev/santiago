@@ -19,6 +19,5 @@ export const Debit = styled.tr<IDebitProps>`
     props.paid &&
     css`
       color: #4caf50;
-      cursor: text;
     `}
 `;

@@ -1,10 +1,10 @@
-import IParseReceiptTemplateDTO from '@shared/container/providers/ReceiptTemplateProvider/dtos/IParseReceiptTemplateDTO';
+import IGenerateReceiptDTO from '../dtos/IGenerateReceiptDTO';
 import IReceiptProvider from '../models/IReceiptProvider';
 
 export default class FakeReceiptProvider implements IReceiptProvider {
-    private receipts: IParseReceiptTemplateDTO[] = [];
+    private receipts: IGenerateReceiptDTO[] = [];
 
-    public async generate(data: IParseReceiptTemplateDTO): Promise<string> {
+    public async generate(data: IGenerateReceiptDTO): Promise<string> {
         this.receipts.push(data);
 
         return 'receipt.txt';

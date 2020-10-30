@@ -42,7 +42,7 @@
 - [x] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
 - [x] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
 - [x] Deixar o template bonito e com dados pertinentes
-- [ ] O usuário deve poder inserir um valor de desconto no ato da aprovação
+- [x] O usuário deve poder inserir um valor de desconto no ato da aprovação
 
 **RNF**
 

@@ -4,7 +4,7 @@ import IPaymentsRepository from '@modules/payments/repositories/IPaymentsReposit
 import Payment from '@modules/payments/infra/typeorm/entities/Payment';
 
 @injectable()
-export default class IndexUndischargedPaymentsService {
+export default class IndexPaymentsByContractService {
     constructor(
         @inject('PaymentsRepository')
         private paymentsRepository: IPaymentsRepository,

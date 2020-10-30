@@ -90,15 +90,16 @@ const Debits: React.FC = () => {
 
         setPayment(paymentData);
 
-        const debitsWithoutUpdated = debits.filter(
-          debit => debit.id !== selectedDebit.id,
-        );
+        const debitsList = debits;
 
-        const updateDebit = selectedDebit;
+        debitsList.forEach(debit => {
+          if (debit.id === selectedDebit.id) {
+            debit.paid = true;
+            // debit.payment.receipt_url = paymentData.receipt_url;
+          }
+        });
 
-        Object.assign(updateDebit, { paid: true });
-
-        setDebits([...debitsWithoutUpdated, updateDebit]);
+        setDebits(debitsList);
 
         toast.success('Débito pago com sucesso!');
       } catch (err) {
@@ -124,6 +125,11 @@ const Debits: React.FC = () => {
     [selectedDebit, debits, loadingSubmit],
   );
 
+  const handleClosePopup = useCallback(() => {
+    setSelectedDebit({} as IDebit);
+    setPayment({} as IPayment);
+  }, []);
+
   return (
     <Container>
       <Loading show={loadingPage} />
@@ -143,8 +149,8 @@ const Debits: React.FC = () => {
             <tr>
               <td>Valor</td>
               <td>Descrição</td>
-              <td>Data inicial</td>
-              <td>Data final</td>
+              <td>Data limite do desconto</td>
+              <td>Data limite do pagamento</td>
               <td>Data de pagamento</td>
             </tr>
           </thead>
@@ -153,12 +159,12 @@ const Debits: React.FC = () => {
               <Debit
                 paid={debit.paid}
                 key={debit.id}
-                onClick={() => !debit.paid && setSelectedDebit(debit)}
+                onClick={() => setSelectedDebit(debit)}
               >
                 <td>{debit.value}</td>
                 <td>{debit.description}</td>
-                <td>{debit.initial_date}</td>
-                <td>{debit.final_date}</td>
+                <td>{debit.dicount_limit_date}</td>
+                <td>{debit.payment_limit_date}</td>
                 <td>{debit.payday ? debit.payday : '-'}</td>
               </Debit>
             ))}
@@ -168,9 +174,9 @@ const Debits: React.FC = () => {
         {!!selectedDebit.id && (
           <Popup
             title={`Débito: R$ ${selectedDebit.value}`}
-            handleClosePopup={() => setSelectedDebit({} as IDebit)}
+            handleClosePopup={handleClosePopup}
           >
-            {!payment.id && (
+            {!payment.id && !selectedDebit.paid && (
               <Form ref={formRef} onSubmit={handlePayDebit}>
                 <InputGroup>
                   <Select
@@ -186,8 +192,14 @@ const Debits: React.FC = () => {
               </Form>
             )}
 
-            {payment.id && payment.receipt_url && (
-              <Document name="Recibo" link={payment.receipt_url} />
+            {(payment.receipt_url ||
+              (selectedDebit.payment && selectedDebit.payment.receipt_url)) && (
+              <Document
+                name="Recibo"
+                link={
+                  payment.receipt_url || selectedDebit.payment.receipt_url || ''
+                }
+              />
             )}
           </Popup>
         )}

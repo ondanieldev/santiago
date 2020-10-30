@@ -59,8 +59,16 @@ const Enrollment: React.FC = () => {
 
         const comment = formRef.current?.getFieldValue('comment');
 
+        const discount = formRef.current?.getFieldValue('discount');
+
+        if (discount < 0) {
+          toast.error('O desconto não pode ser negativo!');
+          return;
+        }
+
         api.patch(`/contracts/${contract_id}/${status}`, {
           comment,
+          discount,
           responsible_email: enrollment.agreements[0].person.email,
           responsible_name: enrollment.agreements[0].person.name,
         });
@@ -71,7 +79,7 @@ const Enrollment: React.FC = () => {
           } com sucesso! O responsável será notificado.`,
         );
 
-        history.push('dashboard');
+        history.push('/dashboard');
       } catch (err) {
         if (err.response) {
           toast.error(
@@ -621,7 +629,14 @@ const Enrollment: React.FC = () => {
             </>
           )}
         <Form ref={formRef} onSubmit={() => {}}>
-          <Input name="comment" placeholder="Comentário opcional" />
+          <Input name="comment" placeholder="Comentário (opcional)" />
+
+          <Input
+            type="number"
+            step="0.01"
+            name="discount"
+            placeholder="Desconto percentual (opcional)"
+          />
 
           <ButtonGroup>
             <Button
