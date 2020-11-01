@@ -1,8 +1,10 @@
 interface IItem {
     description: string;
     quantity: number;
-    value: number;
+    base_value: number;
     variation: number;
+    true_value: number;
+    is_compound_variation?: boolean;
 }
 
 interface IClient {

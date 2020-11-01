@@ -78,6 +78,10 @@ export default class CreatePaymentService {
 
         let paymentValue = Number(debit.value);
 
+        let paymentVariation = 0;
+
+        let compoundVariation = false;
+
         const parsedDebitDate = parseISO(debit.payment_limit_date.toString());
 
         if (isPast(parsedDebitDate)) {
@@ -86,8 +90,14 @@ export default class CreatePaymentService {
                 parsedDebitDate,
             );
 
+            compoundVariation = true;
+
+            paymentVariation = 3;
+
             paymentValue = debit.value * 1.03 ** months;
         } else {
+            paymentVariation = debit.discount;
+
             paymentValue = debit.value - (debit.value * debit.discount) / 100;
         }
 
@@ -102,9 +112,11 @@ export default class CreatePaymentService {
             items: [
                 {
                     description: debit.description,
-                    value: paymentValue,
+                    base_value: Number(debit.value),
+                    true_value: paymentValue,
+                    variation: paymentVariation,
+                    is_compound_variation: compoundVariation,
                     quantity: 1,
-                    variation: 0,
                 },
             ],
             method,

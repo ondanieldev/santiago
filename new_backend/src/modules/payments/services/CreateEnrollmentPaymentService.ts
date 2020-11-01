@@ -131,7 +131,8 @@ export default class CreatePaymentService {
             items: [
                 {
                     description: debit.description,
-                    value: Number(debit.value),
+                    base_value: Number(debit.value),
+                    true_value: Number(debit.value),
                     quantity: 1,
                     variation: 0,
                 },

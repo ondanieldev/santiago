@@ -34,18 +34,18 @@ export default class DiskReceiptProvider implements IReceiptProvider {
         let totalValue = 0;
 
         const itemsArray = items.map(item => {
-            const value = item.quantity * item.value;
-
-            const subtotal = value - (value * item.variation) / 100;
+            const subtotal = item.quantity * item.true_value;
 
             totalValue += subtotal;
 
             return [
                 item.description,
                 item.quantity,
-                `R$ ${item.value.toFixed(2)}`,
-                `${item.variation}%`,
-                `R$ ${subtotal.toFixed(2)}`,
+                `R$ ${item.base_value.toFixed(2).toString().replace('.', ',')}`,
+                item.is_compound_variation
+                    ? `${item.variation} % a.m.`
+                    : `${item.variation} %`,
+                `R$ ${subtotal.toFixed(2).toString().replace('.', ',')}`,
             ];
         });
 
@@ -110,6 +110,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
                         widths: ['*', 40, 50, 40, '*'],
                     },
                 },
+                '-------------------------------------------',
                 {
                     columns: [
                         { text: 'Total do pagamento: ', alignment: 'left' },
@@ -128,7 +129,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
                         },
                     ],
                 },
-                '-------------------------------------------',
+                '===========================================',
                 '* Este ticket não é documento fiscal *',
                 'Deus vos abençoe',
                 '*******************************************',
@@ -174,6 +175,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
                         widths: ['*', 40, 50, 40, '*'],
                     },
                 },
+                '-------------------------------------------',
                 {
                     columns: [
                         { text: 'Total do pagamento: ', alignment: 'left' },
@@ -192,7 +194,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
                         },
                     ],
                 },
-                '-------------------------------------------',
+                '===========================================',
                 '* Este ticket não é documento fiscal *',
                 'Deus vos abençoe',
                 '\n\n',

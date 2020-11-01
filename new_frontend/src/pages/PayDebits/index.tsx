@@ -5,6 +5,7 @@ import { FormHandles } from '@unform/core';
 import { FiDollarSign } from 'react-icons/fi';
 import { ValidationError as YupValidationError } from 'yup';
 import { toast } from 'react-toastify';
+import { isPast, differenceInCalendarMonths, parseISO } from 'date-fns';
 
 import { Container, Main, InputGroup, Debit } from './styles';
 import { paymentMethods } from '../../utils/defaults';
@@ -32,6 +33,10 @@ interface IParams {
   contract_id: string;
 }
 
+interface IDebitWithVariation extends IDebit {
+  true_value?: number;
+}
+
 toast.configure();
 
 const Debits: React.FC = () => {
@@ -39,8 +44,8 @@ const Debits: React.FC = () => {
 
   const { contract_id } = useParams<IParams>();
 
-  const [debits, setDebits] = useState([] as IDebit[]);
-  const [selectedDebit, setSelectedDebit] = useState({} as IDebit);
+  const [debits, setDebits] = useState([] as IDebitWithVariation[]);
+  const [selectedDebit, setSelectedDebit] = useState({} as IDebitWithVariation);
   const [payment, setPayment] = useState({} as IPayment);
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -50,6 +55,27 @@ const Debits: React.FC = () => {
     api
       .get(`contracts/${contract_id}/debits`)
       .then(response => {
+        const debitsFromApi = response.data;
+
+        debitsFromApi.forEach((debit: IDebitWithVariation) => {
+          const parsedDebitDate = parseISO(debit.payment_limit_date.toString());
+
+          let true_value = debit.value;
+
+          if (isPast(parsedDebitDate)) {
+            const months = differenceInCalendarMonths(
+              new Date(),
+              parsedDebitDate,
+            );
+
+            true_value = debit.value * 1.03 ** months;
+          } else {
+            true_value = debit.value - (debit.value * debit.discount) / 100;
+          }
+
+          Object.assign(debit, { true_value });
+        });
+
         setDebits(response.data);
       })
       .catch(() => {
@@ -135,7 +161,7 @@ const Debits: React.FC = () => {
   );
 
   const handleClosePopup = useCallback(() => {
-    setSelectedDebit({} as IDebit);
+    setSelectedDebit({} as IDebitWithVariation);
     setPayment({} as IPayment);
   }, []);
 
@@ -156,8 +182,9 @@ const Debits: React.FC = () => {
         >
           <thead>
             <tr>
-              <td>Valor</td>
               <td>Descrição</td>
+              <td>Valor</td>
+              <td>Valor com variação</td>
               <td>Data limite do pagamento</td>
               <td>Data de pagamento</td>
             </tr>
@@ -169,8 +196,13 @@ const Debits: React.FC = () => {
                 key={debit.id}
                 onClick={() => setSelectedDebit(debit)}
               >
-                <td>{formatCoin(debit.value)}</td>
                 <td>{debit.description}</td>
+                <td>{formatCoin(debit.value)}</td>
+                <td>
+                  {debit.true_value
+                    ? formatCoin(debit.true_value)
+                    : debit.value}
+                </td>
                 <td>{prettyDate(debit.payment_limit_date)}</td>
                 <td>{debit.payday ? prettyDate(debit.payday) : '-'}</td>
               </Debit>
@@ -180,7 +212,11 @@ const Debits: React.FC = () => {
 
         {!!selectedDebit.id && (
           <Popup
-            title={`Débito: R$ ${selectedDebit.value}`}
+            title={`Débito: ${
+              selectedDebit.true_value
+                ? formatCoin(selectedDebit.true_value)
+                : selectedDebit.value
+            }`}
             handleClosePopup={handleClosePopup}
           >
             {!payment.id && !selectedDebit.paid && (
