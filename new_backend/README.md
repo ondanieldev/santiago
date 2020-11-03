@@ -247,5 +247,5 @@
 - [x] Refatorar testes
 - [x] Remodelar o recibo
 - [x] Alterar campos de data dos débitos
-- [ ] Segunda parte do débito não imprime tabela de valores
-- [ ] Símbolo de porcentagem não está sendo impresso no débito
+- [x] Segunda parte do débito não imprime tabela de valores
+- [x] Símbolo de porcentagem não está sendo impresso no débito

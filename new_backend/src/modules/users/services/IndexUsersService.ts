@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
@@ -20,7 +21,7 @@ export default class IndexUsersService {
         if (!users) {
             users = await this.usersRepository.find();
 
-            await this.cacheProvider.register('users', users);
+            await this.cacheProvider.register('users', classToClass(users));
         }
 
         return users;

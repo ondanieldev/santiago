@@ -532,6 +532,24 @@ const NewEnrollment: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (financialVerified) {
+      const cpf = formRef.current?.getFieldValue(`config.verify_financial_cpf`);
+
+      formRef.current?.setFieldValue('financial_responsible.cpf', cpf);
+    }
+  }, [financialVerified]);
+
+  useEffect(() => {
+    if (supportiveVerified) {
+      const cpf = formRef.current?.getFieldValue(
+        `config.verify_supportive_cpf`,
+      );
+
+      formRef.current?.setFieldValue('supportive_responsible.cpf', cpf);
+    }
+  }, [supportiveVerified]);
+
   return (
     <Container>
       <Loading show={loadingPage} />

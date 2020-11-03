@@ -6,30 +6,18 @@ import AppProvider from './hooks';
 import Routes from './routes';
 import GlobalStyle from './styles/global';
 
-import api from './services/api';
-
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
 
-const App: React.FC = () => {
-  // temp
-  const token = localStorage.getItem('@Santiago:token');
-  if (token) {
-    api.defaults.headers.common.Authorization = `bearer ${token}`;
-  } else {
-    delete api.defaults.headers.common.Authorization;
-  }
+const App: React.FC = () => (
+  <Router>
+    <AppProvider>
+      <Routes />
+    </AppProvider>
 
-  return (
-    <Router>
-      <AppProvider>
-        <Routes />
-      </AppProvider>
-
-      <GlobalStyle />
-    </Router>
-  );
-};
+    <GlobalStyle />
+  </Router>
+);
 
 export default App;

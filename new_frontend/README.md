@@ -79,8 +79,8 @@
 # Issues
 
 - [ ] Tamanhos dos inputs
-- [ ] Field necessidades especiais
-- [ ] Login
+- [x] Field necessidades especiais
+- [x] Login
 - [x] Field turma desejada
 - [x] Carregamento
 - [x] Exibição de conteúdos vazios
@@ -93,3 +93,5 @@
 - [x] Configurar popups dos débitos e pagamentos para exibir recibos
 - [x] Responsividade
 - [x] Formatações
+- [ ] Estado civil enum
+- [ ] Renda mensal enum

@@ -135,6 +135,29 @@ const Debits: React.FC = () => {
         if (selectedDebit.type === 'enrollment') {
           const newDebits = await api.get(`contracts/${contract_id}/debits`);
 
+          const debitsFromApi = newDebits.data;
+
+          debitsFromApi.forEach((debit: IDebitWithVariation) => {
+            const parsedDebitDate = parseISO(
+              debit.payment_limit_date.toString(),
+            );
+
+            let true_value = debit.value;
+
+            if (isPast(parsedDebitDate)) {
+              const months = differenceInCalendarMonths(
+                new Date(),
+                parsedDebitDate,
+              );
+
+              true_value = debit.value * 1.03 ** months;
+            } else {
+              true_value = debit.value - (debit.value * debit.discount) / 100;
+            }
+
+            Object.assign(debit, { true_value });
+          });
+
           setDebits(newDebits.data);
         }
       } catch (err) {
@@ -215,7 +238,7 @@ const Debits: React.FC = () => {
             title={`Débito: ${
               selectedDebit.true_value
                 ? formatCoin(selectedDebit.true_value)
-                : selectedDebit.value
+                : formatCoin(selectedDebit.value)
             }`}
             handleClosePopup={handleClosePopup}
           >

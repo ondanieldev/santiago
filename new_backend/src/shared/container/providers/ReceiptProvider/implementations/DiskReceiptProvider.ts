@@ -39,15 +39,51 @@ export default class DiskReceiptProvider implements IReceiptProvider {
             totalValue += subtotal;
 
             return [
-                item.description,
-                item.quantity,
+                item.description.toString(),
+                item.quantity.toString(),
                 `R$ ${item.base_value.toFixed(2).toString().replace('.', ',')}`,
                 item.is_compound_variation
-                    ? `${item.variation} % a.m.`
-                    : `${item.variation} %`,
+                    ? `${item.variation}p. a.m.`
+                    : `${item.variation}p.`,
                 `R$ ${subtotal.toFixed(2).toString().replace('.', ',')}`,
             ];
         });
+
+        const itemsArrayCopy = items.map(item => {
+            const subtotal = item.quantity * item.true_value;
+
+            return [
+                item.description.toString(),
+                item.quantity.toString(),
+                `R$ ${item.base_value.toFixed(2).toString().replace('.', ',')}`,
+                item.is_compound_variation
+                    ? `${item.variation}p. a.m.`
+                    : `${item.variation}p.`,
+                `R$ ${subtotal.toFixed(2).toString().replace('.', ',')}`,
+            ];
+        });
+
+        const itemsTable = {
+            layout: 'noBorders',
+            table: {
+                body: [
+                    ['Desc.', 'Qtd.', 'V.Un.', 'Var.', 'Subtotal'],
+                    ...itemsArray,
+                ],
+                widths: ['*', 40, 50, 40, '*'],
+            },
+        };
+
+        const itemsTableCopy = {
+            layout: 'noBorders',
+            table: {
+                body: [
+                    ['Desc.', 'Qtd.', 'V.Un.', 'Var.', 'Subtotal'],
+                    ...itemsArrayCopy,
+                ],
+                widths: ['*', 40, 50, 40, '*'],
+            },
+        };
 
         const documentDefinition = {
             pageSize: 'A6',
@@ -100,16 +136,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
                     ],
                 },
                 '==================DÉBITOS==================',
-                {
-                    layout: 'noBorders',
-                    table: {
-                        body: [
-                            ['Desc.', 'Qtd.', 'V.Un.', 'Var.', 'Subtotal'],
-                            ...itemsArray,
-                        ],
-                        widths: ['*', 40, 50, 40, '*'],
-                    },
-                },
+                itemsTable,
                 '-------------------------------------------',
                 {
                     columns: [
@@ -165,16 +192,7 @@ export default class DiskReceiptProvider implements IReceiptProvider {
                     ],
                 },
                 '==================DÉBITOS==================',
-                {
-                    layout: 'noBorders',
-                    table: {
-                        body: [
-                            ['Desc.', 'Qtd.', 'V.Un.', 'Var.', 'Subtotal'],
-                            ...itemsArray,
-                        ],
-                        widths: ['*', 40, 50, 40, '*'],
-                    },
-                },
+                itemsTableCopy,
                 '-------------------------------------------',
                 {
                     columns: [

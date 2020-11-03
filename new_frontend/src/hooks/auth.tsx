@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
-import axios from 'axios';
 
 import IUser from '../entities/IUser';
 import api from '../services/api';
@@ -28,6 +27,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     const user = localStorage.getItem('@Santiago:user');
 
     if (token && user) {
+      api.defaults.headers.athorization = `bearer ${token}`;
+
       return { token, user: JSON.parse(user) };
     }
 
@@ -47,7 +48,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         JSON.stringify(response.data.user),
       );
 
-      axios.defaults.headers.common.Authorization = `bearer ${response.data.token}`;
+      api.defaults.headers.authorization = `bearer ${response.data.token}`;
 
       setData(response.data);
     },
@@ -58,7 +59,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.removeItem('@Santiago:token');
     localStorage.removeItem('@Santiago:user');
 
-    delete axios.defaults.headers.common.Authorization;
+    delete api.defaults.headers.authorization;
 
     setData({} as AuthState);
   }, []);

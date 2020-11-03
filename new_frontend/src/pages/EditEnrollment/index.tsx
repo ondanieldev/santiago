@@ -460,6 +460,9 @@ const NewEnrollment: React.FC = () => {
           setShowSpecialNecessities(
             !!enrollmentFromApi.student.special_necessities,
           );
+          setShowSpecialNecessities(
+            !!enrollmentFromApi.student.special_necessities,
+          );
 
           enrollmentFromApi.student.birth_certificate_photo =
             enrollmentFromApi.student.birth_certificate_photo_url;
