@@ -36,9 +36,9 @@ export default class Debit {
 
     @Column({
         type: 'enum',
-        enum: ['enrollment', 'installment'],
+        enum: ['enrollment', 'installment', 'extra'],
     })
-    type: 'enrollment' | 'installment';
+    type: 'enrollment' | 'installment' | 'extra';
 
     @CreateDateColumn()
     created_at: Date;

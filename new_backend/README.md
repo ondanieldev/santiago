@@ -221,6 +221,47 @@
 - [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
 - [x] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
+# Criação de débitos
+
+**RF**
+- [ ] O usuário deve poder visualizar todas as turmas existentes;
+- [ ] O usuário deve poder selecionar uma turma;
+- [ ] O usuário deve poder visualizar todos os contratos ativos de uma turma;
+- [ ] O usuário deve poder selecionar um ou mais contratos;
+- [x] O usuário deve poder criar um débito para cada contrato selecionado;
+
+**RNF**
+- [x] Os débitos criados pelo usuário deve ser do tipo 'extra';
+
+**RN**
+- [x] O usuário não deve poder criar um débito para um contrato que não existe;
+- [x] O usuário não deve poder criar um débito para um contrato que não está ativo;
+- [x] O usuário não deve poder criar um débito com uma data limite que já passou;
+- [x] O usuário não deve poder criar um débito com um valor negativo;
+- [x] O usuário não deve poder criar um débito com um desconto negativo;
+
+# CRUD de débitos
+
+**RF**
+- [ ] O usuário deve poder listar todas as matrículas ativas;
+- [ ] O usuário deve poder pesquisar uma matrícula pelo nome do aluno;
+- [ ] O usuário deve poder selecionar uma matrícula;
+- [ ] O usuário deve poder visualizar todos os débitos do tipo 'extra' de uma matrícula que ainda não foram pagos;
+- [x] O usuário deve poder selecionar um débito;
+- [ ] O usuário deve poder editar um débito;
+- [x] O usuário deve poder remover o débito;
+
+**RNF**
+
+
+**RN**
+- [x] O usuário não deve poder remover um débito que não existe;
+- [x] O usuário não deve poder remover um débito que já foi pago;
+- [x] O usuário não deve poder remover um débito que não seja do tipo 'extra';
+- [ ] O usuário não deve poder editar um débito que não existe;
+- [ ] O usuário não deve poder editar um débito que já foi pago;
+- [ ] O usuário não deve poder editar um débito que não seja do tipo 'extra';
+
 # General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado;
 - [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;

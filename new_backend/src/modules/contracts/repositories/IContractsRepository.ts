@@ -9,4 +9,5 @@ export default interface IContractsRepository {
     save(contract: Contract): Promise<Contract>;
     findByStudentName(student_name: string): Promise<Contract[]>;
     dangerouslyDelete(id: string): Promise<void>;
+    findByGradeId(grade_id: string): Promise<Contract[]>;
 }

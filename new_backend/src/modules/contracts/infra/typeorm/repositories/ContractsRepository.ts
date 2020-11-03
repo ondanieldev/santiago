@@ -101,4 +101,14 @@ export default class ContractsRepository implements IContractsRepository {
             .where('id = :id', { id })
             .execute();
     }
+
+    public async findByGradeId(grade_id: string): Promise<Contract[]> {
+        const contracts = await this.ormRepository.find({
+            where: {
+                grade: { id: grade_id },
+            },
+        });
+
+        return contracts;
+    }
 }

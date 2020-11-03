@@ -6,4 +6,5 @@ export default interface IDebitsRepository {
     findByContract(contract_id: string): Promise<Debit[] | []>;
     create(data: ICreateDebitDTO): Promise<Debit>;
     save(debit: Debit): Promise<Debit>;
+    deleteTypeExtra(debit_id: string): Promise<void>;
 }

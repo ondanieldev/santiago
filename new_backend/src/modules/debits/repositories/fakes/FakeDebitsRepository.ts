@@ -38,4 +38,8 @@ export default class DebitsRepository implements IDebitsRepository {
 
         return data;
     }
+
+    public async deleteTypeExtra(debit_id: string): Promise<void> {
+        this.debits.filter(debit => debit.id !== debit_id);
+    }
 }

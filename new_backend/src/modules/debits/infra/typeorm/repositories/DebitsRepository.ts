@@ -43,4 +43,12 @@ export default class DebitsRepository implements IDebitsRepository {
 
         return debit;
     }
+
+    public async deleteTypeExtra(debit_id: string): Promise<void> {
+        await this.ormRepository
+            .createQueryBuilder()
+            .delete()
+            .where('id = :id', { debit_id })
+            .execute();
+    }
 }
