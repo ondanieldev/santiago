@@ -14,7 +14,7 @@ const CreateExtraDebitMenu: React.FC = () => (
 
     <Main>
       <Title title="Criar débitos adicionais" subtitle="Selecione uma turma" />
-      <GradesList toPageAfterSelect="/create-extra-debits" />
+      <GradesList toPageAfterSelect="/create-extra-debits/grades" />
     </Main>
   </Container>
 );

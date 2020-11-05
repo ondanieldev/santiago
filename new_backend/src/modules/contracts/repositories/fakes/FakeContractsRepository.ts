@@ -27,21 +27,27 @@ export default class FakeContractsRepository implements IContractsRepository {
         return contract;
     }
 
-    public async findUnderAnalysisAndPendent(): Promise<Contract[] | []> {
+    public async findUnderAnalysisAndPendentByGradeId(
+        grade_id: string,
+    ): Promise<Contract[] | []> {
         const contracts = this.contracts.filter(
             findContract =>
-                findContract.status === 'underAnalysis' ||
-                findContract.status === 'pendent',
+                (findContract.status === 'underAnalysis' ||
+                    findContract.status === 'pendent') &&
+                findContract.grade_id === grade_id,
         );
 
         return contracts;
     }
 
-    public async findAcceptedAndActive(): Promise<Contract[] | []> {
+    public async findAcceptedAndActiveByGradeId(
+        grade_id: string,
+    ): Promise<Contract[] | []> {
         const contracts = this.contracts.filter(
             findContract =>
-                findContract.status === 'accepted' ||
-                findContract.status === 'active',
+                (findContract.status === 'accepted' ||
+                    findContract.status === 'active') &&
+                findContract.grade_id === grade_id,
         );
 
         return contracts;

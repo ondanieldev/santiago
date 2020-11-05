@@ -2,24 +2,37 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import Route from './Route';
+
 import SignIn from '../pages/SignIn';
+
 import Dashboard from '../pages/Dashboard';
+
 import NewEnrollment from '../pages/NewEnrollment';
-import ValidateEnrollmentsMenu from '../pages/ValidateEnrollmentsMenu';
-import EditEnrollment from '../pages/EditEnrollment';
+
+import ValidateEnrollmentsGradesMenu from '../pages/ValidateEnrollmentsGradesMenu';
+import ValidateEnrollmentsContractsMenu from '../pages/ValidateEnrollmentsContractsMenu';
 import ValidateEnrollment from '../pages/ValidateEnrollment';
-import CreateExtraDebitsMenu from '../pages/CreateExtraDebitsMenu';
-import CreateExtraDebits from '../pages/CreateExtraDebits';
+
+import EditEnrollment from '../pages/EditEnrollment';
+
+import CreateExtraDebitsGradesMenu from '../pages/CreateExtraDebitsGradesMenu';
+import CreateExtraDebitsByGrade from '../pages/CreateExtraDebitsByGrade';
+
 import ExtraDebitsGradesMenu from '../pages/ExtraDebitsGradesMenu';
 import ExtraDebitsContractsMenu from '../pages/ExtraDebitsContractsMenu';
 import ExtraDebitsByContract from '../pages/ExtraDebitsByContract';
-import PayDebitsMenu from '../pages/PayDebitsMenu';
-import PayDebits from '../pages/PayDebits';
-import ReceivePaymentsMenu from '../pages/ReceivePaymentsMenu';
-import ReceivePayments from '../pages/ReceivePayments';
-import Profiles from '../pages/Profiles';
+
+import PayDebitsGradesMenu from '../pages/PayDebitsGradesMenu';
+import PayDebitsContractsMenu from '../pages/PayDebitsContractsMenu';
+import PayDebitsByContract from '../pages/PayDebitsByContract';
+
+import ReceivePaymentsGradesMenu from '../pages/ReceivePaymentsGradesMenu';
+import ReceivePaymentsContractsMenu from '../pages/ReceivePaymentsContractsMenu';
+import ReceivePaymentsByContract from '../pages/ReceivePaymentsByContract';
+
 import Users from '../pages/Users';
 import Grades from '../pages/Grades';
+import Profiles from '../pages/Profiles';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -30,109 +43,100 @@ const Routes: React.FC = () => (
     <Route path="/new-enrollment" component={NewEnrollment} isPrivate />
 
     <Route
-      path="/validate-enrollments/:contract_id"
+      path="/validate-enrollments/contracts/:contract_id"
       component={ValidateEnrollment}
       isPrivate
-      needPermissions={['validate_enrollment_permiss']}
     />
 
     <Route
-      path="/validate-enrollments"
-      component={ValidateEnrollmentsMenu}
+      path="/validate-enrollments/grades/:grade_id"
+      component={ValidateEnrollmentsContractsMenu}
       isPrivate
-      needPermissions={['validate_enrollment_permiss']}
+    />
+
+    <Route
+      path="/validate-enrollments/grades"
+      component={ValidateEnrollmentsGradesMenu}
+      isPrivate
     />
 
     <Route
       path="/edit-enrollment/:contract_id"
       component={EditEnrollment}
       isPrivate
-      needPermissions={['validate_enrollment_permiss']}
     />
 
     <Route
-      path="/create-extra-debits/:grade_id"
-      component={CreateExtraDebits}
+      path="/create-extra-debits/grades/:grade_id"
+      component={CreateExtraDebitsByGrade}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
-      path="/create-extra-debits"
-      component={CreateExtraDebitsMenu}
+      path="/create-extra-debits/grades"
+      component={CreateExtraDebitsGradesMenu}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
       path="/extra-debits/contracts/:contract_id"
       component={ExtraDebitsByContract}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
       path="/extra-debits/grades/:grade_id"
       component={ExtraDebitsContractsMenu}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
       path="/extra-debits/grades"
       component={ExtraDebitsGradesMenu}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
-      path="/pay-debits/:contract_id"
-      component={PayDebits}
+      path="/pay-debits/contracts/:contract_id"
+      component={PayDebitsByContract}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
-      path="/pay-debits"
-      component={PayDebitsMenu}
+      path="/pay-debits/grades/:grade_id"
+      component={PayDebitsContractsMenu}
       isPrivate
-      needPermissions={['pay_debit_permiss']}
     />
 
     <Route
-      path="/receive-payments/:contract_id"
-      component={ReceivePayments}
+      path="/pay-debits/grades"
+      component={PayDebitsGradesMenu}
       isPrivate
-      needPermissions={['discharge_payment_permiss']}
     />
 
     <Route
-      path="/receive-payments"
-      component={ReceivePaymentsMenu}
+      path="/receive-payments/contracts/:contract_id"
+      component={ReceivePaymentsByContract}
       isPrivate
-      needPermissions={['discharge_payment_permiss']}
     />
 
     <Route
-      path="/profiles"
-      component={Profiles}
+      path="/receive-payments/grades/:grade_id"
+      component={ReceivePaymentsContractsMenu}
       isPrivate
-      needPermissions={['crud_profiles_permiss']}
     />
 
     <Route
-      path="/users"
-      component={Users}
+      path="/receive-payments/grades"
+      component={ReceivePaymentsGradesMenu}
       isPrivate
-      needPermissions={['crud_users_permiss']}
     />
 
-    <Route
-      path="/grades"
-      component={Grades}
-      isPrivate
-      needPermissions={['crud_grades_permiss']}
-    />
+    <Route path="/profiles" component={Profiles} isPrivate />
+
+    <Route path="/users" component={Users} isPrivate />
+
+    <Route path="/grades" component={Grades} isPrivate />
   </Switch>
 );
 

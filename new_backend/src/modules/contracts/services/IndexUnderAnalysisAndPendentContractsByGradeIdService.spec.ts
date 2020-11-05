@@ -1,17 +1,17 @@
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import IndexUnderAnalysisAndPendentContractsService from './IndexUnderAnalysisAndPendentContractsService';
+import IndexUnderAnalysisAndPendentContractsByGradeIdService from './IndexUnderAnalysisAndPendentContractsByGradeIdService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeCacheProvider: FakeCacheProvider;
-let indexUnderAnalysisAndPendentContracts: IndexUnderAnalysisAndPendentContractsService;
+let indexUnderAnalysisAndPendentContractsByGrade: IndexUnderAnalysisAndPendentContractsByGradeIdService;
 
 describe('IndexUnderAnalysisAndPendentContracts', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeCacheProvider = new FakeCacheProvider();
 
-        indexUnderAnalysisAndPendentContracts = new IndexUnderAnalysisAndPendentContractsService(
+        indexUnderAnalysisAndPendentContractsByGrade = new IndexUnderAnalysisAndPendentContractsByGradeIdService(
             fakeContractsRepository,
             fakeCacheProvider,
         );
@@ -30,7 +30,7 @@ describe('IndexUnderAnalysisAndPendentContracts', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexUnderAnalysisAndPendentContracts.execute();
+        const contracts = await indexUnderAnalysisAndPendentContractsByGrade.execute();
 
         expect(contracts[0].id).toBe(pendentContract.id);
         expect(contracts[1].id).toBe(underAnalysisContract.id);
@@ -51,9 +51,9 @@ describe('IndexUnderAnalysisAndPendentContracts', () => {
             student_id: 'student2',
         });
 
-        await indexUnderAnalysisAndPendentContracts.execute();
+        await indexUnderAnalysisAndPendentContractsByGrade.execute();
 
-        await indexUnderAnalysisAndPendentContracts.execute();
+        await indexUnderAnalysisAndPendentContractsByGrade.execute();
 
         expect(registerCache).toBeCalledTimes(1);
     });
@@ -71,7 +71,7 @@ describe('IndexUnderAnalysisAndPendentContracts', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexUnderAnalysisAndPendentContracts.execute();
+        const contracts = await indexUnderAnalysisAndPendentContractsByGrade.execute();
 
         expect(contracts).toStrictEqual([]);
     });

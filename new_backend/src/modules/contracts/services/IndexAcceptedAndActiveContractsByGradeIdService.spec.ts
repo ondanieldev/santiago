@@ -1,17 +1,17 @@
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import IndexAcceptedAndActiveContractsService from './IndexAcceptedAndActiveContractsService';
+import IndexAcceptedAndActiveContractsByGradeIdService from './IndexAcceptedAndActiveContractsByGradeIdService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeCacheProvider: FakeCacheProvider;
-let indexAcceptedAndActiveContracts: IndexAcceptedAndActiveContractsService;
+let indexAcceptedAndActiveContractsByGradeId: IndexAcceptedAndActiveContractsByGradeIdService;
 
 describe('IndexAcceptedAndActiveContracts', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeCacheProvider = new FakeCacheProvider();
 
-        indexAcceptedAndActiveContracts = new IndexAcceptedAndActiveContractsService(
+        indexAcceptedAndActiveContractsByGradeId = new IndexAcceptedAndActiveContractsByGradeIdService(
             fakeContractsRepository,
             fakeCacheProvider,
         );
@@ -30,7 +30,7 @@ describe('IndexAcceptedAndActiveContracts', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexAcceptedAndActiveContracts.execute();
+        const contracts = await indexAcceptedAndActiveContractsByGradeId.execute();
 
         expect(contracts[0].id).toBe(acceptedContract.id);
         expect(contracts[1].id).toBe(activeContract.id);
@@ -51,9 +51,9 @@ describe('IndexAcceptedAndActiveContracts', () => {
             student_id: 'student2',
         });
 
-        await indexAcceptedAndActiveContracts.execute();
+        await indexAcceptedAndActiveContractsByGradeId.execute();
 
-        await indexAcceptedAndActiveContracts.execute();
+        await indexAcceptedAndActiveContractsByGradeId.execute();
 
         expect(registerCache).toBeCalledTimes(1);
     });
@@ -71,7 +71,7 @@ describe('IndexAcceptedAndActiveContracts', () => {
             student_id: 'student2',
         });
 
-        const contracts = await indexAcceptedAndActiveContracts.execute();
+        const contracts = await indexAcceptedAndActiveContractsByGradeId.execute();
 
         expect(contracts).toStrictEqual([]);
     });

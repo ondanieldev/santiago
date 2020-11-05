@@ -293,7 +293,7 @@
 - [x] Alterar campos de data dos débitos
 - [x] Segunda parte do débito não imprime tabela de valores
 - [x] Símbolo de porcentagem não está sendo impresso no débito
-- [ ] Trocar todas as listagens de matrícula para que sejam agrupadas por turma
+- [x] Trocar todas as listagens de matrícula para que sejam agrupadas por turma
     - [ ] Refazer estratégia de cache
 - [ ] Refatorar testes
 - [ ] Implementar celebrate para filtrar dados vindos do front-end;

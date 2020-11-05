@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Container, Main } from './styles';
 import Header from '../../components/Header';
@@ -7,8 +7,13 @@ import Aside from '../../components/Aside';
 import Title from '../../components/Title';
 import Enrollments from '../../components/Enrollments';
 
-const ReceivePaymentsMenu: React.FC = () => {
+interface IParams {
+  grade_id: string;
+}
+
+const PayDebitsContractsMenu: React.FC = () => {
   const history = useHistory();
+  const { grade_id } = useParams<IParams>();
 
   return (
     <Container>
@@ -17,13 +22,13 @@ const ReceivePaymentsMenu: React.FC = () => {
       <Aside />
 
       <Main>
-        <Title title="Receber pagamentos" subtitle="Selecionar matrícula" />
+        <Title title="Pagar débitos" subtitle="Selecionar matrícula" />
 
         <Enrollments
           showSearch
-          apiUrl="/contracts/accepted-active"
+          apiUrl={`/contracts/accepted-active/grades/${grade_id}`}
           handleSelectEnrollment={(id: string) => {
-            history.push(`receive-payments/${id}`);
+            history.push(`/pay-debits/contracts/${id}`);
           }}
         />
       </Main>
@@ -31,4 +36,4 @@ const ReceivePaymentsMenu: React.FC = () => {
   );
 };
 
-export default ReceivePaymentsMenu;
+export default PayDebitsContractsMenu;

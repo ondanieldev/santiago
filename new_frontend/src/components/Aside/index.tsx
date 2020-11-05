@@ -34,44 +34,36 @@ const Aside: React.FC = () => {
       { path: '/dashboard', label: 'Dashboard' },
       { path: '/new-enrollment', label: 'Nova matrícula' },
       {
-        path: '/validate-enrollments',
+        path: '/validate-enrollments/grades',
         label: 'Validar matrículas',
-        permiss: 'validate_enrollment_permiss',
       },
       {
-        path: '/create-extra-debits',
+        path: '/create-extra-debits/grades',
         label: 'Criar débitos adicionais',
-        permiss: 'pay_debit_permiss',
       },
       {
-        path: '/pay-debits',
+        path: '/pay-debits/grades',
         label: 'Pagar débitos',
-        permiss: 'pay_debit_permiss',
       },
       {
-        path: '/receive-payments',
+        path: '/receive-payments/grades',
         label: 'Receber pagamentos',
-        permiss: 'discharge_payment_permiss',
       },
       {
         path: '/extra-debits/grades',
         label: 'Gerenciar débitos adicionais',
-        permiss: 'pay_debit_permiss',
       },
       {
         path: '/profiles',
         label: 'Gerenciar perfis',
-        permiss: 'crud_profiles_permiss',
       },
       {
         path: '/grades',
         label: 'Gerenciar turmas',
-        permiss: 'crud_grades_permiss',
       },
       {
         path: '/users',
         label: 'Gerenciar usuários',
-        permiss: 'crud_users_permiss',
       },
     ] as ILink[];
 

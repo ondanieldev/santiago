@@ -5,8 +5,8 @@ import ContractsController from '../controllers/ContractsController';
 import ContractsGradeController from '../controllers/ContractsGradeController';
 import AproovedContractsController from '../controllers/AproovedContractsController';
 import DisaproovedContractsController from '../controllers/DisaproovedContractsController';
-import AcceptedAndActiveContractsController from '../controllers/AcceptedAndActiveContractsController';
-import UnderAnalysisAndPendentContractsController from '../controllers/UnderAnalysisAndPendentContractsController';
+import AcceptedAndActiveContractsGradeController from '../controllers/AcceptedAndActiveContractsGradeController';
+import UnderAnalysisAndPendentContractsGradeController from '../controllers/UnderAnalysisAndPendentContractsGradeController';
 import StudentsAcceptedAndActiveContractsController from '../controllers/StudentsAcceptedAndActiveContractsController';
 import GradesActiveContractsController from '../controllers/GradesActiveContractsController';
 import StudentsActiveContractsController from '../controllers/StudentsActiveContractsController';
@@ -17,8 +17,8 @@ const contractsController = new ContractsController();
 const contractsGradeController = new ContractsGradeController();
 const aproovedContractsController = new AproovedContractsController();
 const disaproovedContractsController = new DisaproovedContractsController();
-const acceptedAndActiveContractsController = new AcceptedAndActiveContractsController();
-const underAnalysisAndPendentContractsController = new UnderAnalysisAndPendentContractsController();
+const acceptedAndActiveContractsGradeController = new AcceptedAndActiveContractsGradeController();
+const underAnalysisAndPendentContractsGradeController = new UnderAnalysisAndPendentContractsGradeController();
 const studentsAcceptedAndActiveContractsController = new StudentsAcceptedAndActiveContractsController();
 const gradesActiveContractsController = new GradesActiveContractsController();
 const studentsActiveContractsController = new StudentsActiveContractsController();
@@ -26,23 +26,23 @@ const studentsActiveContractsController = new StudentsActiveContractsController(
 contractsRouter.post('/', contractsController.create);
 
 contractsRouter.get(
-    '/accepted-active',
+    '/under-analysis-pendent/grades/:grade_id',
+    (req, res, next) =>
+        ensureAuthenticated('validate_enrollment_permiss')(req, res, next),
+    underAnalysisAndPendentContractsGradeController.index,
+);
+
+contractsRouter.get(
+    '/accepted-active/grades/:grade_id',
     (req, res, next) =>
         ensureAuthenticated('pay_debit_permiss')(req, res, next),
-    acceptedAndActiveContractsController.index,
+    acceptedAndActiveContractsGradeController.index,
 );
 
 contractsRouter.get(
     '/accepted-active/students/:student_name',
     (req, res, next) => ensureAuthenticated()(req, res, next),
     studentsAcceptedAndActiveContractsController.index,
-);
-
-contractsRouter.get(
-    '/under-analysis-pendent',
-    (req, res, next) =>
-        ensureAuthenticated('validate_enrollment_permiss')(req, res, next),
-    underAnalysisAndPendentContractsController.index,
 );
 
 contractsRouter.get(
