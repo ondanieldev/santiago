@@ -40,7 +40,12 @@ export const Container = styled.button<ButtonProps>`
   }
 
   &:disabled {
-    background-color: ${shade(0.2, '#013C64')};
+    background-color: ${shade(0.4, '#013C64')};
+    ${props =>
+      props.backgroundColor &&
+      css`
+        background-color: ${shade(0.4, props.backgroundColor)};
+      `}
     cursor: not-allowed;
   }
 

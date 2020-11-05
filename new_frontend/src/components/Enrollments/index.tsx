@@ -14,6 +14,7 @@ interface IProps {
   apiUrl: string;
   handleSelectEnrollment(id: string): void;
   showSearch?: boolean;
+  searchApiUrl?: string;
 }
 
 interface IEnrollment {
@@ -36,6 +37,7 @@ const Enrollments: React.FC<IProps> = ({
   apiUrl,
   handleSelectEnrollment,
   showSearch,
+  searchApiUrl,
 }) => {
   const formRef = useRef<FormHandles>(null);
 
@@ -84,7 +86,7 @@ const Enrollments: React.FC<IProps> = ({
       setLoadingSearch(true);
 
       try {
-        const response = await api.get(`/contracts/students/${student_name}`);
+        const response = await api.get(`${searchApiUrl}/${student_name}`);
         setEnrollments(response.data);
       } catch {
         api.get(apiUrl).then(response => {
@@ -94,7 +96,7 @@ const Enrollments: React.FC<IProps> = ({
         setLoadingSearch(false);
       }
     },
-    [apiUrl],
+    [apiUrl, searchApiUrl],
   );
 
   return (

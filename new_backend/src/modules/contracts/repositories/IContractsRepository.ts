@@ -10,4 +10,6 @@ export default interface IContractsRepository {
     findByStudentName(student_name: string): Promise<Contract[]>;
     dangerouslyDelete(id: string): Promise<void>;
     findByGradeId(grade_id: string): Promise<Contract[]>;
+    findActiveByGradeId(grade_id: string): Promise<Contract[]>;
+    findActiveByStudentName(student_name: string): Promise<Contract[]>;
 }

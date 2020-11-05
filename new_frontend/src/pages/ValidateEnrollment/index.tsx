@@ -66,7 +66,7 @@ const Enrollment: React.FC = () => {
           return;
         }
 
-        api.patch(`/contracts/${contract_id}/${status}`, {
+        await api.patch(`/contracts/${contract_id}/${status}`, {
           comment,
           discount,
           responsible_email: enrollment.agreements[0].person.email,

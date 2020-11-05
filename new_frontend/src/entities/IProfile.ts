@@ -8,4 +8,5 @@ export default interface IProfile {
   crud_profiles_permiss: boolean;
   crud_users_permiss: boolean;
   crud_grades_permiss: boolean;
+  create_extra_debit_permiss: boolean;
 }

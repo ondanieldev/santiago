@@ -221,13 +221,13 @@
 - [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
 - [x] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
 
-# Criação de débitos
+# :white_check_mark: Criação de débitos adicionais
 
 **RF**
-- [ ] O usuário deve poder visualizar todas as turmas existentes;
-- [ ] O usuário deve poder selecionar uma turma;
-- [ ] O usuário deve poder visualizar todos os contratos ativos de uma turma;
-- [ ] O usuário deve poder selecionar um ou mais contratos;
+- [x] O usuário deve poder visualizar todas as turmas existentes;
+- [x] O usuário deve poder selecionar uma turma;
+- [x] O usuário deve poder visualizar todos os contratos ativos de uma turma;
+- [x] O usuário deve poder selecionar um ou mais contratos;
 - [x] O usuário deve poder criar um débito para cada contrato selecionado;
 
 **RNF**
@@ -240,15 +240,17 @@
 - [x] O usuário não deve poder criar um débito com um valor negativo;
 - [x] O usuário não deve poder criar um débito com um desconto negativo;
 
-# CRUD de débitos
+# :white_check_mark: CRUD de débitos
 
 **RF**
-- [ ] O usuário deve poder listar todas as matrículas ativas;
-- [ ] O usuário deve poder pesquisar uma matrícula pelo nome do aluno;
-- [ ] O usuário deve poder selecionar uma matrícula;
-- [ ] O usuário deve poder visualizar todos os débitos do tipo 'extra' de uma matrícula que ainda não foram pagos;
+- [x] O usuário deve poder visualizar todas as turmas existentes;
+- [x] O usuário deve poder selecionar uma turma;
+- [x] O usuário deve poder visualizar todos os contratos ativos de uma turma;
+- [x] O usuário deve poder pesquisar um contrato pelo nome do aluno;
+- [x] O usuário deve poder selecionar um contrato;
+- [x] O usuário deve poder visualizar todos os débitos do tipo 'extra' de uma contrato que ainda não foram pagos;
 - [x] O usuário deve poder selecionar um débito;
-- [ ] O usuário deve poder editar um débito;
+- [x] O usuário deve poder editar um débito;
 - [x] O usuário deve poder remover o débito;
 
 **RNF**
@@ -258,11 +260,14 @@
 - [x] O usuário não deve poder remover um débito que não existe;
 - [x] O usuário não deve poder remover um débito que já foi pago;
 - [x] O usuário não deve poder remover um débito que não seja do tipo 'extra';
-- [ ] O usuário não deve poder editar um débito que não existe;
-- [ ] O usuário não deve poder editar um débito que já foi pago;
-- [ ] O usuário não deve poder editar um débito que não seja do tipo 'extra';
+- [x] O usuário não deve poder editar um débito que não existe;
+- [x] O usuário não deve poder editar um débito que já foi pago;
+- [x] O usuário não deve poder editar um débito que não seja do tipo 'extra';
+- [x] O usuário não deve poder editar um débito com uma data limite que já passou;
+- [x] O usuário não deve poder editar um débito com um valor negativo;
+- [x] O usuário não deve poder editar um débito com um desconto negativo;
 
-# General tasks
+# :white_check_mark: General tasks
 - [x] Método para atualizar turma do contrato precisa ser revisado;
 - [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;
     - [x] Devolvê-lo como objeto e com URL;
@@ -273,8 +278,6 @@
 - [x] Configurar variáveis de ambiente;
 - [x] Filtrar dados retornados na listagem de pagamentos não descarregados
 - [x] Configurar provider de recibos
-- [ ] Implementar celebrate para filtrar dados vindos do front-end;
-- [ ] Redefinir permissões de usuário
 
 # Issues
 - [x] Atualizar campo de education level para enum
@@ -290,3 +293,8 @@
 - [x] Alterar campos de data dos débitos
 - [x] Segunda parte do débito não imprime tabela de valores
 - [x] Símbolo de porcentagem não está sendo impresso no débito
+- [ ] Trocar todas as listagens de matrícula para que sejam agrupadas por turma
+    - [ ] Refazer estratégia de cache
+- [ ] Refatorar testes
+- [ ] Implementar celebrate para filtrar dados vindos do front-end;
+- [ ] Redefinir permissões de usuário

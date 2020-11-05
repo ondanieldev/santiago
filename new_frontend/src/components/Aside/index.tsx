@@ -39,6 +39,11 @@ const Aside: React.FC = () => {
         permiss: 'validate_enrollment_permiss',
       },
       {
+        path: '/create-extra-debits',
+        label: 'Criar débitos adicionais',
+        permiss: 'pay_debit_permiss',
+      },
+      {
         path: '/pay-debits',
         label: 'Pagar débitos',
         permiss: 'pay_debit_permiss',
@@ -47,6 +52,11 @@ const Aside: React.FC = () => {
         path: '/receive-payments',
         label: 'Receber pagamentos',
         permiss: 'discharge_payment_permiss',
+      },
+      {
+        path: '/extra-debits/grades',
+        label: 'Gerenciar débitos adicionais',
+        permiss: 'pay_debit_permiss',
       },
       {
         path: '/profiles',

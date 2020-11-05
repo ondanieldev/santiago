@@ -40,6 +40,17 @@ export default class DebitsRepository implements IDebitsRepository {
     }
 
     public async deleteTypeExtra(debit_id: string): Promise<void> {
-        this.debits.filter(debit => debit.id !== debit_id);
+        this.debits = this.debits.filter(debit => debit.id !== debit_id);
+    }
+
+    public async findUnpaidExtraByContract(
+        contract_id: string,
+    ): Promise<Debit[]> {
+        return this.debits.filter(
+            debit =>
+                debit.type === 'extra' &&
+                debit.contract_id === contract_id &&
+                !debit.paid,
+        );
     }
 }

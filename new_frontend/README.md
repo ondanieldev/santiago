@@ -71,14 +71,26 @@
 - [x] Cadastar usuário
 - [x] Atualizar usuário
 
-# Autenticação de usuários
+# :white_check_mark: Criação de débitos adicionais
+
+- [x] Listar turmas
+- [x] Formulário + seleção de matrículas
+
+# :white_check_mark: CRUD de débitos adicionais
+
+- [x] Listar turmas
+- [x] Listar contratos
+- [x] Listar débitos
+- [x] Editar débito
+- [x] Remover débito
+
+# :white_check_mark: Autenticação de usuários
 
 - [x] Acessar sistema
-- [ ] Configurar permissões
+- [x] Configurar permissões
 
 # Issues
 
-- [ ] Tamanhos dos inputs
 - [x] Field necessidades especiais
 - [x] Login
 - [x] Field turma desejada
@@ -93,5 +105,11 @@
 - [x] Configurar popups dos débitos e pagamentos para exibir recibos
 - [x] Responsividade
 - [x] Formatações
+- [ ] Tamanhos dos inputs
 - [ ] Estado civil enum
 - [ ] Renda mensal enum
+- [ ] Aplicação de juros opcional nos débitos adicionais
+- [ ] Refazer fluxo de telas com turmas
+- [ ] Corrigir permissões de usuário
+- [ ] Relogin após o token expirar
+- [ ] Mudar local de logout

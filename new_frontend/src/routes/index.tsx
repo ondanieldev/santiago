@@ -8,6 +8,11 @@ import NewEnrollment from '../pages/NewEnrollment';
 import ValidateEnrollmentsMenu from '../pages/ValidateEnrollmentsMenu';
 import EditEnrollment from '../pages/EditEnrollment';
 import ValidateEnrollment from '../pages/ValidateEnrollment';
+import CreateExtraDebitsMenu from '../pages/CreateExtraDebitsMenu';
+import CreateExtraDebits from '../pages/CreateExtraDebits';
+import ExtraDebitsGradesMenu from '../pages/ExtraDebitsGradesMenu';
+import ExtraDebitsContractsMenu from '../pages/ExtraDebitsContractsMenu';
+import ExtraDebitsByContract from '../pages/ExtraDebitsByContract';
 import PayDebitsMenu from '../pages/PayDebitsMenu';
 import PayDebits from '../pages/PayDebits';
 import ReceivePaymentsMenu from '../pages/ReceivePaymentsMenu';
@@ -43,6 +48,41 @@ const Routes: React.FC = () => (
       component={EditEnrollment}
       isPrivate
       needPermissions={['validate_enrollment_permiss']}
+    />
+
+    <Route
+      path="/create-extra-debits/:grade_id"
+      component={CreateExtraDebits}
+      isPrivate
+      needPermissions={['pay_debit_permiss']}
+    />
+
+    <Route
+      path="/create-extra-debits"
+      component={CreateExtraDebitsMenu}
+      isPrivate
+      needPermissions={['pay_debit_permiss']}
+    />
+
+    <Route
+      path="/extra-debits/contracts/:contract_id"
+      component={ExtraDebitsByContract}
+      isPrivate
+      needPermissions={['pay_debit_permiss']}
+    />
+
+    <Route
+      path="/extra-debits/grades/:grade_id"
+      component={ExtraDebitsContractsMenu}
+      isPrivate
+      needPermissions={['pay_debit_permiss']}
+    />
+
+    <Route
+      path="/extra-debits/grades"
+      component={ExtraDebitsGradesMenu}
+      isPrivate
+      needPermissions={['pay_debit_permiss']}
     />
 
     <Route

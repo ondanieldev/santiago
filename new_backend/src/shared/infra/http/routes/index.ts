@@ -5,6 +5,7 @@ import cacheRouter from '@shared/container/providers/CacheProvider/infra/http/ro
 import contractsRouter from '@modules/contracts/infra/http/routes/contracts.routes';
 import contractDebitsRouter from '@modules/contracts/infra/http/routes/debits.routes';
 import contractPaymentsRouter from '@modules/contracts/infra/http/routes/payments.routes';
+import debitsRouter from '@modules/debits/infra/http/routes/debits.routes';
 import dischargesRouter from '@modules/discharges/infra/http/routes/discharges.routes';
 import enrollmentsRouter from '@modules/enrollments/infra/http/routes/enrollments.routes';
 import gradesRouter from '@modules/grades/infra/http/routes/grades.routes';
@@ -23,6 +24,7 @@ routes.use('/cache', cacheRouter);
 routes.use('/contracts', contractsRouter);
 routes.use('/contracts', contractDebitsRouter);
 routes.use('/contracts', contractPaymentsRouter);
+routes.use('/debits', debitsRouter);
 routes.use('/discharges', dischargesRouter);
 routes.use('/enrollments', enrollmentsRouter);
 routes.use('/grades', gradesRouter);

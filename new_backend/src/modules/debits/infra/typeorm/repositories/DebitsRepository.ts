@@ -48,7 +48,17 @@ export default class DebitsRepository implements IDebitsRepository {
         await this.ormRepository
             .createQueryBuilder()
             .delete()
-            .where('id = :id', { debit_id })
+            .where('id = :debit_id', { debit_id })
             .execute();
+    }
+
+    public async findUnpaidExtraByContract(
+        contract_id: string,
+    ): Promise<Debit[]> {
+        const debits = await this.ormRepository.find({
+            where: { type: 'extra', paid: false, contract_id },
+        });
+
+        return debits;
     }
 }

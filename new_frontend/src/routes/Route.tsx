@@ -18,6 +18,7 @@ interface RouteProps extends ReactDOMRouteProps {
     | 'crud_profiles_permiss'
     | 'crud_users_permiss'
     | 'crud_grades_permiss'
+    | 'create_extra_debit_permiss'
   )[];
 }
 

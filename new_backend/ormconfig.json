@@ -1,9 +1,9 @@
 {
     "type": "postgres",
     "host": "localhost",
-    "port": 5433,
+    "port": 5432,
     "username": "postgres",
-    "password": "docker",
+    "password": "123456",
     "database": "santiago",
     "entities": [
         "./src/modules/**/infra/typeorm/entities/*.ts"

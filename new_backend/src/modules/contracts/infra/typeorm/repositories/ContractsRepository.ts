@@ -111,4 +111,47 @@ export default class ContractsRepository implements IContractsRepository {
 
         return contracts;
     }
+
+    public async findActiveByGradeId(grade_id: string): Promise<Contract[]> {
+        const contracts = this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where("contract.status = 'active' and grade.id = :grade_id", {
+                grade_id,
+            })
+            .getMany();
+
+        return contracts;
+    }
+
+    public async findActiveByStudentName(
+        student_name: string,
+    ): Promise<Contract[]> {
+        const contracts = this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where(
+                "contract.status = 'active' and lower(student.name) like :student_name",
+                { student_name: `%${student_name}%` },
+            )
+            .getMany();
+
+        return contracts;
+    }
 }

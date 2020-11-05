@@ -86,4 +86,22 @@ export default class FakeContractsRepository implements IContractsRepository {
             contract => contract.grade.id === grade_id,
         );
     }
+
+    public async findActiveByGradeId(grade_id: string): Promise<Contract[]> {
+        return this.contracts.filter(
+            contract =>
+                contract.status === 'active' && contract.grade.id === grade_id,
+        );
+    }
+
+    public async findActiveByStudentName(
+        student_name: string,
+    ): Promise<Contract[]> {
+        return this.contracts.filter(
+            contract =>
+                contract.status === 'active' &&
+                contract.student.name &&
+                contract.student.name.includes(student_name),
+        );
+    }
 }
