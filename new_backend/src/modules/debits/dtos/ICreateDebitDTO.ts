@@ -5,4 +5,5 @@ export default interface ICreateDebitDTO {
     contract_id: string;
     discount?: number;
     type?: 'enrollment' | 'installment' | 'extra';
+    apply_interest_rules?: boolean;
 }

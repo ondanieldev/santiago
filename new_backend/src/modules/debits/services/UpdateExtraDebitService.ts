@@ -21,6 +21,7 @@ class UpdateExtraDebitService {
         payment_limit_date,
         value,
         discount,
+        apply_interest_rules,
     }: IUpdateDebitDTO): Promise<Debit> {
         const debitExists = await this.debitsRepository.findById(id);
 
@@ -65,6 +66,7 @@ class UpdateExtraDebitService {
             payment_limit_date,
             value,
             discount,
+            apply_interest_rules,
         });
 
         const debit = await this.debitsRepository.save(debitExists);

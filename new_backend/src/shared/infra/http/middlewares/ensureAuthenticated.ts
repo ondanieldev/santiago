@@ -65,11 +65,17 @@ export default (
             };
 
             if (permissions) {
+                let hasPermiss = false;
+
                 permissions.forEach(permiss => {
                     if (request.user[permiss]) {
-                        return next();
+                        hasPermiss = true;
                     }
                 });
+
+                if (hasPermiss) {
+                    return next();
+                }
 
                 throw new AppError('');
             } else {

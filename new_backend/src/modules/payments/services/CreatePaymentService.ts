@@ -84,7 +84,7 @@ export default class CreatePaymentService {
 
         const parsedDebitDate = parseISO(debit.payment_limit_date.toString());
 
-        if (isPast(parsedDebitDate)) {
+        if (isPast(parsedDebitDate) && debit.apply_interest_rules) {
             const months = differenceInCalendarMonths(
                 new Date(),
                 parsedDebitDate,
@@ -95,7 +95,7 @@ export default class CreatePaymentService {
             paymentVariation = 3;
 
             paymentValue = debit.value * 1.03 ** months;
-        } else {
+        } else if (!isPast(parsedDebitDate)) {
             paymentVariation = debit.discount;
 
             paymentValue = debit.value - (debit.value * debit.discount) / 100;

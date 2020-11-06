@@ -23,6 +23,7 @@ class CreateExtraDebitService {
         payment_limit_date,
         value,
         discount,
+        apply_interest_rules,
     }: ICreateDebitDTO): Promise<Debit> {
         const contract = await this.contractsRepository.findById(contract_id);
 
@@ -63,6 +64,7 @@ class CreateExtraDebitService {
             value,
             discount,
             type: 'extra',
+            apply_interest_rules,
         });
 
         return debit;

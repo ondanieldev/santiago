@@ -4,4 +4,5 @@ export default interface IUpdateDebitDTO {
     description: string;
     payment_limit_date: Date;
     discount?: number;
+    apply_interest_rules?: boolean;
 }

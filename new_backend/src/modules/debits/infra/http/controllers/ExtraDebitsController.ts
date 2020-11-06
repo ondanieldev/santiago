@@ -18,6 +18,7 @@ class ExtraDebitsController {
             payment_limit_date,
             value,
             discount,
+            apply_interest_rules,
         } = request.body;
 
         const parsedDate = parseISO(payment_limit_date);
@@ -30,6 +31,7 @@ class ExtraDebitsController {
             payment_limit_date: parsedDate,
             value,
             discount,
+            apply_interest_rules,
         });
 
         return response.json(debit);
@@ -61,6 +63,7 @@ class ExtraDebitsController {
             payment_limit_date,
             value,
             discount,
+            apply_interest_rules,
         } = request.body;
 
         const parsedDate = parseISO(payment_limit_date);
@@ -73,6 +76,7 @@ class ExtraDebitsController {
             payment_limit_date: parsedDate,
             value,
             discount,
+            apply_interest_rules,
         });
 
         return response.json(debit);
