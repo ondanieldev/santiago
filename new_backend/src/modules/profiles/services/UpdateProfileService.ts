@@ -16,18 +16,8 @@ class UpdateProfileService {
         private cacheProvider: ICacheProvider,
     ) {}
 
-    async execute({
-        id,
-        name,
-        new_enrollment_permiss,
-        validate_enrollment_permiss,
-        pay_debit_permiss,
-        discharge_payment_permiss,
-        crud_grades_permiss,
-        crud_profiles_permiss,
-        crud_users_permiss,
-    }: IUpdateProfileDTO): Promise<Profile> {
-        const profile = await this.profilesRepository.findById(id);
+    async execute(data: IUpdateProfileDTO): Promise<Profile> {
+        const profile = await this.profilesRepository.findById(data.id);
 
         if (!profile) {
             throw new AppError(
@@ -36,23 +26,16 @@ class UpdateProfileService {
         }
 
         const profileWithSameName = await this.profilesRepository.findByName(
-            name,
+            data.name,
         );
 
-        if (profileWithSameName && profileWithSameName.id !== id) {
+        if (profileWithSameName && profileWithSameName.id !== data.id) {
             throw new AppError(
                 'não é possível atualizar um perfil com o mesmo nome de outro!',
             );
         }
 
-        profile.name = name;
-        profile.new_enrollment_permiss = new_enrollment_permiss;
-        profile.validate_enrollment_permiss = validate_enrollment_permiss;
-        profile.pay_debit_permiss = pay_debit_permiss;
-        profile.discharge_payment_permiss = discharge_payment_permiss;
-        profile.crud_grades_permiss = crud_grades_permiss;
-        profile.crud_profiles_permiss = crud_profiles_permiss;
-        profile.crud_users_permiss = crud_users_permiss;
+        Object.assign(profile, { ...data });
 
         await this.profilesRepository.save(profile);
 

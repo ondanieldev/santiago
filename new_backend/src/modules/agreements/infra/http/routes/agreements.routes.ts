@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import AgreementsController from '../controllers/AgreementsController';
+// import AgreementsController from '../controllers/AgreementsController';
 
 const agreementsRouter = Router();
 
-const agreementsController = new AgreementsController();
+// const agreementsController = new AgreementsController();
 
-agreementsRouter.post('/', agreementsController.create);
+// agreementsRouter.post('/', agreementsController.create);
 
 export default agreementsRouter;

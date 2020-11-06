@@ -16,18 +16,9 @@ class CreateProfileService {
         private cacheProvider: ICacheProvider,
     ) {}
 
-    async execute({
-        name,
-        new_enrollment_permiss,
-        validate_enrollment_permiss,
-        pay_debit_permiss,
-        discharge_payment_permiss,
-        crud_grades_permiss,
-        crud_profiles_permiss,
-        crud_users_permiss,
-    }: ICreateProfileDTO): Promise<Profile> {
+    async execute(data: ICreateProfileDTO): Promise<Profile> {
         const profileWithSameName = await this.profilesRepository.findByName(
-            name,
+            data.name,
         );
 
         if (profileWithSameName) {
@@ -36,16 +27,7 @@ class CreateProfileService {
             );
         }
 
-        const profile = await this.profilesRepository.create({
-            name,
-            new_enrollment_permiss,
-            validate_enrollment_permiss,
-            pay_debit_permiss,
-            discharge_payment_permiss,
-            crud_grades_permiss,
-            crud_profiles_permiss,
-            crud_users_permiss,
-        });
+        const profile = await this.profilesRepository.create(data);
 
         await this.cacheProvider.invalidate('profiles');
 

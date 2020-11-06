@@ -10,12 +10,15 @@ const enrollmentPaymentsController = new EnrollmentPaymentsController();
 
 paymentsRouter.post(
     '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['pay_debits_permiss'])(req, res, next),
     paymentsController.create,
 );
+
 paymentsRouter.post(
     '/enrollment',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['pay_debits_permiss'])(req, res, next),
     enrollmentPaymentsController.create,
 );
 

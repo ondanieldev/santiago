@@ -34,6 +34,9 @@ export default class Debit {
     @Column('date')
     payday: Date;
 
+    @Column('boolean')
+    apply_interest_rules: boolean;
+
     @Column({
         type: 'enum',
         enum: ['enrollment', 'installment', 'extra'],

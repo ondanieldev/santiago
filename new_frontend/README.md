@@ -110,6 +110,6 @@
 - [ ] Renda mensal enum
 - [ ] Aplicação de juros opcional nos débitos adicionais
 - [x] Refazer fluxo de telas com turmas
-- [ ] Corrigir permissões de usuário
+- [x] Corrigir permissões de usuário
 - [ ] Relogin após o token expirar
 - [ ] Mudar local de logout

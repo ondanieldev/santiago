@@ -161,13 +161,6 @@ export default class CreatePaymentService {
         if (!studentProfile) {
             studentProfile = await this.profilesRepository.create({
                 name: 'Aluno',
-                crud_grades_permiss: false,
-                crud_profiles_permiss: false,
-                crud_users_permiss: false,
-                discharge_payment_permiss: false,
-                new_enrollment_permiss: false,
-                pay_debit_permiss: false,
-                validate_enrollment_permiss: false,
             });
 
             this.cacheProvider.invalidate('profiles');
@@ -192,13 +185,6 @@ export default class CreatePaymentService {
         if (!responsibleProfile) {
             responsibleProfile = await this.profilesRepository.create({
                 name: 'Responsável',
-                crud_grades_permiss: false,
-                crud_profiles_permiss: false,
-                crud_users_permiss: false,
-                discharge_payment_permiss: false,
-                new_enrollment_permiss: false,
-                pay_debit_permiss: false,
-                validate_enrollment_permiss: false,
             });
 
             this.cacheProvider.invalidate('profiles');

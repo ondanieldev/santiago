@@ -23,26 +23,30 @@ export default class ProfilesController {
     ): Promise<Response> {
         const {
             name,
-            new_enrollment_permiss,
-            discharge_payment_permiss,
-            pay_debit_permiss,
-            validate_enrollment_permiss,
+            create_extra_debits_permiss,
+            create_new_enrollments_permiss,
+            crud_extra_debits_permiss,
             crud_grades_permiss,
             crud_profiles_permiss,
             crud_users_permiss,
+            discharge_payments_permiss,
+            pay_debits_permiss,
+            validate_enrollments_permiss,
         } = request.body;
 
         const createProfile = container.resolve(CreateProfileService);
 
         const profile = await createProfile.execute({
             name,
-            new_enrollment_permiss,
-            discharge_payment_permiss,
-            pay_debit_permiss,
-            validate_enrollment_permiss,
+            create_extra_debits_permiss,
+            create_new_enrollments_permiss,
+            crud_extra_debits_permiss,
             crud_grades_permiss,
             crud_profiles_permiss,
             crud_users_permiss,
+            discharge_payments_permiss,
+            pay_debits_permiss,
+            validate_enrollments_permiss,
         });
 
         return response.json(profile);
@@ -54,13 +58,15 @@ export default class ProfilesController {
     ): Promise<Response> {
         const {
             name,
-            new_enrollment_permiss,
-            discharge_payment_permiss,
-            pay_debit_permiss,
-            validate_enrollment_permiss,
+            create_extra_debits_permiss,
+            create_new_enrollments_permiss,
+            crud_extra_debits_permiss,
             crud_grades_permiss,
             crud_profiles_permiss,
             crud_users_permiss,
+            discharge_payments_permiss,
+            pay_debits_permiss,
+            validate_enrollments_permiss,
         } = request.body;
 
         const { profile_id } = request.params;
@@ -70,13 +76,15 @@ export default class ProfilesController {
         const profile = await updateProfile.execute({
             id: profile_id,
             name,
-            new_enrollment_permiss,
-            discharge_payment_permiss,
-            pay_debit_permiss,
-            validate_enrollment_permiss,
+            create_extra_debits_permiss,
+            create_new_enrollments_permiss,
+            crud_extra_debits_permiss,
             crud_grades_permiss,
             crud_profiles_permiss,
             crud_users_permiss,
+            discharge_payments_permiss,
+            pay_debits_permiss,
+            validate_enrollments_permiss,
         });
 
         return response.json(profile);

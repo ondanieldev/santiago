@@ -11,14 +11,15 @@ interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
   component: React.ComponentType;
   needPermissions?: (
-    | 'new_enrollment_permiss'
-    | 'validate_enrollment_permiss'
-    | 'pay_debit_permiss'
-    | 'discharge_payment_permiss'
+    | 'create_new_enrollments_permiss'
+    | 'validate_enrollments_permiss'
+    | 'create_extra_debits_permiss'
+    | 'pay_debits_permiss'
+    | 'discharge_payments_permiss'
     | 'crud_profiles_permiss'
     | 'crud_users_permiss'
     | 'crud_grades_permiss'
-    | 'create_extra_debit_permiss'
+    | 'crud_extra_debits_permiss'
   )[];
 }
 

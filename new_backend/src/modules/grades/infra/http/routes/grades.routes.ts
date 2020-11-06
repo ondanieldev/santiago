@@ -6,20 +6,30 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 const gradesRouter = Router();
 const gradesController = new GradesController();
 
-gradesRouter.get('/', gradesController.index);
-gradesRouter.post(
+gradesRouter.get(
     '/',
     (req, res, next) => ensureAuthenticated()(req, res, next),
+    gradesController.index,
+);
+
+gradesRouter.post(
+    '/',
+    (req, res, next) =>
+        ensureAuthenticated(['crud_grades_permiss'])(req, res, next),
     gradesController.create,
 );
+
 gradesRouter.put(
     '/:grade_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_grades_permiss'])(req, res, next),
     gradesController.update,
 );
+
 gradesRouter.get(
     '/:grade_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_grades_permiss'])(req, res, next),
     gradesController.show,
 );
 

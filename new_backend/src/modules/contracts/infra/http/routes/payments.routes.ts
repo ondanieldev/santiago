@@ -9,7 +9,8 @@ const contractPaymentsController = new ContractPaymentsController();
 
 debitsRouter.get(
     '/:contract_id/payments',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['discharge_payments_permiss'])(req, res, next),
     contractPaymentsController.index,
 );
 

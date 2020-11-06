@@ -11,13 +11,15 @@ const contractExtraDebitsController = new ContractExtraDebitsController();
 
 debitsRouter.get(
     '/:contract_id/debits',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['pay_debits_permiss'])(req, res, next),
     contractDebitsController.index,
 );
 
 debitsRouter.get(
     '/:contract_id/debits/extra',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_extra_debits_permiss'])(req, res, next),
     contractExtraDebitsController.index,
 );
 

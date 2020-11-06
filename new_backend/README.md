@@ -297,4 +297,5 @@
     - [ ] Refazer estratégia de cache
 - [ ] Refatorar testes
 - [ ] Implementar celebrate para filtrar dados vindos do front-end;
-- [ ] Redefinir permissões de usuário
+- [x] Redefinir permissões de usuário
+- [ ] Implementar funções que utilizam regras de juros facultativa

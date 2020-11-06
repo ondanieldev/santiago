@@ -9,19 +9,22 @@ const extraDebitsController = new ExtraDebitsController();
 
 debitsRouter.post(
     '/extra',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['create_extra_debits_permiss'])(req, res, next),
     extraDebitsController.create,
 );
 
 debitsRouter.put(
     '/extra/:debit_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_extra_debits_permiss'])(req, res, next),
     extraDebitsController.update,
 );
 
 debitsRouter.delete(
     '/extra/:debit_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_extra_debits_permiss'])(req, res, next),
     extraDebitsController.delete,
 );
 

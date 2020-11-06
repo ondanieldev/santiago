@@ -1,14 +1,13 @@
-declare namespace Express {
-    interface Request {
-        user: {
-            id: string;
-            crud_grades_permiss: boolean;
-            crud_profiles_permiss: boolean;
-            crud_users_permiss: boolean;
-            discharge_payment_permiss: boolean;
-            new_enrollment_permiss: boolean;
-            pay_debit_permiss: boolean;
-            validate_enrollment_permiss: boolean;
-        };
+import IPermissions from '@modules/profiles/dtos/IPermissions';
+
+interface IUser extends IPermissions {
+    id: string;
+}
+
+declare global {
+    declare namespace Express {
+        interface Request {
+            user: IUser;
+        }
     }
 }

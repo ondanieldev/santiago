@@ -3,29 +3,26 @@ import { verify, decode } from 'jsonwebtoken';
 
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
+import IPermissions from '@modules/profiles/dtos/IPermissions';
 
-interface ITokenPayload {
-    crud_grades_permiss: boolean;
-    crud_profiles_permiss: boolean;
-    crud_users_permiss: boolean;
-    discharge_payment_permiss: boolean;
-    new_enrollment_permiss: boolean;
-    pay_debit_permiss: boolean;
-    validate_enrollment_permiss: boolean;
+interface ITokenPayload extends IPermissions {
     iat: number;
     exp: number;
     sub: string;
 }
 
 export default (
-    permission?:
-        | 'crud_grades_permiss'
+    permissions?: (
+        | 'create_new_enrollments_permiss'
+        | 'validate_enrollments_permiss'
+        | 'create_extra_debits_permiss'
+        | 'pay_debits_permiss'
+        | 'discharge_payments_permiss'
         | 'crud_profiles_permiss'
         | 'crud_users_permiss'
-        | 'discharge_payment_permiss'
-        | 'new_enrollment_permiss'
-        | 'pay_debit_permiss'
-        | 'validate_enrollment_permiss',
+        | 'crud_grades_permiss'
+        | 'crud_extra_debits_permiss'
+    )[],
 ): Function => {
     return (request: Request, response: Response, next: NextFunction): void => {
         const authHeader = request.headers.authorization;
@@ -43,39 +40,49 @@ export default (
 
             const {
                 sub,
-                crud_grades_permiss,
+                create_new_enrollments_permiss,
+                validate_enrollments_permiss,
+                create_extra_debits_permiss,
+                pay_debits_permiss,
+                discharge_payments_permiss,
                 crud_profiles_permiss,
                 crud_users_permiss,
-                discharge_payment_permiss,
-                new_enrollment_permiss,
-                pay_debit_permiss,
-                validate_enrollment_permiss,
+                crud_grades_permiss,
+                crud_extra_debits_permiss,
             } = decoded as ITokenPayload;
 
             request.user = {
                 id: sub,
-                crud_grades_permiss,
+                create_new_enrollments_permiss,
+                validate_enrollments_permiss,
+                create_extra_debits_permiss,
+                pay_debits_permiss,
+                discharge_payments_permiss,
                 crud_profiles_permiss,
                 crud_users_permiss,
-                discharge_payment_permiss,
-                new_enrollment_permiss,
-                pay_debit_permiss,
-                validate_enrollment_permiss,
+                crud_grades_permiss,
+                crud_extra_debits_permiss,
             };
 
-            if (permission) {
-                if (request.user[permission]) {
-                    return next();
-                }
+            if (permissions) {
+                permissions.forEach(permiss => {
+                    if (request.user[permiss]) {
+                        return next();
+                    }
+                });
+
                 throw new AppError('');
             } else {
                 return next();
             }
         } catch (err) {
             if (err instanceof AppError) {
-                throw new AppError('You do not have permiss!', 401);
+                throw new AppError(
+                    'You do not have permiss to execute this function!',
+                    401,
+                );
             }
-            throw new AppError('Invalid JWT token.', 401);
+            throw new AppError('Token expirado, faça login novamente!', 401);
         }
     };
 };

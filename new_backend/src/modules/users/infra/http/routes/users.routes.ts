@@ -8,17 +8,22 @@ const usersRouter = Router();
 
 usersRouter.get(
     '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_users_permiss'])(req, res, next),
     usersController.index,
 );
+
 usersRouter.post(
     '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_users_permiss'])(req, res, next),
     usersController.create,
 );
+
 usersRouter.put(
     '/:user_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_users_permiss'])(req, res, next),
     usersController.update,
 );
 

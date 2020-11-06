@@ -8,7 +8,8 @@ const dischargesController = new DischargesController();
 
 dischargesRouter.post(
     '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['discharge_payments_permiss'])(req, res, next),
     dischargesController.create,
 );
 

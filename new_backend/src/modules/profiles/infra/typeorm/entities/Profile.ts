@@ -17,16 +17,19 @@ class Profile {
     name: string;
 
     @Column('boolean')
-    new_enrollment_permiss: boolean;
+    create_new_enrollments_permiss: boolean;
 
     @Column('boolean')
-    validate_enrollment_permiss: boolean;
+    validate_enrollments_permiss: boolean;
 
     @Column('boolean')
-    pay_debit_permiss: boolean;
+    create_extra_debits_permiss: boolean;
 
     @Column('boolean')
-    discharge_payment_permiss: boolean;
+    pay_debits_permiss: boolean;
+
+    @Column('boolean')
+    discharge_payments_permiss: boolean;
 
     @Column('boolean')
     crud_profiles_permiss: boolean;
@@ -36,6 +39,9 @@ class Profile {
 
     @Column('boolean')
     crud_grades_permiss: boolean;
+
+    @Column('boolean')
+    crud_extra_debits_permiss: boolean;
 
     @CreateDateColumn()
     created_at: Date;

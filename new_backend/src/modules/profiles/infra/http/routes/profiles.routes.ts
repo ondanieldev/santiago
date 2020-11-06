@@ -8,17 +8,26 @@ const profilesRouter = Router();
 
 profilesRouter.get(
     '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_profiles_permiss', 'crud_users_permiss'])(
+            req,
+            res,
+            next,
+        ),
     profilesController.index,
 );
+
 profilesRouter.post(
     '/',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_profiles_permiss'])(req, res, next),
     profilesController.create,
 );
+
 profilesRouter.put(
     '/:profile_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['crud_profiles_permiss'])(req, res, next),
     profilesController.update,
 );
 

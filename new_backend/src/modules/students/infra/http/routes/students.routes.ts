@@ -13,14 +13,22 @@ const upload = multer(uploadConfig.multer);
 const studentsController = new StudentsController();
 const studentsPhotosController = new StudentsPhotosController();
 
-studentsRouter.post('/', studentsController.create);
+// studentsRouter.post('/', studentsController.create);
+
 studentsRouter.put(
     '/:student_id',
-    (req, res, next) => ensureAuthenticated()(req, res, next),
+    (req, res, next) =>
+        ensureAuthenticated(['validate_enrollments_permiss'])(req, res, next),
     studentsController.update,
 );
+
 studentsRouter.patch(
     '/photos/:student_id',
+    (req, res, next) =>
+        ensureAuthenticated([
+            'create_new_enrollments_permiss',
+            'validate_enrollments_permiss',
+        ])(req, res, next),
     upload.any(),
     studentsPhotosController.update,
 );

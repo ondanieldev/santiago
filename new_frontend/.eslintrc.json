@@ -44,6 +44,7 @@
       "no-param-reassign": "off",
       "no-plusplus": "off",
       "@typescript-eslint/no-empty-function": "off",
+      "consistent-return": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
