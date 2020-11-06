@@ -49,6 +49,7 @@ interface IFormData {
   payment_limit_date: Date;
   select_all: boolean;
   value: number;
+  apply_interest_rules: boolean;
   contracts_ids: IFormContracts;
 }
 
@@ -68,6 +69,7 @@ const CreateExtraDebitMenu: React.FC = () => {
       discount,
       payment_limit_date,
       value,
+      apply_interest_rules,
     }: IFormData) => {
       try {
         setLoadingSubmit(true);
@@ -80,11 +82,11 @@ const CreateExtraDebitMenu: React.FC = () => {
             () => 'Desconto precisa ser numérico',
           ),
           payment_limit_date: Yup.date()
-            .typeError(() => 'Deata inválida')
-            .required(),
+            .typeError(() => 'Data inválida')
+            .required('Data obrigatória'),
           value: Yup.number()
             .typeError(() => 'O valor precisa ser numérico')
-            .required(),
+            .required('Valor obrigatório'),
         });
 
         await validateFormData.validate(
@@ -110,12 +112,15 @@ const CreateExtraDebitMenu: React.FC = () => {
                 discount,
                 payment_limit_date,
                 value,
+                apply_interest_rules,
               }),
             );
           }
         });
 
         await Promise.all(promises);
+
+        formRef.current?.reset();
 
         toast.success('Débitos criados com sucesso!');
       } catch (err) {
@@ -218,6 +223,13 @@ const CreateExtraDebitMenu: React.FC = () => {
                 type="date"
                 name="payment_limit_date"
                 label="Data limite de pagamento"
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Checkbox
+                name="apply_interest_rules"
+                label="Aplicar regras de juros"
               />
             </InputGroup>
           </FormGroup>

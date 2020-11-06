@@ -11,4 +11,5 @@ export default interface IDebit {
   type: 'enrollment' | 'installment';
   contract_id: string;
   payment: IPayment;
+  apply_interest_rules: boolean;
 }

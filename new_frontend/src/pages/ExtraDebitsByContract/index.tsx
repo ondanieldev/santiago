@@ -37,6 +37,7 @@ import IDebit from '../../entities/IDebit';
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { prettyDate, formatCoin } from '../../utils/formatFunctions';
+import Checkbox from '../../components/Checkbox';
 
 interface IFormData {
   method: 'creditCard' | 'debitCard' | 'cash' | 'check' | 'deposit' | 'slip';
@@ -56,6 +57,7 @@ interface IFormData {
   payment_limit_date: Date;
   select_all: boolean;
   value: number;
+  apply_interest_rules: boolean;
 }
 
 const ExtraDebitsByContract: React.FC = () => {
@@ -102,13 +104,13 @@ const ExtraDebitsByContract: React.FC = () => {
   const calcTrueValue = useCallback((debit: IDebitWithVariation): number => {
     const parsedDebitDate = parseISO(debit.payment_limit_date.toString());
 
-    let true_value = debit.value;
+    let true_value = Number(debit.value);
 
-    if (isPast(parsedDebitDate)) {
+    if (isPast(parsedDebitDate) && debit.apply_interest_rules) {
       const months = differenceInCalendarMonths(new Date(), parsedDebitDate);
 
       true_value = debit.value * 1.03 ** months;
-    } else {
+    } else if (!isPast(parsedDebitDate)) {
       true_value = debit.value - (debit.value * debit.discount) / 100;
     }
 
@@ -116,7 +118,13 @@ const ExtraDebitsByContract: React.FC = () => {
   }, []);
 
   const handleEditExtraDebit = useCallback(
-    async ({ description, discount, payment_limit_date, value }: IFormData) => {
+    async ({
+      description,
+      discount,
+      payment_limit_date,
+      value,
+      apply_interest_rules,
+    }: IFormData) => {
       try {
         setLoadingSubmit(true);
 
@@ -150,6 +158,7 @@ const ExtraDebitsByContract: React.FC = () => {
           discount,
           payment_limit_date,
           value,
+          apply_interest_rules,
         });
 
         const updatedDebit = response.data as IDebitWithVariation;
@@ -297,6 +306,13 @@ const ExtraDebitsByContract: React.FC = () => {
               />
             </InputGroup>
 
+            <InputGroup>
+              <Checkbox
+                name="apply_interest_rules"
+                label="Aplicar regras de juros"
+              />
+            </InputGroup>
+
             {selectedEditDebit && (
               <ButtonGroup>
                 <Button type="submit" loading={loadingSubmit}>
@@ -336,7 +352,7 @@ const ExtraDebitsByContract: React.FC = () => {
                 <td>
                   {typeof debit.true_value === 'number'
                     ? formatCoin(debit.true_value)
-                    : debit.value}
+                    : formatCoin(debit.value)}
                 </td>
                 <td>{prettyDate(debit.payment_limit_date)}</td>
                 <td>

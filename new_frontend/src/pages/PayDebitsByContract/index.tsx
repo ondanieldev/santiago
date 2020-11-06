@@ -60,16 +60,16 @@ const Debits: React.FC = () => {
         debitsFromApi.forEach((debit: IDebitWithVariation) => {
           const parsedDebitDate = parseISO(debit.payment_limit_date.toString());
 
-          let true_value = debit.value;
+          let true_value = Number(debit.value);
 
-          if (isPast(parsedDebitDate)) {
+          if (isPast(parsedDebitDate) && debit.apply_interest_rules) {
             const months = differenceInCalendarMonths(
               new Date(),
               parsedDebitDate,
             );
 
             true_value = debit.value * 1.03 ** months;
-          } else {
+          } else if (!isPast(parsedDebitDate)) {
             true_value = debit.value - (debit.value * debit.discount) / 100;
           }
 
@@ -144,7 +144,7 @@ const Debits: React.FC = () => {
 
             let true_value = debit.value;
 
-            if (isPast(parsedDebitDate)) {
+            if (isPast(parsedDebitDate) && debit.apply_interest_rules) {
               const months = differenceInCalendarMonths(
                 new Date(),
                 parsedDebitDate,
@@ -224,7 +224,7 @@ const Debits: React.FC = () => {
                 <td>
                   {debit.true_value
                     ? formatCoin(debit.true_value)
-                    : debit.value}
+                    : formatCoin(debit.value)}
                 </td>
                 <td>{prettyDate(debit.payment_limit_date)}</td>
                 <td>{debit.payday ? prettyDate(debit.payday) : '-'}</td>

@@ -108,7 +108,7 @@
 - [ ] Tamanhos dos inputs
 - [ ] Estado civil enum
 - [ ] Renda mensal enum
-- [ ] Aplicação de juros opcional nos débitos adicionais
+- [x] Aplicação de juros opcional nos débitos adicionais
 - [x] Refazer fluxo de telas com turmas
 - [x] Corrigir permissões de usuário
 - [ ] Relogin após o token expirar
