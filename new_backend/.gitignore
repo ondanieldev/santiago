@@ -9,3 +9,4 @@ dist/
 tmp/*
 !tmp/upload/.gitkeep
 .env
+ormconfig.json
