@@ -169,19 +169,24 @@ const Profiles: React.FC = () => {
             <Input placeholder="Nome" name="name" icon={FiBriefcase} />
 
             <Checkbox
-              name="new_enrollment_permiss"
+              name="create_new_enrollments_permiss"
               label="Criar nova matrícula"
             />
 
             <Checkbox
-              name="validate_enrollment_permiss"
+              name="validate_enrollments_permiss"
               label="Aprovar e desaprovar matrículas"
             />
 
-            <Checkbox name="pay_debit_permiss" label="Pagar débitos" />
+            <Checkbox
+              name="create_extra_debits_permiss"
+              label="Criar débitos extras"
+            />
+
+            <Checkbox name="pay_debits_permiss" label="Pagar débitos" />
 
             <Checkbox
-              name="discharge_payment_permiss"
+              name="discharge_payments_permiss"
               label="Receber pagamentos"
             />
 
@@ -190,6 +195,11 @@ const Profiles: React.FC = () => {
             <Checkbox name="crud_users_permiss" label="Gerenciar usuários" />
 
             <Checkbox name="crud_grades_permiss" label="Gerenciar turmas" />
+
+            <Checkbox
+              name="crud_extra_debits_permiss"
+              label="Gerenciar débitos extras"
+            />
 
             <ButtonGroup>
               {!profileId ? (
