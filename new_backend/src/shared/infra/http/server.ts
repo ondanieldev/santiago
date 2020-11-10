@@ -19,6 +19,7 @@ import '@shared/container';
 import routes from '@shared/infra/http/routes';
 
 const app = express();
+const port = process.env.APP_API_PORT || 3333;
 
 // app.use(rateLimiter);
 
@@ -50,6 +51,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     });
 });
 
-app.listen(3333, () => {
-    console.log('Backend running on port 3333!');
+app.listen(port, () => {
+    console.log(`Backend running on port ${port}!`);
 });
