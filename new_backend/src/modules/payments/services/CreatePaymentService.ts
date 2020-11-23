@@ -7,8 +7,8 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import IReceiptProvider from '@shared/container/providers/ReceiptProvider/models/IReceiptProvider';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IContractsRepository from '@modules/contracts/repositories/IContractsRepository';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import Payment from '../infra/typeorm/entities/Payment';
 
 @injectable()
@@ -29,8 +29,8 @@ export default class CreatePaymentService {
         @inject('ReceiptProvider')
         private receiptProvider: IReceiptProvider,
 
-        @inject('CacheProvider')
-        private cacheProvider: ICacheProvider,
+        @inject('StorageProvider')
+        private storageProvider: IStorageProvider,
     ) {}
 
     public async execute({
@@ -122,6 +122,8 @@ export default class CreatePaymentService {
             method,
         });
 
+        await this.storageProvider.saveFile(receipt);
+
         const payment = await this.paymentsRepository.create({
             amount: paymentValue,
             debit_id,
@@ -133,8 +135,6 @@ export default class CreatePaymentService {
         Object.assign(debit, { paid: true, payday: new Date() });
 
         await this.debitsRepository.save(debit);
-
-        await this.cacheProvider.invalidate('undischarged-payments');
 
         return payment;
     }

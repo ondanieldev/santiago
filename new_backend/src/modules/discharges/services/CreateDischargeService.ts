@@ -60,8 +60,6 @@ export default class CreateDischargeService {
 
         await this.paymentsRepository.save(payment);
 
-        await this.cacheProvider.invalidate('undischarged-payments');
-
         return discharge;
     }
 }

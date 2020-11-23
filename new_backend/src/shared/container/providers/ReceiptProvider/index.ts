@@ -1,10 +1,10 @@
 import { container } from 'tsyringe';
 
 import IReceiptProvider from './models/IReceiptProvider';
-import DiskReceiptProvider from './implementations/DiskReceiptProvider';
+import PDFReceiptProvider from './implementations/PDFReceiptProvider';
 
 const providers = {
-    disk: container.resolve(DiskReceiptProvider),
+    pdf: container.resolve(PDFReceiptProvider),
 };
 
-container.registerInstance<IReceiptProvider>('ReceiptProvider', providers.disk);
+container.registerInstance<IReceiptProvider>('ReceiptProvider', providers.pdf);

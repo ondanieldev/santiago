@@ -75,27 +75,6 @@ export default class ContractsRepository implements IContractsRepository {
         return contract;
     }
 
-    public async findByStudentName(student_name: string): Promise<Contract[]> {
-        const contracts = this.ormRepository
-            .createQueryBuilder('contract')
-            .select(['contract.id', 'contract.status'])
-            .addSelect('student.name')
-            .addSelect(['grade.name', 'grade.year'])
-            .leftJoin(
-                'contract.student',
-                'student',
-                'student.id = contract.student_id',
-            )
-            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
-            .where(
-                "(contract.status = 'accepted' or contract.status = 'active') and lower(student.name) like :student_name",
-                { student_name: `%${student_name}%` },
-            )
-            .getMany();
-
-        return contracts;
-    }
-
     public async save(contract: Contract): Promise<Contract> {
         await this.ormRepository.save(contract);
 
@@ -140,10 +119,11 @@ export default class ContractsRepository implements IContractsRepository {
         return contracts;
     }
 
-    public async findActiveByStudentName(
+    public async findUnderAnalysisAndPendentByStudentName(
         student_name: string,
+        grade_id: string,
     ): Promise<Contract[]> {
-        const contracts = this.ormRepository
+        const contracts = await this.ormRepository
             .createQueryBuilder('contract')
             .select(['contract.id', 'contract.status'])
             .addSelect('student.name')
@@ -155,8 +135,56 @@ export default class ContractsRepository implements IContractsRepository {
             )
             .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
             .where(
-                "contract.status = 'active' and lower(student.name) like :student_name",
-                { student_name: `%${student_name}%` },
+                "(contract.status = 'underAnalysis' or contract.status = 'pendent') and lower(student.name) like :student_name and contract.grade_id = :grade_id",
+                { student_name: `%${student_name}%`, grade_id },
+            )
+            .getMany();
+
+        return contracts;
+    }
+
+    public async findAcceptedAndActiveByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]> {
+        const contracts = await this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where(
+                "(contract.status = 'accepted' or contract.status = 'active') and lower(student.name) like :student_name and contract.grade_id = :grade_id",
+                { student_name: `%${student_name}%`, grade_id },
+            )
+            .getMany();
+
+        return contracts;
+    }
+
+    public async findActiveByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]> {
+        const contracts = await this.ormRepository
+            .createQueryBuilder('contract')
+            .select(['contract.id', 'contract.status'])
+            .addSelect('student.name')
+            .addSelect(['grade.name', 'grade.year'])
+            .leftJoin(
+                'contract.student',
+                'student',
+                'student.id = contract.student_id',
+            )
+            .leftJoin('contract.grade', 'grade', 'grade.id = contract.grade_id')
+            .where(
+                "contract.status = 'active' and lower(student.name) like :student_name and contract.grade_id = :grade_id",
+                { student_name: `%${student_name}%`, grade_id },
             )
             .getMany();
 

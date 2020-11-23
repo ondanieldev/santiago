@@ -1,0 +1,20 @@
+version: "2.2"
+services:
+
+    postgres:
+        image: bitnami/postgresql:latest
+        environment:
+            - POSTGRESQL_PASSWORD=b18fa5e5444e20f48cefdde71a977548
+            - POSTGRESQL_USERNAME=postgres
+            - POSTGRESQL_DATABASE=sisgie
+        ports:
+            - 1516:5432
+        restart: unless-stopped
+
+    redis:
+        image: bitnami/redis:latest
+        environment:
+            - REDIS_PASSWORD=75ddddfd99292e65315e76b946b8d08e
+        ports:
+            - 6230:6379
+        restart: unless-stopped

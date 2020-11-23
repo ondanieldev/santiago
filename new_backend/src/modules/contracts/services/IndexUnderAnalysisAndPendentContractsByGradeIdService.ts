@@ -15,21 +15,19 @@ class IndexUnderAnalysisAndPendentContractsByGradeService {
     ) {}
 
     public async execute(grade_id: string): Promise<Contract[] | []> {
-        // let contracts = await this.cacheProvider.recovery<Contract[]>(
-        //     'under-analysis-and-pendent-contracts',
-        // );
-
-        let contracts;
+        let contracts = await this.cacheProvider.recovery<Contract[]>(
+            `under-analysis-and-pendent-contracts:${grade_id}`,
+        );
 
         if (!contracts) {
-            contracts = await this.contractsRepository.findAcceptedAndActiveByGradeId(
+            contracts = await this.contractsRepository.findUnderAnalysisAndPendentByGradeId(
                 grade_id,
             );
 
-            // await this.cacheProvider.register(
-            //     'under-analysis-and-pendent-contracts',
-            //     contracts,
-            // );
+            await this.cacheProvider.register(
+                `under-analysis-and-pendent-contracts:${grade_id}`,
+                contracts,
+            );
         }
 
         return contracts;

@@ -23,15 +23,16 @@ export const Container = styled.aside`
   height: 100%;
 `;
 
-export const AnimatedContainer = styled.aside`
+export const AnimatedContainer = styled.div`
   background-color: var(--gray);
   height: 100%;
+
   animation: ${appearFromLeft} 0.5s;
   z-index: 101;
 
   ul {
     list-style: none;
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: var(--blue);
 
     li {
@@ -64,6 +65,11 @@ export const AnimatedContainer = styled.aside`
     left: 0;
     top: 80px;
     width: 300px;
+
+    ul {
+      height: 80vh;
+      overflow-y: scroll;
+    }
   }
 `;
 

@@ -36,6 +36,15 @@ export default class UpdateContractGradeService {
             );
         }
 
+        if (
+            contract.status !== 'pendent' &&
+            contract.status !== 'underAnalysis'
+        ) {
+            throw new AppError(
+                'não é possível atualizar a turma de um contrato que já foi aceito ou já está ativo!',
+            );
+        }
+
         const grade = await this.gradesRepository.findById(grade_id);
 
         if (!grade) {
@@ -44,15 +53,17 @@ export default class UpdateContractGradeService {
             );
         }
 
+        await this.cacheProvider.invalidate(
+            `under-analysis-and-pendent-contracts:${contract.grade_id}`,
+        );
+
         contract.grade = grade;
 
         await this.contractsRepository.save(contract);
 
         await this.cacheProvider.invalidate(
-            'under-analysis-and-pendent-contracts',
+            `under-analysis-and-pendent-contracts:${grade_id}`,
         );
-
-        await this.cacheProvider.invalidate('accepted-and-active-contracts');
 
         return contract;
     }

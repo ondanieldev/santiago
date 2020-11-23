@@ -1,301 +1,101 @@
-# :white_check_mark: Criação de matrículas
+# SISGIE - Back-end
 
-**RF**
+## Introduction
 
-- [x] O usuário deve poder criar uma matrícula informando os dados dos responsáveis financeiro e solidário, os dados do aluno e a turma desejada;
-- [x] O usuário deve poder buscar por um responsável já cadastrado através de seu CPF;
-- [x] O usuário deve poder reutilizar um responsável já cadastrado previamente através de seu id;
-- [x] O usuário deve poder receber um e-mail informando que seu pedido de matrícula foi recebido e será processado;
+This application was created to manage a school with a focus on the financial department. As the application was developed with SOLID principles, it will be easy to attach new modules in the future.
 
-**RNF**
+You also can see all functions and application flow on the `tasks.md` file.
 
-- [x] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
-- [x] Utilizar handlebars como template engine para estilizar o e-mail
-- [x] Devem ser criadas as seguintes tabelas:
-    - 1. Aluno;
-    - 2. Contrato (entre o aluno e a turma);
-    - 3. Responsável (uma entrada para cada responsável novo);
-    - 4. Relacionamento (entre o responsável e o aluno; uma entrada para cada responsável);
-    - 5. Acordo (entre o responsável e o contrato; uma entrada para cada responsável);
+## Setup
 
-**RN**
+To run the application, you need to follow the steps below:
 
-- [x] O usuário não deve poder visualizar informações sensíveis do responsável buscado, somente seu nome;
-- [x] O usuário não deve poder cadastrar dois responsáveis do mesmo tipo;
-- [x] O usuário não deve poder cadastrar responsáveis com o mesmo e-mail, cpf ou rg;
-- [x] O usuário não deve poder cadastrar um responsável com e-mail, cpf ou rg que já estão em uso;
-- [x] O usuário não deve poder cadastrar um aluno em uma turma que não existe;
-- [x] O usuário não deve poder reutilizar um responsável que não existe;
+### Filling in environment variables
 
-# :white_check_mark: Aprovação/Reprovação de matrículas
+Copy `.env.example` to `.env` and fill the environment variables:
 
-**RF**
+| Variable              | Possible values                                                                                                           | Description                                                                                                                                         |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AUTH_SECRET           | Any                                                                                                                       | JWT secret to generate and validate login tokens.                                                                                                   |
+| REDIS_HOST            | Any                                                                                                                       | Redis database host. By default, this variable is empty.                                                                                            |
+| REDIS_PORT            | Any number                                                                                                                | Redis database port. By default, Redis works through the port 6379, but it is a good practice to change the port with docker.                       |
+| REDIS_PASSWORD        | Any                                                                                                                       | Redis database password.                                                                                                                            |
+| MAIL_PROVIDER         | ethereal or ses                                                                                                           | Driver used to provide mail services. In this application, we have two providers available: Ethereal for development and Amazon SES for production. |
+| MAIL_DEFAULT_NAME     | Any                                                                                                                       | Name that you want to use when sending emails.                                                                                                      |
+| MAIL_DEFAULT_EMAIL    | Any                                                                                                                       | The email that you want to use to send mails. To use Amazon SES, the email must be registered on the AWS platform.                                  |
+| AWS_ACCESS_KEY_ID     | Any                                                                                                                       | Your AWS IAM access key id.                                                                                                                         |
+| AWS_SECRET_ACCESS_KEY | Any                                                                                                                       | Your AWS IAM secret access key.                                                                                                                     |
+| AWS_DEFAULT_REGION    | Any                                                                                                                       | The region where your AWS account is placed.                                                                                                        |
+| STORAGE_PROVIDER      | disk or s3                                                                                                                | Driver used to provide storage services. In this application, we have two providers available: Disk for development and Amazon S3 for production.   |
+| AWS_S3_BUCKET         | Any                                                                                                                       | Your AWS bucket where you want to storage the images and PDFs.                                                                                      |
+| AWS_S3_PERMISSION     | private, public-read, public-read-write, authenticated-read,aws-exec-read, bucket-owner-read or bucket-owner-full-control | Permission to access the file on AWS S3. As the files stored on this application must be accessed by the users, we use the public-read permission.  |
+| AWS_S3_URL            | Any                                                                                                                       | The URL where your S3 is placed. This variable is used to construct the URL of the files when using S3 storage provider.                            |
+| APP_API_URL           | Any                                                                                                                       | The URL where your backend is running. This variable is used to construct the URL of the files when using Disk storage provider.                    |
+| APP_API_PORT          | Any                                                                                                                       | The port where you want to run your application.                                                                                                    |
 
-- [x] O usuário deve poder listar todas as matrículas que estão em análise ou pendente;
-- [x] O usuário deve poder visualizar todos os dados referentes a uma matrícula;
-- [x] O usuário deve poder atualizar todos os dados referentes a uma matrícula;
-    - 1. [x] Dados do aluno.
-    - 2. [x] Dados de cada um dos responsáveis;
-    - 3. [x] Turma desejada;
-- [x] O usuário deve poder aprovar uma matrícula informando o id do contrato, um comentário opcional e um contato de e-mail opcional;
-- [x] O usuário deve poder desaprovar uma matrícula informando o id do contrato, um comentário opcional e um contato de e-mail opcional;
-- [x] O sistema deve poder, caso a matrícula seja aprovada, gerar um novo débito referente à primeira parcela da matrícula;
-- [x] O usuário deve poder receber um e-mail informando se sua matrícula foi aprovada ou não, contento o comentário tecido pelo agente que aprovou e contendo o valor do débito caso tenha sido aprovada;
-- [x] Deixar o template bonito e com dados pertinentes
-- [x] O usuário deve poder inserir um valor de desconto no ato da aprovação
+### Filling in containers data
 
-**RNF**
+Copy `docker-compose.example.yml` to `docker-compose.yml` and fill the containers data:
 
-- [x] A lista de matrículas deve ser armazenada em cache;
-- [x] Utilizar o Ethereal para envios de e-mail em ambiente de desenvolvimento;
+| Variable               | Description                                                                                                                                                                                                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| POSTGRESQL_PASSWORD    | Postgres database password.                                                                                                                                                                                                                                             |
+| POSTGRESQL_USERNAME    | Postgres database username.                                                                                                                                                                                                                                             |
+| POSTGRESQL_DATABASE    | Postgres database name.                                                                                                                                                                                                                                                 |
+| Ports (postgres image) | By default, postgres runs on port 5432. Therefore, the bitnami image used to configure this application also uses port 5432. However, it is a good practice to change this port to a random another. To do this, fill the left side of the port field to a random port. |
+| REDIS_PASSWORD         | Redis database password                                                                                                                                                                                                                                                 |
+| Ports (redis image)    | By default, redis runs on port 6379. Therefore, the bitnami image used to configure this application also uses port 6379. However, it is a good practice to change this port to a random another. To do this, fill the left side of the port field to a random port.    |
 
-**RN**
+### Filling in TypeORM settings
 
-- [x] O usuário não deve poder listar matrículas que não estejam com status de análise ou de pendência;
-- [x] Ao buscar as entradas no banco, apenas os dados essenciais de exibição devem ser baixados;
-- [x] O usuário não deve poder visualizar os dados de uma matrícula que não existe;
-- [x] O usuário não deve poder atualizar os dados de uma matrícula que não existe;
-- [x] O usuário não deve poder atualizar os dados de uma matrícula sem seguir as mesmas regras de criação;
-- [x] O usuário não deve poder aprovar ou desaprovar uma matrícula que não existe;
-- [x] O usuário não deve poder aprovar ou desaprovar uma matrícula se não informar qual das duas operações deseja realizar;
-- [x] O usuário não deve poder aprovar ou desaprovar um contrato que já foi aprovado ou que já está ativo
+Copy `ormconfig.example.json` to `ormconfig.json` and fill the TypeORM settings:
 
-**CHANGES**
-- [x] Dia de pagamento
+| Variable      | Description                                                                                                                                                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type          | Databse type. Unless you change the database to another one, fill this field with postgres.                                                                                                                                              |
+| host          | Database host. Unless you run the containers on another server, fill this field with localhost.                                                                                                                                          |
+| port          | Database port. The same port used on the right side of the postgres container port field.                                                                                                                                                |
+| username      | Database username. The same username used on the postgres container.                                                                                                                                                                     |
+| password      | Database password. The same password used on the postgres container.                                                                                                                                                                     |
+| database      | Database name. The same database used on the postgres container.                                                                                                                                                                         |
+| entities      | Database entities. By default, in development mode, entities are placed in `./src/modules/**/infra/typeorm/entities/*.ts`. In production mode, they are placed in `./dist/modules/**/infra/typeorm/entities/*.js`                        |
+| migrations    | Database migrations. By default, in development mode, migrations are placed on `./src/shared/infra/typeorm/migrations/*.ts`. In the production mode, they are placed in `./dist/shared/infra/typeorm/migrations/*.js`                    |
+| migrationsDir | Database migrations directory used to run migration commands. By default, in development mode, migrations folder is `./src/shared/infra/typeorm/migrations`. In the prodcution mode, it is `./dist/shared/infra/typeorm/migrations/*.ts` |
 
-# :white_check_mark: Atualização de fotos do responsável
+### Installing dependencies
 
-**RF**
+Run `yarn` to generate `node_modules` folder with all dependencies used in this application.
 
-- [x] O usuário deve poder atualizar as fotos do responsável através de seu id;
+### Generating production folder
 
-**RNF**
+Run `yarn build` to generate `dist` folder with babel.
 
-- [x] As fotos devem ser armazenadas em disco em ambiente de desenvolvimento;
+## Running
 
-**RN**
+1. Run `docker-compose up -d` to starts and run all containers;
+2. Run `yarn typeorm migration:run` to create database tables and other database settings;
+3. Run `yarn dev:server` in development mode or`yarn prod` in production mode. When running in production mode, do not forget to run this command from the root folder. If you do not, the application will not be able to register the environment variables and will not work.
 
-- [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
+## Tests
 
-# :white_check_mark: Atualização de fotos do aluno
+This application was developed using TDD (Test Driven Development) with TS Jest. To run the tests, just run `yarn test`.
 
-**RF**
+## Workflow CI
 
-- [x] O usuário deve poder atualizar as fotos do aluno através de seu id;
+This application uses GitHub actions to make Continuous Integration. So, whenever you push on the branch master, GitHub will:
 
-**RNF**
+    1. Install dependencies;
+    2. Create dist folder;
+    3. Run migrations;
+    4. Starts the application.
 
-- [x] As fotos devem ser armazenadas em disco em ambiente de desenvolvimento;
+As you see, start docker containers and run tests is not used on this workflow, so you need to run `docker-compose up -d` before to use the actions.
 
-**RN**
+Besides that, you also need to set up some GitHub secrets:
 
-- [x] As fotos devem ser substituídas caso novas fotos sejam enviadas;
-
-# :white_check_mark: Pagamento de débitos
-
-**RF**
-
-- [x] O usuário deve poder listar todos os contratos que estão aprovados;
-- [x] O usuário deve poder buscar por um contrato pelo nome do aluno;
-- [x] O usuário deve poder listar todos os débitos referentes a um contrato aprovado;
-- [x] O usuário deve poder pagar qualquer débito selecionando um método de pagamento;
-- [x] O usuário deve poder receber um recibo informando que o débito foi pago;
-- [x] Caso o débito seja referente à primeira parcela de matrícula, a matrícula deverá receber o status de ativa;
-- [x] Caso o débito seja referente à primeira parcela de matrícula, o aluno e cada um dos responsáveis ligados ao contrato deverão receber um usuário de acesso com perfil estático;
-- [x] Caso o débito seja referente à primeira parcela de matrícula, cada um dos responsáveis ligados ao contrato deverá receber um e-mail contendo o nome de usuário e a senha de acesso seu e do aluno;
-- [x] Caso o débito seja referente à primeira parcela de matrícula, as outras 11 parcelas deverão ser geradas, de modo que recebam o desconto aplicado ao contrato;
-- [x] Caso o débito seja pago antes da data limite de desconto, o desconto será aplicado;
-- [x] Caso o débito seja pago após a data limite de desconto, o desconto não será aplicado;
-- [x] Caso o débito seja pago após a data limite de pagamento, o desconto não será aplicado e juros serão aplicados;
-
-**RNF**
-
-- [x] A lista de contratos deve ser armazenada em cache;
-- [x] O recibo deve ser gerado como um arquivo de texto;
-- [x] O recibo deve ser armazenado em disco em ambiente de desenvolvimento;
-
-**RN**
-
-- [x] O usuário não deve poder listar débitos de um contrato inexistente;
-- [x] O usuário não deve poder listar débitos de um contrato que não foi aprovado;
-- [x] O usuário não deve poder pagar um débito se não estiver logado no sistema;
-- [x] O usuário não deve poder pagar um débito inexistente;
-- [x] O usuário não deve poder pagar um débito que já foi pago;
-- [x] O usuário não deve poder pagar um débito com um método de pagamento inválido;
-- [x] A data limite do desconto deve ser o dia 10 de cada mês ou o dia útil imediatamente posterior ao dia 10;
-
-# :white_check_mark: Recebimento de pagamentos
-
-**RF**
-
-- [x] O usuário deve poder listar todos os pagamentos que já foram realizados e que não foram recebidos;
-- [x] O usuário deve poder receber um pagamento;
-
-**RNF**
-
-- [x] A lista de pagamentos deve ser armazenada em cache;
-
-**RN**
-
-- [x] O usuário não deve poder listar os pagamentos que já foram recebidos;
-- [x] O usuário não deve poder receber um pagamento se não estiver logado no sistema;
-- [x] O usuário não deve poder receber um pagamento que não existe;
-- [x] O usuário não deve poder receber um pagamento que já foi recebido;
-
-# :white_check_mark: CRUD de turmas
-
-**RF**
-
-- [x] O usuário deve poder criar uma turma atráves do nome, ano e valor;
-- [x] O usuário deve poder listar as turmas existentes;
-- [x] O usuário deve poder visualizar todos os dados referentes a uma determinada turma;
-- [x] O usuário deve poder atualizar todos os dados referentes a uma determinada turma;
-
-**RNF**
-
-- [x] A lista de turmas deve ser armazenada em cache;
-
-**RN**
-
-- [x] O usuário não deve poder criar uma turma com o conjunto nome e ano igual ao de outra turma;
-- [x] O usuário não deve poder visualizar os dados de uma turma que não existe;
-- [x] O usuário não deve poder atualizar uma turma que não existe;
-- [x] O usuário não deve poder atualizar uma turma com o conjunto nome e ano igual ao de outra turma;
-
-# :white_check_mark: CRUD de perfis
-
-**RF**
-
-- [x] O usuário deve poder criar uma perfil atráves do nome e permissões;
-- [x] O usuário deve poder listar os perfis existentes;
-- [x] O usuário deve poder atualizar todos os dados referentes a um determinado perfil;
-
-**RNF**
-
-- [x] A lista de perfis deve ser armazenada em cache;
-
-**RN**
-
-- [x] O usuário não deve poder criar um perfil com nome igual ao de outro perfil;
-- [x] O usuário não deve poder atualizar um perfil que não existe;
-- [x] O usuário não deve poder atualizar um perfil com nome igual ao de outro perfil;
-
-# :white_check_mark: CRUD de usuários
-
-**RF**
-
-- [x] O usuário deve poder criar um usuário atráves do nome de usuário, senha e perfil;
-- [x] O usuário deve poder listar os usuários existentes;
-- [x] O usuário deve poder visualizar o nome de usuário e perfil referentes a um determinado usuário;
-- [x] O usuário deve poder atualizar todos os dados referentes a um determinado usuário;
-
-**RNF**
-
-- [x] A lista de usuários deve ser armazenada em cache;
-- [x] A senha do usuário deve ser encriptada usando o jbcrypt;
-
-**RN**
-
-- [x] O usuário não deve poder criar um usuário com nome de usuário igual ao de outro usuário;
-- [x] O usuário não deve poder criar um usuário com um perfil inexistente;
-- [x] O sistema deve encriptar a senha do usuário;
-- [x] O usuário não deve poder visualizar os dados de um usuário que não existe;
-- [x] O usuário não deve poder atualizar um usuário que não existe;
-- [x] O usuário não deve poder atualizar um usuário com nome de usuário igual ao de outro usuário;
-- [x] O usuário não deve poder atualizar um usuário com um perfil inexistente;
-
-# :white_check_mark: Autenticação de usuários
-
-**RF**
-
-- [x] O usuário deve poder acessar o sistema informando seu nome de usuário e senha;
-- [x] O usuário deve poder receber um token de acesso contendo as suas permissões de acesso, as quais são definidas pelo perfil atribuído ao usuário;
-
-**RNF**
-
-- [x] O token de acesso deve ser gerado usando o jsonwebtoken;
-
-**RN**
-
-- [x] O usuário não deve poder acessar o sistema caso não esteja cadastrado no sistema;
-- [x] O usuário não deve poder acessar o sistema caso suas credenciais estejam incorretas;
-- [x] O usuário não deve poder acessar funcionalidades do sistema cujo perfil não lhe dá permissão;
-
-# :white_check_mark: Criação de débitos adicionais
-
-**RF**
-- [x] O usuário deve poder visualizar todas as turmas existentes;
-- [x] O usuário deve poder selecionar uma turma;
-- [x] O usuário deve poder visualizar todos os contratos ativos de uma turma;
-- [x] O usuário deve poder selecionar um ou mais contratos;
-- [x] O usuário deve poder criar um débito para cada contrato selecionado;
-
-**RNF**
-- [x] Os débitos criados pelo usuário deve ser do tipo 'extra';
-
-**RN**
-- [x] O usuário não deve poder criar um débito para um contrato que não existe;
-- [x] O usuário não deve poder criar um débito para um contrato que não está ativo;
-- [x] O usuário não deve poder criar um débito com uma data limite que já passou;
-- [x] O usuário não deve poder criar um débito com um valor negativo;
-- [x] O usuário não deve poder criar um débito com um desconto negativo;
-
-# :white_check_mark: CRUD de débitos
-
-**RF**
-- [x] O usuário deve poder visualizar todas as turmas existentes;
-- [x] O usuário deve poder selecionar uma turma;
-- [x] O usuário deve poder visualizar todos os contratos ativos de uma turma;
-- [x] O usuário deve poder pesquisar um contrato pelo nome do aluno;
-- [x] O usuário deve poder selecionar um contrato;
-- [x] O usuário deve poder visualizar todos os débitos do tipo 'extra' de uma contrato que ainda não foram pagos;
-- [x] O usuário deve poder selecionar um débito;
-- [x] O usuário deve poder editar um débito;
-- [x] O usuário deve poder remover o débito;
-
-**RNF**
-
-
-**RN**
-- [x] O usuário não deve poder remover um débito que não existe;
-- [x] O usuário não deve poder remover um débito que já foi pago;
-- [x] O usuário não deve poder remover um débito que não seja do tipo 'extra';
-- [x] O usuário não deve poder editar um débito que não existe;
-- [x] O usuário não deve poder editar um débito que já foi pago;
-- [x] O usuário não deve poder editar um débito que não seja do tipo 'extra';
-- [x] O usuário não deve poder editar um débito com uma data limite que já passou;
-- [x] O usuário não deve poder editar um débito com um valor negativo;
-- [x] O usuário não deve poder editar um débito com um desconto negativo;
-
-# :white_check_mark: General tasks
-- [x] Método para atualizar turma do contrato precisa ser revisado;
-- [x] Criar campo de recibo na tabela de pagamentos e devolver o pagamento como response após criá-lo;
-    - [x] Devolvê-lo como objeto e com URL;
-- [x] Configurar providers com variáveis de ambiente;
-- [x] Implementar class transformer para ocultar senhas e exibir urls;
-- [x] Implementar express rate limit para evitar ataques de brute force;
-- [x] Configurar providers;
-- [x] Configurar variáveis de ambiente;
-- [x] Filtrar dados retornados na listagem de pagamentos não descarregados
-- [x] Configurar provider de recibos
-
-# Issues
-- [x] Atualizar campo de education level para enum
-- [x] Atualizar campo de income_tax para default false
-- [x] Integridade dos dados na criação de matrícula
-- [x] Usuário do recebimento bugado
-- [x] Data de descarga
-- [x] Gerar recibo de descarga
-- [x] Filtragem de erros criação de nova matrícula
-- [x] Reescrever mensagens de erro
-- [x] Refatorar testes
-- [x] Remodelar o recibo
-- [x] Alterar campos de data dos débitos
-- [x] Segunda parte do débito não imprime tabela de valores
-- [x] Símbolo de porcentagem não está sendo impresso no débito
-- [x] Trocar todas as listagens de matrícula para que sejam agrupadas por turma
-    - [ ] Refazer estratégia de cache
-- [ ] Refatorar testes
-- [ ] Implementar celebrate para filtrar dados vindos do front-end;
-- [x] Redefinir permissões de usuário
-- [x] Implementar funções que utilizam regras de juros facultativa
+| Secret   | Description                                                                                                                                          |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SSH_HOST | Server IP where your application is placed.                                                                                                          |
+| SSH_USER | Server user where your application is placed.                                                                                                        |
+| SSH_PORT | Server SSH port where your application is placed. By default, this port is 22.                                                                       |
+| SSH_KEY  | You need to create an SSH key pair and put the private key in this secret. The public key, however, must be placed in your server's authorized keys. |

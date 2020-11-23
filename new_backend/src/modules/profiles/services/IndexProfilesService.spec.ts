@@ -20,24 +20,30 @@ describe('IndexProfiles', () => {
     it('should be able to list all profiles', async () => {
         const profile = await fakeProfileRepository.create({
             name: 'Profile Example',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         const anotherProfile = await fakeProfileRepository.create({
             name: 'Another Profile Example',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         const profiles = await indexProfiles.execute();
@@ -51,13 +57,16 @@ describe('IndexProfiles', () => {
 
         await fakeProfileRepository.create({
             name: 'Profile Example',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         await indexProfiles.execute();

@@ -4,21 +4,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { Container, AnimatedContainer, Mask } from './styles';
 import { useAuth } from '../../hooks/auth';
 import { useAside } from '../../hooks/aside';
+import IPermissions from '../../dtos/IPermissions';
 
 interface ILink {
   path: string;
   label: string;
-  permiss?: (
-    | 'create_new_enrollments_permiss'
-    | 'validate_enrollments_permiss'
-    | 'create_extra_debits_permiss'
-    | 'pay_debits_permiss'
-    | 'discharge_payments_permiss'
-    | 'crud_profiles_permiss'
-    | 'crud_users_permiss'
-    | 'crud_grades_permiss'
-    | 'crud_extra_debits_permiss'
-  )[];
+  permiss?: Extract<keyof IPermissions, keyof IPermissions>[];
 }
 
 const Aside: React.FC = () => {
@@ -62,6 +53,11 @@ const Aside: React.FC = () => {
         path: '/receive-payments/grades',
         label: 'Receber pagamentos',
         permiss: ['discharge_payments_permiss'],
+      },
+      {
+        path: '/generate-documents/grades',
+        label: 'Gerar documentos',
+        permiss: ['generate_documents_permiss'],
       },
       {
         path: '/extra-debits/grades',

@@ -33,6 +33,24 @@ export const paymentMethods = [
   { value: 'slip', label: 'Boleto' },
 ];
 
+export const civilStateOptions = [
+  { value: '', label: 'Selecionar estado civil' },
+  { value: 'single', label: 'Solteiro(a)' },
+  { value: 'married', label: 'Casado(a)' },
+  { value: 'divorced', label: 'Divorciado(a)' },
+  { value: 'widower', label: 'Viúvo(a)' },
+  { value: 'separeted', label: 'Separado(a)' },
+];
+
+export const monthlyIncomeOptions = [
+  { value: '', label: 'Selecionar renda mensal' },
+  { value: 'a_class', label: 'Acima de R$ 11.262,00' },
+  { value: 'b_class', label: 'Entre R$ 8.641,00 e R$ 11.261,00' },
+  { value: 'c_class', label: 'Entre R$ 2.005,00 e R$ 8.640,00' },
+  { value: 'd_class', label: 'Entre R$ 1.255,00 e R$ 2.004,00' },
+  { value: 'e_class', label: 'Até R$ 1.254,00' },
+];
+
 export interface IOption {
   value: string;
   label: string;

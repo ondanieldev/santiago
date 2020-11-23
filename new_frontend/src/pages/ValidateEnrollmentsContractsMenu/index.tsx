@@ -11,7 +11,7 @@ interface IParams {
   grade_id: string;
 }
 
-const UnderAnalysisAndPendentEnrollments: React.FC = () => {
+const ValidateEnrollmentsContractsMenu: React.FC = () => {
   const history = useHistory();
   const { grade_id } = useParams<IParams>();
 
@@ -29,10 +29,12 @@ const UnderAnalysisAndPendentEnrollments: React.FC = () => {
           handleSelectEnrollment={(id: string) => {
             history.push(`/validate-enrollments/contracts/${id}`);
           }}
+          searchApiUrl={`/contracts/under-analysis-pendent/students/${grade_id}`}
+          showSearch
         />
       </Main>
     </Container>
   );
 };
 
-export default UnderAnalysisAndPendentEnrollments;
+export default ValidateEnrollmentsContractsMenu;

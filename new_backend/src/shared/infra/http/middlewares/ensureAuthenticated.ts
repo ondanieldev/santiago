@@ -12,17 +12,7 @@ interface ITokenPayload extends IPermissions {
 }
 
 export default (
-    permissions?: (
-        | 'create_new_enrollments_permiss'
-        | 'validate_enrollments_permiss'
-        | 'create_extra_debits_permiss'
-        | 'pay_debits_permiss'
-        | 'discharge_payments_permiss'
-        | 'crud_profiles_permiss'
-        | 'crud_users_permiss'
-        | 'crud_grades_permiss'
-        | 'crud_extra_debits_permiss'
-    )[],
+    permissions?: Extract<keyof IPermissions, keyof IPermissions>[],
 ): Function => {
     return (request: Request, response: Response, next: NextFunction): void => {
         const authHeader = request.headers.authorization;
@@ -40,28 +30,14 @@ export default (
 
             const {
                 sub,
-                create_new_enrollments_permiss,
-                validate_enrollments_permiss,
-                create_extra_debits_permiss,
-                pay_debits_permiss,
-                discharge_payments_permiss,
-                crud_profiles_permiss,
-                crud_users_permiss,
-                crud_grades_permiss,
-                crud_extra_debits_permiss,
+                iat,
+                exp,
+                ...permissionsFromToken
             } = decoded as ITokenPayload;
 
             request.user = {
                 id: sub,
-                create_new_enrollments_permiss,
-                validate_enrollments_permiss,
-                create_extra_debits_permiss,
-                pay_debits_permiss,
-                discharge_payments_permiss,
-                crud_profiles_permiss,
-                crud_users_permiss,
-                crud_grades_permiss,
-                crud_extra_debits_permiss,
+                ...permissionsFromToken,
             };
 
             if (permissions) {

@@ -21,25 +21,31 @@ describe('UpdateProfile', () => {
     it('should be able to update all profile data', async () => {
         const profile = await fakeProfileRepository.create({
             name: 'Profile Example',
-            crud_grades_permiss: true,
-            crud_profiles_permiss: true,
-            crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            create_extra_debits_permiss: false,
+            create_new_enrollments_permiss: false,
+            crud_extra_debits_permiss: false,
+            crud_grades_permiss: false,
+            crud_profiles_permiss: false,
+            crud_users_permiss: false,
+            discharge_payments_permiss: false,
+            generate_documents_permiss: false,
+            pay_debits_permiss: false,
+            validate_enrollments_permiss: false,
         });
 
         const updatedProfile = await updateProfile.execute({
             id: profile.id,
             name: 'Updated Profile Example',
+            create_extra_debits_permiss: false,
+            create_new_enrollments_permiss: false,
+            crud_extra_debits_permiss: false,
             crud_grades_permiss: false,
             crud_profiles_permiss: false,
             crud_users_permiss: false,
-            discharge_payment_permiss: false,
-            new_enrollment_permiss: false,
-            pay_debit_permiss: false,
-            validate_enrollment_permiss: false,
+            discharge_payments_permiss: false,
+            generate_documents_permiss: false,
+            pay_debits_permiss: false,
+            validate_enrollments_permiss: false,
         });
 
         expect(updatedProfile.id).toBe(profile.id);
@@ -51,13 +57,16 @@ describe('UpdateProfile', () => {
             updateProfile.execute({
                 id: 'non-existing-profile',
                 name: 'Profile Example',
+                create_extra_debits_permiss: false,
+                create_new_enrollments_permiss: false,
+                crud_extra_debits_permiss: false,
                 crud_grades_permiss: false,
                 crud_profiles_permiss: false,
                 crud_users_permiss: false,
-                discharge_payment_permiss: false,
-                new_enrollment_permiss: false,
-                pay_debit_permiss: false,
-                validate_enrollment_permiss: false,
+                discharge_payments_permiss: false,
+                generate_documents_permiss: false,
+                pay_debits_permiss: false,
+                validate_enrollments_permiss: false,
             }),
         ).rejects.toBeInstanceOf(AppError);
     });
@@ -65,37 +74,46 @@ describe('UpdateProfile', () => {
     it('should not be able to update a profile with the same name of another', async () => {
         const profile = await fakeProfileRepository.create({
             name: 'Profile Example',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         const anotherProfile = await fakeProfileRepository.create({
             name: 'Another Profile Example',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         await expect(
             updateProfile.execute({
                 id: profile.id,
                 name: anotherProfile.name,
+                create_extra_debits_permiss: false,
+                create_new_enrollments_permiss: false,
+                crud_extra_debits_permiss: false,
                 crud_grades_permiss: false,
                 crud_profiles_permiss: false,
                 crud_users_permiss: false,
-                discharge_payment_permiss: false,
-                new_enrollment_permiss: false,
-                pay_debit_permiss: false,
-                validate_enrollment_permiss: false,
+                discharge_payments_permiss: false,
+                generate_documents_permiss: false,
+                pay_debits_permiss: false,
+                validate_enrollments_permiss: false,
             }),
         ).rejects.toBeInstanceOf(AppError);
     });

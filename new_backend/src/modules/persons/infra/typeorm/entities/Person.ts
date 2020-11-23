@@ -28,8 +28,8 @@ export default class Person {
     @Column()
     nacionality: string;
 
-    @Column()
-    civil_state: string;
+    @Column({ enum: ['single', 'married', 'divorced', 'widower', 'separeted'] })
+    civil_state: 'single' | 'married' | 'divorced' | 'widower' | 'separeted';
 
     @Column()
     profission: string;
@@ -79,8 +79,8 @@ export default class Person {
     @Column()
     workplace: string;
 
-    @Column('decimal')
-    monthly_income: number;
+    @Column({ enum: ['a_class', 'b_class', 'c_class', 'd_class', 'e_class'] })
+    monthly_income: 'a_class' | 'b_class' | 'c_class' | 'd_class' | 'e_class';
 
     @Column('boolean')
     income_tax: boolean;
@@ -122,6 +122,8 @@ export default class Person {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.cpf_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.cpf_photo}`;
             default:
                 return null;
         }
@@ -136,6 +138,8 @@ export default class Person {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.rg_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.rg_photo}`;
             default:
                 return null;
         }
@@ -150,6 +154,8 @@ export default class Person {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.residencial_proof_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.residencial_proof_photo}`;
             default:
                 return null;
         }

@@ -8,6 +8,7 @@ import FakePersonsRepository from '@modules/persons/repositories/fakes/FakePerso
 import FakeProfilesRepository from '@modules/profiles/repositories/fakes/FakeProfilesRepository';
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
 import FakeReceiptProvider from '@shared/container/providers/ReceiptProvider/fakes/FakeReceiptProvider';
+import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
@@ -22,6 +23,7 @@ let fakePersonsRepository: FakePersonsRepository;
 let fakeProfilesRepository: FakeProfilesRepository;
 let fakeGradesRepository: FakeGradesRepository;
 let fakeReceiptProvider: FakeReceiptProvider;
+let fakeStorageProvider: FakeStorageProvider;
 let fakeCacheProvider: FakeCacheProvider;
 let fakeMailProvider: FakeMailProvider;
 let fakeHashProvider: FakeHashProvider;
@@ -38,6 +40,7 @@ describe('PayDebit', () => {
         fakeProfilesRepository = new FakeProfilesRepository();
         fakeGradesRepository = new FakeGradesRepository();
         fakeReceiptProvider = new FakeReceiptProvider();
+        fakeStorageProvider = new FakeStorageProvider();
         fakeCacheProvider = new FakeCacheProvider();
         fakeMailProvider = new FakeMailProvider();
         fakeHashProvider = new FakeHashProvider();
@@ -52,6 +55,7 @@ describe('PayDebit', () => {
             fakeProfilesRepository,
             fakeGradesRepository,
             fakeReceiptProvider,
+            fakeStorageProvider,
             fakeCacheProvider,
             fakeMailProvider,
             fakeHashProvider,
@@ -93,13 +97,13 @@ describe('PayDebit', () => {
             address_number: '1',
             address_street: 'strret',
             birth_date: new Date(),
-            civil_state: 'civil',
+            civil_state: 'single',
             commercial_phone: '123456',
             cpf: 'cpf',
             education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: 'nacionality',
             name: 'John Tre',
             personal_phone: '123456',
@@ -201,13 +205,13 @@ describe('PayDebit', () => {
             address_number: '1',
             address_street: 'strret',
             birth_date: new Date(),
-            civil_state: 'civil',
+            civil_state: 'single',
             commercial_phone: '123456',
             cpf: 'cpf',
             education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: 'nacionality',
             name: 'John Tre',
             personal_phone: '123456',
@@ -279,24 +283,30 @@ describe('PayDebit', () => {
 
         await fakeProfilesRepository.create({
             name: 'Aluno',
+            create_extra_debits_permiss: false,
+            create_new_enrollments_permiss: false,
+            crud_extra_debits_permiss: false,
             crud_grades_permiss: false,
             crud_profiles_permiss: false,
             crud_users_permiss: false,
-            discharge_payment_permiss: false,
-            new_enrollment_permiss: false,
-            pay_debit_permiss: false,
-            validate_enrollment_permiss: false,
+            discharge_payments_permiss: false,
+            generate_documents_permiss: false,
+            pay_debits_permiss: false,
+            validate_enrollments_permiss: false,
         });
 
         await fakeProfilesRepository.create({
             name: 'Responsável',
+            create_extra_debits_permiss: false,
+            create_new_enrollments_permiss: false,
+            crud_extra_debits_permiss: false,
             crud_grades_permiss: false,
             crud_profiles_permiss: false,
             crud_users_permiss: false,
-            discharge_payment_permiss: false,
-            new_enrollment_permiss: false,
-            pay_debit_permiss: false,
-            validate_enrollment_permiss: false,
+            discharge_payments_permiss: false,
+            generate_documents_permiss: false,
+            pay_debits_permiss: false,
+            validate_enrollments_permiss: false,
         });
 
         const grade = await fakeGradesRepository.create({
@@ -331,13 +341,13 @@ describe('PayDebit', () => {
             address_number: '1',
             address_street: 'strret',
             birth_date: new Date(),
-            civil_state: 'civil',
+            civil_state: 'single',
             commercial_phone: '123456',
             cpf: 'cpf',
             education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: 'nacionality',
             name: 'John Tre',
             personal_phone: '123456',
@@ -463,13 +473,13 @@ describe('PayDebit', () => {
             address_number: '1',
             address_street: 'strret',
             birth_date: new Date(),
-            civil_state: 'civil',
+            civil_state: 'single',
             commercial_phone: '123456',
             cpf: 'cpf',
             education_level: 'elementary_completed',
             email: 'johntre@gmail.com',
             income_tax: true,
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: 'nacionality',
             name: 'John Tre',
             personal_phone: '123456',

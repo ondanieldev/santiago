@@ -46,19 +46,10 @@ export default class AuthenticateUserService {
 
         const { secret, expiresIn } = authConfig.jwt;
 
+        const { id, name, created_at, ...permissions } = user.profile;
+
         const payload = {
-            create_new_enrollments_permiss:
-                user.profile.create_new_enrollments_permiss,
-            validate_enrollments_permiss:
-                user.profile.validate_enrollments_permiss,
-            create_extra_debits_permiss:
-                user.profile.create_extra_debits_permiss,
-            pay_debits_permiss: user.profile.pay_debits_permiss,
-            discharge_payments_permiss: user.profile.discharge_payments_permiss,
-            crud_profiles_permiss: user.profile.crud_profiles_permiss,
-            crud_users_permiss: user.profile.crud_users_permiss,
-            crud_grades_permiss: user.profile.crud_grades_permiss,
-            crud_extra_debits_permiss: user.profile.crud_extra_debits_permiss,
+            ...permissions,
         } as IPermissions;
 
         const token = sign(payload, secret, {

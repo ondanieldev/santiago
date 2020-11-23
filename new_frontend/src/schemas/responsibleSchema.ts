@@ -6,7 +6,10 @@ export default Yup.object().shape({
     .typeError('Data de aniversário inválida')
     .required('Data de nascimento obrigatória'),
   nacionality: Yup.string().required('Nacionalidade obrigatória'),
-  civil_state: Yup.string().required('Estado civil obrigatório'),
+  civil_state: Yup.string().matches(
+    /(single|married|divorced|widower|separeted)/,
+    () => 'Estado civil inválido',
+  ),
   profission: Yup.string().required('Profissão obrigatória'),
   cpf: Yup.string().required('CPF obrigatório'),
   rg: Yup.string().required('RG obrigatório'),
@@ -21,11 +24,13 @@ export default Yup.object().shape({
   personal_phone: Yup.string().required('Telefone pessoal obrigatório'),
   education_level: Yup.string().matches(
     /(elementary_incompleted|elementary_completed|highschool_incompleted|highschool_completed|university_incompleted|university_completed)/,
+    () => 'Grau de escolaridade inválido',
   ),
   workplace: Yup.string().required('Local de trabalho obrigatório'),
-  monthly_income: Yup.number()
-    .typeError('Renda mensal inválida')
-    .required('Renda mensal obrigatória'),
+  monthly_income: Yup.string().matches(
+    /(a_class|b_class|c_class|d_class|e_class)/,
+    () => 'Renda mensal inválida',
+  ),
   income_tax: Yup.boolean().typeError(
     () => 'Declaração de imposto de renda inválida',
   ),

@@ -25,11 +25,12 @@ const ReceivePaymentsMenu: React.FC = () => {
         <Title title="Receber pagamentos" subtitle="Selecionar matrícula" />
 
         <Enrollments
-          showSearch
           apiUrl={`/contracts/accepted-active/grades/${grade_id}`}
           handleSelectEnrollment={(id: string) => {
             history.push(`/receive-payments/contracts/${id}`);
           }}
+          searchApiUrl={`/contracts/accepted-active/students/${grade_id}`}
+          showSearch
         />
       </Main>
     </Container>

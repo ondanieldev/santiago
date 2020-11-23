@@ -6,7 +6,7 @@ import FakePaymentsRepository from '@modules/payments/repositories/fakes/FakePay
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
 import FakeReceiptProvider from '@shared/container/providers/ReceiptProvider/fakes/FakeReceiptProvider';
-import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import CreatePaymentService from './CreatePaymentService';
 
 let createPayment: CreatePaymentService;
@@ -17,7 +17,7 @@ let fakePaymentsRepository: FakePaymentsRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeContractsRepository: FakeContractsRepository;
 let fakeReceiptProvider: FakeReceiptProvider;
-let fakeCacheProvider: FakeCacheProvider;
+let fakeStorageProvider: FakeStorageProvider;
 
 describe('PayDebit', () => {
     beforeEach(() => {
@@ -28,7 +28,7 @@ describe('PayDebit', () => {
         fakeUsersRepository = new FakeUsersRepository();
         fakeContractsRepository = new FakeContractsRepository();
         fakeReceiptProvider = new FakeReceiptProvider();
-        fakeCacheProvider = new FakeCacheProvider();
+        fakeStorageProvider = new FakeStorageProvider();
 
         createPayment = new CreatePaymentService(
             fakeDebitsRepository,
@@ -36,7 +36,7 @@ describe('PayDebit', () => {
             fakeUsersRepository,
             fakeContractsRepository,
             fakeReceiptProvider,
-            fakeCacheProvider,
+            fakeStorageProvider,
         );
     });
 
@@ -56,12 +56,12 @@ describe('PayDebit', () => {
             address_number: '',
             address_street: '',
             birth_date: new Date(),
-            civil_state: '',
+            civil_state: 'single',
             commercial_phone: '',
             cpf: '',
             education_level: 'elementary_completed',
             email: '',
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: '',
             name: '',
             personal_phone: '',
@@ -72,11 +72,15 @@ describe('PayDebit', () => {
             address_complement: '',
         });
 
-        await fakeAgreementsRepository.create({
+        const agreement = await fakeAgreementsRepository.create({
             contract_id: contract.id,
             person_id: person.id,
             responsible_type: 'financial',
         });
+
+        Object.assign(agreement, person);
+        Object.assign(contract, { agreements: [agreement] });
+        await fakeContractsRepository.save(contract);
 
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,
@@ -141,6 +145,39 @@ describe('PayDebit', () => {
             student_id: 'student',
             status: 'underAnalysis',
         });
+
+        const person = await fakePersonsRepository.create({
+            address_cep: '',
+            address_city: '',
+            address_neighborhood: '',
+            address_number: '',
+            address_street: '',
+            birth_date: new Date(),
+            civil_state: 'single',
+            commercial_phone: '',
+            cpf: '',
+            education_level: 'elementary_completed',
+            email: '',
+            monthly_income: 'a_class',
+            nacionality: '',
+            name: '',
+            personal_phone: '',
+            profission: '',
+            residencial_phone: '',
+            rg: '',
+            workplace: '',
+            address_complement: '',
+        });
+
+        const agreement = await fakeAgreementsRepository.create({
+            contract_id: contract.id,
+            person_id: person.id,
+            responsible_type: 'financial',
+        });
+
+        Object.assign(agreement, person);
+        Object.assign(contract, { agreements: [agreement] });
+        await fakeContractsRepository.save(contract);
 
         const debit = await fakeDebitsRepository.create({
             contract_id: contract.id,

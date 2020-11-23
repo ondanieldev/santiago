@@ -11,7 +11,7 @@ import Header from '../../components/Header';
 import Aside from '../../components/Aside';
 import Title from '../../components/Title';
 import Input from '../../components/Input';
-import Select from '../../components/Select';
+import Select from '../../components/SelectInput';
 import Button from '../../components/Button';
 import UsersList from '../../components/List';
 import IUser from '../../entities/IUser';
@@ -19,6 +19,7 @@ import IProfile from '../../entities/IProfile';
 import api from '../../services/api';
 import userSchema from '../../schemas/userSchema';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { IOption } from '../../utils/defaults';
 
 const Users: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -28,6 +29,7 @@ const Users: React.FC = () => {
   const [userId, setUserId] = useState('');
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [profilesOptions, setProfilesOptions] = useState<IOption[]>([]);
 
   useEffect(() => {
     setLoadingPage(true);
@@ -47,13 +49,25 @@ const Users: React.FC = () => {
   useEffect(() => {
     api
       .get('/profiles')
-      .then(response => setProfiles(response.data))
+      .then(response => {
+        setProfiles(response.data);
+
+        const options = profiles.map(profile => {
+          const option = { label: profile.name, value: profile.id } as IOption;
+          return option;
+        });
+
+        setProfilesOptions([
+          { label: 'Selecionar perfil', value: 'null' },
+          ...options,
+        ]);
+      })
       .catch(() => {
         toast.error(
           'Erro ao carregar perfis! Por favor, tente novamente mais tarde.',
         );
       });
-  }, []);
+  }, [profiles]);
 
   const handleGetUser = useCallback((data: Omit<IUser, 'profile'>) => {
     setUserId(data.id);
@@ -188,14 +202,12 @@ const Users: React.FC = () => {
               icon={FiLock}
             />
 
-            <Select name="profile_id" icon={FiBriefcase} defaultValue="null">
-              <option value="null">Selecionar perfil</option>
-              {profiles.map(profile => (
-                <option key={profile.id} value={profile.id}>
-                  {profile.name}
-                </option>
-              ))}
-            </Select>
+            <Select
+              name="profile_id"
+              icon={FiBriefcase}
+              defaultValue="null"
+              optionsArray={profilesOptions}
+            />
 
             <ButtonGroup>
               {!userId ? (

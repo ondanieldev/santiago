@@ -19,13 +19,13 @@ describe('FindPersonByCpfService', () => {
             address_number: 'address_number',
             address_street: 'address_street',
             birth_date: new Date(),
-            civil_state: 'civil_state',
+            civil_state: 'single',
             commercial_phone: 'commercial_phone',
-            cpf: 'cpf',
+            cpf: '27328613084',
             education_level: 'elementary_completed',
             email: 'email',
             income_tax: true,
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: 'nacionality',
             name: 'name',
             personal_phone: 'personal_phone',
@@ -36,7 +36,7 @@ describe('FindPersonByCpfService', () => {
             address_complement: 'address_complement',
         });
 
-        const findPerson = await findPersonByCpf.execute('cpf');
+        const findPerson = await findPersonByCpf.execute('27328613084');
 
         expect(findPerson?.id).toBe(person.id);
     });
@@ -49,13 +49,13 @@ describe('FindPersonByCpfService', () => {
             address_number: 'address_number',
             address_street: 'address_street',
             birth_date: new Date(),
-            civil_state: 'civil_state',
+            civil_state: 'single',
             commercial_phone: 'commercial_phone',
             cpf: 'cpf',
             education_level: 'elementary_completed',
             email: 'email',
             income_tax: true,
-            monthly_income: 1000,
+            monthly_income: 'a_class',
             nacionality: 'nacionality',
             name: 'name',
             personal_phone: 'personal_phone',
@@ -66,7 +66,7 @@ describe('FindPersonByCpfService', () => {
             address_complement: 'address_complement',
         });
 
-        const find = await findPersonByCpf.execute('non-existing-cpf');
+        const find = await findPersonByCpf.execute('27328613084');
 
         expect(find).toBeUndefined();
     });

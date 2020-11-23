@@ -37,7 +37,7 @@ export default class Student {
     @Column()
     birth_city: string;
 
-    @Column()
+    @Column({ width: 2 })
     birth_state: string;
 
     @Column({
@@ -116,6 +116,8 @@ export default class Student {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.birth_certificate_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.birth_certificate_photo}`;
             default:
                 return null;
         }
@@ -130,6 +132,8 @@ export default class Student {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.vaccine_card_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.vaccine_card_photo}`;
             default:
                 return null;
         }
@@ -144,6 +148,8 @@ export default class Student {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.health_plan_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.health_plan_photo}`;
             default:
                 return null;
         }
@@ -158,6 +164,8 @@ export default class Student {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.transfer_declaration_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.transfer_declaration_photo}`;
             default:
                 return null;
         }
@@ -172,6 +180,8 @@ export default class Student {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.monthly_declaration_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.monthly_declaration_photo}`;
             default:
                 return null;
         }
@@ -186,6 +196,8 @@ export default class Student {
         switch (uploadConfig.driver) {
             case 'disk':
                 return `${process.env.APP_API_URL}/files/${this.school_records_photo}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.school_records_photo}`;
             default:
                 return null;
         }

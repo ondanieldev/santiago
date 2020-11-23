@@ -9,4 +9,7 @@ export default interface IContract {
   grade_id: string;
   student: IStudent;
   grade: IGrade;
+  contract_document?: string;
+  checklist_document?: string;
+  enrollment_form_document?: string;
 }

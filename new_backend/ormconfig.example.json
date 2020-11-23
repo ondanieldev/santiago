@@ -1,5 +1,5 @@
 {
-    "type": "",
+    "type": "postgres",
     "host": "",
     "port": 0,
     "username": "",

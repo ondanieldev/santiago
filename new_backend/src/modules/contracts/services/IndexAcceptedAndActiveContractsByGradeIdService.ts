@@ -15,21 +15,19 @@ class IndexAcceptedAndActiveContractsByGradeIdService {
     ) {}
 
     public async execute(grade_id: string): Promise<Contract[] | []> {
-        // let contracts = await this.cacheProvider.recovery<Contract[]>(
-        //     'accepted-and-active-contracts',
-        // );
-
-        let contracts;
+        let contracts = await this.cacheProvider.recovery<Contract[]>(
+            `accepted-and-active-contracts:${grade_id}`,
+        );
 
         if (!contracts) {
             contracts = await this.contractsRepository.findAcceptedAndActiveByGradeId(
                 grade_id,
             );
 
-            // await this.cacheProvider.register(
-            //     'accepted-and-active-contracts',
-            //     contracts,
-            // );
+            await this.cacheProvider.register(
+                `accepted-and-active-contracts:${grade_id}`,
+                contracts,
+            );
         }
 
         return contracts;

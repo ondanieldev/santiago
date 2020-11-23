@@ -43,6 +43,9 @@ class Profile {
     @Column('boolean')
     crud_extra_debits_permiss: boolean;
 
+    @Column('boolean')
+    generate_documents_permiss: boolean;
+
     @CreateDateColumn()
     created_at: Date;
 

@@ -18,6 +18,8 @@ import IProfilesRepository from '@modules/profiles/repositories/IProfilesReposit
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
 import recursiveReturnNextBusinessDay from '@shared/utils/recursiveReturnNextBusinessDay';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import { capitalize } from '@shared/utils/formatFunctions';
 import Payment from '../infra/typeorm/entities/Payment';
 
 interface IHoliday {
@@ -58,6 +60,9 @@ export default class CreatePaymentService {
 
         @inject('ReceiptProvider')
         private receiptProvider: IReceiptProvider,
+
+        @inject('StorageProvider')
+        private storageProvider: IStorageProvider,
 
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
@@ -140,6 +145,8 @@ export default class CreatePaymentService {
             method,
         });
 
+        await this.storageProvider.saveFile(receipt);
+
         const payment = await this.paymentsRepository.create({
             amount: debit.value,
             debit_id,
@@ -221,7 +228,7 @@ export default class CreatePaymentService {
 
             const studentArticle = student.gender === 'male' ? 'do' : 'da';
 
-            await this.mailProvider.sendMail({
+            this.mailProvider.sendMail({
                 to: {
                     name: person.name,
                     email: person.email,
@@ -230,10 +237,10 @@ export default class CreatePaymentService {
                 body: {
                     file: 'notify_active_enrollment.hbs',
                     variables: {
-                        responsibleName: person.name,
+                        responsibleName: capitalize(person.name),
                         responsibleUsername,
                         responsiblePassword,
-                        studentName: student.name,
+                        studentName: capitalize(student.name),
                         studentUsername: studentUser.username,
                         studentPassword,
                         studentArticleWithNoun,
@@ -271,9 +278,9 @@ export default class CreatePaymentService {
             });
         }
 
-        await this.cacheProvider.invalidate('undischarged-payments');
-
         await this.cacheProvider.invalidate('users');
+
+        await this.cacheProvider.invalidate(`active-contracts:${grade.id}`);
 
         return payment;
     }

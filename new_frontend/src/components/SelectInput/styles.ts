@@ -6,14 +6,21 @@ interface ContainerProps {
   isErrored: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SelectContainer = styled.div<ContainerProps>`
   padding: 16px;
   border-radius: 5px;
   border: 0;
   background: var(--white);
-  width: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
+  flex: 1;
 
   border: 2px solid var(--black);
   color: var(--black);
@@ -24,10 +31,6 @@ export const Container = styled.div<ContainerProps>`
     css`
       border-color: var(--red);
     `}
-
-  & + div {
-    margin-top: 8px;
-  }
 
   svg {
     margin-right: 16px;

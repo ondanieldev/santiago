@@ -31,7 +31,10 @@ const Profiles: React.FC = () => {
     setLoadingPage(true);
     api
       .get('/profiles')
-      .then(response => setProfiles(response.data))
+      .then(response => {
+        setProfiles(response.data);
+        console.log(response.data);
+      })
       .catch(() => {
         toast.error(
           'Erro ao carregar perfis! Por favor, tente novamente mais tarde.',
@@ -159,7 +162,7 @@ const Profiles: React.FC = () => {
       <Aside />
 
       <Main>
-        <Title title="Gerenciar perfis" />
+        <Title title="Gerenciar perfis e permissões" />
 
         <DoubleColumn>
           <Form
@@ -188,6 +191,11 @@ const Profiles: React.FC = () => {
             <Checkbox
               name="discharge_payments_permiss"
               label="Receber pagamentos"
+            />
+
+            <Checkbox
+              name="generate_documents_permiss"
+              label="Gerar documentos"
             />
 
             <Checkbox name="crud_profiles_permiss" label="Gerenciar perfis" />

@@ -55,7 +55,7 @@ export default class CreateContractService {
         });
 
         await this.cacheProvider.invalidate(
-            'under-analysis-and-pendent-contracts',
+            `under-analysis-and-pendent-contracts:${grade_id}`,
         );
 
         return contract;

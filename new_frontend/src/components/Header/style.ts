@@ -1,4 +1,20 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+interface IIconsContainerProps {
+  show: boolean;
+}
+
+const appearFromTop = keyframes`
+  from {
+    top: 0;
+    opacity: 0;
+  }
+
+  to: {
+    top: var(--header-height);
+    opacity: 1;
+  }
+`;
 
 export const Container = styled.header`
   grid-area: header;
@@ -18,10 +34,6 @@ export const Container = styled.header`
     height: 80px;
   }
 `;
-
-interface IIconsContainerProps {
-  show: boolean;
-}
 
 export const IconsContainer = styled.div<IIconsContainerProps>`
   display: flex;
@@ -52,8 +64,13 @@ export const Logo = styled.img`
   width: auto;
 `;
 
+export const UserContainer = styled.div`
+  position: relative;
+`;
+
 export const UserInfo = styled.div`
   display: flex;
+  cursor: pointer;
 
   div {
     margin-right: 12px;
@@ -76,5 +93,26 @@ export const UserInfo = styled.div`
     width: 60px;
     border-radius: 50%;
     overflow: hidden;
+  }
+`;
+
+export const UserDropDown = styled.div`
+  position: absolute;
+  top: var(--header-height);
+  width: 100%;
+  background-color: #013c64;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 12px;
+  animation: ${appearFromTop} 0.5s;
+
+  button {
+    width: 100%;
+    background-color: transparent;
+    color: #f7f6fc;
+    text-align: left;
+    border: 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #f7f6fc;
   }
 `;

@@ -3,7 +3,7 @@ export default interface IPerson {
   name: string;
   birth_date: Date;
   nacionality: string;
-  civil_state: string;
+  civil_state: 'single' | 'married' | 'divorced' | 'widower' | 'separeted';
   profission: string;
   cpf: string;
   rg: string;
@@ -24,7 +24,7 @@ export default interface IPerson {
     | 'university_incompleted'
     | 'university_completed';
   workplace: string;
-  monthly_income: number;
+  monthly_income: 'a_class' | 'b_class' | 'c_class' | 'd_class' | 'e_class';
   email: string;
   income_tax?: boolean;
   rg_photo?: string;

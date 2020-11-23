@@ -8,19 +8,25 @@ const uploadFolder = path.resolve(__dirname, '..', '..', 'tmp', 'upload');
 interface IUploadConfig {
     tmpFolder: string;
     uploadFolder: string;
-    driver: 'disk';
+    driver: 'disk' | 's3';
     multer: {
         storage: StorageEngine;
     };
     config: {
         disk: {};
+        s3: {
+            region: string;
+            bucket: string;
+            permission: string;
+            baseURL: string;
+        };
     };
 }
 
 export default {
     tmpFolder,
     uploadFolder,
-    driver: 'disk',
+    driver: process.env.STORAGE_PROVIDER || 'disk',
     multer: {
         storage: multer.diskStorage({
             destination: tmpFolder,
@@ -34,5 +40,11 @@ export default {
     },
     config: {
         disk: {},
+        s3: {
+            region: process.env.AWS_DEFAULT_REGION,
+            bucket: process.env.AWS_S3_BUCKET,
+            permission: process.env.AWS_S3_PERMISSION,
+            baseURL: process.env.AWS_S3_URL,
+        },
     },
 } as IUploadConfig;

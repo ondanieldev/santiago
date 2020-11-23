@@ -9,14 +9,17 @@ class StudentsActiveContractsController {
         response: Response,
         _: NextFunction,
     ): Promise<Response> {
-        const { student_name } = request.params;
+        const { student_name } = request.query;
+
+        const { grade_id } = request.params;
 
         const indexActiveContractsByStudentName = container.resolve(
             IndexActiveContractsByStudentNameService,
         );
 
         const contracts = await indexActiveContractsByStudentName.execute(
-            student_name,
+            String(student_name),
+            grade_id,
         );
 
         return response.json(contracts);

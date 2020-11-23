@@ -7,6 +7,7 @@ import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { capitalize } from '@shared/utils/formatFunctions';
 
 interface IResponsibleContact {
     name: string;
@@ -88,17 +89,19 @@ export default class AprooveContractService {
                 body: {
                     file: 'notify_aproove_enrollment.hbs',
                     variables: {
-                        responsibleName: responsible_contact.name,
+                        responsibleName: capitalize(responsible_contact.name),
                     },
                 },
             });
         }
 
         await this.cacheProvider.invalidate(
-            'under-analysis-and-pendent-contracts',
+            `under-analysis-and-pendent-contracts:${contract.grade_id}`,
         );
 
-        await this.cacheProvider.invalidate('accepted-and-active-contracts');
+        await this.cacheProvider.invalidate(
+            `accepted-and-active-contracts:${contract.grade_id}`,
+        );
 
         return contract;
     }

@@ -32,6 +32,8 @@ const ExtraDebitsContractsMenu: React.FC = () => {
           handleSelectEnrollment={(id: string) => {
             history.push(`/extra-debits/contracts/${id}`);
           }}
+          searchApiUrl={`/contracts/active/students/${grade_id}`}
+          showSearch
         />
       </Main>
     </Container>

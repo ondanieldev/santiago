@@ -7,11 +7,13 @@ import {
     Entity,
     CreateDateColumn,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
 
 import Grade from '@modules/grades/infra/typeorm/entities/Grade';
 import Student from '@modules/students/infra/typeorm/entities/Student';
 import Agreement from '@modules/agreements/infra/typeorm/entities/Agreement';
 import Debit from '@modules/debits/infra/typeorm/entities/Debit';
+import uploadConfig from '@config/upload';
 
 @Entity('contracts')
 export default class Contract {
@@ -39,6 +41,15 @@ export default class Contract {
     @Column('decimal')
     discount: number;
 
+    @Column()
+    checklist_document: string;
+
+    @Column()
+    enrollment_form_document: string;
+
+    @Column()
+    contract_document: string;
+
     @ManyToOne(() => Student, student => student.contracts)
     @JoinColumn({ name: 'student_id' })
     student: Student;
@@ -52,4 +63,52 @@ export default class Contract {
 
     @OneToMany(() => Debit, debit => debit.contract)
     debits: Debit[];
+
+    @Expose({ name: 'contract_document' })
+    getContractDocumentURL(): string | null {
+        if (!this.contract_document) {
+            return null;
+        }
+
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `${process.env.APP_API_URL}/files/${this.contract_document}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.contract_document}`;
+            default:
+                return null;
+        }
+    }
+
+    @Expose({ name: 'enrollment_form_document' })
+    getEnrollmentFormDocumentURL(): string | null {
+        if (!this.enrollment_form_document) {
+            return null;
+        }
+
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `${process.env.APP_API_URL}/files/${this.enrollment_form_document}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.enrollment_form_document}`;
+            default:
+                return null;
+        }
+    }
+
+    @Expose({ name: 'checklist_document' })
+    getChecklistDocumentURL(): string | null {
+        if (!this.checklist_document) {
+            return null;
+        }
+
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `${process.env.APP_API_URL}/files/${this.checklist_document}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.checklist_document}`;
+            default:
+                return null;
+        }
+    }
 }

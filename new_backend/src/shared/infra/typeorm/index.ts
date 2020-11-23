@@ -1,3 +1,10 @@
 import { createConnection } from 'typeorm';
 
-createConnection();
+export default async function postgresConnect(): Promise<void> {
+    try {
+        await createConnection();
+        console.log('Postgres running!');
+    } catch {
+        console.log('[!] POSTGRES NOT CONNECTED');
+    }
+}

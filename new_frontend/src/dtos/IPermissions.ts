@@ -8,4 +8,5 @@ export default interface IPermissions {
   crud_users_permiss: boolean;
   crud_grades_permiss: boolean;
   crud_extra_debits_permiss: boolean;
+  generate_documents_permiss: boolean;
 }

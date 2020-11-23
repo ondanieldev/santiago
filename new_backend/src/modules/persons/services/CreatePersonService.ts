@@ -2,7 +2,8 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IPersonsRepository from '@modules/persons/repositories/IPersonsRepository';
-import checkIfCpfIsValid from '@shared/utils/checkIfCPFIsValid';
+import checkIfCPFIsValid from '@shared/utils/checkIfCPFIsValid';
+import checkIfCEPIsValid from '@shared/utils/checkIfCEPIsValid';
 import Person from '../infra/typeorm/entities/Person';
 import ICreatePersonDTO from '../dtos/ICreatePersonDTO';
 
@@ -14,11 +15,19 @@ export default class CreatePersonService {
     ) {}
 
     public async execute(data: ICreatePersonDTO): Promise<Person> {
-        const validCPF = checkIfCpfIsValid(data.cpf);
+        const validCEP = checkIfCEPIsValid(data.address_cep);
+
+        if (!validCEP) {
+            throw new AppError(
+                'CEP inválido! Certifique-se de digitar apenas os números.',
+            );
+        }
+
+        const validCPF = checkIfCPFIsValid(data.cpf);
 
         if (!validCPF) {
             throw new AppError(
-                'não é possível criar um responsável com um CPF inválido!',
+                'CPF inválido! Certifique-se de digitar apenas os números.',
             );
         }
 

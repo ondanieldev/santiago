@@ -8,7 +8,7 @@ import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
 import { FiAlertCircle } from 'react-icons/fi';
 
-import { Container, Error } from './styles';
+import { Container, Error, SelectContainer } from './styles';
 
 interface IOption {
   value: string | undefined;
@@ -47,29 +47,31 @@ const Select: React.FC<SelectProps> = ({
   }, [fieldName, selectRef, registerField]);
 
   return (
-    <Container isErrored={!!error}>
-      {Icon && <Icon size={20} />}
-      <select
-        defaultValue={selectedOption}
-        name={name}
-        ref={selectRef}
-        {...rest}
-      >
-        {optionsArray.map(option => (
-          <option
-            selected={selectedOption === option.value}
-            key={option.value}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
-      </select>
-      {error && (
-        <Error title={error}>
-          <FiAlertCircle color="#f44336" size={20} />
-        </Error>
-      )}
+    <Container>
+      <SelectContainer isErrored={!!error}>
+        {Icon && <Icon size={20} />}
+        <select
+          defaultValue={selectedOption}
+          name={name}
+          ref={selectRef}
+          {...rest}
+        >
+          {optionsArray.map(option => (
+            <option
+              selected={selectedOption === option.value}
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
+            </option>
+          ))}
+        </select>
+        {error && (
+          <Error title={error}>
+            <FiAlertCircle color="#f44336" size={20} />
+          </Error>
+        )}
+      </SelectContainer>
     </Container>
   );
 };

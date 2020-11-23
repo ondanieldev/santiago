@@ -61,7 +61,10 @@ export default class FakeContractsRepository implements IContractsRepository {
         return contract;
     }
 
-    public async findByStudentName(student_name: string): Promise<Contract[]> {
+    public async findByStudentName(
+        student_name: string,
+        _: ('underAnalysis' | 'pendent' | 'accepted' | 'active')[],
+    ): Promise<Contract[]> {
         const contracts = this.contracts.filter(contract => {
             if (contract.student.name) {
                 return contract.student.name.includes(student_name);
@@ -100,14 +103,47 @@ export default class FakeContractsRepository implements IContractsRepository {
         );
     }
 
+    public async findUnderAnalysisAndPendentByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]> {
+        const contracts = this.contracts.filter(
+            contract =>
+                contract.student.name === student_name &&
+                contract.grade_id === grade_id &&
+                (contract.status === 'underAnalysis' ||
+                    contract.status === 'pendent'),
+        );
+
+        return contracts;
+    }
+
+    public async findAcceptedAndActiveByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]> {
+        const contracts = this.contracts.filter(
+            contract =>
+                contract.student.name === student_name &&
+                contract.grade_id === grade_id &&
+                (contract.status === 'accepted' ||
+                    contract.status === 'active'),
+        );
+
+        return contracts;
+    }
+
     public async findActiveByStudentName(
         student_name: string,
+        grade_id: string,
     ): Promise<Contract[]> {
-        return this.contracts.filter(
+        const contracts = this.contracts.filter(
             contract =>
-                contract.status === 'active' &&
-                contract.student.name &&
-                contract.student.name.includes(student_name),
+                contract.student.name === student_name &&
+                contract.grade_id === grade_id &&
+                contract.status === 'active',
         );
+
+        return contracts;
     }
 }

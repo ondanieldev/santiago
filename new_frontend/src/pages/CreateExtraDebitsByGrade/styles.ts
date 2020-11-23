@@ -45,4 +45,15 @@ export const InputGroup = styled.div`
   & + div {
     margin-top: 12px;
   }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+
+    > div {
+      & + div {
+        margin-left: 0;
+        margin-top: 12px;
+      }
+    }
+  }
 `;

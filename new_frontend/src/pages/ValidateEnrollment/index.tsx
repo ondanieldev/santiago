@@ -27,6 +27,8 @@ import {
   formatEducationLevel,
   formatGender,
   formatRace,
+  formatCivilState,
+  formatMonthlyIncome,
 } from '../../utils/formatFunctions';
 
 interface IParams {
@@ -66,12 +68,20 @@ const Enrollment: React.FC = () => {
           return;
         }
 
-        await api.patch(`/contracts/${contract_id}/${status}`, {
-          comment,
-          discount,
-          responsible_email: enrollment.agreements[0].person.email,
-          responsible_name: enrollment.agreements[0].person.name,
-        });
+        if (status === 'aproove') {
+          await api.patch(`/contracts/${contract_id}/aproove`, {
+            comment,
+            discount,
+            responsible_email: enrollment.agreements[0].person.email,
+            responsible_name: enrollment.agreements[0].person.name,
+          });
+        } else {
+          await api.patch(`/contracts/${contract_id}/disaproove`, {
+            comment,
+            responsible_email: enrollment.agreements[0].person.email,
+            responsible_name: enrollment.agreements[0].person.name,
+          });
+        }
 
         toast.success(
           `Contrato ${
@@ -81,6 +91,8 @@ const Enrollment: React.FC = () => {
 
         history.push('/dashboard');
       } catch (err) {
+        console.log(err.response);
+
         if (err.response) {
           toast.error(
             `Erro ao validar matrícula: ${err.response.data.message}`,
@@ -178,7 +190,11 @@ const Enrollment: React.FC = () => {
                         </tr>
                         <tr>
                           <td>Estado civil</td>
-                          <td>{enrollment.agreements[0].person.civil_state}</td>
+                          <td>
+                            {formatCivilState(
+                              enrollment.agreements[0].person.civil_state,
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Profissão</td>
@@ -233,7 +249,9 @@ const Enrollment: React.FC = () => {
                         <tr>
                           <td>Renda mensal</td>
                           <td>
-                            {enrollment.agreements[0].person.monthly_income}
+                            {formatMonthlyIncome(
+                              enrollment.agreements[0].person.monthly_income,
+                            )}
                           </td>
                         </tr>
                         <tr>
@@ -330,7 +348,11 @@ const Enrollment: React.FC = () => {
                         </tr>
                         <tr>
                           <td>Estado civil</td>
-                          <td>{enrollment.agreements[1].person.civil_state}</td>
+                          <td>
+                            {formatCivilState(
+                              enrollment.agreements[1].person.civil_state,
+                            )}
+                          </td>
                         </tr>
                         <tr>
                           <td>Profissão</td>
@@ -385,7 +407,9 @@ const Enrollment: React.FC = () => {
                         <tr>
                           <td>Renda mensal</td>
                           <td>
-                            {enrollment.agreements[1].person.monthly_income}
+                            {formatMonthlyIncome(
+                              enrollment.agreements[1].person.monthly_income,
+                            )}
                           </td>
                         </tr>
                         <tr>
@@ -482,7 +506,9 @@ const Enrollment: React.FC = () => {
                         </tr>
                         <tr>
                           <td>Estado natal</td>
-                          <td>{enrollment.student.birth_state}</td>
+                          <td>
+                            {enrollment.student.birth_state.toUpperCase()}
+                          </td>
                         </tr>
                         <tr>
                           <td>Gênero</td>

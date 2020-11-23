@@ -5,7 +5,6 @@ export default interface IContractsRepository {
     create(data: ICreateContractDTO): Promise<Contract>;
     findById(id: string): Promise<Contract | undefined>;
     save(contract: Contract): Promise<Contract>;
-    findByStudentName(student_name: string): Promise<Contract[]>;
     dangerouslyDelete(id: string): Promise<void>;
     findByGradeId(grade_id: string): Promise<Contract[]>;
     findUnderAnalysisAndPendentByGradeId(
@@ -13,5 +12,16 @@ export default interface IContractsRepository {
     ): Promise<Contract[] | []>;
     findAcceptedAndActiveByGradeId(grade_id: string): Promise<Contract[] | []>;
     findActiveByGradeId(grade_id: string): Promise<Contract[]>;
-    findActiveByStudentName(student_name: string): Promise<Contract[]>;
+    findUnderAnalysisAndPendentByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]>;
+    findAcceptedAndActiveByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]>;
+    findActiveByStudentName(
+        student_name: string,
+        grade_id: string,
+    ): Promise<Contract[]>;
 }

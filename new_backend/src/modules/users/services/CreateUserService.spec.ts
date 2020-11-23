@@ -29,13 +29,16 @@ describe('CreateUser', () => {
     it('should be able to create a new user by passing username, password and profile id', async () => {
         const profile = await fakeProfilesRepository.create({
             name: 'profile',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         const user = await createUser.execute({
@@ -60,13 +63,16 @@ describe('CreateUser', () => {
     it('should not be able to create a new user with the same username from another', async () => {
         const profile = await fakeProfilesRepository.create({
             name: 'profile',
+            create_extra_debits_permiss: true,
+            create_new_enrollments_permiss: true,
+            crud_extra_debits_permiss: true,
             crud_grades_permiss: true,
             crud_profiles_permiss: true,
             crud_users_permiss: true,
-            discharge_payment_permiss: true,
-            new_enrollment_permiss: true,
-            pay_debit_permiss: true,
-            validate_enrollment_permiss: true,
+            discharge_payments_permiss: true,
+            generate_documents_permiss: true,
+            pay_debits_permiss: true,
+            validate_enrollments_permiss: true,
         });
 
         const user = await createUser.execute({

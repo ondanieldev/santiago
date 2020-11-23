@@ -12,26 +12,11 @@
         "@config/*": ["config/*"],
         "@shared/*": ["shared/*"]
     },
-
     "typeRoots": ["src/@types", "node_modules/@types", "./src/@types", "./@types"],
-
-
-    "esModuleInterop": true,
-
-
-
-
-
-
-
-
-
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
-
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
   }
 }

@@ -42,7 +42,7 @@ describe('IndexPaymentsByContract', () => {
             receipt: 'recibo',
         });
 
-        Object.assign(payment, debit);
+        Object.assign(payment, { debit });
 
         await fakePaymentsRepository.save(payment);
 

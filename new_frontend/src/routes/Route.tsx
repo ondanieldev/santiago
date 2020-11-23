@@ -6,21 +6,12 @@ import {
 } from 'react-router-dom';
 
 import { useAuth } from '../hooks/auth';
+import IPermissions from '../dtos/IPermissions';
 
 interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
   component: React.ComponentType;
-  needPermissions?: (
-    | 'create_new_enrollments_permiss'
-    | 'validate_enrollments_permiss'
-    | 'create_extra_debits_permiss'
-    | 'pay_debits_permiss'
-    | 'discharge_payments_permiss'
-    | 'crud_profiles_permiss'
-    | 'crud_users_permiss'
-    | 'crud_grades_permiss'
-    | 'crud_extra_debits_permiss'
-  )[];
+  needPermissions?: Extract<keyof IPermissions, keyof IPermissions>[];
 }
 
 const Route: React.FC<RouteProps> = ({

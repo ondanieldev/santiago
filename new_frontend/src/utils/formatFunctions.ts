@@ -72,66 +72,7 @@ export function formatRace(race: string): string {
   }
 }
 
-export function formatGrade(
-  grade:
-    | 'maternal'
-    | 'first_period'
-    | 'second_period'
-    | 'first_year'
-    | 'second_year'
-    | 'third_year'
-    | 'fourth_year'
-    | 'fifth_year'
-    | 'sixth_year'
-    | 'seventh_year'
-    | 'eighth_year'
-    | 'nineth_year',
-): string {
-  switch (grade) {
-    case 'maternal':
-      return 'Maternal';
-
-    case 'first_period':
-      return 'Primeiro Período';
-
-    case 'second_period':
-      return 'Segundo Período';
-
-    case 'first_year':
-      return '1º Ano';
-
-    case 'second_year':
-      return '2º Ano';
-
-    case 'third_year':
-      return '3º Ano';
-
-    case 'fourth_year':
-      return '4º Ano';
-
-    case 'fifth_year':
-      return '5º Ano';
-
-    case 'sixth_year':
-      return '6º Ano';
-
-    case 'seventh_year':
-      return '7º Ano';
-
-    case 'eighth_year':
-      return '8º Ano';
-
-    case 'nineth_year':
-      return '9º Ano';
-
-    default:
-      return '-';
-  }
-}
-
-export function formatPaymentMethod(
-  method: 'creditCard' | 'debitCard' | 'cash' | 'check' | 'deposit' | 'slip',
-): string {
+export function formatPaymentMethod(method: string): string {
   switch (method) {
     case 'creditCard':
       return 'Cartão de crédito';
@@ -145,6 +86,55 @@ export function formatPaymentMethod(
       return 'Depósito';
     case 'slip':
       return 'Boleto';
+    default:
+      return '-';
+  }
+}
+
+export function formatCivilState(civil_state: string): string {
+  switch (civil_state) {
+    case 'single':
+      return 'Solteiro(a)';
+    case 'married':
+      return 'Casado(a)';
+    case 'divorced':
+      return 'Divorciado(a)';
+    case 'widower':
+      return 'Viúvo(a)';
+    case 'separeted':
+      return 'Separado(a)';
+    default:
+      return '-';
+  }
+}
+
+export function formatMonthlyIncome(monthly_income: string): string {
+  switch (monthly_income) {
+    case 'a_class':
+      return 'Acima de 20 salários mínimos';
+    case 'b_class':
+      return 'Entre 10 e 20 salários mínimos';
+    case 'c_class':
+      return 'Entre 4 e 10 salários mínimos';
+    case 'd_class':
+      return 'Entre 2 e 4 salários mínimos';
+    case 'e_class':
+      return 'Até 2 salários mínimos';
+    default:
+      return '-';
+  }
+}
+
+export function formatContractStatus(status: string): string {
+  switch (status) {
+    case 'underAnalysis':
+      return 'Em análise';
+    case 'pendent':
+      return 'Pendente';
+    case 'accepted':
+      return 'Aceito';
+    case 'active':
+      return 'Ativo';
     default:
       return '-';
   }

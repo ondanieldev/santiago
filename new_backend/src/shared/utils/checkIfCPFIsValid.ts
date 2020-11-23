@@ -1,4 +1,8 @@
 export default function checkIfCpfIsValid(cpf: string): boolean {
+    if (!cpf.match(/^[0-9]*$/gm)) {
+        return false;
+    }
+
     const chars = cpf.toString().split('');
 
     if (

@@ -12,6 +12,7 @@ import { Expose } from 'class-transformer';
 import Debit from '@modules/debits/infra/typeorm/entities/Debit';
 import User from '@modules/users/infra/typeorm/entities/User';
 import Discharge from '@modules/discharges/infra/typeorm/entities/Discharge';
+import uploadConfig from '@config/upload';
 
 @Entity('payments')
 export default class Payment {
@@ -62,6 +63,13 @@ export default class Payment {
             return null;
         }
 
-        return `${process.env.APP_API_URL}/files/${this.receipt}`;
+        switch (uploadConfig.driver) {
+            case 'disk':
+                return `${process.env.APP_API_URL}/files/${this.receipt}`;
+            case 's3':
+                return `${uploadConfig.config.s3.baseURL}/${this.receipt}`;
+            default:
+                return null;
+        }
     }
 }

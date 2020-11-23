@@ -29,6 +29,7 @@ import Header from '../../components/Header';
 import Title from '../../components/Title';
 import Heading from '../../components/Heading';
 import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
 import Select from '../../components/SelectInput';
 import Radio from '../../components/RadioInput';
 import Checkbox from '../../components/Checkbox';
@@ -40,6 +41,8 @@ import {
   genderOptions,
   raceOptions,
   IOption,
+  civilStateOptions,
+  monthlyIncomeOptions,
 } from '../../utils/defaults';
 import { Container, Main, FormGroup, InputGroup, ButtonGroup } from './styles';
 import api from '../../services/api';
@@ -429,9 +432,11 @@ const NewEnrollment: React.FC = () => {
             formRef.current?.setFieldValue('supportive_responsible.cpf', cpf);
           }
         }
-      } catch {
+      } catch (err) {
+        console.log(err.response);
+
         toast.error(
-          'Erro ao tentar buscar responsável! Por favor, preencha o campo de busca.',
+          'Erro ao tentar buscar responsável! Por favor, preencha o campo de busca corretamente.',
         );
       } finally {
         setLoadingVerify(false);
@@ -566,7 +571,9 @@ const NewEnrollment: React.FC = () => {
             <Heading title="Dados do responsável financeiro" />
 
             <InputGroup>
-              <Input
+              <InputMask
+                maskType="cpf"
+                mask="999.999.999-99"
                 name="config.verify_financial_cpf"
                 icon={FiClipboard}
                 placeholder="Digite o CPF para verificar se já está cadastrado"
@@ -624,7 +631,9 @@ const NewEnrollment: React.FC = () => {
                     icon={FiClipboard}
                   />
 
-                  <Input
+                  <InputMask
+                    maskType="cpf"
+                    mask="999.999.999-99"
                     name="financial_responsible.cpf"
                     placeholder="CPF"
                     icon={FiClipboard}
@@ -638,10 +647,10 @@ const NewEnrollment: React.FC = () => {
                     icon={FiFlag}
                   />
 
-                  <Input
+                  <Select
                     name="financial_responsible.civil_state"
-                    placeholder="Estado civil"
                     icon={FiHeart}
+                    optionsArray={civilStateOptions}
                   />
                 </InputGroup>
 
@@ -688,12 +697,17 @@ const NewEnrollment: React.FC = () => {
                 </InputGroup>
 
                 <InputGroup>
-                  <Input
+                  <InputMask
+                    maskType="cep"
+                    mask="99999-999"
                     name="financial_responsible.address_cep"
                     placeholder="CEP"
                     icon={FiMapPin}
                     onBlur={e =>
-                      handleSearchAddressByCep(e.target.value, 'financial')
+                      handleSearchAddressByCep(
+                        e.target.value.replace(/[^0-9]+/g, ''),
+                        'financial',
+                      )
                     }
                   />
 
@@ -741,11 +755,10 @@ const NewEnrollment: React.FC = () => {
                     icon={FiMail}
                   />
 
-                  <Input
-                    type="number"
+                  <Select
                     name="financial_responsible.monthly_income"
-                    placeholder="Renda mensal"
                     icon={FiDollarSign}
+                    optionsArray={monthlyIncomeOptions}
                   />
                 </InputGroup>
 
@@ -791,7 +804,9 @@ const NewEnrollment: React.FC = () => {
             <Heading title="Dados do responsável solidário" />
 
             <InputGroup>
-              <Input
+              <InputMask
+                mask="999.999.999-99"
+                maskType="cpf"
                 name="config.verify_supportive_cpf"
                 icon={FiClipboard}
                 placeholder="Digite o CPF para verificar se já está cadastrado"
@@ -849,7 +864,9 @@ const NewEnrollment: React.FC = () => {
                     icon={FiClipboard}
                   />
 
-                  <Input
+                  <InputMask
+                    maskType="cpf"
+                    mask="999.999.999-99"
                     name="supportive_responsible.cpf"
                     placeholder="CPF"
                     icon={FiClipboard}
@@ -863,10 +880,10 @@ const NewEnrollment: React.FC = () => {
                     icon={FiFlag}
                   />
 
-                  <Input
+                  <Select
                     name="supportive_responsible.civil_state"
-                    placeholder="Estado civil"
                     icon={FiHeart}
+                    optionsArray={civilStateOptions}
                   />
                 </InputGroup>
 
@@ -921,12 +938,17 @@ const NewEnrollment: React.FC = () => {
                 </InputGroup>
 
                 <InputGroup>
-                  <Input
+                  <InputMask
+                    mask="99999-999"
+                    maskType="cep"
                     name="supportive_responsible.address_cep"
                     placeholder="CEP"
                     icon={FiMapPin}
                     onBlur={e =>
-                      handleSearchAddressByCep(e.target.value, 'supportive')
+                      handleSearchAddressByCep(
+                        e.target.value.replace(/[^0-9]+/g, ''),
+                        'supportive',
+                      )
                     }
                   />
 
@@ -974,11 +996,10 @@ const NewEnrollment: React.FC = () => {
                     icon={FiMail}
                   />
 
-                  <Input
-                    type="number"
+                  <Select
                     name="supportive_responsible.monthly_income"
-                    placeholder="Renda mensal"
                     icon={FiDollarSign}
+                    optionsArray={monthlyIncomeOptions}
                   />
                 </InputGroup>
 
@@ -1035,8 +1056,10 @@ const NewEnrollment: React.FC = () => {
 
               <Input
                 name="student.birth_state"
-                placeholder="Estado natal"
+                placeholder="Estado natal (UF)"
                 icon={FiMapPin}
+                minLength={2}
+                maxLength={2}
               />
             </InputGroup>
 

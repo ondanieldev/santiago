@@ -1,18 +1,22 @@
 import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeContractsRepository from '../repositories/fakes/FakeContractsRepository';
 import IndexActiveContractsByGradeIdService from './IndexActiveContractsByGradeIdService';
 
 let fakeContractsRepository: FakeContractsRepository;
 let fakeGradesRepository: FakeGradesRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let indexActiveContractsByGradeId: IndexActiveContractsByGradeIdService;
 
 describe('IndexActiveContractsByGradeId', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
         fakeGradesRepository = new FakeGradesRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
         indexActiveContractsByGradeId = new IndexActiveContractsByGradeIdService(
             fakeContractsRepository,
+            fakeCacheProvider,
         );
     });
 

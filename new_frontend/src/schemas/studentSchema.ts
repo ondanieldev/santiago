@@ -9,7 +9,9 @@ export default Yup.object().shape({
     .required('Data de aniversário informada'),
   nacionality: Yup.string().required('Nacionalidade não informada'),
   birth_city: Yup.string().required('Cidade natal não informada'),
-  birth_state: Yup.string().required('Estado natal não informado'),
+  birth_state: Yup.string()
+    .length(2, 'Insira a sigla do Estado')
+    .required('Estado natal não informado'),
   gender: Yup.string().matches(/(male|female)/, () => 'Gênero inválido'),
   race: Yup.string().matches(
     /(white|brown|black|indigenous|yellow)/,

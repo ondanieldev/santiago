@@ -9,6 +9,7 @@ import Input from '../Input';
 import Button from '../Button';
 import Loading from '../Loading';
 import api from '../../services/api';
+import { formatContractStatus } from '../../utils/formatFunctions';
 
 interface IProps {
   apiUrl: string;
@@ -63,30 +64,14 @@ const Enrollments: React.FC<IProps> = ({
       });
   }, [apiUrl]);
 
-  const formatStatus = useCallback(
-    (status: 'underAnalysis' | 'pendent' | 'accepted' | 'active') => {
-      switch (status) {
-        case 'underAnalysis':
-          return 'Em análise';
-        case 'pendent':
-          return 'Pendente';
-        case 'accepted':
-          return 'Aceito';
-        case 'active':
-          return 'Ativo';
-        default:
-          return '-';
-      }
-    },
-    [],
-  );
-
   const handleSubmitForm = useCallback(
     async ({ student_name }: IFormData) => {
       setLoadingSearch(true);
 
       try {
-        const response = await api.get(`${searchApiUrl}/${student_name}`);
+        const response = await api.get(
+          `${searchApiUrl}/?student_name=${student_name}`,
+        );
         setEnrollments(response.data);
       } catch {
         api.get(apiUrl).then(response => {
@@ -135,7 +120,7 @@ const Enrollments: React.FC<IProps> = ({
               onClick={() => handleSelectEnrollment(enrollment.id)}
             >
               <td>{enrollment.id}</td>
-              <td>{formatStatus(enrollment.status)}</td>
+              <td>{formatContractStatus(enrollment.status)}</td>
               <td>{enrollment.student.name}</td>
               <td>{enrollment.grade.name}</td>
             </tr>

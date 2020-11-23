@@ -25,11 +25,12 @@ const PayDebitsContractsMenu: React.FC = () => {
         <Title title="Pagar débitos" subtitle="Selecionar matrícula" />
 
         <Enrollments
-          showSearch
           apiUrl={`/contracts/accepted-active/grades/${grade_id}`}
           handleSelectEnrollment={(id: string) => {
             history.push(`/pay-debits/contracts/${id}`);
           }}
+          searchApiUrl={`/contracts/accepted-active/students/${grade_id}`}
+          showSearch
         />
       </Main>
     </Container>

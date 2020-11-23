@@ -30,6 +30,10 @@ import ReceivePaymentsGradesMenu from '../pages/ReceivePaymentsGradesMenu';
 import ReceivePaymentsContractsMenu from '../pages/ReceivePaymentsContractsMenu';
 import ReceivePaymentsByContract from '../pages/ReceivePaymentsByContract';
 
+import GenerateDocumentsGradesMenu from '../pages/GenerateDocumentsGradesMenu';
+import GenerateDocumentsContractsMenu from '../pages/GenerateDocumentsContractsMenu';
+import GenerateDocumentsByContract from '../pages/GenerateDocumentsByContract';
+
 import Users from '../pages/Users';
 import Grades from '../pages/Grades';
 import Profiles from '../pages/Profiles';
@@ -149,6 +153,27 @@ const Routes: React.FC = () => (
       path="/receive-payments/grades"
       component={ReceivePaymentsGradesMenu}
       needPermissions={['discharge_payments_permiss']}
+      isPrivate
+    />
+
+    <Route
+      path="/generate-documents/contracts/:contract_id"
+      component={GenerateDocumentsByContract}
+      needPermissions={['generate_documents_permiss']}
+      isPrivate
+    />
+
+    <Route
+      path="/generate-documents/grades/:grade_id"
+      component={GenerateDocumentsContractsMenu}
+      needPermissions={['generate_documents_permiss']}
+      isPrivate
+    />
+
+    <Route
+      path="/generate-documents/grades"
+      component={GenerateDocumentsGradesMenu}
+      needPermissions={['generate_documents_permiss']}
       isPrivate
     />
 

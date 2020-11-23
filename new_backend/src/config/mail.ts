@@ -2,11 +2,16 @@ import path from 'path';
 
 interface IMailConfig {
     imagesFolder: string;
-    driver: 'ethereal';
+    driver: 'ethereal' | 'ses';
     defaults: {
         from: {
             name: string;
             email: string;
+        };
+    };
+    config: {
+        ses: {
+            region: string;
         };
     };
 }
@@ -20,6 +25,11 @@ export default {
         from: {
             name: process.env.MAIL_DEFAULT_NAME,
             email: process.env.MAIL_DEFAULT_EMAIL,
+        },
+    },
+    config: {
+        ses: {
+            region: process.env.AWS_DEFAULT_REGION,
         },
     },
 } as IMailConfig;

@@ -32,6 +32,7 @@ export default class ProfilesController {
             discharge_payments_permiss,
             pay_debits_permiss,
             validate_enrollments_permiss,
+            generate_documents_permiss,
         } = request.body;
 
         const createProfile = container.resolve(CreateProfileService);
@@ -47,6 +48,7 @@ export default class ProfilesController {
             discharge_payments_permiss,
             pay_debits_permiss,
             validate_enrollments_permiss,
+            generate_documents_permiss,
         });
 
         return response.json(profile);
@@ -67,6 +69,7 @@ export default class ProfilesController {
             discharge_payments_permiss,
             pay_debits_permiss,
             validate_enrollments_permiss,
+            generate_documents_permiss,
         } = request.body;
 
         const { profile_id } = request.params;
@@ -85,6 +88,7 @@ export default class ProfilesController {
             discharge_payments_permiss,
             pay_debits_permiss,
             validate_enrollments_permiss,
+            generate_documents_permiss,
         });
 
         return response.json(profile);

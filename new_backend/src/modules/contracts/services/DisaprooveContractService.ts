@@ -5,6 +5,7 @@ import IContractsRepository from '@modules/contracts/repositories/IContractsRepo
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import Contract from '@modules/contracts/infra/typeorm/entities/Contract';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { capitalize } from '@shared/utils/formatFunctions';
 
 interface IResponsibleContact {
     name: string;
@@ -63,17 +64,17 @@ export default class DisaprooveContractService {
                 body: {
                     file: 'notify_disaproove_enrollment.hbs',
                     variables: {
-                        responsibleName: responsible_contact.name,
+                        responsibleName: capitalize(responsible_contact.name),
+                        comment:
+                            capitalize(comment) || 'Comentário indisponível.',
                     },
                 },
             });
         }
 
         await this.cacheProvider.invalidate(
-            'under-analysis-and-pendent-contracts',
+            `under-analysis-and-pendent-contracts:${contract.grade_id}`,
         );
-
-        await this.cacheProvider.invalidate('accepted-and-active-contracts');
 
         return contract;
     }

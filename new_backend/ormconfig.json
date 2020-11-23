@@ -1,0 +1,17 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 1516,
+    "username": "postgres",
+    "password": "b18fa5e5444e20f48cefdde71a977548",
+    "database": "sisgie",
+    "entities": [
+        "./src/modules/**/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": [
+        "./src/shared/infra/typeorm/migrations/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    }
+}

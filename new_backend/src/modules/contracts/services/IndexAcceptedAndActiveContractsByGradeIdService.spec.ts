@@ -1,14 +1,17 @@
 import FakeContractsRepository from '@modules/contracts/repositories/fakes/FakeContractsRepository';
+import FakeGradesRepository from '@modules/grades/repositories/fakes/FakeGradesRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import IndexAcceptedAndActiveContractsByGradeIdService from './IndexAcceptedAndActiveContractsByGradeIdService';
 
 let fakeContractsRepository: FakeContractsRepository;
+let fakeGradesRepository: FakeGradesRepository;
 let fakeCacheProvider: FakeCacheProvider;
 let indexAcceptedAndActiveContractsByGradeId: IndexAcceptedAndActiveContractsByGradeIdService;
 
 describe('IndexAcceptedAndActiveContracts', () => {
     beforeEach(() => {
         fakeContractsRepository = new FakeContractsRepository();
+        fakeGradesRepository = new FakeGradesRepository();
         fakeCacheProvider = new FakeCacheProvider();
 
         indexAcceptedAndActiveContractsByGradeId = new IndexAcceptedAndActiveContractsByGradeIdService(
@@ -18,61 +21,29 @@ describe('IndexAcceptedAndActiveContracts', () => {
     });
 
     it('should be able to list all contracts with accepted or active status', async () => {
+        const grade = await fakeGradesRepository.create({
+            name: 'grade',
+            value: 100,
+            year: '2020',
+        });
+
         const acceptedContract = await fakeContractsRepository.create({
-            grade_id: 'grade1',
+            grade_id: grade.id,
             status: 'accepted',
             student_id: 'student1',
         });
 
         const activeContract = await fakeContractsRepository.create({
-            grade_id: 'grade2',
+            grade_id: grade.id,
             status: 'active',
             student_id: 'student2',
         });
 
-        const contracts = await indexAcceptedAndActiveContractsByGradeId.execute();
+        const contracts = await indexAcceptedAndActiveContractsByGradeId.execute(
+            grade.id,
+        );
 
         expect(contracts[0].id).toBe(acceptedContract.id);
         expect(contracts[1].id).toBe(activeContract.id);
-    });
-
-    it('should be able to list all cashed contracts with accepted or active status', async () => {
-        const registerCache = jest.spyOn(fakeCacheProvider, 'register');
-
-        await fakeContractsRepository.create({
-            grade_id: 'grade1',
-            status: 'accepted',
-            student_id: 'student1',
-        });
-
-        await fakeContractsRepository.create({
-            grade_id: 'grade2',
-            status: 'active',
-            student_id: 'student2',
-        });
-
-        await indexAcceptedAndActiveContractsByGradeId.execute();
-
-        await indexAcceptedAndActiveContractsByGradeId.execute();
-
-        expect(registerCache).toBeCalledTimes(1);
-    });
-
-    it('should not be able to list contracts without accepted or active status', async () => {
-        await fakeContractsRepository.create({
-            grade_id: 'grade1',
-            status: 'underAnalysis',
-            student_id: 'student1',
-        });
-
-        await fakeContractsRepository.create({
-            grade_id: 'grade2',
-            status: 'pendent',
-            student_id: 'student2',
-        });
-
-        const contracts = await indexAcceptedAndActiveContractsByGradeId.execute();
-
-        expect(contracts).toStrictEqual([]);
     });
 });
