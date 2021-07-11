@@ -1,20 +1,33 @@
-# SISGIE
+<div align="center">
+  <a href="https://www.enrollments.colegiosantiago.com.br/">
+    <div>
+      <h1>Santiago</h1>
+    </div>
+  </a>
+  <br>
+  <br>
+  <div>
+    <a href="https://img.shields.io/github/v/tag/stemDaniel/
+santiago?color=%2368d391&style=for-the-badge">
+      <img src="https://img.shields.io/github/v/tag/stemDaniel/
+santiago?color=%2368d391&style=for-the-badge">
+    </a>
+    <a href="https://img.shields.io/github/license/stemDaniel/
+santiago?color=%2368d391&style=for-the-badge">
+      <img src="https://img.shields.io/github/license/stemDaniel/
+santiago?color=%2368d391&style=for-the-badge">
+    </a>
+  </div>
+  <hr>
+</div>
 
-## Introduction
+# Introduction
 
 This application was developed, firstly, to manage school finances. However, the project grew up and then we created a new private repository to develop the new function to the business.
 
-This repository will not be used anymore.
+ADVICE: This repository will not be used anymore.
 
-Inside of new_backend and new_frontend folders, has a README.md file explaining the functions.
-
-# SISGIE - Back-end
-
-## Introduction
-
-This application was created to manage a school with a focus on the financial department. As the application was developed with SOLID principles, it will be easy to attach new modules in the future.
-
-You also can see all functions and application flow on the `tasks.md` file.
+# Back-end
 
 ## Setup
 
@@ -110,7 +123,7 @@ Besides that, you also need to set up some GitHub secrets:
 | SSH_PORT | Server SSH port where your application is placed. By default, this port is 22.                                                                       |
 | SSH_KEY  | You need to create an SSH key pair and put the private key in this secret. The public key, however, must be placed in your server's authorized keys. |
 
-# SISGIE - Front-end
+# Front-end
 
 ## Introduction
 
@@ -137,3 +150,7 @@ Run `yarn` to generate `node_modules` folder with all dependencies used in this 
 ## Running
 
 1. Run `yarn start` to starts the application in development mode.
+
+# License
+
+MIT © [Daniel Oliveira](https://ondaniel.com.br/)
