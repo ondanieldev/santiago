@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://www.enrollments.colegiosantiago.com.br/">
+  <a href="https://www.colegiosantiago.com.br/">
     <div>
       <h1>Santiago</h1>
     </div>
